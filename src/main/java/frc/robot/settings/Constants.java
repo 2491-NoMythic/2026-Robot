@@ -36,6 +36,32 @@ public final class Constants {
   private Constants() {
   }
 
+  public static final class SubsystemsEnabled{
+    public static final boolean SHOOTER_EXISTS = false;
+    public static final boolean CLIMBER_EXISTS = false;
+    public static final boolean INTAKE_EXISTS = false;
+    public static final boolean INDEXER_EXISTS = false;
+    public static final boolean DRIVE_TRAIN_EXISTS = false;
+    public static final boolean LIMELIGHTS_EXIST = false;
+  }
+
+  public static final class ShooterConstants{
+    public static final int SHOOTER_MOTOR_ID= 2491;
+  }
+
+  public static final class ClimberConstants{
+    public static final int CLIMBER_MOTOR_ID = 2491;
+  }
+
+  public static final class IntakeConstants{
+    public static final int INTAKE_MOTOR_ID = 2491;
+  }
+
+  public static final class IndexerConstants{
+    public static final int INDEXER_MOTOR_ID = 2491;
+  }
+
+
   public static final class DriveConstants {
     public static final Pose2d DRIVE_ODOMETRY_ORIGIN = new Pose2d(5.0, 5.0, new Rotation2d());
 
