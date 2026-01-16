@@ -10,5 +10,6 @@ import org.littletonrobotics.junction.AutoLog;
 
 /** Add your docs here. */
 public class ShooterInputs {
-    public MotorLoggerInputsAutoLogged motor = new MotorLoggerInputsAutoLogged();
+    public MotorLoggerInputsAutoLogged shootMotor = new MotorLoggerInputsAutoLogged();
+    public MotorLoggerInputsAutoLogged hoodMotor = new MotorLoggerInputsAutoLogged();
 }

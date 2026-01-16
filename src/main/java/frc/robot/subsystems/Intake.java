@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,6 +20,7 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public Intake() {
     motor = new TalonFX(INTAKE_MOTOR_ID);
+    motor.getConfigurator().apply(INTAKE_CONFIG);
     inputs = new IntakeInputsAutoLogged();
   }
 
@@ -35,6 +37,14 @@ public class Intake extends SubsystemBase {
    */
   public void stop(){
     motor.set(0);
+  }
+
+   /**
+   * Sets velocity target for intake motor
+   * @param speed RPS
+   */
+  public void setVelocity(double speed){
+    motor.setControl(new VelocityVoltage(speed));
   }
 
   @Override
