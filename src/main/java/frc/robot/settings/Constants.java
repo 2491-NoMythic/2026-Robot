@@ -5,8 +5,11 @@
 package frc.robot.settings;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
-
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.FeedbackConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -35,6 +38,51 @@ public final class Constants {
 
   private Constants() {
   }
+
+  public static final class SubsystemsEnabled{
+    public static final boolean SHOOTER_EXISTS = false;
+    public static final boolean CLIMBER_EXISTS = false;
+    public static final boolean INTAKE_EXISTS = false;
+    public static final boolean INDEXER_EXISTS = false;
+    public static final boolean DRIVE_TRAIN_EXISTS = false;
+    public static final boolean LIMELIGHTS_EXIST = false;
+  }
+
+  public static final class ShooterConstants{
+    public static final int SHOOTER_MOTOR_ID = 2491;
+    public static final int HOOD_MOTOR_ID = 2491;
+    public static TalonFXConfiguration SHOOTER_CONFIG = new TalonFXConfiguration()
+      .withSlot0(new Slot0Configs()
+        .withKV(0).withKP(0).withKI(0).withKD(0))
+      .withCurrentLimits(new CurrentLimitsConfigs()
+        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50));
+    public static TalonFXConfiguration HOOD_CONFIG = new TalonFXConfiguration()
+      .withSlot0(new Slot0Configs()
+        .withKV(0).withKP(0).withKI(0).withKD(0))
+      .withFeedback(new FeedbackConfigs()
+        .withSensorToMechanismRatio(1));
+  }
+
+  public static final class ClimberConstants{
+    public static final int CLIMBER_MOTOR_ID = 2491;
+    public static TalonFXConfiguration CLIMBER_CONFIG = new TalonFXConfiguration()
+      .withCurrentLimits(new CurrentLimitsConfigs()
+        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50));
+  }
+
+  public static final class IntakeConstants{
+    public static final int INTAKE_MOTOR_ID = 2491;
+    public static TalonFXConfiguration INTAKE_CONFIG = new TalonFXConfiguration()
+      .withSlot0(new Slot0Configs()
+        .withKV(0).withKP(0).withKI(0).withKD(0))
+      .withCurrentLimits(new CurrentLimitsConfigs()
+        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50));
+  }
+
+  public static final class IndexerConstants{
+    public static final int INDEXER_MOTOR_ID = 2491;
+  }
+
 
   public static final class DriveConstants {
     public static final Pose2d DRIVE_ODOMETRY_ORIGIN = new Pose2d(5.0, 5.0, new Rotation2d());

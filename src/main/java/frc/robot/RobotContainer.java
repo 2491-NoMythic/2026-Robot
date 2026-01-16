@@ -35,8 +35,14 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.Drive;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Shooter;
+
+import static frc.robot.settings.Constants.SubsystemsEnabled.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -49,10 +55,12 @@ import frc.robot.subsystems.Limelight;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private boolean DrivetrainExists;
-  private boolean LimelightExists;
 
   private DrivetrainSubsystem drivetrain;
+  private Shooter shooter;
+  private Climber climber;
+  private Intake intake;
+  private Indexer indexer;
   private Limelight limelight;
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
@@ -66,14 +74,6 @@ public class RobotContainer {
   public static HashMap<String, Command> eventMap;
 
   public RobotContainer() {
-
-    Preferences.initBoolean("CompBot", true);
-    Preferences.initBoolean("DrivetrainExists", true);
-    Preferences.initBoolean("Use Limelight", true);
-
-    DrivetrainExists = true; //Preferences.getBoolean("DrivetrainExists", true);
-    LimelightExists = Preferences.getBoolean("Use Limelight", true);
-
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -87,13 +87,29 @@ public class RobotContainer {
     ControllerZAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
     ZeroGyroSup = driveController::getStartButton;
 
-    if (DrivetrainExists) {
+    if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
       configureDriveTrain();
     }
 
-    if (LimelightExists) {
+    if (LIMELIGHTS_EXIST) {
       limelightInit();
+    }
+
+    if (SHOOTER_EXISTS) {
+      shooterInit();
+    }
+
+    if (CLIMBER_EXISTS) {
+      climberInit();
+    }
+
+    if (INDEXER_EXISTS) {
+      indexerInit();
+    }
+
+    if (INTAKE_EXISTS) {
+      intakeInit();
     }
 
     SmartDashboard.putBoolean("use limelight", false);
@@ -144,6 +160,22 @@ public class RobotContainer {
     limelight = Limelight.getInstance();
   }
 
+  private void shooterInit() {
+    shooter = new Shooter();
+  }
+
+  private void intakeInit() {
+    intake = new Intake();
+  }
+
+  private void climberInit() {
+    climber = new Climber();
+  }
+  
+  private void indexerInit() {
+    indexer = new Indexer();
+  }
+
   private void autoInit() {
      DrivetrainExists = true; //Preferences.getBoolean("DrivetrainExists", true);
     LimelightExists = Preferences.getBoolean("Use Limelight", true);
@@ -175,7 +207,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
-    if (DrivetrainExists) {
+    if (DRIVE_TRAIN_EXISTS) {
       SmartDashboard.putData("drivetrain", drivetrain);
       new Trigger(ZeroGyroSup).onTrue(new InstantCommand(drivetrain::zeroGyroscope));
 
