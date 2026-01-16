@@ -90,9 +90,6 @@ public class RobotContainer {
     if (DrivetrainExists) {
       driveTrainInit();
       configureDriveTrain();
-
-    autoChooser = AutoBuilder.buildAutoChooser();
-    SmartDashboard.putData("Auto Chooser", autoChooser);
     }
 
     if (LimelightExists) {
@@ -148,6 +145,9 @@ public class RobotContainer {
   }
 
   private void autoInit() {
+     DrivetrainExists = true; //Preferences.getBoolean("DrivetrainExists", true);
+    LimelightExists = Preferences.getBoolean("Use Limelight", true);
+
 
   }
 
