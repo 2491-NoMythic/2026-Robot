@@ -114,6 +114,7 @@ public class RobotContainer {
 
     SmartDashboard.putBoolean("use limelight", false);
     SmartDashboard.putBoolean("trust limelight", false);
+    autoInit();
     configureBindings();
   }
 
@@ -177,10 +178,8 @@ public class RobotContainer {
   }
 
   private void autoInit() {
-     DrivetrainExists = true; //Preferences.getBoolean("DrivetrainExists", true);
-    LimelightExists = Preferences.getBoolean("Use Limelight", true);
-
-
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
   /**
