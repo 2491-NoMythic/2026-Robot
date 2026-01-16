@@ -19,6 +19,7 @@ public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
   public Climber() {
     motor = new TalonFX(CLIMBER_MOTOR_ID);
+    motor.getConfigurator().apply(CLIMBER_CONFIG);
     inputs = new ClimberInputsAutoLogged();
   }
 

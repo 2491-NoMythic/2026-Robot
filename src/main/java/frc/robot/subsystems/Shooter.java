@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,30 +17,48 @@ import static frc.robot.settings.Constants.ShooterConstants.*;
 import org.littletonrobotics.junction.Logger;
 
 public class Shooter extends SubsystemBase {
-  TalonFX motor;
+  TalonFX shootMotor;
+  TalonFX hoodMotor;
   ShooterInputsAutoLogged inputs;
   /** Creates a new Shooter. */
   public Shooter() {
-    motor = new TalonFX(SHOOTER_MOTOR_ID);
+    shootMotor = new TalonFX(SHOOTER_MOTOR_ID);
+    shootMotor.getConfigurator().apply(SHOOTER_CONFIG);
+    hoodMotor = new TalonFX(HOOD_MOTOR_ID);
     inputs = new ShooterInputsAutoLogged();
   }
+
   /**
    * Sets motor speed using duty cycle out
    * @param speed Motor power from -1 to 1
    */
   public void set(double speed){
-    motor.set(speed);
+    shootMotor.set(speed);
   }
+
   /**
    * Sets motor power to zero
    */
   public void stop(){
-    motor.set(0);
+    shootMotor.set(0);
+  }
+
+  /**
+   * Sets velocity target for shoot motor
+   * @param speed RPS
+   */
+  public void setVelocity(double speed){
+    shootMotor.setControl(new VelocityVoltage(speed));
+  }
+
+  public void setHoodAngle(double rotations){
+    hoodMotor.setControl(new PositionVoltage(rotations));
   }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    inputs.motor.log(motor);
+    inputs.shootMotor.log(shootMotor);
+    inputs.hoodMotor.log(hoodMotor);
     Logger.processInputs("Shooter", inputs);
   }
 }
