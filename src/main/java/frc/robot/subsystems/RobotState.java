@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 import java.util.Optional;
 
 import javax.print.attribute.standard.MediaSize.Other;
+
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,6 +14,7 @@ public class RobotState {
   public boolean LimelightsUpdated;
   public boolean lightsReset;
   public double odometerOrientation;
+  public Pose2d robotPosition = new Pose2d();
 
   public RobotState() {
     // sets any values that aren't periodically updated by a subsystem to a value,

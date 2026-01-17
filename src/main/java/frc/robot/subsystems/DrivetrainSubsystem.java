@@ -27,6 +27,7 @@ import static frc.robot.settings.Constants.DriveConstants.FR_STEER_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.MAX_VELOCITY_METERS_PER_SECOND;
 import static frc.robot.settings.Constants.DriveConstants.ROBOT_ANGLE_TOLERANCE;
 import static frc.robot.settings.Constants.Field.*;
+import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_MPS;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTA_NAME;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTB_NAME;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTC_NAME;
@@ -34,6 +35,7 @@ import static frc.robot.settings.Constants.Vision.FIELD_CORNER;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
@@ -50,6 +52,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -71,6 +74,8 @@ import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.helpers.MotorLogger;
 import frc.robot.helpers.MythicalMath;
 import frc.robot.settings.Constants.DriveConstants;
+import frc.robot.settings.Constants.Field;
+import frc.robot.settings.Constants.ShooterConstants;
 import frc.robot.settings.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
@@ -649,6 +654,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
         motorLoggers[i].log(modules[i].getDriveMotor());
       }
     }
+    RobotState.getInstance().robotPosition = getPose();
     logDrivetrainData();
   }
 
@@ -663,5 +669,63 @@ public class DrivetrainSubsystem extends SubsystemBase {
     inputs.gyroTimeStamp = Timer.getFPGATimestamp();
     inputs.angularVelocity = pigeon.getAngularVelocityZWorld().getValueAsDouble();
     Logger.processInputs("Drivetrain", inputs);
+  }
+
+  /**
+   * @return the desired angle of the robot to be aimed at the hub, assuming 0 degrees = away from blue alliance
+   */
+  public double getDesiredRobotAngle() {
+    Pose2d dtvalues = getPose();
+    double deltaX;
+    double deltaY;
+		// triangle for robot angle
+		Optional<Alliance> alliance = DriverStation.getAlliance();
+		if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+			deltaY = Math.abs(dtvalues.getY() - Field.RED_HUB_COORDINATE.getY());
+      deltaX = Math.abs(dtvalues.getX() - Field.RED_HUB_COORDINATE.getX());
+		} else {
+			deltaY = Math.abs(dtvalues.getY() - Field.BLUE_HUB_COORDINATE.getY());
+      deltaX = Math.abs(dtvalues.getX() - Field.BLUE_HUB_COORDINATE.getX());
+		}
+		double distanceToHub2D = Math.sqrt(deltaX*deltaX+deltaY*deltaY);
+    //we need to add here a way to calculate the length of the ball's flight path
+    /*double flightPathDistance;
+    double shootingTime = flightPathDistance/SHOOTING_SPEED_MPS; //calculates how long the fuel will take to reach the target
+    double currentXSpeed = this.getChassisSpeeds().vxMetersPerSecond;
+    double currentYSpeed = this.getChassisSpeeds().vyMetersPerSecond;
+    double targetOffset = new Translation2d(currentXSpeed*shootingTime*OFFSET_MULTIPLIER*unadjustedAngle.getRadians(), currentYSpeed*shootingTime*OFFSET_MULTIPLIER); 
+    //line above calculates how much our current speed will affect the ending location of the note if it's in the air for ShootingTime
+*/
+    double desiredAngle;
+    if(alliance.isPresent() && alliance.get() == Alliance.Blue) {
+      if(dtvalues.getY() >= Field.BLUE_HUB_COORDINATE.getY()) {
+        desiredAngle = 0 - Math.atan(deltaY/deltaX);
+      } else {
+        desiredAngle = 0 + Math.atan(deltaY/deltaX);
+      }
+    } else {
+      if(dtvalues.getY() >= Field.RED_HUB_COORDINATE.getY()) {
+        desiredAngle = Math.PI + Math.atan(deltaY/deltaX);
+      } else {
+        desiredAngle = Math.PI - Math.atan(deltaY/deltaX);
+      }
+    }
+    return Math.toDegrees(desiredAngle);
+  }
+
+  public static double getDistanceToHub() {
+  Pose2d dtvalues = RobotState.getInstance().robotPosition;
+    double deltaX;
+    double deltaY;
+		// triangle for robot angle
+		Optional<Alliance> alliance = DriverStation.getAlliance();
+		if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+			deltaY = Math.abs(dtvalues.getY() - Field.RED_HUB_COORDINATE.getY());
+      deltaX = Math.abs(dtvalues.getX() - Field.RED_HUB_COORDINATE.getX());
+		} else {
+			deltaY = Math.abs(dtvalues.getY() - Field.BLUE_HUB_COORDINATE.getY());
+      deltaX = Math.abs(dtvalues.getX() - Field.BLUE_HUB_COORDINATE.getX());
+		}
+		return Math.sqrt(deltaX*deltaX+deltaY*deltaY);
   }
 }
