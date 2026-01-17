@@ -51,6 +51,10 @@ public class Shooter extends SubsystemBase {
     shootMotor.setControl(new VelocityVoltage(speed));
   }
 
+  /**
+   * sends a positionVoltage request to the hood motor
+   * @param rotations rotations to set the hood to
+   */
   public void setHoodAngle(double rotations){
     hoodMotor.setControl(new PositionVoltage(rotations));
   }

@@ -44,13 +44,17 @@ public final class Constants {
     public static final boolean CLIMBER_EXISTS = false;
     public static final boolean INTAKE_EXISTS = false;
     public static final boolean INDEXER_EXISTS = false;
-    public static final boolean DRIVE_TRAIN_EXISTS = false;
+    public static final boolean DRIVE_TRAIN_EXISTS = true;
     public static final boolean LIMELIGHTS_EXIST = false;
   }
 
   public static final class ShooterConstants{
+    public static final int SHOOTING_SPEED_MPS = 2491;
     public static final int SHOOTER_MOTOR_ID = 2491;
     public static final int HOOD_MOTOR_ID = 2491;
+    public static final double AUTO_AIM_ROBOT_kP = 0.125;
+    public static final double AUTO_AIM_ROBOT_kI = 0;
+    public static final double AUTO_AIM_ROBOT_kD = 0;
     public static TalonFXConfiguration SHOOTER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
         .withKV(0).withKP(0).withKI(0).withKD(0))
@@ -83,6 +87,10 @@ public final class Constants {
     public static final int INDEXER_MOTOR_ID = 2491;
   }
 
+  public static final class Field{
+    public static final Translation2d BLUE_HUB_COORDINATE = new Translation2d(4.6, 4);
+    public static final Translation2d RED_HUB_COORDINATE = new Translation2d(11.9, 4);
+  }
 
   public static final class DriveConstants {
     public static final Pose2d DRIVE_ODOMETRY_ORIGIN = new Pose2d(5.0, 5.0, new Rotation2d());
@@ -422,27 +430,6 @@ public final class Constants {
     public static final double limelightLensHeightInches = 2491;
     // height of april tags from the floor in meters
     public static final double AprilTagHeight = 1.335;
-  }
-
-  public final class Field {
-  }
-
-  public final class PreferencesConstants {
-    // public static final String LIGHTS = "Lights Exist";
-    // public static final String COMP_BOT = "CompBot";
-    // public static final String CORAL_END_EFFECTOR = "Use Limelight";
-    // public static final String ALGAE_END_EFFECTOR = "Driver Controller Type";
-    // public static final String FUNNEL_INTAKE = "Elevator";
-    // public static final String DISTANCE_SENSORS = "CoralEndDefector";
-    // public static final String LIGHTS = "AlgaeEndDefector";
-    // public static final String LIMELIGHTS = "FunnelIntake";
-    // public static final String MOTOR_LOGGING = "FunnelRotator";
-    // public static final String SAFE_ELEVATOR_DRIVING = "AntiTipActive";
-    // public static final String ANTITIP_ACTIVE = "LimelightExists";
-    // public static final String CLIMBER = ;
-    // public static final String DRIVER_CONTROLLER_TYPE = ;
-    // public static final String OPERATOR_CONTROLLER_TYPE = ;
-    // public static final String OPERATOR_CONTROLLER_TYPE = ;
   }
 
   public final class LightConstants {

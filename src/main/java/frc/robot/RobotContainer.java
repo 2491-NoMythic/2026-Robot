@@ -10,6 +10,7 @@ import static frc.robot.settings.Constants.DriveConstants.k_THETA_P;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_D;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
+import static frc.robot.settings.Constants.XboxDriver.DEADBAND_NORMAL;
 import static frc.robot.settings.Constants.XboxDriver.X_AXIS;
 import static frc.robot.settings.Constants.XboxDriver.Y_AXIS;
 import static frc.robot.settings.Constants.XboxDriver.Z_AXIS;
@@ -34,6 +35,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Commands.AimHood;
+import frc.robot.Commands.AimRobotMoving;
 import frc.robot.Commands.Drive;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -43,6 +46,7 @@ import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
 import static frc.robot.settings.Constants.SubsystemsEnabled.*;
+import frc.robot.Commands.AimRobotMoving;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -70,6 +74,8 @@ public class RobotContainer {
   DoubleSupplier ControllerSidewaysAxisSupplier;
   DoubleSupplier ControllerZAxisSupplier;
   BooleanSupplier ZeroGyroSup;
+  BooleanSupplier AimRobotMovingSup;
+
 
   public static HashMap<String, Command> eventMap;
 
@@ -87,6 +93,8 @@ public class RobotContainer {
     ControllerForwardAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
     ControllerZAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
     ZeroGyroSup = driveController::getStartButton;
+    //Shooter controls
+    AimRobotMovingSup = ()-> driveController.getLeftTriggerAxis() >= 0.5;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -164,6 +172,7 @@ public class RobotContainer {
 
   private void shooterInit() {
     shooter = new Shooter();
+    shooter.setDefaultCommand(new AimHood(shooter));
   }
 
   private void intakeInit() {
@@ -225,6 +234,13 @@ public class RobotContainer {
 
       SmartDashboard.putData("zeroGyroscope", zeroGyroscope);
       SmartDashboard.putData("set offsets", setOffsets);
+    }
+    if(DRIVE_TRAIN_EXISTS){
+       new Trigger(AimRobotMovingSup).whileTrue(new AimRobotMoving(
+        drivetrain,
+        () -> modifyAxis(-driveController.getRawAxis(Y_AXIS), DEADBAND_NORMAL),
+        () -> modifyAxis(-driveController.getRawAxis(X_AXIS), DEADBAND_NORMAL)
+        ));
     }
   }
 
