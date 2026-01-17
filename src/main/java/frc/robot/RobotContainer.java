@@ -11,6 +11,8 @@ import static frc.robot.settings.Constants.DriveConstants.k_XY_D;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
 import static frc.robot.settings.Constants.XboxDriver.DEADBAND_NORMAL;
+import static frc.robot.settings.Constants.XboxDriver.DRIVE_CONTROLLER_ID;
+import static frc.robot.settings.Constants.XboxDriver.OPERATOR_CONTROLLER_ID;
 import static frc.robot.settings.Constants.XboxDriver.X_AXIS;
 import static frc.robot.settings.Constants.XboxDriver.Y_AXIS;
 import static frc.robot.settings.Constants.XboxDriver.Z_AXIS;
@@ -69,12 +71,15 @@ public class RobotContainer {
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
   private final XboxController driveController;
+  private final XboxController operatorController;
 
   DoubleSupplier ControllerForwardAxisSupplier;
   DoubleSupplier ControllerSidewaysAxisSupplier;
   DoubleSupplier ControllerZAxisSupplier;
   BooleanSupplier ZeroGyroSup;
   BooleanSupplier AimRobotMovingSup;
+  BooleanSupplier ClimberUpSup;
+  BooleanSupplier ClimberDownSup;
 
 
   public static HashMap<String, Command> eventMap;
@@ -84,7 +89,8 @@ public class RobotContainer {
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
-    driveController = new XboxController(0);
+    driveController = new XboxController(DRIVE_CONTROLLER_ID);
+    operatorController = new XboxController(OPERATOR_CONTROLLER_ID);
     autoChooser = new SendableChooser<>();
     eventMap = new HashMap<>();
 
@@ -95,6 +101,9 @@ public class RobotContainer {
     ZeroGyroSup = driveController::getStartButton;
     //Shooter controls
     AimRobotMovingSup = ()-> driveController.getLeftTriggerAxis() >= 0.5;
+    //climber controls
+    ClimberDownSup = ()-> operatorController.getRightY() > 0.5;
+    ClimberUpSup = ()-> operatorController.getRightY() < -0.5;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -181,6 +190,9 @@ public class RobotContainer {
 
   private void climberInit() {
     climber = new Climber();
+
+    new Trigger(ClimberDownSup).whileTrue(new InstantCommand(()->climber.climberDown())).onFalse(new InstantCommand(()->climber.stop()));
+    new Trigger(ClimberUpSup).whileTrue(new InstantCommand(()->climber.climberUp())).onFalse(new InstantCommand(()->climber.stop()));
   }
   
   private void indexerInit() {
