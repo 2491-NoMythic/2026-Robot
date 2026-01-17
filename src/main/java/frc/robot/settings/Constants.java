@@ -69,6 +69,7 @@ public final class Constants {
 
   public static final class ClimberConstants{
     public static final int CLIMBER_MOTOR_ID = 2491;
+    public static final double CLIMBER_MAX_POSITION = 100;
     public static TalonFXConfiguration CLIMBER_CONFIG = new TalonFXConfiguration()
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50));
