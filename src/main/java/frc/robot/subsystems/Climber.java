@@ -38,13 +38,13 @@ public class Climber extends SubsystemBase {
    * runs the climber motor upwards unless the climber has reached the soft limit, which is relative to the climbers start position when code was deployed
    */
   public void climberUp() {
-    desiredSpeed = 0.5;
+    desiredSpeed = -0.5;
   }
   /**
    * runs the climber motor upwards unless the climber has reached the soft limit, which is relative to the climbers start position when code was deployed
    */
   public void climberDown() {
-    desiredSpeed = -0.5;
+    desiredSpeed = 0.5;
   }
 
   /**
