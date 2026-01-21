@@ -8,6 +8,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.ClimberInputsAutoLogged;
+import frc.robot.settings.ClimberState;
 
 import static frc.robot.settings.Constants.ClimberConstants.*;
 
@@ -18,6 +19,7 @@ public class Climber extends SubsystemBase {
   ClimberInputsAutoLogged inputs;
   double maxPosition;
   double desiredSpeed;
+  ClimberState climberState;
   /** Creates a new Climber. */
   public Climber() {
     motor = new TalonFX(CLIMBER_MOTOR_ID);
@@ -54,6 +56,10 @@ public class Climber extends SubsystemBase {
     desiredSpeed = 0;
   }
 
+  public ClimberState getClimberState(){
+    return climberState;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -62,8 +68,16 @@ public class Climber extends SubsystemBase {
 
     if(desiredSpeed > 0 && motor.getPosition().getValueAsDouble() > CLIMBER_MAX_POSITION) {
       motor.stopMotor();
+      climberState = ClimberState.Up;
     } else {
       motor.set(desiredSpeed);
+      if(desiredSpeed > 0){
+        climberState = ClimberState.LoweringClimber;
+      }else if(desiredSpeed<0){
+        climberState = ClimberState.RaisingClimber;
+      }else{
+        climberState = ClimberState.Down;
+      }
     }
   }
 }
