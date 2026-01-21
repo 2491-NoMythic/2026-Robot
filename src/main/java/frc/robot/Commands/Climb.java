@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Climber;
 import frc.robot.Commands.ClimberRaise;
-import frc.robot.Commands.ClimberLift;
+import frc.robot.Commands.ClimberLower;
 import frc.robot.subsystems.DrivetrainSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -25,7 +25,7 @@ public class Climb extends SequentialCommandGroup {
     addCommands(new ClimberRaise(climber),
      new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0.5,0,0))),
      new WaitCommand(0.5), new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0,0,0))),
-     new ClimberLift(climber),
+     new ClimberLower(climber),
      new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(-0.5,0,0))),
      new WaitCommand(0.5),
      new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0,0,0))));
