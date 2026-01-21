@@ -4,8 +4,12 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.IntakeInputsAutoLogged;
@@ -15,42 +19,60 @@ import static frc.robot.settings.Constants.IntakeConstants.*;
 import org.littletonrobotics.junction.Logger;
 
 public class Intake extends SubsystemBase {
-  TalonFX motor;
+  TalonFX wheels;
+  TalonFX deployer;
   IntakeInputsAutoLogged inputs;
+
   /** Creates a new Intake. */
   public Intake() {
-    motor = new TalonFX(INTAKE_MOTOR_ID);
-    motor.getConfigurator().apply(INTAKE_CONFIG);
-    inputs = new IntakeInputsAutoLogged();
+    wheels = new TalonFX(INTAKE_WHEELS_ID);
+    deployer = new TalonFX(INTAKE_DEPLOYER_ID);
+    wheels.getConfigurator().apply(INTAKE_CONFIG);
+    deployer.getConfigurator().apply(INTAKE_CONFIG);
   }
 
-/**
+  /**
    * Sets motor speed using duty cycle out
+   * 
    * @param speed Motor power from -1 to 1
    */
-  public void set(double speed){
-    motor.set(speed);
+  public void setWheels(double speed) {
+    wheels.set(speed);
   }
 
   /**
    * Sets motor power to zero
    */
-  public void stop(){
-    motor.set(0);
+  public void stopWheels() {
+    wheels.set(0);
   }
 
-   /**
+  /**
    * Sets velocity target for intake motor
+   * 
    * @param speed RPS
    */
-  public void setVelocity(double speed){
-    motor.setControl(new VelocityVoltage(speed));
+  public void setWheelsVelocity(double speed) {
+    wheels.setControl(new VelocityVoltage(speed));
+  }
+
+  public void deployIntake(){
+    deployer.set(0.1);
+  }
+
+  public void retractIntake(){
+    deployer.set(-0.1);
+  }
+
+  public void stopDeployer(){
+    deployer.stopMotor();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    inputs.motor.log(motor);
+    inputs.wheelsMotor.log(wheels);
+    inputs.deployerMotor.log(deployer);
     Logger.processInputs("Intake", inputs);
   }
 }
