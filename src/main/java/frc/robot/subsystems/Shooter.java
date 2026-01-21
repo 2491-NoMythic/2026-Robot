@@ -58,6 +58,10 @@ public class Shooter extends SubsystemBase {
   public void setHoodAngle(double rotations){
     hoodMotor.setControl(new PositionVoltage(rotations));
   }
+
+  public void setHoodMotor(double speed){
+    hoodMotor.set(speed);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

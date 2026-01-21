@@ -83,7 +83,10 @@ public class RobotContainer {
   BooleanSupplier RetractIntakeSup;
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier IntakeWheelSup;
-
+  BooleanSupplier ShooterToggleSupplier;
+  BooleanSupplier HoodUpSupplier;
+  BooleanSupplier HoodDownSupplier;
+  boolean manualShooterOn = false;
 
   public static HashMap<String, Command> eventMap;
 
@@ -102,8 +105,11 @@ public class RobotContainer {
     ControllerForwardAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
     ControllerZAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
     ZeroGyroSup = driveController::getStartButton;
-    //Shooter controls
     AimRobotMovingSup = ()-> driveController.getLeftTriggerAxis() >= 0.5;
+    //Shooter controls
+    HoodUpSupplier = () -> operatorController.getLeftY() < -0.5;
+    HoodDownSupplier = () -> operatorController.getLeftY() > 0.5;
+    ShooterToggleSupplier = operatorController::getXButton;
     //climber controls
     ClimberDownSup = ()-> operatorController.getRightY() > 0.5;
     ClimberUpSup = ()-> operatorController.getRightY() < -0.5;
@@ -189,6 +195,10 @@ public class RobotContainer {
   private void shooterInit() {
     shooter = new Shooter();
     shooter.setDefaultCommand(new AimHood(shooter));
+    new Trigger(HoodUpSupplier).whileTrue(new InstantCommand(()->shooter.setHoodMotor(0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
+    new Trigger(HoodDownSupplier).whileTrue(new InstantCommand(()->shooter.setHoodMotor(-0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
+    new Trigger(ShooterToggleSupplier).onTrue(new InstantCommand(()->manualShooterOn = !manualShooterOn));
+    new Trigger(()->manualShooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
   }
 
   private void intakeInit() {

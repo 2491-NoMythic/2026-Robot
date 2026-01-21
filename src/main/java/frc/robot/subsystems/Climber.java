@@ -8,6 +8,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.ClimberInputsAutoLogged;
+import frc.robot.settings.ClimberState;
 
 import static frc.robot.settings.Constants.ClimberConstants.*;
 
@@ -18,6 +19,7 @@ public class Climber extends SubsystemBase {
   ClimberInputsAutoLogged inputs;
   double maxPosition;
   double desiredSpeed;
+  ClimberState climberState;
   /** Creates a new Climber. */
   public Climber() {
     motor = new TalonFX(CLIMBER_MOTOR_ID);
@@ -38,13 +40,13 @@ public class Climber extends SubsystemBase {
    * runs the climber motor upwards unless the climber has reached the soft limit, which is relative to the climbers start position when code was deployed
    */
   public void climberUp() {
-    desiredSpeed = 0.5;
+    desiredSpeed = -0.5;
   }
   /**
    * runs the climber motor upwards unless the climber has reached the soft limit, which is relative to the climbers start position when code was deployed
    */
   public void climberDown() {
-    desiredSpeed = -0.5;
+    desiredSpeed = 0.5;
   }
 
   /**
@@ -52,6 +54,10 @@ public class Climber extends SubsystemBase {
    */
   public void stop(){
     desiredSpeed = 0;
+  }
+
+  public ClimberState getClimberState(){
+    return climberState;
   }
 
   @Override
@@ -62,8 +68,16 @@ public class Climber extends SubsystemBase {
 
     if(desiredSpeed > 0 && motor.getPosition().getValueAsDouble() > CLIMBER_MAX_POSITION) {
       motor.stopMotor();
+      climberState = ClimberState.Up;
     } else {
       motor.set(desiredSpeed);
+      if(desiredSpeed > 0){
+        climberState = ClimberState.LoweringClimber;
+      }else if(desiredSpeed<0){
+        climberState = ClimberState.RaisingClimber;
+      }else{
+        climberState = ClimberState.Down;
+      }
     }
   }
 }
