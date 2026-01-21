@@ -19,17 +19,16 @@ import static frc.robot.settings.Constants.IntakeConstants.*;
 import org.littletonrobotics.junction.Logger;
 
 public class Intake extends SubsystemBase {
-  TalonFX leftIntakeMotor;
-  TalonFX rightIntakeMotor;
+  TalonFX wheels;
+  TalonFX deployer;
   IntakeInputsAutoLogged inputs;
 
   /** Creates a new Intake. */
   public Intake() {
-    leftIntakeMotor = new TalonFX(LEFT_INTAKE_MOTOR_ID);
-    rightIntakeMotor = new TalonFX(RIGHT_INTAKE_MOTOR_ID);
-    leftIntakeMotor.getConfigurator().apply(INTAKE_CONFIG);
-    rightIntakeMotor.getConfigurator().apply(INTAKE_CONFIG);
-    rightIntakeMotor.setControl(new Follower(LEFT_INTAKE_MOTOR_ID, MotorAlignmentValue.Aligned));
+    wheels = new TalonFX(INTAKE_WHEELS_ID);
+    deployer = new TalonFX(INTAKE_DEPLOYER_ID);
+    wheels.getConfigurator().apply(INTAKE_CONFIG);
+    deployer.getConfigurator().apply(INTAKE_CONFIG);
   }
 
   /**
@@ -37,17 +36,15 @@ public class Intake extends SubsystemBase {
    * 
    * @param speed Motor power from -1 to 1
    */
-  public void set(double speed) {
-    leftIntakeMotor.set(speed);
-    rightIntakeMotor.set(speed);
+  public void setWheels(double speed) {
+    wheels.set(speed);
   }
 
   /**
    * Sets motor power to zero
    */
-  public void stop() {
-    leftIntakeMotor.set(0);
-    rightIntakeMotor.set(0);
+  public void stopWheels() {
+    wheels.set(0);
   }
 
   /**
@@ -55,16 +52,27 @@ public class Intake extends SubsystemBase {
    * 
    * @param speed RPS
    */
-  public void setVelocity(double speed) {
-    leftIntakeMotor.setControl(new VelocityVoltage(speed));
-    rightIntakeMotor.setControl(new VelocityVoltage(speed));
+  public void setWheelsVelocity(double speed) {
+    wheels.setControl(new VelocityVoltage(speed));
+  }
+
+  public void deployIntake(){
+    deployer.set(0.1);
+  }
+
+  public void retractIntake(){
+    deployer.set(-0.1);
+  }
+
+  public void stopDeployer(){
+    deployer.stopMotor();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    inputs.leftMotor.log(leftIntakeMotor);
-    inputs.rightMotor.log(rightIntakeMotor);
+    inputs.wheelsMotor.log(wheels);
+    inputs.deployerMotor.log(deployer);
     Logger.processInputs("Intake", inputs);
   }
 }

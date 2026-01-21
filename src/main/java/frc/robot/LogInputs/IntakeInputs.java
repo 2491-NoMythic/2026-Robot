@@ -9,6 +9,6 @@ import org.littletonrobotics.junction.AutoLog;
 @AutoLog
 /** Add your docs here. */
 public class IntakeInputs {
-    public MotorLoggerInputsAutoLogged leftMotor = new MotorLoggerInputsAutoLogged();
-    public MotorLoggerInputsAutoLogged rightMotor = new MotorLoggerInputsAutoLogged();
+    public MotorLoggerInputsAutoLogged wheelsMotor = new MotorLoggerInputsAutoLogged();
+    public MotorLoggerInputsAutoLogged deployerMotor = new MotorLoggerInputsAutoLogged();
 }
