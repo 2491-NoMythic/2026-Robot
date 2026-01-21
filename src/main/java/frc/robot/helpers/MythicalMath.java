@@ -4,8 +4,16 @@
 
 package frc.robot.helpers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
+import org.opencv.core.Mat.Tuple2;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation3d;
 
 /** Add your docs here. */
 public class MythicalMath {
@@ -126,5 +134,65 @@ public class MythicalMath {
 
     // Find the smallest value
     return Math.min(valA, Math.min(valB, valC));
+  }
+
+  /**
+   * calculates the desired 3d launch angle to hit a target, given the coordinates of the target and robot, 
+   * @param origin the 3d coordinates of the releast point of the gamepiece
+   * @param target the 3d coordinates of the target
+   * @param initialVelocity the velocity that the gamepiece leaves the robot at
+   * @param inheritedVelocity the x and y velocities of the robot when the shot is fired.
+   * @return a 3d launch angle
+   */
+  public static Rotation3d aimProjectileAtPoint(Translation3d origin, Translation3d target, float initialVelocity, Translation3d inheritedVelocity)
+  {
+    float radius = 0f;
+    Translation3d velocity = inheritedVelocity;
+    Translation3d position = origin;
+
+    float timeStep = 0.1f; //Checks per second
+    float maxTime = 5f; //In seconds
+    int goalType = 1; //0 or 1, 0 shoots to hit the target while 1 shoots to fall into the target. For REBUILT we want type 1.
+
+    var solutions = new ArrayList<Translation3d>();
+
+    float gravity = -9.81f;
+    Boolean lastTargetInsideSphereValue = false;
+
+    for(int sample = 0; sample <= maxTime/timeStep; sample++){
+      
+      radius += initialVelocity * timeStep; //Calculate an expanding sphere to represent all possible shots simultaneously
+
+      velocity = velocity.plus(new Translation3d(0, gravity * timeStep, 0)); //Apply gravity and acceleration to velocity of the sphere
+      position = position.plus(velocity.times(timeStep)); //Apply velocity to position of the sphere
+
+      Boolean targetInsideSphere = (position.getDistance(target) < radius); //Is the target point inside the sphere?
+      
+      if(targetInsideSphere != lastTargetInsideSphereValue){ //Are we on the surface of the sphere - have we just changed from being outside to inside or vice versa
+        
+        solutions.add(position); //Then this is a solution
+        
+        lastTargetInsideSphereValue = targetInsideSphere;
+      }
+    }
+
+    if(solutions.size() > 1){ //Are there multiple solutions (should be 2)?
+      
+      Translation3d chosenSolution = solutions.get(goalType); //Grab the appropriate solution for how we want to hit the target
+      Translation3d direction = target.minus(chosenSolution); //Dangerous, does this mutate target directly? IDK
+
+      Rotation3d rotation = new Rotation3d(chosenSolution.toVector(), target.toVector()); //TODO: test this, does it do what we expect?
+    }
+
+    //TODO: simulate found shot and make adjustments 
+  }
+
+  /**
+   * calculates expected acceleration due to air resistance base on exit velocity of ball
+   * @param currentVelocity
+   * @return acceleration
+   */
+  public double airResistance(double currentVelocity) {
+    return currentVelocity; //eventulaly this will return the acceleration on the fuel due to air resistance, haven't done the calculations yet
   }
 }
