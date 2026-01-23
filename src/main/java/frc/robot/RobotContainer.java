@@ -214,6 +214,7 @@ public class RobotContainer {
   
   private void indexerInit() {
     indexer = new Indexer();
+    new Trigger(IndexerSup).whileTrue(new RunIndexer(indexer, Z_AXIS));
   }
 
   private void autoInit() {
@@ -303,8 +304,8 @@ public class RobotContainer {
   }
 
   void registerNamedCommands(){
-    NamedCommands.registerCommand("ClimbUp", new ClimbUp());
-    NamedCommands.registerCommand("ClimbDown", new ClimbDown());
+    NamedCommands.registerCommand("ClimbUp", new ClimbUp(climber));
+    NamedCommands.registerCommand("ClimbDown", new ClimbDown(climber));
     NamedCommands.registerCommand("RunIndexer", new RunIndexer(indexer, Z_AXIS));
     NamedCommands.registerCommand("ShooterVelocity", new RunShooterVelocity(shooter, Z_AXIS));
     NamedCommands.registerCommand("AimRobotMoving", new AimRobotMoving(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
