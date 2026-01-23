@@ -141,10 +141,10 @@ public class MythicalMath {
    * @param origin the 3d coordinates of the releast point of the gamepiece
    * @param target the 3d coordinates of the target
    * @param initialVelocity the velocity that the gamepiece leaves the robot at
-   * @param inheritedVelocity the x and y velocities of the robot when the shot is fired.
-   * @return a 3d launch angle
+   * @param inheritedVelocity the velocity of the robot when the shot is fired.
+   * @return (pitch, yaw) where pitch is up and yaw is left/right in radians        //a 3d launch angle
    */
-  public static Rotation3d aimProjectileAtPoint(Translation3d origin, Translation3d target, float initialVelocity, Translation3d inheritedVelocity)
+  public static Tuple2<Double> aimProjectileAtPoint(Translation3d origin, Translation3d target, float initialVelocity, Translation3d inheritedVelocity)
   {
     float radius = 0f;
     Translation3d velocity = inheritedVelocity;
@@ -180,9 +180,18 @@ public class MythicalMath {
       
       Translation3d chosenSolution = solutions.get(goalType); //Grab the appropriate solution for how we want to hit the target
       Translation3d direction = target.minus(chosenSolution); //Dangerous, does this mutate target directly? IDK
+      direction = direction.times(1/direction.getNorm());
 
-      Rotation3d rotation = new Rotation3d(chosenSolution.toVector(), target.toVector()); //TODO: test this, does it do what we expect?
+      double pitch = Math.asin(direction.getY());
+      double yaw = Math.atan2(direction.getX(), direction.getZ());
+
+
+      //Rotation3d rotation = new Rotation3d(chosenSolution.toVector(), target.toVector()); //TODO: test this, does it do what we expect?
+    
+      return new Tuple2<Double>(pitch, yaw);
     }
+
+    return null;
 
     //TODO: simulate found shot and make adjustments 
   }
