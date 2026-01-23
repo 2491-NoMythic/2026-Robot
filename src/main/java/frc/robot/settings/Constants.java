@@ -89,6 +89,10 @@ public final class Constants {
     public static final int INDEXER_MOTOR_ID = 2491;
   }
 
+  public static final class HopperConstants{
+    public static final int HOPPER_MOTOR_ID = 2491;
+  }
+
   public static final class Field{
     public static final Translation2d BLUE_HUB_COORDINATE = new Translation2d(4.6, 4);
     public static final Translation2d RED_HUB_COORDINATE = new Translation2d(11.9, 4);
