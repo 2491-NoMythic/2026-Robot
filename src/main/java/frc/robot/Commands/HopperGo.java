@@ -7,9 +7,9 @@ import frc.robot.subsystems.Hopper;
 import frc.robot.LogInputs.HopperInputsAutoLogged;
 
 public class HopperGo extends Command{
-    TalonFX hopperMotor;
+    TalonFX hopperWideMotor;
+    TalonFX hopperTallMotor;
     Hopper hopperSubsystem;
-    boolean hopperPosition;
     HopperInputsAutoLogged inputs;
     
   public HopperGo(Hopper hopperSubsystem, HopperInputsAutoLogged inputs) {
@@ -22,14 +22,24 @@ public class HopperGo extends Command{
 
     @Override
   public void execute() {
-    if(inputs.hopperExpandedInput == false &&  inputs.expandDesiredInput == true) {
-      hopperSubsystem.expandHopper();
+    if (inputs.hopperTallInput == false && inputs.tallDesiredInput == true){
+      hopperSubsystem.setMotor(1, hopperTallMotor);
     }
-    else if (inputs.hopperExpandedInput == true && inputs.expandDesiredInput == false){
-      hopperSubsystem.retractHopper();
+    else if (inputs.hopperTallInput == true && inputs.tallDesiredInput == false){
+      hopperSubsystem.setMotor(-1, hopperTallMotor);
     }
     else {
-      hopperSubsystem.stop();
+      hopperSubsystem.setMotor(0, hopperTallMotor);
+    }
+
+    if (inputs.hopperWideInput == false && inputs.wideDesiredInput == true){
+      hopperSubsystem.setMotor(1, hopperWideMotor);
+    }
+    else if (inputs.hopperWideInput == true && inputs.wideDesiredInput == false){
+      hopperSubsystem.setMotor(-1, hopperWideMotor);
+    }
+    else {
+      hopperSubsystem.setMotor(0, hopperWideMotor);
     }
   }
 }

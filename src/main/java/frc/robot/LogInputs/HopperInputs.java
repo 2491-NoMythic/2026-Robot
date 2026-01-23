@@ -9,8 +9,10 @@ import org.littletonrobotics.junction.AutoLog;
 @AutoLog
 /** Add your docs here. */
 public class HopperInputs {
-    public MotorLoggerInputsAutoLogged motorInput = new MotorLoggerInputsAutoLogged();
-    public MotorLoggerInputsAutoLogged motorTwoInput = new MotorLoggerInputsAutoLogged();
-    public boolean hopperExpandedInput;
-    public boolean expandDesiredInput;
+    public MotorLoggerInputsAutoLogged wideMotorInput = new MotorLoggerInputsAutoLogged();
+    public MotorLoggerInputsAutoLogged tallMotorInput = new MotorLoggerInputsAutoLogged();
+    public boolean hopperWideInput;
+    public boolean wideDesiredInput;
+    public boolean hopperTallInput;
+    public boolean tallDesiredInput;
 }
