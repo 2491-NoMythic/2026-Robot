@@ -13,37 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Forward"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ClimbUp"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ClimbDown"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "RunIndexer"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShooterVelocity"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AimRobotMoving"
+            "pathName": "Forward with a twist"
           }
         }
       ]

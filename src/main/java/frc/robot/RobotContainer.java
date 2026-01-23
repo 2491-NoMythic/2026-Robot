@@ -43,7 +43,9 @@ import frc.robot.Commands.AimRobotMoving;
 import frc.robot.Commands.ClimbDown;
 import frc.robot.Commands.ClimbUp;
 import frc.robot.Commands.Drive;
+import frc.robot.Commands.Outtake;
 import frc.robot.Commands.RunIndexer;
+import frc.robot.Commands.RunIntake;
 import frc.robot.Commands.RunShooterVelocity;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -309,5 +311,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("RunIndexer", new RunIndexer(indexer, Z_AXIS));
     NamedCommands.registerCommand("ShooterVelocity", new RunShooterVelocity(shooter, Z_AXIS));
     NamedCommands.registerCommand("AimRobotMoving", new AimRobotMoving(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
+    NamedCommands.registerCommand("Intake", new RunIntake(intake));
+    NamedCommands.registerCommand("Outtake", new Outtake(intake));
   }
 }
