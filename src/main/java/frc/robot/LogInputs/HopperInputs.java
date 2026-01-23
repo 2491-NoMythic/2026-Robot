@@ -10,6 +10,7 @@ import org.littletonrobotics.junction.AutoLog;
 /** Add your docs here. */
 public class HopperInputs {
     public MotorLoggerInputsAutoLogged motorInput = new MotorLoggerInputsAutoLogged();
+    public MotorLoggerInputsAutoLogged motorTwoInput = new MotorLoggerInputsAutoLogged();
     public boolean hopperExpandedInput;
     public boolean expandDesiredInput;
 }
