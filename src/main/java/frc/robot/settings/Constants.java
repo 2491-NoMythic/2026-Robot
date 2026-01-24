@@ -50,7 +50,7 @@ public final class Constants {
   }
 
   public static final class ShooterConstants{
-    public static final int SHOOTING_SPEED_MPS = 2491;
+    public static final float SHOOTING_SPEED_MPS = 24.91f;
     public static final int SHOOTER_MOTOR_ID = 2491;
     public static final int HOOD_MOTOR_ID = 2491;
     public static final double SHOOTER_HEIGHT = 10; //IN METRES

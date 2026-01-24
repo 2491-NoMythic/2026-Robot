@@ -695,6 +695,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
       SHOOTING_SPEED_MPS, 
       new Translation3d(fieldChassisSpeeds.vxMetersPerSecond, fieldChassisSpeeds.vyMetersPerSecond, 0));
 
+    if(desiredRotation == null){
+      return;
+    }
+
     RobotState.getInstance().aimingPitch = desiredRotation.get_0();
     RobotState.getInstance().aimingYaw = desiredRotation.get_1();
   }
