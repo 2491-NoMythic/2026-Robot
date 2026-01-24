@@ -7,6 +7,7 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -15,7 +16,7 @@ public class AimHood extends Command {
   Shooter shooter;
   public AimHood(Shooter shooter) {
     this.shooter = shooter;
-    addRequirements(shooter);
+    //addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,11 +27,7 @@ public class AimHood extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //math to determine distance from target
-    DrivetrainSubsystem.getDistanceToHub();
-    //run math to determine angle
-    //blah blah blah math
-    double angle = 1;
+    double angle = RobotState.getInstance().aimingPitch; //this is in radians
     shooter.setHoodAngle(angle);
   }
 

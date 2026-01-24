@@ -16,6 +16,9 @@ public class RobotState {
   public double odometerOrientation;
   public Pose2d robotPosition = new Pose2d();
 
+  public double aimingPitch;
+  public double aimingYaw;
+
   public RobotState() {
     // sets any values that aren't periodically updated by a subsystem to a value,
     // so that they won't return null if called before they are updated
