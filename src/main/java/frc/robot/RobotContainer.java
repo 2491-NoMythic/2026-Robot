@@ -37,6 +37,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Commands.AimAtHub;
 import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobotMoving;
 import frc.robot.Commands.Drive;
@@ -46,6 +47,7 @@ import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
+
 
 import static frc.robot.settings.Constants.SubsystemsEnabled.*;
 import frc.robot.Commands.AimRobotMoving;
@@ -73,6 +75,9 @@ public class RobotContainer {
   private final XboxController driveController;
   private final XboxController operatorController;
 
+  private AimAtHub aimAtHub;
+  private AimHood aimHood;
+
   DoubleSupplier ControllerForwardAxisSupplier;
   DoubleSupplier ControllerSidewaysAxisSupplier;
   DoubleSupplier ControllerZAxisSupplier;
@@ -83,6 +88,7 @@ public class RobotContainer {
   BooleanSupplier ShooterToggleSupplier;
   BooleanSupplier HoodUpSupplier;
   BooleanSupplier HoodDownSupplier;
+  BooleanSupplier AutoAimSupplier;
   boolean manualShooterOn = false;
 
   public static HashMap<String, Command> eventMap;
@@ -102,7 +108,7 @@ public class RobotContainer {
     ControllerForwardAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
     ControllerZAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
     ZeroGyroSup = driveController::getStartButton;
-    AimRobotMovingSup = ()-> driveController.getLeftTriggerAxis() >= 0.5;
+    AutoAimSupplier = () -> driveController.getLeftTriggerAxis() >= 0.5;
     //Shooter controls
     HoodUpSupplier = () -> operatorController.getLeftY() < -0.5;
     HoodDownSupplier = () -> operatorController.getLeftY() > 0.5;
@@ -192,6 +198,7 @@ public class RobotContainer {
     new Trigger(HoodDownSupplier).whileTrue(new InstantCommand(()->shooter.setHoodMotor(-0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
     new Trigger(ShooterToggleSupplier).onTrue(new InstantCommand(()->manualShooterOn = !manualShooterOn));
     new Trigger(()->manualShooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
+    new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(aimAtHub, aimHood, drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
   }
 
   private void intakeInit() {
