@@ -87,6 +87,9 @@ public class RobotContainer {
   BooleanSupplier AimRobotMovingSup;
   BooleanSupplier ClimberUpSup;
   BooleanSupplier ClimberDownSup;
+  BooleanSupplier RetractIntakeSup;
+  BooleanSupplier DeployIntakeSup;
+  BooleanSupplier IntakeWheelSup;
   BooleanSupplier ShooterToggleSupplier;
   BooleanSupplier HoodUpSupplier;
   BooleanSupplier HoodDownSupplier;
@@ -119,6 +122,10 @@ public class RobotContainer {
     //climber controls
     ClimberDownSup = ()-> operatorController.getRightY() > 0.5;
     ClimberUpSup = ()-> operatorController.getRightY() < -0.5;
+    //intake controls
+    RetractIntakeSup = ()-> operatorController.getLeftY() < -0.5;
+    DeployIntakeSup = ()-> operatorController.getLeftY() > 0.5;
+    IntakeWheelSup = ()-> operatorController.getLeftBumperButton();
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -205,13 +212,17 @@ public class RobotContainer {
 
   private void intakeInit() {
     intake = new Intake();
+    
+    new Trigger(IntakeWheelSup).whileTrue(new InstantCommand(()->intake.setWheelsVelocity(1), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
+    new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
+    new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
   }
 
   private void climberInit() {
     climber = new Climber();
 
-    new Trigger(ClimberDownSup).whileTrue(new InstantCommand(()->climber.climberDown())).onFalse(new InstantCommand(()->climber.stop()));
-    new Trigger(ClimberUpSup).whileTrue(new InstantCommand(()->climber.climberUp())).onFalse(new InstantCommand(()->climber.stop()));
+    new Trigger(ClimberDownSup).whileTrue(new InstantCommand(()->climber.climberDown(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
+    new Trigger(ClimberUpSup).whileTrue(new InstantCommand(()->climber.climberUp(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
   }
   
   private void indexerInit() {

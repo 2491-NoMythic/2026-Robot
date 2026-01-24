@@ -78,6 +78,8 @@ public final class Constants {
   public static final class IntakeConstants{
     public static final int INTAKE_MOTOR_ID = 2491;
     public static final int INTAKE_SPEED = 1;
+    public static final int INTAKE_WHEELS_ID = 2491;
+    public static final int INTAKE_DEPLOYER_ID = 2491;
     public static TalonFXConfiguration INTAKE_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
         .withKV(0).withKP(0).withKI(0).withKD(0))
