@@ -41,7 +41,7 @@ public class AimRobotMoving extends Command {
     this.drivetrain = drivetrain;
     this.joystickXSupplier = joystickXSupplier;
     this.joystickYSupplier = joystickYSupplier;
-    addRequirements(drivetrain);
+    //addRequirements(drivetrain);
     rotationController.setTolerance(ROBOT_ANGLE_TOLERANCE);
     rotationController.enableContinuousInput(-180, 180);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -58,7 +58,7 @@ public class AimRobotMoving extends Command {
     SmartDashboard.putNumber("Desired robot angle", RobotState.getInstance().aimingYaw);
     Logger.recordOutput("Blue hub", BLUE_HUB_COORDINATE);
     Logger.recordOutput("Red hub", RED_HUB_COORDINATE);
-    double rotationSpeed = rotationController.calculate(drivetrain.getOdometryRotation().getDegrees());
+    double rotationSpeed = rotationController.calculate(drivetrain.getOdometryRotation().getRadians());
 
     drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(
       joystickXSupplier.getAsDouble(),
