@@ -10,6 +10,7 @@ import com.ctre.phoenix6.configs.CustomParamsConfigs;
 import com.ctre.phoenix6.configs.LEDConfigs;
 import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.signals.BridgeOutputValue;
+import com.ctre.phoenix6.signals.Enable5VRailValue;
 import com.ctre.phoenix6.signals.StripTypeValue;
 
 import edu.wpi.first.wpilibj.AddressableLED;
@@ -36,8 +37,11 @@ public class Lights extends SubsystemBase {
     candleConfig = new CANdleConfiguration();
     //CANdleConfig = CANdleConfig.withLED(LEDConfigs.withBrightnessScalar(1.0));
   LEDConfigs ledConfigs = new LEDConfigs();
+  CANdleFeaturesConfigs featuresConfigs = new CANdleFeaturesConfigs();
   ledConfigs = ledConfigs.withBrightnessScalar(1).withStripType(StripTypeValue.GRB);
-  candleConfig.withLED(ledConfigs);
+  featuresConfigs = featuresConfigs.withEnable5VRail(Enable5VRailValue.Enabled);
+
+  candleConfig.withLED(ledConfigs).withCANdleFeatures(featuresConfigs);
   candle.getConfigurator().apply(candleConfig);
   }
 
