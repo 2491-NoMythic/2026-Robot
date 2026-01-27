@@ -15,10 +15,11 @@ import org.littletonrobotics.junction.Logger;
 public class Hopper extends SubsystemBase {
   TalonFX wideMotor;
   TalonFX tallMotor;
-  boolean wideDesired = false;
-  boolean tallDesired = false;  
-  boolean hopperWide = false;
-  boolean hopperTall = false;
+  // boolean wideDesired = false;
+  // boolean tallDesired = false;  
+  // boolean hopperWide = false;
+  // boolean hopperTall = false;
+  boolean hopperExpanded = false;
   HopperInputsAutoLogged inputs;
 
   /** Creates a new Hopper. */
@@ -36,30 +37,40 @@ public class Hopper extends SubsystemBase {
     motor.set(speed);
   }
 
+  public void setHopper(double speed){
+    wideMotor.set(speed);
+    tallMotor.set(speed);
+  }
 
-  public boolean getHopperWide(){
+
+  public boolean getHopperExpanded(){
     //up position will be gotten by limit switch, down will be gotten by current spike
-    return hopperWide;
+    return hopperExpanded;
   }
+  // public boolean getHopperWide(){
+  //   //up position will be gotten by limit switch, down will be gotten by current spike
+  //   return hopperWide;
+  // }
 
-  public boolean getHopperTall(){
-    //up position will be gotten by limit switch, down will be gotten by current spike
-    return hopperTall;
-  }
+  // public boolean getHopperTall(){
+  //   //up position will be gotten by limit switch, down will be gotten by current spike
+  //   return hopperTall;
+  // }
 
-  public boolean getWideDesire(){
-    return wideDesired;
-  }
+  // public boolean getWideDesire(){
+  //   return wideDesired;
+  // }
 
-  public boolean getTallDesire(){
-    return wideDesired;
-  }
+  // public boolean getTallDesire(){
+  //   return wideDesired;
+  // }
 
   public void periodic() {
-    inputs.hopperWideInput = this.getHopperWide();
-    inputs.wideDesiredInput = this.getWideDesire();
-    inputs.hopperTallInput = this.getHopperTall();
-    inputs.tallDesiredInput = this.getTallDesire();
+    // inputs.hopperWideInput = this.getHopperWide();
+    // inputs.wideDesiredInput = this.getWideDesire();
+    // inputs.hopperTallInput = this.getHopperTall();
+    // inputs.tallDesiredInput = this.getTallDesire();
+    inputs.hopperExpandedInput = this.getHopperExpanded();
     inputs.wideMotorInput.log(wideMotor);
     inputs.tallMotorInput.log(tallMotor);
 

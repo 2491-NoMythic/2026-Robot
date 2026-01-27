@@ -11,8 +11,9 @@ import org.littletonrobotics.junction.AutoLog;
 public class HopperInputs {
     public MotorLoggerInputsAutoLogged wideMotorInput = new MotorLoggerInputsAutoLogged();
     public MotorLoggerInputsAutoLogged tallMotorInput = new MotorLoggerInputsAutoLogged();
-    public boolean hopperWideInput;
-    public boolean wideDesiredInput;
-    public boolean hopperTallInput;
-    public boolean tallDesiredInput;
+    // public boolean hopperWideInput;
+    // public boolean wideDesiredInput;
+    // public boolean hopperTallInput;
+    // public boolean tallDesiredInput;
+    public boolean hopperExpandedInput;
 }
