@@ -5,15 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Back"
+            "name": "RunIndexer"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "collect preset climb"
           }
         }
       ]
