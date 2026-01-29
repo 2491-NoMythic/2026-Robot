@@ -44,6 +44,7 @@ import frc.robot.Commands.AimRobotMoving;
 import frc.robot.Commands.ClimberArmDown;
 import frc.robot.Commands.ClimberArmUp;
 import frc.robot.Commands.Drive;
+import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.RunIntake;
@@ -332,5 +333,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("AimRobotMoving", new AimRobotMoving(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
     NamedCommands.registerCommand("Intake", new RunIntake(intake));
     NamedCommands.registerCommand("Outtake", new Outtake(intake));
+    NamedCommands.registerCommand("MoveToClimbingPose", new MoveToClimbingPose(drivetrain));
   }
 }
