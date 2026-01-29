@@ -6,20 +6,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Hopper;
 import frc.robot.LogInputs.HopperInputsAutoLogged;
 
-public class HopperExpand extends Command{
+public class Expand extends Command{
     TalonFX hopperWideMotor;
     TalonFX hopperTallMotor;
     Hopper hopperSubsystem;
     HopperInputsAutoLogged inputs;
     
-  public HopperExpand(Hopper hopperSubsystem, HopperInputsAutoLogged inputs) {
+  public Expand(Hopper hopperSubsystem, HopperInputsAutoLogged inputs) {
     this.hopperSubsystem = hopperSubsystem;
     addRequirements(hopperSubsystem);
     this.inputs = inputs;
   }
     @Override
     public void initialize() {
-      hopperSubsystem.setHopper(1);
+      hopperSubsystem.setWideHopper(1);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class HopperExpand extends Command{
 
     @Override
   public void end(boolean interrupted) {
-    hopperSubsystem.setHopper(0);
+    hopperSubsystem.setWideHopper(0);
   }
 
     @Override

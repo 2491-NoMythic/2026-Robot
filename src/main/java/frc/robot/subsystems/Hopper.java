@@ -14,7 +14,7 @@ import org.littletonrobotics.junction.Logger;
 
 public class Hopper extends SubsystemBase {
   TalonFX wideMotor;
-  TalonFX tallMotor;
+  TalonFX hopperRollerMotor;
   // boolean wideDesired = false;
   // boolean tallDesired = false;  
   // boolean hopperWide = false;
@@ -25,7 +25,7 @@ public class Hopper extends SubsystemBase {
   /** Creates a new Hopper. */
   public Hopper() {
     wideMotor = new TalonFX(HOPPER_MOTOR_ID);
-    tallMotor = new TalonFX(HOPPER_MOTOR_TWO_ID);
+    hopperRollerMotor = new TalonFX(HOPPER_MOTOR_TWO_ID);
     inputs = new HopperInputsAutoLogged();
   }
 
@@ -37,9 +37,12 @@ public class Hopper extends SubsystemBase {
     motor.set(speed);
   }
 
-  public void setHopper(double speed){
+  public void setWideHopper(double speed){
     wideMotor.set(speed);
-    tallMotor.set(speed);
+  }
+
+  public void setHopperRoller(double speed){
+    hopperRollerMotor.set(speed);
   }
 
 
@@ -72,7 +75,7 @@ public class Hopper extends SubsystemBase {
     // inputs.tallDesiredInput = this.getTallDesire();
     inputs.hopperExpandedInput = this.getHopperExpanded();
     inputs.wideMotorInput.log(wideMotor);
-    inputs.tallMotorInput.log(tallMotor);
+    inputs.tallMotorInput.log(hopperRollerMotor);
 
     Logger.processInputs("Hopper", inputs);
     //other periodic code

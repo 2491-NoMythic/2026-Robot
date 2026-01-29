@@ -10,6 +10,7 @@ import static frc.robot.settings.Constants.DriveConstants.k_THETA_P;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_D;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
+import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED;
 import static frc.robot.settings.Constants.XboxDriver.DEADBAND_NORMAL;
 import static frc.robot.settings.Constants.XboxDriver.DRIVE_CONTROLLER_ID;
 import static frc.robot.settings.Constants.XboxDriver.OPERATOR_CONTROLLER_ID;
@@ -45,11 +46,12 @@ import frc.robot.Commands.ClimbDown;
 import frc.robot.Commands.ClimbUp;
 import frc.robot.Commands.Drive;
 import frc.robot.Commands.Outtake;
-import frc.robot.Commands.RunIndexer;
+import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.RunIntake;
 import frc.robot.Commands.RunShooterVelocity;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
@@ -76,6 +78,7 @@ public class RobotContainer {
   private Climber climber;
   private Intake intake;
   private Indexer indexer;
+  private Hopper hopper;
   private Limelight limelight;
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
@@ -237,7 +240,7 @@ public class RobotContainer {
   
   private void indexerInit() {
     indexer = new Indexer();
-    new Trigger(IndexerSup).whileTrue(new RunIndexer(indexer, Z_AXIS));
+    new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
   }
 
   private void autoInit() {
@@ -329,7 +332,7 @@ public class RobotContainer {
   void registerNamedCommands(){
     NamedCommands.registerCommand("ClimbUp", new ClimbUp(climber));
     NamedCommands.registerCommand("ClimbDown", new ClimbDown(climber));
-    NamedCommands.registerCommand("RunIndexer", new RunIndexer(indexer, Z_AXIS));
+    NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
     NamedCommands.registerCommand("ShooterVelocity", new RunShooterVelocity(shooter, Z_AXIS));
     NamedCommands.registerCommand("AimRobotMoving", new AimRobotMoving(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
     NamedCommands.registerCommand("Intake", new RunIntake(intake));
