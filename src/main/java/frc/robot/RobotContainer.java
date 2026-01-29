@@ -124,14 +124,17 @@ public class RobotContainer {
     HoodUpSupplier = () -> operatorController.getLeftY() < -0.5;
     HoodDownSupplier = () -> operatorController.getLeftY() > 0.5;
     ShooterToggleSupplier = operatorController::getXButton;
-    IndexerSup = ()-> operatorController.getLeftTriggerAxis() > 0.5;
+    IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
+    //Shooting Command is Right Trigger on drive controller. 
     //climber controls
-    ClimberDownSup = ()-> operatorController.getRightY() > 0.5;
-    ClimberUpSup = ()-> operatorController.getRightY() < -0.5;
+    ClimberDownSup = operatorController::getAButton;
+    //Climber Down is A button on operator controller
+    ClimberUpSup = operatorController::getYButton;
+    //Climber Up is Y button on operator controller
     //intake controls
-    RetractIntakeSup = ()-> operatorController.getLeftY() < -0.5;
-    DeployIntakeSup = ()-> operatorController.getLeftY() > 0.5;
-    IntakeWheelSup = ()-> operatorController.getLeftBumperButton();
+    RetractIntakeSup = driveController::getLeftStickButton;
+    DeployIntakeSup = driveController::getRightStickButton;
+    IntakeWheelSup = driveController::getLeftBumperButton;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
