@@ -14,7 +14,7 @@ public class AimHood extends Command {
   Shooter shooter;
   public AimHood(Shooter shooter) {
     this.shooter = shooter;
-    //addRequirements(shooter);
+    addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
