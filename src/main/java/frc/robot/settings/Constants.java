@@ -93,6 +93,12 @@ public final class Constants {
     public static final int INDEXER_MOTOR_ID = 2491;
   }
 
+  public static final class HopperConstants{
+    public static final int HOPPER_MOTOR_ID = 2491;
+    public static final int HOPPER_MOTOR_TWO_ID = 2491;
+    public static final float HOPPER_ROLLER_SPEED = 2491;
+  }
+
   public static final class Field{
     public static final Translation3d BLUE_HUB_COORDINATE = new Translation3d(4.6, 4, 1.8);
     public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.8);
