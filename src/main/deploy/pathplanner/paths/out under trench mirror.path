@@ -3,54 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.3964888888888889,
-        "y": 7.630699999999999
+        "x": 1.437,
+        "y": 0.6666
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.3955686513886757,
-        "y": 6.816565641144548
+        "x": 2.4369999999999994,
+        "y": 0.6665999999999999
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.3964888888888889,
-        "y": 5.779255555555555
+        "x": 7.734,
+        "y": 0.6666666
       },
       "prevControl": {
-        "x": 0.4010939770089883,
-        "y": 6.029213138283918
-      },
-      "nextControl": {
-        "x": 0.3896372654797908,
-        "y": 5.4073592572788
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 0.3964888888888889,
-        "y": 4.873022222222222
-      },
-      "prevControl": {
-        "x": 0.39686143592448625,
-        "y": 5.190868897220579
+        "x": 6.734,
+        "y": 0.6666666000000001
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "out under trench mirror"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": -0.9877603996397074
-    },
-    {
-      "waypointRelativePos": 0.9983402489626627,
       "rotationDegrees": 0.0
     }
   ],
@@ -67,7 +47,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": null,

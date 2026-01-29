@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5273734939759036,
-        "y": 7.411662650602409
+        "x": 1.4365795454545451,
+        "y": 7.333181818181819
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.027373493975904,
-        "y": 7.411662650602409
+        "x": 2.4365795454545447,
+        "y": 7.333181818181819
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.481,
-        "y": 6.8219111111111115
+        "x": 7.734,
+        "y": 7.333
       },
       "prevControl": {
-        "x": 6.761660199661348,
-        "y": 7.516569481570109
+        "x": 6.734,
+        "y": 7.333
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "collect left"
+      "linkedName": "out under trench"
     }
   ],
   "rotationTargets": [
