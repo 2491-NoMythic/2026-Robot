@@ -688,12 +688,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
       SHOOTING_SPEED_MPS, 
       new Translation3d(fieldChassisSpeeds.vxMetersPerSecond, fieldChassisSpeeds.vyMetersPerSecond, 0));
 
-    if(desiredRotation == null){
-      return;
+    if(desiredRotation != null){
+      RobotState.getInstance().aimingPitch = desiredRotation.get_0();
+      RobotState.getInstance().aimingYaw = desiredRotation.get_1();
+    } else {
+      System.out.println("desiredRotation calculations failed - most likely no solutions. Aiming angles were not updated.");
     }
-
-    RobotState.getInstance().aimingPitch = desiredRotation.get_0();
-    RobotState.getInstance().aimingYaw = desiredRotation.get_1();
   }
 
   public static double getDistanceToHub() {

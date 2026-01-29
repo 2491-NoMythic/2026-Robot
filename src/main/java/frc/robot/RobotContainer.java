@@ -289,13 +289,10 @@ public class RobotContainer {
       SmartDashboard.putData("zeroGyroscope", zeroGyroscope);
       SmartDashboard.putData("set offsets", setOffsets);
     }
-     if(DRIVE_TRAIN_EXISTS && SHOOTER_EXISTS){
-       new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(
-        aimAtHub, aimHood, drivetrain, shooter,
-        () -> modifyAxis(-driveController.getRawAxis(Y_AXIS), DEADBAND_NORMAL),
-        () -> modifyAxis(-driveController.getRawAxis(X_AXIS), DEADBAND_NORMAL)
-        ));
-    } 
+    if(DRIVE_TRAIN_EXISTS && SHOOTER_EXISTS){
+      new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(aimAtHub, aimHood, drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier)
+        );
+    }
   }
 
   /**
