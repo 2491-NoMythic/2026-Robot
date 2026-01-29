@@ -263,7 +263,7 @@ public class RobotContainer {
       SmartDashboard.putData("zeroGyroscope", zeroGyroscope);
       SmartDashboard.putData("set offsets", setOffsets);
     }
-    if(DRIVE_TRAIN_EXISTS){
+    if(DRIVE_TRAIN_EXISTS && SHOOTER_EXISTS){
       new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(aimAtHub, aimHood, drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier)
         );
     }
