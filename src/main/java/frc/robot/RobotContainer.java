@@ -23,6 +23,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
@@ -37,15 +38,23 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Commands.AimAtHub;
 import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobotMoving;
+import frc.robot.Commands.ClimbDown;
+import frc.robot.Commands.ClimbUp;
 import frc.robot.Commands.Drive;
+import frc.robot.Commands.Outtake;
+import frc.robot.Commands.RunIndexer;
+import frc.robot.Commands.RunIntake;
+import frc.robot.Commands.RunShooterVelocity;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
+
 
 import static frc.robot.settings.Constants.SubsystemsEnabled.*;
 import frc.robot.Commands.AimRobotMoving;
@@ -73,6 +82,9 @@ public class RobotContainer {
   private final XboxController driveController;
   private final XboxController operatorController;
 
+  private AimAtHub aimAtHub;
+  private AimHood aimHood;
+
   DoubleSupplier ControllerForwardAxisSupplier;
   DoubleSupplier ControllerSidewaysAxisSupplier;
   DoubleSupplier ControllerZAxisSupplier;
@@ -86,6 +98,8 @@ public class RobotContainer {
   BooleanSupplier ShooterToggleSupplier;
   BooleanSupplier HoodUpSupplier;
   BooleanSupplier HoodDownSupplier;
+  BooleanSupplier IndexerSup;
+  BooleanSupplier AutoAimSupplier;
   boolean manualShooterOn = false;
 
   public static HashMap<String, Command> eventMap;
@@ -105,11 +119,12 @@ public class RobotContainer {
     ControllerForwardAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
     ControllerZAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
     ZeroGyroSup = driveController::getStartButton;
-    AimRobotMovingSup = ()-> driveController.getLeftTriggerAxis() >= 0.5;
+    AutoAimSupplier = () -> driveController.getLeftTriggerAxis() >= 0.5;
     //Shooter controls
     HoodUpSupplier = () -> operatorController.getLeftY() < -0.5;
     HoodDownSupplier = () -> operatorController.getLeftY() > 0.5;
     ShooterToggleSupplier = operatorController::getXButton;
+    IndexerSup = ()-> operatorController.getLeftTriggerAxis() > 0.5;
     //climber controls
     ClimberDownSup = ()-> operatorController.getRightY() > 0.5;
     ClimberUpSup = ()-> operatorController.getRightY() < -0.5;
@@ -199,6 +214,7 @@ public class RobotContainer {
     new Trigger(HoodDownSupplier).whileTrue(new InstantCommand(()->shooter.setHoodMotor(-0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
     new Trigger(ShooterToggleSupplier).onTrue(new InstantCommand(()->manualShooterOn = !manualShooterOn));
     new Trigger(()->manualShooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
+    new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(aimAtHub, aimHood, drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
   }
 
   private void intakeInit() {
@@ -218,6 +234,7 @@ public class RobotContainer {
   
   private void indexerInit() {
     indexer = new Indexer();
+    new Trigger(IndexerSup).whileTrue(new RunIndexer(indexer, Z_AXIS));
   }
 
   private void autoInit() {
@@ -268,13 +285,13 @@ public class RobotContainer {
       SmartDashboard.putData("zeroGyroscope", zeroGyroscope);
       SmartDashboard.putData("set offsets", setOffsets);
     }
-    if(DRIVE_TRAIN_EXISTS){
-       new Trigger(AimRobotMovingSup).whileTrue(new AimRobotMoving(
-        drivetrain,
+     if(DRIVE_TRAIN_EXISTS && SHOOTER_EXISTS){
+       new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(
+        aimAtHub, aimHood, drivetrain, shooter,
         () -> modifyAxis(-driveController.getRawAxis(Y_AXIS), DEADBAND_NORMAL),
         () -> modifyAxis(-driveController.getRawAxis(X_AXIS), DEADBAND_NORMAL)
         ));
-    }
+    } 
   }
 
   /**
@@ -304,5 +321,15 @@ public class RobotContainer {
   public void teleopPeriodic() {
     SmartDashboard.putNumber("RobotAngle", drivetrain.getGyroscopeRotation().getDegrees());
     SmartDashboard.putNumber("GetPose", drivetrain.getPose().getRotation().getDegrees());
+  }
+
+  void registerNamedCommands(){
+    NamedCommands.registerCommand("ClimbUp", new ClimbUp(climber));
+    NamedCommands.registerCommand("ClimbDown", new ClimbDown(climber));
+    NamedCommands.registerCommand("RunIndexer", new RunIndexer(indexer, Z_AXIS));
+    NamedCommands.registerCommand("ShooterVelocity", new RunShooterVelocity(shooter, Z_AXIS));
+    NamedCommands.registerCommand("AimRobotMoving", new AimRobotMoving(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
+    NamedCommands.registerCommand("Intake", new RunIntake(intake));
+    NamedCommands.registerCommand("Outtake", new Outtake(intake));
   }
 }

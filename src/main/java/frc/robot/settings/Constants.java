@@ -20,6 +20,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
 /**
@@ -49,9 +50,10 @@ public final class Constants {
   }
 
   public static final class ShooterConstants{
-    public static final int SHOOTING_SPEED_MPS = 2491;
+    public static final float SHOOTING_SPEED_MPS = 24.91f;
     public static final int SHOOTER_MOTOR_ID = 2491;
     public static final int HOOD_MOTOR_ID = 2491;
+    public static final double SHOOTER_HEIGHT = 10; //IN METRES
     public static final double AUTO_AIM_ROBOT_kP = 0.125;
     public static final double AUTO_AIM_ROBOT_kI = 0;
     public static final double AUTO_AIM_ROBOT_kD = 0;
@@ -76,6 +78,8 @@ public final class Constants {
   }
 
   public static final class IntakeConstants{
+    public static final int INTAKE_MOTOR_ID = 2491;
+    public static final int INTAKE_SPEED = 1;
     public static final int INTAKE_WHEELS_ID = 2491;
     public static final int INTAKE_DEPLOYER_ID = 2491;
     public static TalonFXConfiguration INTAKE_CONFIG = new TalonFXConfiguration()
@@ -95,8 +99,8 @@ public final class Constants {
   }
 
   public static final class Field{
-    public static final Translation2d BLUE_HUB_COORDINATE = new Translation2d(4.6, 4);
-    public static final Translation2d RED_HUB_COORDINATE = new Translation2d(11.9, 4);
+    public static final Translation3d BLUE_HUB_COORDINATE = new Translation3d(4.6, 4, 1.8);
+    public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.8);
   }
 
   public static final class DriveConstants {

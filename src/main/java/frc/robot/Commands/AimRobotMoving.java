@@ -22,7 +22,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
+//import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import static frc.robot.settings.Constants.ShooterConstants.*;
 
@@ -39,7 +41,7 @@ public class AimRobotMoving extends Command {
     this.drivetrain = drivetrain;
     this.joystickXSupplier = joystickXSupplier;
     this.joystickYSupplier = joystickYSupplier;
-    addRequirements(drivetrain);
+    //addRequirements(drivetrain);
     rotationController.setTolerance(ROBOT_ANGLE_TOLERANCE);
     rotationController.enableContinuousInput(-180, 180);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -52,22 +54,17 @@ public class AimRobotMoving extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    rotationController.setSetpoint(drivetrain.getDesiredRobotAngle());
-    SmartDashboard.putNumber("Desired robot angle", drivetrain.getDesiredRobotAngle());
+    rotationController.setSetpoint(RobotState.getInstance().aimingYaw); //this is in radians
+    SmartDashboard.putNumber("Desired robot angle", RobotState.getInstance().aimingYaw);
     Logger.recordOutput("Blue hub", BLUE_HUB_COORDINATE);
     Logger.recordOutput("Red hub", RED_HUB_COORDINATE);
-    double rotationSpeed = rotationController.calculate(drivetrain.getOdometryRotation().getDegrees());
-    double allianceOffset;
-    if(DriverStation.getAlliance().get() == Alliance.Red) {
-      allianceOffset = Math.PI;
-    } else {
-      allianceOffset = 0;
-    }
+    double rotationSpeed = rotationController.calculate(drivetrain.getOdometryRotation().getRadians());
+
     drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(
       joystickXSupplier.getAsDouble(),
       joystickYSupplier.getAsDouble(),
       rotationSpeed,
-      new Rotation2d(drivetrain.getOdometryRotation().getRadians()+allianceOffset)));
+      new Rotation2d(drivetrain.getOdometryRotation().getRadians())));
   }
 
   // Called once the command ends or is interrupted.

@@ -27,6 +27,7 @@ import static frc.robot.settings.Constants.DriveConstants.FR_STEER_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.MAX_VELOCITY_METERS_PER_SECOND;
 import static frc.robot.settings.Constants.DriveConstants.ROBOT_ANGLE_TOLERANCE;
 import static frc.robot.settings.Constants.Field.*;
+import static frc.robot.settings.Constants.ShooterConstants.SHOOTER_HEIGHT;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_MPS;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTA_NAME;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTB_NAME;
@@ -41,6 +42,7 @@ import java.util.function.Supplier;
 
 // import java.util.logging.Logger;
 import org.littletonrobotics.junction.Logger;
+import org.opencv.core.Mat.Tuple2;
 
 import com.ctre.phoenix6.controls.MotionMagicVelocityDutyCycle;
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -53,6 +55,7 @@ import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -674,43 +677,30 @@ public class DrivetrainSubsystem extends SubsystemBase {
   /**
    * @return the desired angle of the robot to be aimed at the hub, assuming 0 degrees = away from blue alliance
    */
-  public double getDesiredRobotAngle() {
-    Pose2d dtvalues = getPose();
-    double deltaX;
-    double deltaY;
-		// triangle for robot angle
-		Optional<Alliance> alliance = DriverStation.getAlliance();
-		if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-			deltaY = Math.abs(dtvalues.getY() - Field.RED_HUB_COORDINATE.getY());
-      deltaX = Math.abs(dtvalues.getX() - Field.RED_HUB_COORDINATE.getX());
+  public void updateDesiredRobotAngle() {
+    var hubPosition = new Translation3d();
+    
+    Optional<Alliance> alliance = DriverStation.getAlliance();
+    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+			hubPosition = Field.RED_HUB_COORDINATE;
 		} else {
-			deltaY = Math.abs(dtvalues.getY() - Field.BLUE_HUB_COORDINATE.getY());
-      deltaX = Math.abs(dtvalues.getX() - Field.BLUE_HUB_COORDINATE.getX());
+			hubPosition = Field.BLUE_HUB_COORDINATE;
 		}
-		double distanceToHub2D = Math.sqrt(deltaX*deltaX+deltaY*deltaY);
-    //we need to add here a way to calculate the length of the ball's flight path
-    /*double flightPathDistance;
-    double shootingTime = flightPathDistance/SHOOTING_SPEED_MPS; //calculates how long the fuel will take to reach the target
-    double currentXSpeed = this.getChassisSpeeds().vxMetersPerSecond;
-    double currentYSpeed = this.getChassisSpeeds().vyMetersPerSecond;
-    double targetOffset = new Translation2d(currentXSpeed*shootingTime*OFFSET_MULTIPLIER*unadjustedAngle.getRadians(), currentYSpeed*shootingTime*OFFSET_MULTIPLIER); 
-    //line above calculates how much our current speed will affect the ending location of the note if it's in the air for ShootingTime
-*/
-    double desiredAngle;
-    if(alliance.isPresent() && alliance.get() == Alliance.Blue) {
-      if(dtvalues.getY() >= Field.BLUE_HUB_COORDINATE.getY()) {
-        desiredAngle = 0 - Math.atan(deltaY/deltaX);
-      } else {
-        desiredAngle = 0 + Math.atan(deltaY/deltaX);
-      }
-    } else {
-      if(dtvalues.getY() >= Field.RED_HUB_COORDINATE.getY()) {
-        desiredAngle = Math.PI + Math.atan(deltaY/deltaX);
-      } else {
-        desiredAngle = Math.PI - Math.atan(deltaY/deltaX);
-      }
+
+    var fieldChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
+    
+    Tuple2<Double> desiredRotation = MythicalMath.aimProjectileAtPoint(
+      new Translation3d(getPose().getX(), getPose().getY(), SHOOTER_HEIGHT), 
+      hubPosition, 
+      SHOOTING_SPEED_MPS, 
+      new Translation3d(fieldChassisSpeeds.vxMetersPerSecond, fieldChassisSpeeds.vyMetersPerSecond, 0));
+
+    if(desiredRotation == null){
+      return;
     }
-    return Math.toDegrees(desiredAngle);
+
+    RobotState.getInstance().aimingPitch = desiredRotation.get_0();
+    RobotState.getInstance().aimingYaw = desiredRotation.get_1();
   }
 
   public static double getDistanceToHub() {

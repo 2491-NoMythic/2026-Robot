@@ -4,20 +4,18 @@
 
 package frc.robot.Commands;
 
-import edu.wpi.first.wpilibj.AddressableLED;
+import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.RobotState;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AimHood extends Command {
-  /** Creates a new aimHood. */
-  Shooter shooter;
-  public AimHood(Shooter shooter) {
-    this.shooter = shooter;
-    //addRequirements(shooter);
-    // Use addRequirements() here to declare subsystem dependencies.
+public class RunIntake extends Command {
+  Intake intake;
+  /** Creates a new Intake. */
+  public RunIntake(Intake intake) {
+    this.intake = intake;
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -27,13 +25,14 @@ public class AimHood extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double angle = RobotState.getInstance().aimingPitch; //this is in radians
-    shooter.setHoodAngle(angle);
+    intake.setWheels(INTAKE_SPEED);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intake.stopWheels();
+  }
 
   // Returns true when the command should end.
   @Override
