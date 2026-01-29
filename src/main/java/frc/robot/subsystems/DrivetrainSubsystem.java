@@ -659,6 +659,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
     RobotState.getInstance().robotPosition = getPose();
     logDrivetrainData();
+
+    this.updateDesiredRobotAngle();
+    Logger.recordOutput("autoaim/pitch", RobotState.getInstance().aimingPitch);
+    Logger.recordOutput("autoaim/yaw", RobotState.getInstance().aimingYaw);
   }
 
   private void updateInputs() {
