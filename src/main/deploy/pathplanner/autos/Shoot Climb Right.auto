@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "RunIndexer"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "collect preset climb mirror"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutomaticClimb"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

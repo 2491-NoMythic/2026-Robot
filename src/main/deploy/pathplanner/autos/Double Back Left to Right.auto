@@ -5,28 +5,40 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "Out to Collect Left "
+            "waitTime": 5.0
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
+          "data": {
+            "pathName": "out under trench"
+          }
+        },
+        {
+          "type": "race",
           "data": {
             "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "collect and return 75% left"
-                }
-              },
               {
                 "type": "named",
                 "data": {
                   "name": "Intake"
                 }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "two row collect and line up"
+                }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RunIndexer"
           }
         }
       ]

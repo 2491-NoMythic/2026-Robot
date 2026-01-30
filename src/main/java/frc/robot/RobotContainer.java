@@ -42,9 +42,11 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.AimAtHub;
 import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobotMoving;
+import frc.robot.Commands.AutomaticClimb;
 import frc.robot.Commands.ClimbDown;
 import frc.robot.Commands.ClimbUp;
 import frc.robot.Commands.Drive;
+import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.RunIntake;
@@ -337,5 +339,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("AimRobotMoving", new AimRobotMoving(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
     NamedCommands.registerCommand("Intake", new RunIntake(intake));
     NamedCommands.registerCommand("Outtake", new Outtake(intake));
+    NamedCommands.registerCommand("MoveToClimbingPose", new MoveToClimbingPose(drivetrain));
+    NamedCommands.registerCommand("AutomaticClimb", new AutomaticClimb(drivetrain, climber));
   }
 }
