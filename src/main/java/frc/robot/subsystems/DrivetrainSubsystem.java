@@ -26,25 +26,19 @@ import static frc.robot.settings.Constants.DriveConstants.FR_STEER_ENCODER_ID;
 import static frc.robot.settings.Constants.DriveConstants.FR_STEER_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.MAX_VELOCITY_METERS_PER_SECOND;
 import static frc.robot.settings.Constants.DriveConstants.ROBOT_ANGLE_TOLERANCE;
-import static frc.robot.settings.Constants.Field.*;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTER_HEIGHT;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_MPS;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTA_NAME;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTB_NAME;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTC_NAME;
-import static frc.robot.settings.Constants.Vision.FIELD_CORNER;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
-import java.util.function.Supplier;
-
 // import java.util.logging.Logger;
 import org.littletonrobotics.junction.Logger;
 import org.opencv.core.Mat.Tuple2;
 
-import com.ctre.phoenix6.controls.MotionMagicVelocityDutyCycle;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
@@ -54,7 +48,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -70,16 +63,12 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
-import frc.robot.Robot;
 import frc.robot.LogInputs.DrivetrainInputsAutoLogged;
 import frc.robot.LogInputs.LimelightInputs;
-import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.helpers.MotorLogger;
 import frc.robot.helpers.MythicalMath;
 import frc.robot.settings.Constants.DriveConstants;
 import frc.robot.settings.Constants.Field;
-import frc.robot.settings.Constants.ShooterConstants;
-import frc.robot.settings.Constants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
   // These are our swerve drive kinematics and Pigeon (gyroscope)

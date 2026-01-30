@@ -14,6 +14,7 @@ public class FeedShooter extends Command {
   Hopper hopper;
   float indexerSpeed;
   float motorRollerSpeed;
+  
   /** Creates a new RunIndexer. */
   public FeedShooter(Indexer indexer, float indexerSpeed, Hopper hopper, float motorRollerSpeed) {
     this.indexer = indexer;
