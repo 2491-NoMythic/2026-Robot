@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Expand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "collect preset path"
