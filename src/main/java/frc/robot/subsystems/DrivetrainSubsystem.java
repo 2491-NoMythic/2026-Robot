@@ -45,7 +45,6 @@ import org.littletonrobotics.junction.Logger;
 import org.opencv.core.Mat.Tuple2;
 
 import com.ctre.phoenix6.controls.MotionMagicVelocityDutyCycle;
-import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.Pair;
@@ -85,7 +84,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   // These are our swerve drive kinematics and Pigeon (gyroscope)
   public SwerveDriveKinematics kinematics = DriveConstants.kinematics;
 
-  private final Pigeon2 pigeon = new Pigeon2(DRIVETRAIN_PIGEON_ID, CANIVORE_DRIVETRAIN);
+  private final GyroIO pigeon2 = new GyroIOPigeon2(DRIVETRAIN_PIGEON_ID, CANIVORE_DRIVETRAIN);
 
   /**
    * These are our modules. We initialize them in the constructor. 0 = Front Left
@@ -458,7 +457,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
     if (estimate != null) {
       boolean doRejectUpdate = false;
-      if (Math.abs(pigeon.getAngularVelocityZWorld().getValueAsDouble()) > 720) {
+      if (Math.abs(pigeon2.getAngularVelocityZWorld()) > 720) {
         doRejectUpdate = true;
       }
       if (estimate.getSecond().tagCount == 0) {
@@ -666,11 +665,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
       inputs.swerveModuleStates[i] = modules[i].getState();
       inputs.swerveModulePositions[i] = modules[i].getPosition();
     }
-    inputs.gyroScopeRotation = pigeon.getRotation2d();
-    inputs.pitch = pigeon.getPitch().getValueAsDouble();
-    inputs.roll = pigeon.getRoll().getValueAsDouble();
+    inputs.gyroScopeRotation = pigeon2.getRotation2d();
+    inputs.pitch = pigeon2.getPitch();
+    inputs.roll = pigeon2.getRoll();
     inputs.gyroTimeStamp = Timer.getFPGATimestamp();
-    inputs.angularVelocity = pigeon.getAngularVelocityZWorld().getValueAsDouble();
+    inputs.angularVelocity = pigeon2.getAngularVelocityZWorld();
     Logger.processInputs("Drivetrain", inputs);
   }
 

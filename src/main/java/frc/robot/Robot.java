@@ -5,6 +5,8 @@
 package frc.robot;
 
 import java.io.File;
+
+import org.ironmaple.simulation.SimulatedArena;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -175,5 +177,6 @@ public class Robot extends LoggedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() { // Not sure what goes here
+     SimulatedArena.getInstance().simulationPeriodic();
   }
 }
