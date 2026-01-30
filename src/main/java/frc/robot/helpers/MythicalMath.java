@@ -159,7 +159,7 @@ public class MythicalMath {
       
       radius += initialVelocity * timeStep; //Calculate an expanding sphere to represent all possible shots simultaneously
 
-      velocity = velocity.plus(new Translation3d(0, gravity * timeStep, 0)); //Apply gravity and acceleration to velocity of the sphere
+      velocity = velocity.plus(new Translation3d(0, 0, gravity * timeStep)); //Apply gravity and acceleration to velocity of the sphere
       position = position.plus(velocity.times(timeStep)); //Apply velocity to position of the sphere
 
       Boolean targetInsideSphere = (position.getDistance(target) < radius); //Is the target point inside the sphere?
@@ -178,8 +178,8 @@ public class MythicalMath {
       Translation3d direction = target.minus(chosenSolution); //Dangerous, does this mutate target directly? IDK
       direction = direction.times(1/direction.getNorm());
 
-      double pitch = Math.asin(direction.getY());
-      double yaw = Math.atan2(direction.getX(), direction.getZ());
+      double pitch = Math.asin(direction.getZ());
+      double yaw = Math.atan2(direction.getX(), direction.getY());
 
 
       //Rotation3d rotation = new Rotation3d(chosenSolution.toVector(), target.toVector()); //TODO: test this, does it do what we expect?
