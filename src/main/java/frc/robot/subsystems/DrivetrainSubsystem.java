@@ -663,6 +663,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     this.updateDesiredRobotAngle();
     Logger.recordOutput("autoaim/pitch", RobotState.getInstance().aimingPitch);
     Logger.recordOutput("autoaim/yaw", RobotState.getInstance().aimingYaw);
+    Logger.recordOutput("autoaim/target", BLUE_HUB_COORDINATE);
   }
 
   private void updateInputs() {
@@ -688,7 +689,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     if (alliance.isPresent() && alliance.get() == Alliance.Red) {
 			hubPosition = Field.RED_HUB_COORDINATE;
 		} else {
-			hubPosition = Field.BLUE_HUB_COORDINATE;
+      hubPosition = Field.BLUE_HUB_COORDINATE;
 		}
 
     var fieldChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
