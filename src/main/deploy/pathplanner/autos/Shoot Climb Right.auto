@@ -15,6 +15,12 @@
           "data": {
             "pathName": "collect preset climb mirror"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutomaticClimb"
+          }
         }
       ]
     }

@@ -55,15 +55,9 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Allign To Climb"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "ClimbUp"
+            "name": "AutomaticClimb"
           }
         }
       ]
