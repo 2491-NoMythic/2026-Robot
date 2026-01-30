@@ -16,6 +16,7 @@ public class ClimberArmDown extends Command {
     this.climber = climber;
     addRequirements(climber);
     // Use addRequirements() here to declare subsystem dependencies.
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.

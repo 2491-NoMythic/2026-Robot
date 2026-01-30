@@ -46,6 +46,12 @@
           "data": {
             "pathName": "collect preset climb"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutomaticClimb"
+          }
         }
       ]
     }

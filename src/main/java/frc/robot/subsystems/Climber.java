@@ -82,5 +82,6 @@ public class Climber extends SubsystemBase {
         climberState = ClimberState.Down;
       }
     }
+    RobotState.getInstance().climberState = climberState;
   }
 }
