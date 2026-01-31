@@ -43,8 +43,8 @@ import frc.robot.Commands.AimAtHub;
 import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobotMoving;
 import frc.robot.Commands.AutomaticClimb;
-import frc.robot.Commands.ClimbDown;
-import frc.robot.Commands.ClimbUp;
+import frc.robot.Commands.ClimberArmDown;
+import frc.robot.Commands.ClimberArmUp;
 import frc.robot.Commands.Drive;
 import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
@@ -329,8 +329,8 @@ public class RobotContainer {
   }
 
   void registerNamedCommands(){
-    NamedCommands.registerCommand("ClimbUp", new ClimbUp(climber));
-    NamedCommands.registerCommand("ClimbDown", new ClimbDown(climber));
+    NamedCommands.registerCommand("ClimbUp", new ClimberArmUp(climber));
+    NamedCommands.registerCommand("ClimbDown", new ClimberArmDown(climber));
     NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
     NamedCommands.registerCommand("ShooterVelocity", new RunShooterVelocity(shooter, Z_AXIS));
     NamedCommands.registerCommand("AimRobotMoving", new AimRobotMoving(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
