@@ -14,6 +14,7 @@ import static frc.robot.settings.Constants.DriveConstants.BR_DRIVE_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.BR_STEER_ENCODER_ID;
 import static frc.robot.settings.Constants.DriveConstants.BR_STEER_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.CANIVORE_DRIVETRAIN;
+import static frc.robot.settings.Constants.Field.BLUE_HUB_COORDINATE;
 import static frc.robot.settings.Constants.DriveConstants.DRIVETRAIN_PIGEON_ID;
 import static frc.robot.settings.Constants.DriveConstants.DRIVE_ODOMETRY_ORIGIN;
 import static frc.robot.settings.Constants.DriveConstants.DRIVE_TO_POSE_X_CONTROLLER;
