@@ -25,7 +25,7 @@ public class AutomaticClimb extends SequentialCommandGroup {
       new MoveToClimbingPose(drivetrain),
       new WaitUntilCommand(()->RobotState.getInstance().climberState == ClimberState.Up),
       new MoveMeters(drivetrain, 0.05, 0.5, 0, 0),
-      new ClimbDown(climber)
+      new ClimberArmDown(climber)
     );
   }
 }
