@@ -34,25 +34,6 @@ public class Expand extends Command{
   public boolean isFinished(){
     return inputs.hopperExpandedInput;
   }
-    // if (inputs.hopperTallInput == false && inputs.tallDesiredInput == true){
-    //   hopperSubsystem.setMotor(1, hopperTallMotor);
-    // }
-    // else if (inputs.hopperTallInput == true && inputs.tallDesiredInput == false){
-    //   hopperSubsystem.setMotor(-1, hopperTallMotor);
-    // }
-    // else {
-    //   hopperSubsystem.setMotor(0, hopperTallMotor);
-    // }
-
-    // if (inputs.hopperWideInput == false && inputs.wideDesiredInput == true){
-    //   hopperSubsystem.setMotor(1, hopperWideMotor);
-    // }
-    // else if (inputs.hopperWideInput == true && inputs.wideDesiredInput == false){
-    //   hopperSubsystem.setMotor(-1, hopperWideMotor);
-    // }
-    // else {
-    //   hopperSubsystem.setMotor(0, hopperWideMotor);
-    // }
 }
 
 

@@ -7,6 +7,7 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.settings.ClimberState;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.RobotState;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ClimberArmDown extends Command {
@@ -38,6 +39,6 @@ public class ClimberArmDown extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.getClimberState() == ClimberState.Down;
+    return RobotState.getInstance().climberState == ClimberState.Down;
   }
 }

@@ -31,7 +31,6 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -61,7 +60,6 @@ import frc.robot.subsystems.Shooter;
 
 
 import static frc.robot.settings.Constants.SubsystemsEnabled.*;
-import frc.robot.Commands.AimRobotMoving;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -329,8 +327,8 @@ public class RobotContainer {
   }
 
   void registerNamedCommands(){
-    NamedCommands.registerCommand("ClimbUp", new ClimberArmUp(climber));
-    NamedCommands.registerCommand("ClimbDown", new ClimberArmDown(climber));
+    NamedCommands.registerCommand("ClimberArmUp", new ClimberArmUp(climber));
+    NamedCommands.registerCommand("ClimberArmDown", new ClimberArmDown(climber));
     NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
     NamedCommands.registerCommand("ShooterVelocity", new RunShooterVelocity(shooter, Z_AXIS));
     NamedCommands.registerCommand("AimRobotMoving", new AimRobotMoving(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));

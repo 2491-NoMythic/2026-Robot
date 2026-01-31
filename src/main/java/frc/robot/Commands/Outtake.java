@@ -27,7 +27,7 @@ public class Outtake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setWheels(INTAKE_SPEED);
+    intake.setWheels(INTAKE_SPEED * -1);
   }
 
   // Called once the command ends or is interrupted.
