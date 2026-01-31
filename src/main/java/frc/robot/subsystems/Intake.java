@@ -27,7 +27,7 @@ public class Intake extends SubsystemBase {
   }
 
   /**
-   * Runs intake
+   * Sets intake speed using duty cycle out
    * 
    * @param speed Motor power from -1 to 1
    */
@@ -36,7 +36,7 @@ public class Intake extends SubsystemBase {
   }
 
   /**
-   * Stops intake
+   * Sets motor power to zero
    */
   public void stopWheels() {
     wheels.set(0);
