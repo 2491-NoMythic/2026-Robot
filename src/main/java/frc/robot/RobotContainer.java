@@ -45,6 +45,7 @@ import frc.robot.Commands.AimRobotMoving;
 import frc.robot.Commands.AutomaticClimb;
 import frc.robot.Commands.ClimbDown;
 import frc.robot.Commands.ClimbUp;
+import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.Drive;
 import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
@@ -99,6 +100,7 @@ public class RobotContainer {
   BooleanSupplier ClimberDownSup;
   BooleanSupplier RetractIntakeSup;
   BooleanSupplier DeployIntakeSup;
+  BooleanSupplier AutoIntakeSup;
   BooleanSupplier IntakeWheelSup;
   BooleanSupplier ShooterToggleSupplier;
   BooleanSupplier HoodUpSupplier;
@@ -125,6 +127,7 @@ public class RobotContainer {
     ControllerZAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
     ZeroGyroSup = driveController::getStartButton;
     AutoAimSupplier = () -> driveController.getLeftTriggerAxis() >= 0.5;
+    AutoIntakeSup = driveController::getXButton;
     //Shooter controls
     HoodUpSupplier = () -> operatorController.getLeftY() < -0.5;
     HoodDownSupplier = () -> operatorController.getLeftY() > 0.5;
@@ -182,6 +185,8 @@ public class RobotContainer {
         ControllerSidewaysAxisSupplier,
         ControllerZAxisSupplier);
     drivetrain.setDefaultCommand(defaultDriveCommand);
+
+    new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
   }
 
   private void configureDriveTrain() {
