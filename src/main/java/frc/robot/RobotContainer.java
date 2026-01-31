@@ -10,6 +10,7 @@ import static frc.robot.settings.Constants.DriveConstants.k_THETA_P;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_D;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
+import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED;
 import static frc.robot.settings.Constants.XboxDriver.DEADBAND_NORMAL;
 import static frc.robot.settings.Constants.XboxDriver.DRIVE_CONTROLLER_ID;
 import static frc.robot.settings.Constants.XboxDriver.OPERATOR_CONTROLLER_ID;
@@ -23,6 +24,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
@@ -40,9 +42,18 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.AimAtHub;
 import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobotMoving;
+import frc.robot.Commands.AutomaticClimb;
+import frc.robot.Commands.ClimbDown;
+import frc.robot.Commands.ClimbUp;
 import frc.robot.Commands.Drive;
+import frc.robot.Commands.MoveToClimbingPose;
+import frc.robot.Commands.Outtake;
+import frc.robot.Commands.FeedShooter;
+import frc.robot.Commands.RunIntake;
+import frc.robot.Commands.RunShooterVelocity;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
@@ -69,6 +80,7 @@ public class RobotContainer {
   private Climber climber;
   private Intake intake;
   private Indexer indexer;
+  private Hopper hopper;
   private Limelight limelight;
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
@@ -85,9 +97,13 @@ public class RobotContainer {
   BooleanSupplier AimRobotMovingSup;
   BooleanSupplier ClimberUpSup;
   BooleanSupplier ClimberDownSup;
+  BooleanSupplier RetractIntakeSup;
+  BooleanSupplier DeployIntakeSup;
+  BooleanSupplier IntakeWheelSup;
   BooleanSupplier ShooterToggleSupplier;
   BooleanSupplier HoodUpSupplier;
   BooleanSupplier HoodDownSupplier;
+  BooleanSupplier IndexerSup;
   BooleanSupplier AutoAimSupplier;
   boolean manualShooterOn = false;
 
@@ -113,9 +129,17 @@ public class RobotContainer {
     HoodUpSupplier = () -> operatorController.getLeftY() < -0.5;
     HoodDownSupplier = () -> operatorController.getLeftY() > 0.5;
     ShooterToggleSupplier = operatorController::getXButton;
+    IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
+    //Shooting Command is Right Trigger on drive controller. 
     //climber controls
-    ClimberDownSup = ()-> operatorController.getRightY() > 0.5;
-    ClimberUpSup = ()-> operatorController.getRightY() < -0.5;
+    ClimberDownSup = operatorController::getAButton;
+    //Climber Down is A button on operator controller
+    ClimberUpSup = operatorController::getYButton;
+    //Climber Up is Y button on operator controller
+    //intake controls
+    RetractIntakeSup = driveController::getLeftStickButton;
+    DeployIntakeSup = driveController::getRightStickButton;
+    IntakeWheelSup = driveController::getLeftBumperButton;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -203,20 +227,26 @@ public class RobotContainer {
 
   private void intakeInit() {
     intake = new Intake();
+    
+    new Trigger(IntakeWheelSup).whileTrue(new InstantCommand(()->intake.setWheelsVelocity(1), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
+    new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
+    new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
   }
 
   private void climberInit() {
     climber = new Climber();
 
-    new Trigger(ClimberDownSup).whileTrue(new InstantCommand(()->climber.climberDown())).onFalse(new InstantCommand(()->climber.stop()));
-    new Trigger(ClimberUpSup).whileTrue(new InstantCommand(()->climber.climberUp())).onFalse(new InstantCommand(()->climber.stop()));
+    new Trigger(ClimberDownSup).whileTrue(new InstantCommand(()->climber.climberDown(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
+    new Trigger(ClimberUpSup).whileTrue(new InstantCommand(()->climber.climberUp(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
   }
   
   private void indexerInit() {
     indexer = new Indexer();
+    new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
   }
 
   private void autoInit() {
+    configureDriveTrain();
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
   }
@@ -296,5 +326,17 @@ public class RobotContainer {
   public void teleopPeriodic() {
     SmartDashboard.putNumber("RobotAngle", drivetrain.getGyroscopeRotation().getDegrees());
     SmartDashboard.putNumber("GetPose", drivetrain.getPose().getRotation().getDegrees());
+  }
+
+  void registerNamedCommands(){
+    NamedCommands.registerCommand("ClimbUp", new ClimbUp(climber));
+    NamedCommands.registerCommand("ClimbDown", new ClimbDown(climber));
+    NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
+    NamedCommands.registerCommand("ShooterVelocity", new RunShooterVelocity(shooter, Z_AXIS));
+    NamedCommands.registerCommand("AimRobotMoving", new AimRobotMoving(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
+    NamedCommands.registerCommand("Intake", new RunIntake(intake));
+    NamedCommands.registerCommand("Outtake", new Outtake(intake));
+    NamedCommands.registerCommand("MoveToClimbingPose", new MoveToClimbingPose(drivetrain));
+    NamedCommands.registerCommand("AutomaticClimb", new AutomaticClimb(drivetrain, climber));
   }
 }

@@ -3,28 +3,28 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 3.075363636363636,
+        "y": 4.065920454545455
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 3.065056818181818,
+        "y": 6.158204545454546
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "collect preset at hub"
     },
     {
       "anchor": {
-        "x": 7.0,
-        "y": 7.0
+        "x": 1.075840909090909,
+        "y": 4.7770909090909095
       },
       "prevControl": {
-        "x": 6.0,
-        "y": 7.0
+        "x": 1.477806818181818,
+        "y": 6.096363636363637
       },
       "nextControl": null,
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": null
     }
   ],
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -0.2754583561352409
   },
   "useDefaultConstraints": true
 }
