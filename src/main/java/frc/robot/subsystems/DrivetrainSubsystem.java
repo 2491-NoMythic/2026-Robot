@@ -659,6 +659,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
     RobotState.getInstance().robotPosition = getPose();
     logDrivetrainData();
+
+    this.updateDesiredRobotAngle();
+    Logger.recordOutput("autoaim/pitch", RobotState.getInstance().aimingPitch);
+    Logger.recordOutput("autoaim/yaw", RobotState.getInstance().aimingYaw);
+    Logger.recordOutput("autoaim/target", BLUE_HUB_COORDINATE);
   }
 
   private void updateInputs() {
@@ -682,10 +687,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     
     Optional<Alliance> alliance = DriverStation.getAlliance();
     if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-			hubPosition = Field.RED_HUB_COORDINATE;
-		} else {
-			hubPosition = Field.BLUE_HUB_COORDINATE;
-		}
+		hubPosition = Field.RED_HUB_COORDINATE;
+	} else {
+      	hubPosition = Field.BLUE_HUB_COORDINATE;
+	}
 
     var fieldChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
     
@@ -695,12 +700,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
       SHOOTING_SPEED_MPS, 
       new Translation3d(fieldChassisSpeeds.vxMetersPerSecond, fieldChassisSpeeds.vyMetersPerSecond, 0));
 
-    if(desiredRotation == null){
-      return;
+    if(desiredRotation != null){
+      RobotState.getInstance().aimingPitch = desiredRotation.get_0();
+      RobotState.getInstance().aimingYaw = desiredRotation.get_1();
+    } else {
+      System.out.println("desiredRotation calculations failed - most likely no solutions. Aiming angles were not updated.");
     }
-
-    RobotState.getInstance().aimingPitch = desiredRotation.get_0();
-    RobotState.getInstance().aimingYaw = desiredRotation.get_1();
   }
 
   public static double getDistanceToHub() {
