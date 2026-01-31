@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.settings.ClimberState;
+import frc.robot.settings.HopperState;
 
 public class RobotState {
   private static RobotState instance;
@@ -14,13 +15,15 @@ public class RobotState {
   public boolean lightsReset;
   public double odometerOrientation;
   public Pose2d robotPosition = new Pose2d();
-  public int hopperFullness;
   public boolean intakeRunning;
   public boolean linedUpToShoot;
   public boolean indexerRunning;
   public boolean hopperExpandedVertically;
   public boolean hopperExpandedHorizontally;
   public ClimberState climberState;
+  public HopperState hopperState;
+  public boolean halfFullSwitchTriggered;
+  public boolean fullSwitchTriggered;
 
   public double aimingPitch;
   public double aimingYaw;
