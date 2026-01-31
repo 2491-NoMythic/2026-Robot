@@ -1,0 +1,111 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.703363636363636,
+        "y": 2.1719999999999997
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.740773187832531,
+        "y": 2.46770874074739
+      },
+      "isLocked": true,
+      "linkedName": "Return R-L"
+    },
+    {
+      "anchor": {
+        "x": 5.756626506024096,
+        "y": 2.3958433734939764
+      },
+      "prevControl": {
+        "x": 6.303662104179772,
+        "y": 2.3538655901132746
+      },
+      "nextControl": {
+        "x": 5.4282905885005395,
+        "y": 2.4210388343897145
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.620144578313253,
+        "y": 2.559759036144578
+      },
+      "prevControl": {
+        "x": 5.277977564782254,
+        "y": 2.4368781734786826
+      },
+      "nextControl": {
+        "x": 3.6645577124256805,
+        "y": 2.7382592646946065
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.2213975903614456,
+        "y": 3.1170722891566265
+      },
+      "prevControl": {
+        "x": 3.6767813410683554,
+        "y": 2.7863248385176203
+      },
+      "nextControl": {
+        "x": 3.019120487374762,
+        "y": 3.2639871407112415
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.7156666666666665,
+        "y": 4.005766666666666
+      },
+      "prevControl": {
+        "x": 2.496692192840798,
+        "y": 4.126390792830067
+      },
+      "nextControl": null,
+      "isLocked": true,
+      "linkedName": "Front of Hub "
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.4,
+      "rotationDegrees": -125.509
+    },
+    {
+      "waypointRelativePos": 2.6804979253111982,
+      "rotationDegrees": -125.509
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Return to Hub",
+  "idealStartingState": {
+    "velocity": 50.0,
+    "rotation": -107.89713294844508
+  },
+  "useDefaultConstraints": true
+}

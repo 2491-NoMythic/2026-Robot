@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Out to Collect Left "
+            "pathName": "Out to Collect Left"
           }
         },
         {
@@ -70,6 +70,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Old Autos",
   "choreoAuto": false
 }

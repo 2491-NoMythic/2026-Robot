@@ -3,31 +3,47 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.666,
-        "y": 5.857
+        "x": 7.656,
+        "y": 2.154
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.937095119493995,
-        "y": 5.9052477987325585
+        "x": 7.904360776283021,
+        "y": 2.1254181035602007
       },
       "isLocked": true,
+      "linkedName": "Return R"
+    },
+    {
+      "anchor": {
+        "x": 4.609216867469879,
+        "y": 2.537903614457831
+      },
+      "prevControl": {
+        "x": 5.804731273728,
+        "y": 2.443039093658233
+      },
+      "nextControl": {
+        "x": 3.336219093818138,
+        "y": 2.63891646979799
+      },
+      "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
         "x": 2.7156666666666665,
-        "y": 5.516155555555556
+        "y": 2.7292444444444435
       },
       "prevControl": {
-        "x": 2.328358812400731,
-        "y": 5.459957949805307
+        "x": 2.474387973601656,
+        "y": 2.6637876474494755
       },
       "nextControl": {
-        "x": 2.9630758255190845,
-        "y": 5.552054136529445
+        "x": 2.9965305905881294,
+        "y": 2.805440367995736
       },
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": null
     },
     {
@@ -36,22 +52,22 @@
         "y": 4.005766666666666
       },
       "prevControl": {
-        "x": 2.5522943718653135,
-        "y": 4.254250582420928
+        "x": 2.5255460859216337,
+        "y": 4.16810632533691
       },
       "nextControl": null,
       "isLocked": true,
-      "linkedName": null
+      "linkedName": "Front of Hub "
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.38,
-      "rotationDegrees": 90.0
+      "waypointRelativePos": 0.75,
+      "rotationDegrees": -56.648
     },
     {
-      "waypointRelativePos": 0.8282157676348376,
-      "rotationDegrees": 90.0
+      "waypointRelativePos": 1.65,
+      "rotationDegrees": -56.648
     }
   ],
   "constraintZones": [],
@@ -70,10 +86,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Return to Hub",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 90.0
+    "velocity": 50.0,
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

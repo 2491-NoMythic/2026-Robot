@@ -3,58 +3,70 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.481,
-        "y": 6.8219111111111115
+        "x": 7.757,
+        "y": 3.2846777777777767
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.481,
-        "y": 4.70011920540939
+        "x": 5.287326397513189,
+        "y": 2.3998616114419162
       },
       "isLocked": false,
-      "linkedName": "collect left"
+      "linkedName": "Return BR"
     },
     {
       "anchor": {
-        "x": 7.480700000000001,
+        "x": 4.554578313253012,
+        "y": 2.4504819277108436
+      },
+      "prevControl": {
+        "x": 4.905653328449135,
+        "y": 2.446381450948619
+      },
+      "nextControl": {
+        "x": 4.304595363648042,
+        "y": 2.453401672014593
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.1230481927710843,
         "y": 3.2846777777777767
       },
       "prevControl": {
-        "x": 7.668215811772392,
-        "y": 3.450019304126548
+        "x": 4.123495383889471,
+        "y": 2.4809197700557863
       },
       "nextControl": {
-        "x": 6.608987951807228,
-        "y": 2.516048192771084
+        "x": 2.9281545262427673,
+        "y": 3.4412551029150684
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.035626506024096,
-        "y": 4.024072289156626
+        "x": 2.7156666666666665,
+        "y": 4.005766666666666
       },
       "prevControl": {
-        "x": 2.262885274431057,
-        "y": 1.4646214190093714
+        "x": 2.7254437607198914,
+        "y": 3.7523474354364237
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Front of Hub "
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1,
-      "rotationDegrees": -90.0
-    },
-    {
-      "waypointRelativePos": 1.3255474452554732,
+      "waypointRelativePos": 0.85,
       "rotationDegrees": -45.0
     },
     {
-      "waypointRelativePos": 1.713868613138683,
+      "waypointRelativePos": 1.3518672199170219,
       "rotationDegrees": -45.0
     }
   ],
@@ -74,9 +86,9 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Old Paths",
+  "folder": "Return to Hub",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 50.0,
     "rotation": -90.0
   },
   "useDefaultConstraints": true

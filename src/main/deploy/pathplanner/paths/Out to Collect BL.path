@@ -3,59 +3,51 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.526915662650602,
-        "y": 1.2812168674698796
+        "x": 4.390662650602409,
+        "y": 7.422590361445783
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.526915662650602,
-        "y": 3.3356555688792806
+        "x": 6.44997404599,
+        "y": 7.339901818843193
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Trench Start"
     },
     {
       "anchor": {
-        "x": 7.526915662650602,
-        "y": 4.799939759036144
+        "x": 6.259301204819276,
+        "y": 7.422590361445783
       },
       "prevControl": {
-        "x": 7.712809856696959,
-        "y": 4.632777117815519
+        "x": 5.947529749965911,
+        "y": 7.446564236009599
       },
       "nextControl": {
-        "x": 6.664366602275504,
-        "y": 5.575574414299843
+        "x": 7.226795782532635,
+        "y": 7.348194218738681
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.8826385542168675,
-        "y": 4.035
+        "x": 7.757,
+        "y": 6.8219111111111115
       },
       "prevControl": {
-        "x": 2.4564422493155877,
-        "y": 6.712286676178467
+        "x": 6.722402128309174,
+        "y": 7.460796869847346
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Collect BL"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 90.0
-    },
-    {
-      "waypointRelativePos": 1.2671532846715297,
-      "rotationDegrees": 45.0
-    },
-    {
-      "waypointRelativePos": 1.6846715328467101,
-      "rotationDegrees": 45.0
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
@@ -70,14 +62,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0.0
+    "velocity": 50.0,
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Old Paths",
+  "folder": "Out To Collect",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

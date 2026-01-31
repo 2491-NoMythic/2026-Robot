@@ -3,77 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.445,
-        "y": 1.063
+        "x": 7.757,
+        "y": 1.2702891566265067
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.4112636456126,
-        "y": 0.7784975217440424
+        "x": 7.813620808111757,
+        "y": 3.483179274912078
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Collect BR"
     },
     {
       "anchor": {
-        "x": 8.405,
-        "y": 3.245
+        "x": 7.757,
+        "y": 4.799939759036144
       },
       "prevControl": {
-        "x": 8.862405279453911,
-        "y": 2.9951129388275883
-      },
-      "nextControl": {
-        "x": 7.7343773289820525,
-        "y": 3.6113707787027263
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 7.666,
-        "y": 2.75
-      },
-      "prevControl": {
-        "x": 7.626087357539087,
-        "y": 2.503206602657633
-      },
-      "nextControl": {
-        "x": 7.7077556052664935,
-        "y": 3.0081890610699724
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 7.656,
-        "y": 2.154
-      },
-      "prevControl": {
-        "x": 7.638099520763614,
-        "y": 1.7749381701016054
+        "x": 7.704721215588927,
+        "y": 4.477155061144354
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Return BL"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 90.0
-    },
-    {
-      "waypointRelativePos": 1.01,
-      "rotationDegrees": 178.162
-    },
-    {
-      "waypointRelativePos": 2.05,
-      "rotationDegrees": -90.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -86,11 +41,11 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": -90.0
+    "velocity": 50.0,
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Collect",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 90.0

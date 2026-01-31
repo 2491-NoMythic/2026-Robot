@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.864732835734738,
-        "y": 0.6545705250379614
+        "x": 6.9471122281106865,
+        "y": 0.651757319782656
       },
-      "isLocked": false,
-      "linkedName": null
+      "isLocked": true,
+      "linkedName": "Right Trench Start"
     },
     {
       "anchor": {
@@ -20,28 +20,28 @@
         "y": 0.6340000000000003
       },
       "prevControl": {
-        "x": 4.168322944318262,
-        "y": 0.6228893405194139
+        "x": 4.1666921535345836,
+        "y": 0.6309960073562098
       },
       "nextControl": {
-        "x": 6.374034473628832,
-        "y": 0.6356605298114
+        "x": 6.619689895685758,
+        "y": 0.6348328136788152
       },
-      "isLocked": false,
+      "isLocked": true,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.445,
+        "x": 8.245,
         "y": 1.063
       },
       "prevControl": {
-        "x": 8.327664539493517,
-        "y": 0.8422458614029366
+        "x": 8.042840411634872,
+        "y": 0.9159234864703327
       },
       "nextControl": null,
-      "isLocked": false,
-      "linkedName": null
+      "isLocked": true,
+      "linkedName": "Collect MR"
     }
   ],
   "rotationTargets": [
@@ -66,7 +66,7 @@
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Out To Collect",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

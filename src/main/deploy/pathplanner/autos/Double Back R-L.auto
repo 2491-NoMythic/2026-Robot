@@ -5,46 +5,52 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "Expand"
+            "waitTime": 5.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Out to Collect Left"
+            "pathName": "Out to Collect BR"
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "collect and return 75% left"
-                }
-              },
               {
                 "type": "named",
                 "data": {
                   "name": "Intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Collect R-L"
                 }
               }
             ]
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Return R-L"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "AutomaticClimb"
+            "name": "RunIndexer"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Old Autos",
+  "folder": "Double Back",
   "choreoAuto": false
 }

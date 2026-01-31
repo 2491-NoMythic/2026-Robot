@@ -1,0 +1,111 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.245,
+        "y": 6.0
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.56127034229096,
+        "y": 5.670813406909572
+      },
+      "isLocked": true,
+      "linkedName": "Return ML"
+    },
+    {
+      "anchor": {
+        "x": 5.953325301204819,
+        "y": 5.586734939759037
+      },
+      "prevControl": {
+        "x": 6.202495952022954,
+        "y": 5.6070816046176075
+      },
+      "nextControl": {
+        "x": 5.313055733201395,
+        "y": 5.53445209554551
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.631072289156626,
+        "y": 5.586734939759037
+      },
+      "prevControl": {
+        "x": 4.922339884612007,
+        "y": 5.675952521279797
+      },
+      "nextControl": {
+        "x": 4.39203471500414,
+        "y": 5.513515829253003
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.11212048192771,
+        "y": 4.985710843373495
+      },
+      "prevControl": {
+        "x": 5.373494701889307,
+        "y": 5.919443014396916
+      },
+      "nextControl": {
+        "x": 2.8810438162931145,
+        "y": 4.890298189080696
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.7156666666666665,
+        "y": 4.005766666666666
+      },
+      "prevControl": {
+        "x": 2.704964617945499,
+        "y": 4.255537493932722
+      },
+      "nextControl": null,
+      "isLocked": true,
+      "linkedName": "Front of Hub "
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.4,
+      "rotationDegrees": 54.491
+    },
+    {
+      "waypointRelativePos": 2.6804979253111982,
+      "rotationDegrees": 54.491
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Return to Hub",
+  "idealStartingState": {
+    "velocity": 50.0,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": true
+}

@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Out to Collect Left"
+            "pathName": "Out to Collect BR"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "collect and return 75% left"
+                  "pathName": "Collect BR"
                 }
               },
               {
@@ -36,6 +36,12 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Return BL"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "AutomaticClimb"
@@ -45,6 +51,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Old Autos",
+  "folder": "Collect Quarter",
   "choreoAuto": false
 }

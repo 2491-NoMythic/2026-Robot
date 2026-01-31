@@ -2,8 +2,21 @@
   "robotWidth": 0.914,
   "robotLength": 0.7874,
   "holonomicMode": true,
-  "pathFolders": [],
-  "autoFolders": [],
+  "pathFolders": [
+    "Collect",
+    "Misc",
+    "Old Paths",
+    "Out To Collect",
+    "Return to Hub"
+  ],
+  "autoFolders": [
+    "Collect Half",
+    "Collect Quarter",
+    "Double Back",
+    "Misc",
+    "Collect Center",
+    "Old Autos"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
