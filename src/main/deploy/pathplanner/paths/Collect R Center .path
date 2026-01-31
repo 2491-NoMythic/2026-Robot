@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.307491522018449,
-        "y": 0.589188382143395
+        "x": 8.231889826574184,
+        "y": 0.6258526927347727
       },
       "isLocked": false,
       "linkedName": "Collect MR"
@@ -20,8 +20,8 @@
         "y": 6.0
       },
       "prevControl": {
-        "x": 8.259885218915121,
-        "y": 6.249556467072782
+        "x": 8.24261506153995,
+        "y": 6.249988623878251
       },
       "nextControl": null,
       "isLocked": false,
@@ -55,13 +55,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 50.0,
+    "velocity": 3.0,
     "rotation": 90.0
   },
   "reversed": false,
   "folder": "Collect",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 3.0,
     "rotation": 90.0
   },
   "useDefaultConstraints": true

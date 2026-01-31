@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.813620808111757,
-        "y": 3.483179274912078
+        "x": 7.767306482636522,
+        "y": 3.4657505428451794
       },
       "isLocked": false,
       "linkedName": "Collect BR"
@@ -20,8 +20,8 @@
         "y": 4.799939759036144
       },
       "prevControl": {
-        "x": 7.704721215588927,
-        "y": 4.477155061144354
+        "x": 7.732956165537284,
+        "y": 4.479645731483615
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,13 +41,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 50.0,
+    "velocity": 3.0,
     "rotation": 90.0
   },
   "reversed": false,
   "folder": "Collect",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 3.0,
     "rotation": 90.0
   },
   "useDefaultConstraints": true
