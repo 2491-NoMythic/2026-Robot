@@ -28,34 +28,31 @@ public class Climber extends SubsystemBase {
     motor.setPosition(0);
   }
 
-  /**
-   * Sets motor speed using duty cycle out
-   * @param speed Motor power from -1 to 1
-   */
-  private void set(double speed){
-    motor.set(speed);
-  }
 
   /**
-   * runs the climber motor upwards unless the climber has reached the soft limit, which is relative to the climbers start position when code was deployed
+   * raises the climber arm, lowering the robot unless the climber has reached the soft limit, which is relative to the climbers start position when code was deployed
    */
   public void climberUp() {
     desiredSpeed = -0.5;
   }
   /**
-   * runs the climber motor upwards unless the climber has reached the soft limit, which is relative to the climbers start position when code was deployed
+   *Lowers the climber arm, lifting the robot.
    */
   public void climberDown() {
     desiredSpeed = 0.5;
   }
 
   /**
-   * Sets motor power to zero
+   * Stops the climber
    */
   public void stop(){
     desiredSpeed = 0;
   }
 
+  /**
+   * tells what the climber is doing/what position it's in
+   * @return climber position
+   */
   public ClimberState getClimberState(){
     return climberState;
   }
@@ -66,6 +63,10 @@ public class Climber extends SubsystemBase {
     inputs.motor.log(motor);
     Logger.processInputs("Climber", inputs);
 
+    /**
+    *When the climber goes above max height, stops it and sets the Climber Postion to Up.
+    *Sets the Climber Position to Lowering/Raising when it is doing the respective action, then when we want the climber to be stopped, sets the Climber Position to Down.
+    */
     if(desiredSpeed > 0 && motor.getPosition().getValueAsDouble() > CLIMBER_MAX_POSITION) {
       motor.stopMotor();
       climberState = ClimberState.Up;
@@ -73,9 +74,11 @@ public class Climber extends SubsystemBase {
       motor.set(desiredSpeed);
       if(desiredSpeed > 0){
         climberState = ClimberState.LoweringClimber;
-      }else if(desiredSpeed<0){
+      }
+      else if(desiredSpeed < 0){
         climberState = ClimberState.RaisingClimber;
-      }else{
+      }
+      else{
         climberState = ClimberState.Down;
       }
     }

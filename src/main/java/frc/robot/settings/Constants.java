@@ -7,7 +7,6 @@ package frc.robot.settings;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -97,6 +96,12 @@ public final class Constants {
     public static final int HOPPER_MOTOR_ID = 2491;
     public static final int HOPPER_MOTOR_TWO_ID = 2491;
     public static final float HOPPER_ROLLER_SPEED = 2491;
+
+    public static final int TOP_LEFT_SENSOR_ID = 2491;
+    public static final int LIMIT_SWITCH_1_ID = 2491;
+    public static final int LIMIT_SWITCH_2_ID = 2491;
+
+    public static final double DISTANCE_SENSOR_RANGE = 2491;
   }
 
   public static final class Field{

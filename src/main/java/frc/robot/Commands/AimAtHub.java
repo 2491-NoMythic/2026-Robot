@@ -8,9 +8,6 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.Commands.AimHood;
-import frc.robot.Commands.AimRobotMoving;
-import frc.robot.LogInputs.ShooterInputs;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Shooter;
 

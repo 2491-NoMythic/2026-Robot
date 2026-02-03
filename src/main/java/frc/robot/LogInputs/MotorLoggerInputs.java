@@ -2,7 +2,6 @@ package frc.robot.LogInputs;
 
 import org.littletonrobotics.junction.AutoLog;
 
-import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.traits.CommonTalon;
 import com.revrobotics.spark.SparkMax;
 
