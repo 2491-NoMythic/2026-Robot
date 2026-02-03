@@ -9,6 +9,8 @@ import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.LimelightHelpers;
+import frc.robot.LogInputs.LimelightDetectorInputs;
+import frc.robot.LogInputs.LimelightDetectorInputsAutoLogged;
 import frc.robot.LogInputs.LimelightInputs;
 import frc.robot.helpers.MythicalMath;
 import java.io.IOException;
@@ -25,6 +27,8 @@ public class Limelight {
   public LimelightInputs limelightB = new LimelightInputs(APRILTAG_LIMELIGHTB_NAME);
   /** DO NOT edit anywhere other than periodic() of Limelight class */
   public LimelightInputs limelightC = new LimelightInputs(APRILTAG_LIMELIGHTC_NAME);
+
+  public LimelightDetectorInputsAutoLogged detectorLimelight = new LimelightDetectorInputsAutoLogged();
 
   public static final AprilTagFieldLayout FIELD_LAYOUT;
 
@@ -55,6 +59,8 @@ public class Limelight {
         (targetPose) -> {
           Logger.recordOutput("Odometry/TrajectorySetpoint", targetPose);
         });
+
+    detectorLimelight.limelightName = OBJ_DETECTION_LIMELIGHT_NAME;
   }
 
   public static Limelight getInstance() {
@@ -295,10 +301,22 @@ public class Limelight {
         && limelight.megaTag2Pose2d.getY() > 0.0);
   }
 
+  private void updateDetectorInputs(LimelightDetectorInputsAutoLogged limelightData) {
+    limelightData.tx = LimelightHelpers.getTX(limelightData.limelightName);
+    limelightData.ty = LimelightHelpers.getTY(limelightData.limelightName);
+    limelightData.ta = LimelightHelpers.getTA(limelightData.limelightName);
+    limelightData.objectCount = LimelightHelpers.getTargetCount(limelightData.limelightName);
+  }
+
+  public LimelightDetectorInputsAutoLogged getDetectorData() {
+    return detectorLimelight;
+  }
+
   public void periodic() {
     limelightA.updateInputs();
     limelightB.updateInputs();
     limelightC.updateInputs();
+    updateDetectorInputs(detectorLimelight);
     Logger.processInputs("Limelights/Left", limelightA);
     Logger.processInputs("Limelights/Right", limelightB);
     Logger.processInputs("Limelights/Extra", limelightC);
