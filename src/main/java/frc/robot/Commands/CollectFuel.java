@@ -28,6 +28,7 @@ public class CollectFuel extends Command {
   double tx;
   double ty;
   double ta;
+
   /** Creates a new CollectFuel. */
   public CollectFuel(DrivetrainSubsystem drivetrain) {
     addRequirements(drivetrain);
@@ -63,7 +64,7 @@ public class CollectFuel extends Command {
     tx = detectorData.tx;
     ty = detectorData.ty;
     ta = detectorData.ta;
-    
+
     if(detectorData.ta != 0){
         double forwardSpeed = tyLimiter.calculate(tyController.calculate(-ty));
         forwardSpeed = forwardSpeed > 1 ? 1 : forwardSpeed;
@@ -86,8 +87,6 @@ public class CollectFuel extends Command {
         runsInvalid++;
     }
     
-    SmartDashboard.putNumber("CollectFuel/calculated sideways meters per second", txController.calculate(tx));
-    SmartDashboard.putNumber("CollectFuel/calculated forward meters per second", tyController.calculate(ty));
     SmartDashboard.putNumber("DETECTOR/tx", tx);
     SmartDashboard.putNumber("DETECTOR/ty", ty);
     SmartDashboard.putNumber("DETECTOR/ta", ta);
