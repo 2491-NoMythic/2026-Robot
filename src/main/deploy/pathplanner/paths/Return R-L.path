@@ -3,15 +3,15 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.703363636363636,
-        "y": 2.1719999999999997
+        "x": 6.600295454545455,
+        "y": 2.499284090909091
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.875124660334419,
-        "y": 2.4226658562950423
+        "x": 6.251390606664744,
+        "y": 2.5021540507331426
       },
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": "Return R-L"
     },
     {
@@ -20,12 +20,12 @@
         "y": 2.3958433734939764
       },
       "prevControl": {
-        "x": 6.427491713265386,
-        "y": 2.219655866768022
+        "x": 6.003732075441337,
+        "y": 2.3579113611168148
       },
       "nextControl": {
-        "x": 5.188223099271999,
-        "y": 2.545121615932582
+        "x": 4.9472646771945925,
+        "y": 2.52008469667081
       },
       "isLocked": false,
       "linkedName": null
@@ -36,12 +36,12 @@
         "y": 2.559759036144578
       },
       "prevControl": {
-        "x": 5.276332473079067,
-        "y": 2.4387324669124526
+        "x": 4.853580772784604,
+        "y": 2.4702741597087607
       },
       "nextControl": {
-        "x": 3.6909170456490292,
-        "y": 2.731144734069591
+        "x": 4.368094689048575,
+        "y": 2.6563792421395793
       },
       "isLocked": false,
       "linkedName": null
@@ -52,12 +52,12 @@
         "y": 3.1170722891566265
       },
       "prevControl": {
-        "x": 3.6708897770098576,
-        "y": 2.759231163143408
+        "x": 4.5609538215971455,
+        "y": 2.473700670019739
       },
       "nextControl": {
-        "x": 3.019753818557116,
-        "y": 3.2776010736368195
+        "x": 2.996042075260679,
+        "y": 3.225307642963358
       },
       "isLocked": false,
       "linkedName": null
@@ -68,22 +68,22 @@
         "y": 4.005766666666666
       },
       "prevControl": {
-        "x": 2.486174987669484,
-        "y": 4.10493102150778
+        "x": 2.5646358645429164,
+        "y": 4.204989398326125
       },
       "nextControl": null,
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": "Front of Hub "
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 1.4,
-      "rotationDegrees": -125.509
+      "rotationDegrees": -35.509
     },
     {
       "waypointRelativePos": 2.6804979253111982,
-      "rotationDegrees": -125.509
+      "rotationDegrees": -35.509
     }
   ],
   "constraintZones": [],
@@ -105,7 +105,7 @@
   "folder": "Return to Hub",
   "idealStartingState": {
     "velocity": 3.0,
-    "rotation": -107.89713294844509
+    "rotation": -47.897000000000006
   },
   "useDefaultConstraints": true
 }

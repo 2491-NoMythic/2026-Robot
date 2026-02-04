@@ -89,7 +89,7 @@
   "folder": "Return to Hub",
   "idealStartingState": {
     "velocity": 3.0,
-    "rotation": 72.10300000000001
+    "rotation": 72.103
   },
   "useDefaultConstraints": true
 }
