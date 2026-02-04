@@ -60,11 +60,14 @@ public class AimRobotMoving extends Command {
       joystickYSupplier.getAsDouble(),
       rotationSpeed,
       new Rotation2d(drivetrain.getOdometryRotation().getRadians())));
+    RobotState.getInstance().Aimed = Math.toDegrees(rotationController.getError()) < 2;
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    RobotState.getInstance().Aimed = false;
+  }
 
   // Returns true when the command should end.
   @Override

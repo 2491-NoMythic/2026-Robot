@@ -51,12 +51,14 @@ import frc.robot.Commands.Outtake;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.RunIntake;
 import frc.robot.Commands.RunShooterVelocity;
+import frc.robot.settings.Constants.IndexerConstants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
 
 
@@ -105,7 +107,9 @@ public class RobotContainer {
   BooleanSupplier HoodDownSupplier;
   BooleanSupplier IndexerSup;
   BooleanSupplier AutoAimSupplier;
+  BooleanSupplier ShootIfAimedSup;
   boolean manualShooterOn = false;
+
 
   public static HashMap<String, Command> eventMap;
 
@@ -245,7 +249,8 @@ public class RobotContainer {
   
   private void indexerInit() {
     indexer = new Indexer();
-    new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
+    new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, IndexerConstants.INDEXER_FEEDING_SPEED, hopper, HOPPER_ROLLER_SPEED));
+    new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
   }
 
   private void autoInit() {

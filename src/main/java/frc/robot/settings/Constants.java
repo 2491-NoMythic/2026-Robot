@@ -90,6 +90,7 @@ public final class Constants {
 
   public static final class IndexerConstants{
     public static final int INDEXER_MOTOR_ID = 2491;
+    public static final int INDEXER_FEEDING_SPEED = 2491;
   }
 
   public static final class HopperConstants{
