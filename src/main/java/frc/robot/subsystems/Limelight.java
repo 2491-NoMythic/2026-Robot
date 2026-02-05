@@ -320,6 +320,7 @@ public class Limelight {
     Logger.processInputs("Limelights/Left", limelightA);
     Logger.processInputs("Limelights/Right", limelightB);
     Logger.processInputs("Limelights/Extra", limelightC);
+    Logger.processInputs("Limelights/ObjectDetection", detectorLimelight);
   }
 
 }
