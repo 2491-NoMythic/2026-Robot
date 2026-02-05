@@ -11,6 +11,7 @@ import frc.robot.settings.HopperState;
 
 public class RobotState {
   private static RobotState instance;
+  public boolean Aimed;
   public boolean LimelightsUpdated;
   public boolean lightsReset;
   public double odometerOrientation;
