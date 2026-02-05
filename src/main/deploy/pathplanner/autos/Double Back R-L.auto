@@ -5,15 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "Expand"
+            "waitTime": 5.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "collect preset path"
+            "pathName": "Out to Collect BR"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "collect presets and shoot"
+                  "pathName": "Collect R-L"
                 }
               },
               {
@@ -36,9 +36,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "AimRobotMoving"
+            "pathName": "Return R-L"
           }
         },
         {
@@ -46,23 +46,11 @@
           "data": {
             "name": "RunIndexer"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "collect preset climb"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutomaticClimb"
-          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Misc",
+  "folder": "Double Back",
   "choreoAuto": false
 }

@@ -5,19 +5,25 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Out to collect right"
+            "name": "Expand"
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
+          "data": {
+            "pathName": "Out to Collect BR"
+          }
+        },
+        {
+          "type": "deadline",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Collect and return 75% right"
+                  "pathName": "Collect BR"
                 }
               },
               {
@@ -30,6 +36,12 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Return BL"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "AutomaticClimb"
@@ -39,6 +51,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Collect Quarter",
   "choreoAuto": false
 }

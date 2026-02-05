@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.4,
-        "y": 7.412
+        "x": 4.390662650602409,
+        "y": 7.422590361445783
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.060907580983756,
-        "y": 7.401979005061766
+        "x": 7.0697943875604725,
+        "y": 7.398783315558259
       },
       "isLocked": true,
-      "linkedName": null
+      "linkedName": "Left Trench Start"
     },
     {
       "anchor": {
@@ -20,28 +20,28 @@
         "y": 7.412
       },
       "prevControl": {
-        "x": 4.071772916544136,
-        "y": 7.368211299578213
+        "x": 4.034083435916971,
+        "y": 7.37838095638702
       },
       "nextControl": {
-        "x": 6.21049950986125,
-        "y": 7.4177942982898495
+        "x": 6.290709471962117,
+        "y": 7.41776131948235
       },
       "isLocked": true,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.445,
+        "x": 8.245,
         "y": 7.0
       },
       "prevControl": {
-        "x": 8.767135733513925,
-        "y": 6.929243912041753
+        "x": 8.726326319198344,
+        "y": 6.893438505958118
       },
       "nextControl": null,
       "isLocked": true,
-      "linkedName": null
+      "linkedName": "Collect ML"
     }
   ],
   "rotationTargets": [
@@ -62,11 +62,11 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
+    "velocity": 3.0,
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Out To Collect",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.437,
-        "y": 0.6666
+        "x": 4.390662650602409,
+        "y": 7.422590361445783
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4369999999999994,
-        "y": 0.6665999999999999
+        "x": 6.890662650602409,
+        "y": 7.422590361445783
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Trench Start"
     },
     {
       "anchor": {
-        "x": 7.734,
-        "y": 0.6666666
+        "x": 7.481,
+        "y": 6.8219111111111115
       },
       "prevControl": {
-        "x": 6.734,
-        "y": 0.6666666000000001
+        "x": 6.761660199661348,
+        "y": 7.516569481570109
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "out under trench mirror"
+      "linkedName": "collect left"
     }
   ],
   "rotationTargets": [
@@ -47,10 +47,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Old Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

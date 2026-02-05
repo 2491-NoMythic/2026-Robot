@@ -13,17 +13,17 @@
         {
           "type": "path",
           "data": {
-            "pathName": "collect preset path"
+            "pathName": "Out to collect right"
           }
         },
         {
-          "type": "deadline",
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "collect presets and shoot"
+                  "pathName": "Collect and return 75% right"
                 }
               },
               {
@@ -38,24 +38,6 @@
         {
           "type": "named",
           "data": {
-            "name": "AimRobotMoving"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "RunIndexer"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "collect preset climb"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "AutomaticClimb"
           }
         }
@@ -63,6 +45,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Misc",
+  "folder": "Old Autos",
   "choreoAuto": false
 }

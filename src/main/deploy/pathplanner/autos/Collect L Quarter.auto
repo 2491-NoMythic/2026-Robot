@@ -5,46 +5,52 @@
     "data": {
       "commands": [
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 5.0
+            "name": "Expand"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "out under trench"
+            "pathName": "Out to Collect BL"
           }
         },
         {
-          "type": "race",
+          "type": "deadline",
           "data": {
             "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Collect BL"
+                }
+              },
               {
                 "type": "named",
                 "data": {
                   "name": "Intake"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "two row collect and line up"
                 }
               }
             ]
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Return BR"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "RunIndexer"
+            "name": "AutomaticClimb"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Collect Quarter",
   "choreoAuto": false
 }

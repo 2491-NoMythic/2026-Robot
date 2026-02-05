@@ -3,77 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.445,
-        "y": 6.997311111111111
+        "x": 7.757,
+        "y": 6.8219111111111115
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.498476789209034,
-        "y": 6.452194818480738
+        "x": 7.746258244849453,
+        "y": 4.882999929278983
       },
-      "isLocked": true,
-      "linkedName": null
+      "isLocked": false,
+      "linkedName": "Collect BL"
     },
     {
       "anchor": {
-        "x": 8.445,
-        "y": 4.795066666666667
+        "x": 7.757,
+        "y": 3.2846777777777767
       },
       "prevControl": {
-        "x": 8.660888442780989,
-        "y": 5.143792275964518
-      },
-      "nextControl": {
-        "x": 8.313406637977579,
-        "y": 4.582503294771047
-      },
-      "isLocked": true,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 7.666,
-        "y": 5.347
-      },
-      "prevControl": {
-        "x": 7.721733221646885,
-        "y": 4.596467800983998
-      },
-      "nextControl": {
-        "x": 7.634265583428574,
-        "y": 5.774351959029876
-      },
-      "isLocked": true,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 7.666,
-        "y": 5.857
-      },
-      "prevControl": {
-        "x": 7.6975237446487235,
-        "y": 6.105004543352178
+        "x": 7.750060557537095,
+        "y": 4.010737389198946
       },
       "nextControl": null,
-      "isLocked": true,
-      "linkedName": null
+      "isLocked": false,
+      "linkedName": "Return BR"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": -90.0
-    },
-    {
-      "waypointRelativePos": 1.0107883817427472,
-      "rotationDegrees": 178.16244416689568
-    },
-    {
-      "waypointRelativePos": 2.0987551867219834,
-      "rotationDegrees": 90.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -86,13 +41,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 90.0
+    "velocity": 3.0,
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Collect",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 3.0,
     "rotation": -90.0
   },
   "useDefaultConstraints": true

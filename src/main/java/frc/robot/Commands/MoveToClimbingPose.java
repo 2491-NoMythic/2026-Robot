@@ -30,15 +30,15 @@ public class MoveToClimbingPose extends Command {
 
     if (DriverStation.getAlliance().get() == Alliance.Red){
       if (drivetrain.getPose().getY() > 4.3){
-        targetPose = new Pose2d(15.5, 5.2, new Rotation2d(0));
+        targetPose = new Pose2d(15.5, 5.2, new Rotation2d(Math.PI));
       } else {
-        targetPose = new Pose2d(15.5, 3.4, new Rotation2d(Math.PI));
+        targetPose = new Pose2d(15.5, 3.4, new Rotation2d(0));
       }
     } else {
       if (drivetrain.getPose().getY() > 3.73){
-        targetPose = new Pose2d(1.1, 4.6, new Rotation2d(0));
+        targetPose = new Pose2d(1.1, 4.6, new Rotation2d(Math.PI));
       } else {
-        targetPose = new Pose2d(1.1, 2.9, new Rotation2d(Math.PI));
+        targetPose = new Pose2d(1.1, 2.9, new Rotation2d(0));
       }
     }
   }

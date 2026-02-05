@@ -5,19 +5,25 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Expand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Out to Collect MR"
           }
         },
         {
-          "type": "race",
+          "type": "deadline",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Collect BR"
+                  "pathName": "Collect R Center "
                 }
               },
               {
@@ -32,13 +38,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BR to Hub"
+            "pathName": "Return ML"
           }
         },
         {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 8.0
+                }
+              },
               {
                 "type": "named",
                 "data": {
@@ -46,28 +58,9 @@
                 }
               },
               {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
                 "type": "named",
                 "data": {
-                  "name": "RunIndexer"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 8.0
+                  "name": "ShooterVelocity"
                 }
               }
             ]
@@ -83,6 +76,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Collect Center",
   "choreoAuto": false
 }

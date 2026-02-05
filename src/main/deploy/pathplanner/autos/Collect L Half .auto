@@ -5,19 +5,25 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Expand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Out to Collect ML"
           }
         },
         {
-          "type": "race",
+          "type": "deadline",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Collect BL"
+                  "pathName": "Collect L"
                 }
               },
               {
@@ -32,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BL to Hub"
+            "pathName": "Return L"
           }
         },
         {
@@ -83,6 +89,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Collect Half",
   "choreoAuto": false
 }

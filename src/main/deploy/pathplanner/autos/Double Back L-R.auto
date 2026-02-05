@@ -11,9 +11,15 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "collect preset path"
+            "pathName": "Out to Collect BL"
           }
         },
         {
@@ -23,7 +29,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "collect presets and shoot"
+                  "pathName": "Collect L-R"
                 }
               },
               {
@@ -36,9 +42,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "AimRobotMoving"
+            "pathName": "Return L-R"
           }
         },
         {
@@ -46,23 +52,11 @@
           "data": {
             "name": "RunIndexer"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "collect preset climb"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutomaticClimb"
-          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Misc",
+  "folder": "Double Back",
   "choreoAuto": false
 }

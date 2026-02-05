@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "collect preset path"
+            "pathName": "Out to Collect MR"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "collect presets and shoot"
+                  "pathName": "Collect R"
                 }
               },
               {
@@ -36,21 +36,47 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "AimRobotMoving"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "RunIndexer"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "collect preset climb"
+            "pathName": "Return R"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIndexer"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 8.0
+                }
+              }
+            ]
           }
         },
         {
@@ -63,6 +89,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Misc",
+  "folder": "Collect Half",
   "choreoAuto": false
 }

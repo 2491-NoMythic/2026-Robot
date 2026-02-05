@@ -13,17 +13,17 @@
         {
           "type": "path",
           "data": {
-            "pathName": "collect preset path"
+            "pathName": "Out to Collect ML"
           }
         },
         {
-          "type": "deadline",
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "collect presets and shoot"
+                  "pathName": "Center Intake and Return"
                 }
               },
               {
@@ -36,21 +36,28 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "AimRobotMoving"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "RunIndexer"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "collect preset climb"
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 8.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ShooterVelocity"
+                }
+              }
+            ]
           }
         },
         {
@@ -63,6 +70,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Misc",
+  "folder": "Old Autos",
   "choreoAuto": false
 }
