@@ -4,12 +4,19 @@
 
 package frc.robot.Commands;
 
+import java.util.Arrays;
+import java.util.List;
+
+import com.revrobotics.ColorSensorV3.RawColor;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.settings.Constants.Vision;
+import frc.robot.LimelightHelpers;
+import frc.robot.LimelightHelpers.RawDetection;
 import frc.robot.LogInputs.LimelightDetectorInputsAutoLogged;
 import frc.robot.settings.LimelightDetectorData;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -61,7 +68,34 @@ public class CollectFuel extends Command {
   @Override
   public void execute() {
     LimelightDetectorInputsAutoLogged detectorData = limelight.getDetectorData();
-    tx = detectorData.tx;
+    
+    RawDetection[] rawDetections = LimelightHelpers.getRawDetections(limelight.detectorLimelight.limelightName);
+
+    RawDetection[] leftDetections = Arrays.stream(rawDetections).filter(element -> element.txnc < 0).toArray(RawDetection[]::new);
+    RawDetection[] rightDetections = Arrays.stream(rawDetections).filter(element -> element.txnc >= 0).toArray(RawDetection[]::new);
+    
+    RawDetection[] largerSide;
+    RawDetection[] smallerSide;
+    if(leftDetections.length > rightDetections.length){
+      largerSide = leftDetections;
+      smallerSide = rightDetections;
+    } else {
+      largerSide = rightDetections;
+      smallerSide = leftDetections;
+    }
+
+    float largerSideXAverage = 0;
+    for (RawDetection detec : largerSide) largerSideXAverage += detec.txnc;
+    largerSideXAverage = largerSideXAverage/smallerSide.length;
+
+    float smallerSideXAverage = 0;
+    for (RawDetection detec : smallerSide) largerSideXAverage += detec.txnc;
+    smallerSideXAverage = smallerSideXAverage/smallerSide.length;
+
+    float weightedSideAverage = 0.8f * largerSideXAverage + 0.2f * smallerSideXAverage;
+    
+    //tx = detectorData.tx;
+    tx = weightedSideAverage;
     ty = detectorData.ty;
     ta = detectorData.ta;
 
