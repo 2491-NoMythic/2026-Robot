@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Out to Collect ML"
+            "pathName": "Trench to Collect ML"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Collect L Center "
+                  "pathName": "Collect L Center"
                 }
               },
               {

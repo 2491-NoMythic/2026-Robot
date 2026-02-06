@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Out to Collect MR"
+            "pathName": "Trench to Collect MR"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Collect R Center "
+                  "pathName": "Collect R Center"
                 }
               },
               {
