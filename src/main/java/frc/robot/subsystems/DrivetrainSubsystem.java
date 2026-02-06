@@ -420,6 +420,25 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * larger pose shifts will take multiple calls to complete.
    */
   public void updateOdometryWithVision() {
+    Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
+    if (estimate != null) {
+      boolean doRejectUpdate = false;
+      if (Math.abs(pigeon.getAngularVelocityZWorld().getValueAsDouble()) > 720) {
+        doRejectUpdate = true;
+      }
+      if (estimate.getSecond().tagCount == 0) {
+        doRejectUpdate = true;
+      }
+      if (!doRejectUpdate) {
+        odometer.addVisionMeasurement(estimate.getFirst(), estimate.getSecond().timeStampSeconds);
+        RobotState.getInstance().LimelightsUpdated = true;
+      } else {
+        RobotState.getInstance().LimelightsUpdated = false;
+      }
+    }
+  }
+
+  private void setRobotOrientationOnLimelights() {
     LimelightHelpers.SetRobotOrientation(
         APRILTAG_LIMELIGHTA_NAME,
         odometer.getEstimatedPosition().getRotation().getDegrees(),
@@ -444,23 +463,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
         0,
         0,
         0);
-
-    Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
-    if (estimate != null) {
-      boolean doRejectUpdate = false;
-      if (Math.abs(pigeon.getAngularVelocityZWorld().getValueAsDouble()) > 720) {
-        doRejectUpdate = true;
-      }
-      if (estimate.getSecond().tagCount == 0) {
-        doRejectUpdate = true;
-      }
-      if (!doRejectUpdate) {
-        odometer.addVisionMeasurement(estimate.getFirst(), estimate.getSecond().timeStampSeconds);
-        RobotState.getInstance().LimelightsUpdated = true;
-      } else {
-        RobotState.getInstance().LimelightsUpdated = false;
-      }
-    }
   }
 
   /**
@@ -629,14 +631,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
     updateInputs();
     SmartDashboard.putNumber("pose2d X", getPose().getX());
     SmartDashboard.putNumber("pose2d Y", getPose().getY());
-    updateOdometry();
-    // sets the robot orientation for each of the limelights, which is required for
-    // the
-    if (Preferences.getBoolean("Use Limelight", false)) {
-      updateOdometryWithVision();
+    setRobotOrientationOnLimelights();
+    if(Math.abs(inputs.pitch) > 5 || Math.abs(inputs.roll) > 5) {
+      updateOdometry();
+      if (Preferences.getBoolean("Use Limelight", false)) {
+        updateOdometryWithVision();
+      }
     } else {
       RobotState.getInstance().LimelightsUpdated = false;
     }
+    // sets the robot orientation for each of the limelights, which is required for
+    // the
 
     m_field.setRobotPose(odometer.getEstimatedPosition());
     RobotState.getInstance().odometerOrientation = getOdometryRotation().getDegrees();
