@@ -5,15 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "Expand"
+            "waitTime": 5.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Trench to Collect ML"
+            "pathName": "Bump to Collect BR"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Collect L Center "
+                  "pathName": "Collect R-L"
                 }
               },
               {
@@ -38,44 +38,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Return MR"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 8.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AimRobotMoving"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ShooterVelocity"
-                }
-              }
-            ]
+            "pathName": "Return R-L"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutomaticClimb"
+            "name": "RunIndexer"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Collect Center",
+  "folder": "Double Back",
   "choreoAuto": false
 }

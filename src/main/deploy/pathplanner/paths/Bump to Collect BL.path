@@ -3,50 +3,66 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.390662650602409,
-        "y": 7.422590361445783
+        "x": 3.337,
+        "y": 5.681878354203935
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.0697943875604725,
-        "y": 7.398783315558259
+        "x": 4.626927109229349,
+        "y": 5.73788244337129
       },
       "isLocked": true,
-      "linkedName": "Left Trench Start"
+      "linkedName": "Left Bump Start"
     },
     {
       "anchor": {
-        "x": 5.960566666666666,
-        "y": 7.412
+        "x": 5.609033989266547,
+        "y": 5.8279069767441865
       },
       "prevControl": {
-        "x": 4.034083435916971,
-        "y": 7.37838095638702
+        "x": 5.325640961835523,
+        "y": 5.689371103261081
       },
       "nextControl": {
-        "x": 6.290709471962117,
-        "y": 7.41776131948235
+        "x": 6.26698464864874,
+        "y": 6.149544280712376
       },
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.245,
+        "x": 6.825939177101969,
         "y": 7.0
       },
       "prevControl": {
-        "x": 8.726326319198344,
-        "y": 6.893438505958118
+        "x": 6.178556694160153,
+        "y": 6.748675828734816
+      },
+      "nextControl": {
+        "x": 7.063771985229794,
+        "y": 7.09233047692421
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.757,
+        "y": 7.0
+      },
+      "prevControl": {
+        "x": 7.424109073442654,
+        "y": 7.076103429454865
       },
       "nextControl": null,
       "isLocked": true,
-      "linkedName": "Collect ML"
+      "linkedName": "Collect BL"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.9,
+      "waypointRelativePos": 1.0067567567567555,
       "rotationDegrees": 0.0
     }
   ],
@@ -66,7 +82,7 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Out To Collect",
+  "folder": "To Collect",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

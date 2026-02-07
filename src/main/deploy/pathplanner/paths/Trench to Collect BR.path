@@ -3,50 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.390662650602409,
-        "y": 7.422590361445783
+        "x": 4.401,
+        "y": 0.634
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.0697943875604725,
-        "y": 7.398783315558259
+        "x": 6.524094864789822,
+        "y": 0.7164705229959408
       },
       "isLocked": true,
-      "linkedName": "Left Trench Start"
+      "linkedName": "Right Trench Start"
     },
     {
       "anchor": {
-        "x": 5.960566666666666,
-        "y": 7.412
+        "x": 6.06334525939177,
+        "y": 0.74
       },
       "prevControl": {
-        "x": 4.034083435916971,
-        "y": 7.37838095638702
+        "x": 4.80215475411681,
+        "y": 0.6113416545257807
       },
       "nextControl": {
-        "x": 6.290709471962117,
-        "y": 7.41776131948235
+        "x": 7.722308199308374,
+        "y": 0.9092364683685782
       },
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.245,
-        "y": 7.0
+        "x": 7.757,
+        "y": 1.063
       },
       "prevControl": {
-        "x": 8.726326319198344,
-        "y": 6.893438505958118
+        "x": 4.9944511826378655,
+        "y": 1.1818416267058787
       },
       "nextControl": null,
       "isLocked": true,
-      "linkedName": "Collect ML"
+      "linkedName": "Collect BR"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.9,
+      "waypointRelativePos": 0.29279279279279263,
       "rotationDegrees": 0.0
     }
   ],
@@ -63,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 3.0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "To Collect",

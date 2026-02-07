@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.0697943875604725,
-        "y": 7.398783315558259
+        "x": 7.030788409692881,
+        "y": 7.3992445263782916
       },
       "isLocked": true,
       "linkedName": "Left Trench Start"
@@ -20,12 +20,12 @@
         "y": 7.412
       },
       "prevControl": {
-        "x": 4.034083435916971,
-        "y": 7.37838095638702
+        "x": 4.08605241669715,
+        "y": 7.392730886761154
       },
       "nextControl": {
-        "x": 6.290709471962117,
-        "y": 7.41776131948235
+        "x": 6.21055345913801,
+        "y": 7.414569745101924
       },
       "isLocked": true,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 7.0
       },
       "prevControl": {
-        "x": 8.726326319198344,
-        "y": 6.893438505958118
+        "x": 8.492497244877768,
+        "y": 6.964713830217583
       },
       "nextControl": null,
       "isLocked": true,
@@ -62,7 +62,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 3.0,
+    "velocity": 0.0,
     "rotation": -90.0
   },
   "reversed": false,
