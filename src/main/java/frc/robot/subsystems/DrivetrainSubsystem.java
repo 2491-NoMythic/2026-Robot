@@ -29,6 +29,7 @@ import static frc.robot.settings.Constants.DriveConstants.MAX_VELOCITY_METERS_PE
 import static frc.robot.settings.Constants.DriveConstants.ROBOT_ANGLE_TOLERANCE;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTER_HEIGHT;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_MPS;
+import static frc.robot.settings.Constants.SubsystemsEnabled.LIMELIGHTS_EXIST;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTA_NAME;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTB_NAME;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTC_NAME;
@@ -632,10 +633,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("pose2d X", getPose().getX());
     SmartDashboard.putNumber("pose2d Y", getPose().getY());
     setRobotOrientationOnLimelights();
-    if(Math.abs(inputs.pitch) > 5 || Math.abs(inputs.roll) > 5) {
+    if(!(Math.abs(inputs.pitch) > 5 || Math.abs(inputs.roll) > 5)) {
       updateOdometry();
-      if (Preferences.getBoolean("Use Limelight", false)) {
+      if (LIMELIGHTS_EXIST) {
         updateOdometryWithVision();
+        RobotState.getInstance().LimelightsUpdated = true;
       }
     } else {
       RobotState.getInstance().LimelightsUpdated = false;
