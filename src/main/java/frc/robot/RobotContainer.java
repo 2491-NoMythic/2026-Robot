@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.AimAtHub;
@@ -111,6 +112,7 @@ public class RobotContainer {
   BooleanSupplier IndexerSup;
   BooleanSupplier AutoAimSupplier;
   BooleanSupplier ShootIfAimedSup;
+  BooleanSupplier ForceHoodDownSupplier;
   boolean manualShooterOn = false;
 
 
@@ -138,6 +140,7 @@ public class RobotContainer {
     HoodDownSupplier = () -> operatorController.getLeftY() > 0.5;
     ShooterToggleSupplier = operatorController::getXButton;
     IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
+    ForceHoodDownSupplier = driveController::getBackButton;
     //Shooting Command is Right Trigger on drive controller. 
     //climber controls
     ClimberDownSup = operatorController::getAButton;
@@ -232,8 +235,9 @@ public class RobotContainer {
   private void shooterInit() {
     shooter = new Shooter();
     shooter.setDefaultCommand(new AimHood(shooter));
-    new Trigger(HoodUpSupplier).whileTrue(new InstantCommand(()->shooter.setHoodMotor(0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
-    new Trigger(HoodDownSupplier).whileTrue(new InstantCommand(()->shooter.setHoodMotor(-0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
+    new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodMotor(0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
+    new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()->shooter.setHoodMotor(-0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
+    new Trigger(ForceHoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
     new Trigger(ShooterToggleSupplier).onTrue(new InstantCommand(()->manualShooterOn = !manualShooterOn));
     new Trigger(()->manualShooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(aimAtHub, aimHood, drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));

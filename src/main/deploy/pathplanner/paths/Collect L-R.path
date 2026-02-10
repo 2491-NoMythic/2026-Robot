@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.757,
-        "y": 6.8219111111111115
+        "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.764081199764766,
-        "y": 5.225122826835875
+        "y": 5.403211715724764
       },
       "isLocked": false,
       "linkedName": "Collect BL"
