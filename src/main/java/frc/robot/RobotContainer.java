@@ -49,6 +49,7 @@ import frc.robot.Commands.Drive;
 import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.FeedShooter;
+import frc.robot.Commands.LightsCommand;
 import frc.robot.Commands.RunIntake;
 import frc.robot.Commands.RunShooterVelocity;
 import frc.robot.settings.Constants.IndexerConstants;
@@ -57,6 +58,7 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
@@ -83,6 +85,7 @@ public class RobotContainer {
   private Indexer indexer;
   private Hopper hopper;
   private Limelight limelight;
+  private Lights lights;
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
   private final XboxController driveController;
@@ -171,6 +174,10 @@ public class RobotContainer {
       intakeInit();
     }
 
+    if (LIGHTS_EXIST) {
+      lightsInit();
+    }
+
     SmartDashboard.putBoolean("use limelight", false);
     SmartDashboard.putBoolean("trust limelight", false);
     autoInit();
@@ -253,6 +260,11 @@ public class RobotContainer {
     new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
   }
 
+  private void lightsInit() {
+    lights = new Lights();
+    lights.setDefaultCommand(new LightsCommand(lights));
+  }
+
   private void autoInit() {
     configureDriveTrain();
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -314,6 +326,14 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     return autoChooser.getSelected();
+  }
+
+  public void autonomousInit() {
+    lights.BlinkingLights();
+  }
+
+  public void runsWhenDisabled() {
+    lights.breathingLights();
   }
 
   private double modifyAxis(double value, double deadband) {

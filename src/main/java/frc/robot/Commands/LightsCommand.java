@@ -5,6 +5,7 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.RobotState;
@@ -13,11 +14,18 @@ import frc.robot.subsystems.RobotState;
 public class LightsCommand extends Command {
   Lights lights;
   int loopsRan;
+  Timer timer;
 
   /** Creates a new LightsCommand. */
   public LightsCommand(Lights lights) {
     this.lights = lights;
+    this.timer = new Timer();
     addRequirements(lights);
+  }
+
+  @Override
+  public boolean runsWhenDisabled() {
+    return true;
   }
 
   // Called when the command is initially scheduled.
@@ -30,7 +38,6 @@ public class LightsCommand extends Command {
   @Override
   public void execute() {
     Boolean hubActive = RobotState.getInstance().hubActive();
-
     if (DriverStation.isAutonomous()) {
       return;
     }
@@ -44,18 +51,18 @@ public class LightsCommand extends Command {
     if (hubActive) {
       lights.setLights(0, 60, 0, 0, 255);
     } else if (RobotState.getInstance().LimelightsUpdated) {
-      lights.setLights(0, 60, 0, 255, 0); 
+      lights.setLights(0, 60, 0, 255, 0);
     } else if (RobotState.getInstance().LimelightsUpdated && hubActive) {
-      lights.setLights(0, 60, 255, 0, 255); 
+      lights.setLights(0, 60, 255, 0, 255);
     } else {
-        lights.setLights(0, 60, 255, 255, 255);
-      }
+      lights.setLights(0, 60, 255, 255, 255);
     }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    lights.lightsOut();
+    lights.setLights(0, 0, 255, 0, 255);
   }
 
   // Returns true when the command should end.
