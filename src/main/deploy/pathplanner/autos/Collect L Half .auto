@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Out to Collect ML"
+            "pathName": "Trench to Collect ML"
           }
         },
         {
@@ -88,7 +88,7 @@
       ]
     }
   },
-  "resetOdom": true,
+  "resetOdom": false,
   "folder": "Collect Half",
   "choreoAuto": false
 }

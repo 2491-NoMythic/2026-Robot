@@ -3,41 +3,57 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.401,
-        "y": 0.634
+        "x": 3.337,
+        "y": 2.5666010733452596
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.381714273885937,
-        "y": 0.673125771193132
+        "x": 4.995573155530108,
+        "y": 2.7042067277563033
       },
       "isLocked": true,
-      "linkedName": "Right Trench Start"
+      "linkedName": "Right Bump Start"
     },
     {
       "anchor": {
-        "x": 5.601,
-        "y": 0.634
+        "x": 5.381878354203935,
+        "y": 2.5666010733452596
       },
       "prevControl": {
-        "x": 4.326989388099964,
-        "y": 0.5839053295643178
+        "x": 5.098753280570428,
+        "y": 2.7021758304325876
       },
       "nextControl": {
-        "x": 7.0500113576621555,
-        "y": 0.690975778491664
+        "x": 5.891939279658772,
+        "y": 2.3223578306652053
       },
-      "isLocked": true,
-      "linkedName": null
+      "isLocked": false,
+      "linkedName": "Right Trench Start P1"
+    },
+    {
+      "anchor": {
+        "x": 6.420304114490161,
+        "y": 1.2036672629695886
+      },
+      "prevControl": {
+        "x": 5.869621976340178,
+        "y": 1.5497135067534147
+      },
+      "nextControl": {
+        "x": 6.86038805104482,
+        "y": 0.9271204446799022
+      },
+      "isLocked": false,
+      "linkedName": "Right Trench Start P2"
     },
     {
       "anchor": {
         "x": 7.757,
-        "y": 1.2702891566265067
+        "y": 1.063
       },
       "prevControl": {
-        "x": 6.616027577131573,
-        "y": 0.8359447768920221
+        "x": 7.325078324501264,
+        "y": 1.137627239145644
       },
       "nextControl": null,
       "isLocked": true,
@@ -46,7 +62,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 1.1891891891891881,
       "rotationDegrees": 0.0
     }
   ],
@@ -66,7 +82,7 @@
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Out To Collect",
+  "folder": "To Collect",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

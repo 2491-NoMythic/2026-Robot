@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.369943736852324,
-        "y": 7.439215986188783
+        "x": 6.561155770472224,
+        "y": 7.316832170777447
       },
       "isLocked": true,
       "linkedName": "Left Trench Start"
     },
     {
       "anchor": {
-        "x": 5.601,
-        "y": 7.423
+        "x": 6.12824686940966,
+        "y": 7.3
       },
       "prevControl": {
-        "x": 5.029235788359204,
-        "y": 7.4356592033941205
+        "x": 5.519804759950488,
+        "y": 7.4208944365421905
       },
       "nextControl": {
-        "x": 6.77804506182441,
-        "y": 7.396939514683997
+        "x": 7.544490232306456,
+        "y": 7.018599451447871
       },
       "isLocked": false,
       "linkedName": null
@@ -33,11 +33,11 @@
     {
       "anchor": {
         "x": 7.757,
-        "y": 6.8219111111111115
+        "y": 7.0
       },
       "prevControl": {
-        "x": 6.592173076575746,
-        "y": 7.408821641465511
+        "x": 6.126112948999828,
+        "y": 6.898083615433675
       },
       "nextControl": null,
       "isLocked": true,
@@ -66,7 +66,7 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Out To Collect",
+  "folder": "To Collect",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

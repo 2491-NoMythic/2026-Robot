@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.757,
-        "y": 1.2702891566265067
+        "y": 1.063
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.767306482636522,
-        "y": 3.4657505428451794
+        "y": 3.2584613862186727
       },
       "isLocked": false,
       "linkedName": "Collect BR"
