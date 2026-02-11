@@ -24,18 +24,20 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 import static frc.robot.settings.Constants.ShooterConstants.*;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AimRobotMoving extends Command {
+public class AimRobot extends Command {
   /** Creates a new AimRobotMoving. */
   PIDController rotationController = new PIDController(AUTO_AIM_ROBOT_kP, AUTO_AIM_ROBOT_kI, AUTO_AIM_ROBOT_kD);
   DrivetrainSubsystem drivetrain;
 
   DoubleSupplier joystickXSupplier;
   DoubleSupplier joystickYSupplier;
+  DoubleSupplier targetSupplier;
 
-  public AimRobotMoving(DrivetrainSubsystem drivetrain, DoubleSupplier joystickXSupplier, DoubleSupplier joystickYSupplier) {
+  public AimRobot(DrivetrainSubsystem drivetrain, DoubleSupplier joystickXSupplier, DoubleSupplier joystickYSupplier, DoubleSupplier targetSupplier) {
     this.drivetrain = drivetrain;
     this.joystickXSupplier = joystickXSupplier;
     this.joystickYSupplier = joystickYSupplier;
+    this.targetSupplier = targetSupplier;
     //addRequirements(drivetrain);
     rotationController.setTolerance(ROBOT_ANGLE_TOLERANCE);
     rotationController.enableContinuousInput(-180, 180);
@@ -49,8 +51,9 @@ public class AimRobotMoving extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    rotationController.setSetpoint(RobotState.getInstance().aimingYaw); //this is in radians
-    SmartDashboard.putNumber("Desired robot angle", RobotState.getInstance().aimingYaw);
+    double target = targetSupplier.getAsDouble();
+    rotationController.setSetpoint(target); //this is in radians
+    SmartDashboard.putNumber("Desired robot angle", target);
     Logger.recordOutput("Blue hub", BLUE_HUB_COORDINATE);
     Logger.recordOutput("Red hub", RED_HUB_COORDINATE);
     double rotationSpeed = rotationController.calculate(drivetrain.getOdometryRotation().getRadians());
