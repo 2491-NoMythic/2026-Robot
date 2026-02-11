@@ -6,28 +6,30 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CANdleConfiguration;
 import com.ctre.phoenix6.configs.CANdleFeaturesConfigs;
-import com.ctre.phoenix6.configs.CustomParamsConfigs;
 import com.ctre.phoenix6.configs.LEDConfigs;
 import com.ctre.phoenix6.hardware.CANdle;
-import com.ctre.phoenix6.signals.BridgeOutputValue;
 import com.ctre.phoenix6.signals.Enable5VRailValue;
 import com.ctre.phoenix6.signals.StripTypeValue;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.LEDPattern.GradientType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.settings.Constants.DriveConstants;
 import frc.robot.settings.Constants.LightConstants;
-import frc.robot.subsystems.RobotState;
+import frc.robot.settings.LightsEnums;
 
 public class Lights extends SubsystemBase {
   CANdle candle;
   CANdleConfiguration candleConfig;
   private AddressableLED lights;
   private AddressableLEDBuffer LEDBuffer;
-  Timer timer; 
+  Timer timer;
+  LightsEnums lightsToBlink;
+
+  int blinkedRed;
+  int blinkedGreen;
+  int blinkedBlue;
+  boolean blinkLights;
 
   /** Creates a new Lights. */
   public Lights() {
@@ -60,6 +62,14 @@ public class Lights extends SubsystemBase {
     setLights(0, LEDBuffer.getLength(), 0, 0, 0);
   }
 
+  public void setSystemLights(LightsEnums lightEnums, int R, int G, int B) {
+    switch (lightEnums) {
+      case All:
+        setLights(LightConstants.ALL_LIGHT_START, LightConstants.ALL_LIGHT_END, R, G, B);
+        break;
+    }
+  }
+
   public void activeEnding() {
     String phase = RobotState.getPhase();
     boolean hubActive = RobotState.hubActive();
@@ -73,23 +83,43 @@ public class Lights extends SubsystemBase {
     }
   }
 
-  public void BlinkingLights() {
-      int time = (int)(Timer.getFPGATimestamp() * 2) % 2;
-      if (time == 0) {
-        setLights(0, 60, 255, 255, 255);
+  public void blinkLights(LightsEnums lightsEnums, int R, int G, int B) {
+    timer.start();
+    lightsToBlink = lightsEnums;
+    blinkedBlue = B;
+    blinkedGreen = G;
+    blinkedRed = R;
+    blinkLights = true;
+  }
+
+  public void stopBlinkingLights() {
+    blinkLights = false;
+    timer.stop();
+    timer.reset();
+  }
+
+  private void updateBlinkedLights() {
+    if (blinkLights) {
+      if (timer.get() < 0.1) {
+        setSystemLights(lightsToBlink, blinkedRed, blinkedGreen, blinkedBlue);
+      } else if (timer.get() < 1) {
+        setSystemLights(lightsToBlink, 0, 0, 0);
       } else {
-        setLights(0, 60, 0, 0, 0);
+        timer.reset();
       }
     }
+  }
 
-  public void breathingLights() {
-      double time = timer.get();
-      int brightness = (int)((Math.sin(time * 2) + 1) / 2 * 255);
-      setLights(0, 60, 255, 0, 255);
+  public void breathingLights(LightsEnums lightsEnums, int R, int G, int B) {
+    double time = timer.get();
+    int brightness = (int) ((Math.sin(time * 2) + 1) / 2 * 255);
+    setSystemLights(lightsEnums, (int) (R * brightness / 255.0), (int) (G * brightness / 255.0),
+        (int) (B * brightness / 255.0));
   }
 
   @Override
   public void periodic() {
+    updateBlinkedLights();
     // This method will be called once per scheduler run
   }
 }
