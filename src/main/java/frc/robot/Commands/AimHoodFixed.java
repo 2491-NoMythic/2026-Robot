@@ -5,33 +5,36 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AimHood extends Command {
-  /** Creates a new aimHood. */
+public class AimHoodFixed extends Command {
   Shooter shooter;
-  public AimHood(Shooter shooter) {
+  double angle;
+  boolean autoRetract;
+  /** Creates a new AimHoodFixed. */
+  public AimHoodFixed(Shooter shooter, double angle, boolean autoRetract) {
     this.shooter = shooter;
+    this.angle = angle;
+    this.autoRetract = autoRetract;
     addRequirements(shooter);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    shooter.setHoodAngle(angle, autoRetract);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    double angle = RobotState.getInstance().aimingPitch; //this is in radians
-    shooter.setHoodAngle(angle, true);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    shooter.setHoodAngleDown();
+  }
 
   // Returns true when the command should end.
   @Override
