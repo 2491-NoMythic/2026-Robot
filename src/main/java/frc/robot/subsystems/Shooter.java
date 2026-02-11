@@ -8,6 +8,8 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.LogInputs.ShooterInputsAutoLogged;
@@ -18,15 +20,16 @@ import org.littletonrobotics.junction.Logger;
 
 public class Shooter extends SubsystemBase {
   TalonFX shootMotor;
-  TalonFX hoodMotor;
+  Servo hoodMotor;
   ShooterInputsAutoLogged inputs;
   double desiredAngleRotations;
-  boolean positionControlOn;
+  boolean autoRetractOn;
+  
   /** Creates a new Shooter. */
   public Shooter() {
     shootMotor = new TalonFX(SHOOTER_MOTOR_ID);
     shootMotor.getConfigurator().apply(SHOOTER_CONFIG);
-    hoodMotor = new TalonFX(HOOD_MOTOR_ID);
+    hoodMotor = new Servo(HOOD_MOTOR_ID);
     inputs = new ShooterInputsAutoLogged();
   }
 
@@ -57,46 +60,42 @@ public class Shooter extends SubsystemBase {
    * sends a positionVoltage request to the hood motor
    * @param rotations rotations to set the hood to
    */
-  public void setHoodAngle(double rotations){
+  public void setHoodAngle(double rotations, boolean autoRetract){
     desiredAngleRotations = rotations;
-    positionControlOn = true;
+    autoRetractOn = autoRetract;
   }
 
   public void setHoodAngleDown(){
     desiredAngleRotations = HOOD_DOWN_POSITION_ROTATIONS;
-    positionControlOn = true;
-  }
-
-  public void setHoodMotor(double speed){
-    hoodMotor.set(speed);
-    positionControlOn = false;
+    autoRetractOn = true;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     inputs.shootMotor.log(shootMotor);
-    inputs.hoodMotor.log(hoodMotor);
     Logger.processInputs("Shooter", inputs);
 
-    //logic below checks if robot is in one of four squares around the trenches
-    double x = RobotState.getInstance().robotPosition.getX();
-    double y = RobotState.getInstance().robotPosition.getY();
-    boolean inBadxZone = false;
-    boolean inBadyZone = false;
-    if((3.5 < x && x < 5.5) || (11 < x && x < 13)) {
-      inBadxZone = true;
-    }
-    if((0 < y && y < 1.75) || (6.5 < y && y < 8)) {
-      inBadyZone = true;
-    }
-    //if we are in position control, and in one of those squares around trenches, hood all the way down
-    if(positionControlOn) {
-      if(inBadxZone && inBadyZone) {
-        shootMotor.setControl(new PositionVoltage(HOOD_DOWN_POSITION_ROTATIONS));
-      } else {
-        shootMotor.setControl(new PositionVoltage(desiredAngleRotations));
+    if (autoRetractOn) {
+      //logic below checks if robot is in one of four squares around the trenches
+      double x = RobotState.getInstance().robotPosition.getX();
+      double y = RobotState.getInstance().robotPosition.getY();
+      boolean inBadxZone = false;
+      boolean inBadyZone = false;
+      if((3.5 < x && x < 5.5) || (11 < x && x < 13)) {
+        inBadxZone = true;
       }
+      if((0 < y && y < 1.75) || (6.5 < y && y < 8)) {
+        inBadyZone = true;
+      }
+      //if we are in position control, and in one of those squares around trenches, hood all the way down
+      if(inBadxZone && inBadyZone) {
+        hoodMotor.set(HOOD_DOWN_POSITION_ROTATIONS);
+      } else {
+        hoodMotor.set(desiredAngleRotations);
+      }
+    } else {
+      hoodMotor.set(desiredAngleRotations);
     }
   }
 }

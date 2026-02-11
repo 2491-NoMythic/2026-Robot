@@ -40,8 +40,9 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.AimAtHub;
+import frc.robot.Commands.AimAtLocation;
 import frc.robot.Commands.AimHood;
-import frc.robot.Commands.AimRobotMoving;
+import frc.robot.Commands.AimRobot;
 import frc.robot.Commands.AutomaticClimb;
 import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.ClimberArmDown;
@@ -53,6 +54,7 @@ import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.LightsCommand;
 import frc.robot.Commands.RunIntake;
 import frc.robot.Commands.RunShooterVelocity;
+import frc.robot.Commands.AimAtLocation.Location;
 import frc.robot.settings.Constants.IndexerConstants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -114,6 +116,10 @@ public class RobotContainer {
   BooleanSupplier ShootIfAimedSup;
   BooleanSupplier ForceHoodDownSupplier;
   boolean manualShooterOn = false;
+  BooleanSupplier ManualHubShotSup;
+  BooleanSupplier ManualTowerShotSup;
+  BooleanSupplier ManualTrenchShotSup;
+
 
 
   public static HashMap<String, Command> eventMap;
@@ -141,6 +147,9 @@ public class RobotContainer {
     ShooterToggleSupplier = operatorController::getXButton;
     IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
     ForceHoodDownSupplier = driveController::getBackButton;
+    ManualHubShotSup = operatorController::getBButton;
+    ManualTowerShotSup = operatorController::getLeftStickButton;
+    ManualTrenchShotSup = operatorController::getRightStickButton;
     //Shooting Command is Right Trigger on drive controller. 
     //climber controls
     ClimberDownSup = operatorController::getAButton;
@@ -235,12 +244,13 @@ public class RobotContainer {
   private void shooterInit() {
     shooter = new Shooter();
     shooter.setDefaultCommand(new AimHood(shooter));
-    new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodMotor(0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
-    new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()->shooter.setHoodMotor(-0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
+    //hood motor is now servo so cannot set speed
+    //new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodMotor(0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
+    //new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()->shooter.setHoodMotor(-0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
     new Trigger(ForceHoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
     new Trigger(ShooterToggleSupplier).onTrue(new InstantCommand(()->manualShooterOn = !manualShooterOn));
     new Trigger(()->manualShooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
-    new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(aimAtHub, aimHood, drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
+    new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
   }
 
   private void intakeInit() {
@@ -318,8 +328,10 @@ public class RobotContainer {
       SmartDashboard.putData("set offsets", setOffsets);
     }
     if(DRIVE_TRAIN_EXISTS && SHOOTER_EXISTS){
-      new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(aimAtHub, aimHood, drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier)
-        );
+      new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
+      new Trigger(ManualHubShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Hub));
+      new Trigger(ManualTowerShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Tower));
+      new Trigger(ManualTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Trench));
     }
   }
 
@@ -365,7 +377,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ClimberArmDown", new ClimberArmDown(climber));
     NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
     NamedCommands.registerCommand("ShooterVelocity", new RunShooterVelocity(shooter, Z_AXIS));
-    NamedCommands.registerCommand("AimRobotMoving", new AimRobotMoving(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
+    NamedCommands.registerCommand("AimRobotMoving", new AimRobot(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier,()-> RobotState.getInstance().aimingYaw));
     NamedCommands.registerCommand("Intake", new RunIntake(intake));
     NamedCommands.registerCommand("Outtake", new Outtake(intake));
     NamedCommands.registerCommand("MoveToClimbingPose", new MoveToClimbingPose(drivetrain));
