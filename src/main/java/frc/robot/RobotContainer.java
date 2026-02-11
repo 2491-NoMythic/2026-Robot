@@ -49,6 +49,7 @@ import frc.robot.Commands.ClimberArmUp;
 import frc.robot.Commands.Drive;
 import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
+import frc.robot.Commands.OverBump;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.LightsCommand;
 import frc.robot.Commands.RunIntake;
@@ -199,6 +200,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
+    SmartDashboard.putData("Over Bump", new OverBump(drivetrain, 3));
   }
 
   private void configureDriveTrain() {
