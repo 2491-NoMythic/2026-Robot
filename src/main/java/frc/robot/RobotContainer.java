@@ -20,6 +20,7 @@ import static frc.robot.settings.Constants.XboxDriver.Z_AXIS;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
@@ -37,11 +38,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.AimAtHub;
 import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobotMoving;
+import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.Commands.AutomaticClimb;
 import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.ClimberArmDown;
@@ -363,6 +366,18 @@ public class RobotContainer {
   }
 
   void registerNamedCommands(){
+    Command AcrossBumpAwayFromAlliance = new SelectCommand<>(
+      Map.ofEntries(
+        Map.entry(true, new OverBump(drivetrain, 3)),
+        Map.entry(false, new OverBump(drivetrain, -3))
+      ),
+      ()->DriverStation.getAlliance().get() == Alliance.Blue);
+    Command AcrossBumpTowardsAlliance = new SelectCommand<>(
+      Map.ofEntries(
+        Map.entry(true, new OverBump(drivetrain, -3)),
+        Map.entry(false, new OverBump(drivetrain, 3))
+      ),
+      ()->DriverStation.getAlliance().get() == Alliance.Blue);
     NamedCommands.registerCommand("ClimberArmUp", new ClimberArmUp(climber));
     NamedCommands.registerCommand("ClimberArmDown", new ClimberArmDown(climber));
     NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
@@ -372,5 +387,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Outtake", new Outtake(intake));
     NamedCommands.registerCommand("MoveToClimbingPose", new MoveToClimbingPose(drivetrain));
     NamedCommands.registerCommand("AutomaticClimb", new AutomaticClimb(drivetrain, climber));
+    NamedCommands.registerCommand("AcrossBumpAwayFromAlliance", AcrossBumpAwayFromAlliance);
+    NamedCommands.registerCommand("AcrossBumpTowardsAlliance", AcrossBumpTowardsAlliance);
   }
 }
