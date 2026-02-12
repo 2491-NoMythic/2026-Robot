@@ -112,6 +112,15 @@ public final class Constants {
     public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.8);
   }
 
+  public static final class AimAtLocationConstants {
+    public static final int HUB_ROBOT_ANGLE = 0;
+    public static final int HUB_HOOD_ANGLE = 2491;
+    public static final int TRENCH_ROBOT_ANGLE = 2491;
+    public static final int TRENCH_HOOD_ANGLE = 2491;
+    public static final int TOWER_ROBOT_ANGLE = 2491;
+    public static final int TOWER_HOOD_ANGLE = 2491;
+  }
+
   public static final class DriveConstants {
     public static final Pose2d DRIVE_ODOMETRY_ORIGIN = new Pose2d(5.0, 5.0, new Rotation2d());
 
