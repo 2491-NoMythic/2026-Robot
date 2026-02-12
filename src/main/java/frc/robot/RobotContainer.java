@@ -48,6 +48,7 @@ import frc.robot.Commands.ClimberArmDown;
 import frc.robot.Commands.ClimberArmUp;
 import frc.robot.Commands.Drive;
 import frc.robot.Commands.MoveToClimbingPose;
+import frc.robot.Commands.MoveToTrenchPose;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.LightsCommand;
@@ -100,6 +101,7 @@ public class RobotContainer {
   DoubleSupplier ControllerZAxisSupplier;
   BooleanSupplier ZeroGyroSup;
   BooleanSupplier AimRobotMovingSup;
+  BooleanSupplier TrenchAllignSup;
   BooleanSupplier ClimberUpSup;
   BooleanSupplier ClimberDownSup;
   BooleanSupplier RetractIntakeSup;
@@ -199,6 +201,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
+    new Trigger(TrenchAllignSup).whileTrue(new MoveToTrenchPose(drivetrain));
   }
 
   private void configureDriveTrain() {
