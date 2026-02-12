@@ -454,5 +454,7 @@ public final class Constants {
 
   public final class LightConstants {
     public static final int CANDLE_ID = 2491;
+      public static final int ALL_LIGHT_START = 0;
+      public static final int ALL_LIGHT_END = 60;
   }
 }
