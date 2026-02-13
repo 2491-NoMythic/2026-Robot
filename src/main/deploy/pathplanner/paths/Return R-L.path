@@ -16,76 +16,19 @@
     },
     {
       "anchor": {
-        "x": 5.756626506024096,
-        "y": 2.3958433734939764
+        "x": 6.290385164051354,
+        "y": 2.6052781740370903
       },
       "prevControl": {
-        "x": 6.003732075441337,
-        "y": 2.3579113611168148
-      },
-      "nextControl": {
-        "x": 4.9472646771945925,
-        "y": 2.52008469667081
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 4.620144578313253,
-        "y": 2.559759036144578
-      },
-      "prevControl": {
-        "x": 4.853580772784604,
-        "y": 2.4702741597087607
-      },
-      "nextControl": {
-        "x": 4.368094689048575,
-        "y": 2.6563792421395793
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 3.2213975903614456,
-        "y": 3.1170722891566265
-      },
-      "prevControl": {
-        "x": 4.5609538215971455,
-        "y": 2.473700670019739
-      },
-      "nextControl": {
-        "x": 2.996042075260679,
-        "y": 3.225307642963358
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.7156666666666665,
-        "y": 4.005766666666666
-      },
-      "prevControl": {
-        "x": 2.5646358645429164,
-        "y": 4.204989398326125
+        "x": 6.139354361927604,
+        "y": 2.8045009056965493
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Front of Hub "
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 1.4,
-      "rotationDegrees": -35.509
-    },
-    {
-      "waypointRelativePos": 2.6804979253111982,
-      "rotationDegrees": -35.509
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -105,7 +48,7 @@
   "folder": "Return to Hub",
   "idealStartingState": {
     "velocity": 3.0,
-    "rotation": -47.897000000000006
+    "rotation": -86.81576130672597
   },
   "useDefaultConstraints": true
 }
