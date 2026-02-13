@@ -153,6 +153,8 @@ public class RobotContainer {
     RetractIntakeSup = driveController::getLeftStickButton;
     DeployIntakeSup = driveController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
+    //Trench Controls
+    TrenchAllignSup = driveController::getBButton;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
