@@ -309,9 +309,12 @@ public class RobotContainer {
   }
 
   private void autoInit() {
-    configureDriveTrain();
-    autoChooser = AutoBuilder.buildAutoChooser();
-    SmartDashboard.putData("Auto Chooser", autoChooser);
+    if (DRIVE_TRAIN_EXISTS){
+      configureDriveTrain(); 
+      autoChooser = AutoBuilder.buildAutoChooser();
+      SmartDashboard.putData("Auto Chooser", autoChooser);
+    }
+   
   }
 
   /**
