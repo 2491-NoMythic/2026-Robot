@@ -8,6 +8,7 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.LogInputs.ShooterInputsAutoLogged;
@@ -18,7 +19,7 @@ import org.littletonrobotics.junction.Logger;
 
 public class Shooter extends SubsystemBase {
   TalonFX shootMotor;
-  TalonFX hoodMotor;
+  Servo hoodMotor;
   ShooterInputsAutoLogged inputs;
   double desiredAngleRotations;
   boolean positionControlOn;
@@ -26,7 +27,7 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     shootMotor = new TalonFX(SHOOTER_MOTOR_ID);
     shootMotor.getConfigurator().apply(SHOOTER_CONFIG);
-    hoodMotor = new TalonFX(HOOD_MOTOR_ID);
+    hoodMotor = new Servo(HOOD_MOTOR_ID);
     inputs = new ShooterInputsAutoLogged();
   }
 
@@ -61,22 +62,20 @@ public class Shooter extends SubsystemBase {
     desiredAngleRotations = rotations;
     positionControlOn = true;
   }
+  public void setHoodAngleUp(){
+    desiredAngleRotations = 1;
+    positionControlOn = true;
+  }
 
   public void setHoodAngleDown(){
     desiredAngleRotations = HOOD_DOWN_POSITION_ROTATIONS;
     positionControlOn = true;
   }
 
-  public void setHoodMotor(double speed){
-    hoodMotor.set(speed);
-    positionControlOn = false;
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     inputs.shootMotor.log(shootMotor);
-    inputs.hoodMotor.log(hoodMotor);
     Logger.processInputs("Shooter", inputs);
 
     //logic below checks if robot is in one of four squares around the trenches

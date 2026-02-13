@@ -35,6 +35,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
@@ -241,8 +242,8 @@ public class RobotContainer {
   private void shooterInit() {
     shooter = new Shooter();
     shooter.setDefaultCommand(new AimHood(shooter));
-    new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodMotor(0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
-    new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()->shooter.setHoodMotor(-0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
+    // new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodMotor(0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
+    // new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()->shooter.setHoodMotor(-0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
     new Trigger(ForceHoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
     new Trigger(ShooterToggleSupplier).onTrue(new InstantCommand(()->manualShooterOn = !manualShooterOn));
     new Trigger(()->manualShooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
@@ -327,6 +328,19 @@ public class RobotContainer {
       new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(aimAtHub, aimHood, drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier)
         );
     }
+
+    InstantCommand setServoAngleUp = new InstantCommand(shooter::setHoodAngleUp) {
+      public boolean runsWhenDisabled() {
+        return true;
+      };
+    };
+     InstantCommand setServoAngleDown = new InstantCommand(shooter::setHoodAngleDown) {
+      public boolean runsWhenDisabled() {
+        return true;
+      };
+    };
+    SmartDashboard.putData("set hood angle up", setServoAngleUp);
+    SmartDashboard.putData("set hood angle down", setServoAngleDown);
   }
 
   /**
