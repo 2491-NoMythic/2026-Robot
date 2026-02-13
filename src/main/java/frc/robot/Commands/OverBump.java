@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import frc.robot.subsystems.RobotState;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
@@ -21,12 +22,9 @@ public class OverBump extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new InstantCommand(()-> drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(new ChassisSpeeds(0, speedOverBump, 0), drivetrain.getGyroscopeRotation())), drivetrain),
-      new InstantCommand(()->System.out.println("OVERBUMP:started driving")),
       new WaitUntilCommand(()->Math.abs(drivetrain.getPigeonPitch()) > 5 || Math.abs(drivetrain.getPigeonRoll()) > 5),
-      new InstantCommand(()->System.out.println("OVERBUMP:going over bump")),
-      new WaitUntilCommand(1),
-      new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0, 0, 1)), drivetrain),
-      new InstantCommand(()->System.out.println("OVERBUMP:spinning")),
+      new WaitCommand(0.9),
+      new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0, 0, 0.5)), drivetrain),
       new WaitUntilCommand(()->RobotState.getInstance().LimelightsUpdated)
     );
   }

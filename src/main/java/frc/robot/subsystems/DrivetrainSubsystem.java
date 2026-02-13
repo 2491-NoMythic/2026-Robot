@@ -637,7 +637,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
       updateOdometry();
       if (LIMELIGHTS_EXIST) {
         updateOdometryWithVision();
-        RobotState.getInstance().LimelightsUpdated = true;
       }
     } else {
       RobotState.getInstance().LimelightsUpdated = false;
@@ -661,6 +660,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     Logger.recordOutput("autoaim/pitch", RobotState.getInstance().aimingPitch);
     Logger.recordOutput("autoaim/yaw", RobotState.getInstance().aimingYaw);
     Logger.recordOutput("autoaim/target", BLUE_HUB_COORDINATE);
+    SmartDashboard.putBoolean("LimelightsUpdatedState", RobotState.getInstance().LimelightsUpdated);
   }
 
   private void updateInputs() {

@@ -203,7 +203,6 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
-    SmartDashboard.putData("Over Bump", new OverBump(drivetrain, 3));
   }
 
   private void configureDriveTrain() {
