@@ -9,7 +9,6 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.LogInputs.ShooterInputsAutoLogged;
@@ -63,6 +62,10 @@ public class Shooter extends SubsystemBase {
   public void setHoodAngle(double rotations, boolean autoRetract){
     desiredAngleRotations = rotations;
     autoRetractOn = autoRetract;
+  }
+  public void setHoodAngleUp(){
+    desiredAngleRotations = 1;
+    autoRetractOn = true;
   }
 
   public void setHoodAngleDown(){

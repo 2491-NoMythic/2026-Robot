@@ -36,6 +36,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
@@ -361,7 +362,19 @@ public class RobotContainer {
       new Trigger(ManualLeftTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.LeftTrench));
       new Trigger(ManualRightTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.RightTrench));
     }
-    
+
+    InstantCommand setServoAngleUp = new InstantCommand(shooter::setHoodAngleUp) {
+      public boolean runsWhenDisabled() {
+        return true;
+      };
+    };
+     InstantCommand setServoAngleDown = new InstantCommand(shooter::setHoodAngleDown) {
+      public boolean runsWhenDisabled() {
+        return true;
+      };
+    };
+    SmartDashboard.putData("set hood angle up", setServoAngleUp);
+    SmartDashboard.putData("set hood angle down", setServoAngleDown);
   }
 
   /**
