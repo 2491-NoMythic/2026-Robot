@@ -203,7 +203,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
-    new Trigger(TrenchAllignSup).whileTrue(new MoveToTrenchPose(drivetrain));
+    new Trigger(TrenchAllignSup).whileTrue(new MoveToTrenchPose(drivetrain, ControllerForwardAxisSupplier));
   }
 
   private void configureDriveTrain() {

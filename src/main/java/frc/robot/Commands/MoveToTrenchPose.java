@@ -4,6 +4,10 @@
 
 package frc.robot.Commands;
 
+import static edu.wpi.first.units.Units.Rotation;
+
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -14,11 +18,13 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class MoveToTrenchPose extends Command {
   DrivetrainSubsystem drivetrain;
+  DoubleSupplier xMovementSupplier;
   Pose2d targetPose;
   int cyclesGood;
   /** Creates a new MoveToTrenchPose. */
-  public MoveToTrenchPose(DrivetrainSubsystem drivetrain) {
+  public MoveToTrenchPose(DrivetrainSubsystem drivetrain, DoubleSupplier xMovementSupplier) {
     this.drivetrain = drivetrain;
+    this.xMovementSupplier = xMovementSupplier;
     addRequirements(drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -30,28 +36,24 @@ public class MoveToTrenchPose extends Command {
 
     double poseX = drivetrain.getPose().getX();
     double poseY = drivetrain.getPose().getY();
-    double halfMargin = 1;
+
     double leftTrenchY = 7.425;
     double rightTrenchY = 0.650;
-    if (poseX > 3 && poseX < 5){
-      if (poseY > leftTrenchY - halfMargin && poseY < leftTrenchY + halfMargin){
-        targetPose = new Pose2d(poseX, leftTrenchY, drivetrain.getPose().getRotation());
-      } else if (poseY > rightTrenchY - halfMargin && poseY < rightTrenchY + halfMargin ) {
-        targetPose = new Pose2d(poseX, rightTrenchY, new Rotation2d(0));
-      }
-    } else if (poseX > 10.5 && poseX < 13.5) {
-      if (poseY > leftTrenchY - halfMargin && poseY < leftTrenchY + halfMargin){
-        targetPose = new Pose2d(poseX, leftTrenchY, drivetrain.getPose().getRotation());
-      } else if (poseY > rightTrenchY - halfMargin && poseY < rightTrenchY + halfMargin ) {
-        targetPose = new Pose2d(poseX, rightTrenchY, new Rotation2d(0));
-      }
+    double yFieldCenter = 4.000;
+
+    Rotation2d newRotation = Rotation2d.fromDegrees(Math.round( drivetrain.getPose().getRotation().getDegrees()/180 ) * 180);
+
+    if (poseY > yFieldCenter){
+      targetPose = new Pose2d(poseX, leftTrenchY, newRotation);
+    } else if (poseY <= yFieldCenter) {
+      targetPose = new Pose2d(poseX, rightTrenchY, newRotation);
     }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.moveTowardsPose(targetPose);
+    drivetrain.moveTowardsTrenchPose(xMovementSupplier, targetPose);
     
     if(drivetrain.getPositionTargetingError() < 0.015) {
       cyclesGood++;
