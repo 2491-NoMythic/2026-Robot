@@ -191,6 +191,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return inputs.gyroScopeRotation;
   }
 
+  public Rotation2d getGyroscopeRotation2(String location) {
+    System.out.println(location);
+    System.out.println(inputs.gyroScopeRotation);
+    System.out.println(pigeon.getRotation2d());
+    return inputs.gyroScopeRotation;
+  }
+
   /**
    * gets the angle of odometer reading, but adds 180 degrees if we are on red
    * alliance. this is useful for whne using

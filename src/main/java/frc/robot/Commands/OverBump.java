@@ -4,6 +4,7 @@
 
 package frc.robot.Commands;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import frc.robot.subsystems.RobotState;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -21,11 +22,17 @@ public class OverBump extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new InstantCommand(()-> drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(new ChassisSpeeds(0, speedOverBump, 0), drivetrain.getGyroscopeRotation())), drivetrain),
+      new InstantCommand(()-> System.out.println("start")),
+      new InstantCommand(()-> drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(new ChassisSpeeds(speedOverBump, 0, 0), drivetrain.getGyroscopeRotation2("over bump rotation"))), drivetrain),
+      new InstantCommand(()-> System.out.println("wait until on bump")),
       new WaitUntilCommand(()->Math.abs(drivetrain.getPigeonPitch()) > 5 || Math.abs(drivetrain.getPigeonRoll()) > 5),
+      new InstantCommand(()-> System.out.println("wait 0.9 seconds")),  
       new WaitCommand(0.9),
+      new InstantCommand(()-> System.out.println("rotating")),
       new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0, 0, 0.5)), drivetrain),
-      new WaitUntilCommand(()->RobotState.getInstance().LimelightsUpdated)
+      new InstantCommand(()-> System.out.println("wait for limelight update")),
+      new WaitUntilCommand(()->RobotState.getInstance().LimelightsUpdated),
+      new InstantCommand(()-> System.out.println("end"))
     );
   }
 }

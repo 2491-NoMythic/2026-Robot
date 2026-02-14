@@ -117,6 +117,7 @@ public class RobotContainer {
   BooleanSupplier AutoAimSupplier;
   BooleanSupplier ShootIfAimedSup;
   BooleanSupplier ForceHoodDownSupplier;
+  BooleanSupplier crossBumpTowardsAllianceSup;
   boolean manualShooterOn = false;
 
 
@@ -155,6 +156,8 @@ public class RobotContainer {
     RetractIntakeSup = driveController::getLeftStickButton;
     DeployIntakeSup = driveController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
+
+    crossBumpTowardsAllianceSup = driveController::getYButton;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -204,6 +207,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
+    new Trigger(crossBumpTowardsAllianceSup).whileTrue(new OverBump(drivetrain, 3));
   }
 
   private void configureDriveTrain() {
@@ -368,14 +372,14 @@ public class RobotContainer {
   private void registerNamedCommands(){
     Command AcrossBumpAwayFromAlliance = new SelectCommand<>(
       Map.ofEntries(
-        Map.entry(true, new OverBump(drivetrain, 3)),
-        Map.entry(false, new OverBump(drivetrain, -3))
+        Map.entry(true, new OverBump(drivetrain, -3)),
+        Map.entry(false, new OverBump(drivetrain, 3))
       ),
       ()->DriverStation.getAlliance().get() == Alliance.Blue);
     Command AcrossBumpTowardsAlliance = new SelectCommand<>(
       Map.ofEntries(
-        Map.entry(true, new OverBump(drivetrain, -3)),
-        Map.entry(false, new OverBump(drivetrain, 3))
+        Map.entry(true, new OverBump(drivetrain, 3)), 
+        Map.entry(false, new OverBump(drivetrain, -3))
       ),
       ()->DriverStation.getAlliance().get() == Alliance.Blue);
     NamedCommands.registerCommand("AcrossBumpAwayFromAlliance", AcrossBumpAwayFromAlliance);
