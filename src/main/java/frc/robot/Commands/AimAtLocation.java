@@ -27,8 +27,8 @@ public class AimAtLocation extends ParallelCommandGroup {
       case Hub: return AimAtLocationConstants.HUB_HOOD_ANGLE;
       case Trench: return AimAtLocationConstants.TRENCH_HOOD_ANGLE;
       case Tower: return AimAtLocationConstants.TOWER_HOOD_ANGLE;
+      default: return 0;
     }
-    return 0;
   }
 
   static double getTargetRobotAngle(Location location){
@@ -41,12 +41,12 @@ public class AimAtLocation extends ParallelCommandGroup {
       }
     }
 
-     switch (location) {
-        case Hub: return AimAtLocationConstants.HUB_ROBOT_ANGLE;
-        case Trench: return AimAtLocationConstants.TRENCH_ROBOT_ANGLE;
-        case Tower: return AimAtLocationConstants.TOWER_ROBOT_ANGLE;
-        default: return 0;
-      }
+    switch (location) {
+      case Hub: return AimAtLocationConstants.HUB_ROBOT_ANGLE;
+      case Trench: return AimAtLocationConstants.TRENCH_ROBOT_ANGLE;
+      case Tower: return AimAtLocationConstants.TOWER_ROBOT_ANGLE;
+      default: return 0;
+    }
   }
 
   /** Creates a new AimAtLocation. */
