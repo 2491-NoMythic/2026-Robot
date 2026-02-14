@@ -42,9 +42,9 @@ public class AimAtLocation extends ParallelCommandGroup {
     }
 
      switch (location) {
-        case Hub: return 2491;
-        case Trench: return 2491;
-        case Tower: return 2491;
+        case Hub: return AimAtLocationConstants.HUB_ROBOT_ANGLE;
+        case Trench: return AimAtLocationConstants.TRENCH_ROBOT_ANGLE;
+        case Tower: return AimAtLocationConstants.TOWER_ROBOT_ANGLE;
         default: return 0;
       }
   }
