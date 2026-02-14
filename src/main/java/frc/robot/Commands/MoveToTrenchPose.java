@@ -19,12 +19,16 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 public class MoveToTrenchPose extends Command {
   DrivetrainSubsystem drivetrain;
   DoubleSupplier xMovementSupplier;
+  Boolean toTrench;
+  Boolean toBump;
   Pose2d targetPose;
   int cyclesGood;
   /** Creates a new MoveToTrenchPose. */
-  public MoveToTrenchPose(DrivetrainSubsystem drivetrain, DoubleSupplier xMovementSupplier) {
+  public MoveToTrenchPose(DrivetrainSubsystem drivetrain, DoubleSupplier xMovementSupplier, Boolean toTrench, Boolean toBump) {
     this.drivetrain = drivetrain;
     this.xMovementSupplier = xMovementSupplier;
+    this.toBump = toBump;
+    this.toTrench = toTrench;
     addRequirements(drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -37,16 +41,25 @@ public class MoveToTrenchPose extends Command {
     double poseX = drivetrain.getPose().getX();
     double poseY = drivetrain.getPose().getY();
 
-    double leftTrenchY = 7.625;
-    double rightTrenchY = 0.450;
+    double leftDestinationY = 0;
+    double rightDestinationY = 0;
+
+    if (toTrench){
+      leftDestinationY = 7.625;
+      rightDestinationY = 0.450;
+    } else if (toBump){
+      leftDestinationY = 5.6;
+      rightDestinationY = 2.5;
+    }
+
     double yFieldCenter = 4.000;
 
     Rotation2d newRotation = Rotation2d.fromDegrees(Math.round( drivetrain.getPose().getRotation().getDegrees()/180 ) * 180);
 
     if (poseY > yFieldCenter){
-      targetPose = new Pose2d(poseX, leftTrenchY, newRotation);
+      targetPose = new Pose2d(poseX, leftDestinationY, newRotation);
     } else if (poseY <= yFieldCenter) {
-      targetPose = new Pose2d(poseX, rightTrenchY, newRotation);
+      targetPose = new Pose2d(poseX, rightDestinationY, newRotation);
     }
   }
 

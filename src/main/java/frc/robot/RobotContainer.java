@@ -107,6 +107,7 @@ public class RobotContainer {
   BooleanSupplier ZeroGyroSup;
   BooleanSupplier AimRobotMovingSup;
   BooleanSupplier TrenchAllignSup;
+  BooleanSupplier BumpAllignSup;
   BooleanSupplier ClimberUpSup;
   BooleanSupplier ClimberDownSup;
   BooleanSupplier RetractIntakeSup;
@@ -155,11 +156,12 @@ public class RobotContainer {
     ClimberUpSup = operatorController::getYButton;
     //Climber Up is Y button on operator controller
     //intake controls
-    RetractIntakeSup = driveController::getLeftStickButton;
-    DeployIntakeSup = driveController::getRightStickButton;
+    //RetractIntakeSup = driveController::getLeftStickButton;
+    //DeployIntakeSup = driveController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
     //Trench Controls
     TrenchAllignSup = driveController::getBButton;
+    BumpAllignSup = driveController::getRightStickButton;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -208,7 +210,8 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
-    new Trigger(TrenchAllignSup).whileTrue(new MoveToTrenchPose(drivetrain, ControllerForwardAxisSupplier));
+    new Trigger(TrenchAllignSup).whileTrue(new MoveToTrenchPose(drivetrain, ControllerForwardAxisSupplier, true, false));
+    new Trigger(BumpAllignSup).whileTrue(new MoveToTrenchPose(drivetrain, ControllerForwardAxisSupplier, false, true));
   }
 
   private void configureDriveTrain() {
