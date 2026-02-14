@@ -535,8 +535,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     setRotationTarget(trenchPose.getRotation().getDegrees());
     DRIVE_TO_POSE_Y_CONTROLLER.setSetpoint(trenchPose.getY());
     //calculate speeds using PID loops
-    double xSpeed = xMovementSupplier.getAsDouble()/2;
-    double ySpeed = DRIVE_TO_POSE_Y_CONTROLLER.calculate(odometer.getEstimatedPosition().getY())/2;
+    double xSpeed = xMovementSupplier.getAsDouble() * 3;
+    double ySpeed = DRIVE_TO_POSE_Y_CONTROLLER.calculate(odometer.getEstimatedPosition().getY());
 
     //reverse speeds for the red alliance, because directions have flipped
     if(DriverStation.getAlliance().get() == Alliance.Red) {

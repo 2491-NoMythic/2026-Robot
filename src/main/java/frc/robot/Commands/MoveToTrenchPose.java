@@ -69,8 +69,8 @@ public class MoveToTrenchPose extends Command {
   }
 
   // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return cyclesGood > 3 && drivetrain.isAtRotationTarget();
-  }
+  //@Override
+  //public boolean isFinished() {
+    //return cyclesGood > 3 && drivetrain.isAtRotationTarget();
+  //}
 }
