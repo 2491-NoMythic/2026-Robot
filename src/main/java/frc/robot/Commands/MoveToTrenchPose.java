@@ -37,8 +37,8 @@ public class MoveToTrenchPose extends Command {
     double poseX = drivetrain.getPose().getX();
     double poseY = drivetrain.getPose().getY();
 
-    double leftTrenchY = 7.425;
-    double rightTrenchY = 0.650;
+    double leftTrenchY = 7.625;
+    double rightTrenchY = 0.450;
     double yFieldCenter = 4.000;
 
     Rotation2d newRotation = Rotation2d.fromDegrees(Math.round( drivetrain.getPose().getRotation().getDegrees()/180 ) * 180);
@@ -55,7 +55,7 @@ public class MoveToTrenchPose extends Command {
   public void execute() {
     drivetrain.moveTowardsTrenchPose(xMovementSupplier, targetPose);
     
-    if(drivetrain.getPositionTargetingError() < 0.015) {
+    if(drivetrain.getPositionTargetingError() < 0.2) {
       cyclesGood++;
     } else {
       cyclesGood = 0;
