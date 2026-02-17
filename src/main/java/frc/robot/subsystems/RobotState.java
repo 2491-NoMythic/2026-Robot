@@ -19,6 +19,7 @@ public class RobotState {
   public boolean intakeRunning;
   public boolean linedUpToShoot;
   public boolean indexerRunning;
+  public boolean shooting;
   public boolean hopperExpandedVertically;
   public boolean hopperExpandedHorizontally;
   public ClimberState climberState;

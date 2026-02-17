@@ -11,7 +11,13 @@ import static frc.robot.settings.Constants.DriveConstants.k_XY_D;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
 import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED;
-import static frc.robot.settings.Constants.XboxDriver.DEADBAND_NORMAL;
+import static frc.robot.settings.Constants.SubsystemsEnabled.CLIMBER_EXISTS;
+import static frc.robot.settings.Constants.SubsystemsEnabled.DRIVE_TRAIN_EXISTS;
+import static frc.robot.settings.Constants.SubsystemsEnabled.INDEXER_EXISTS;
+import static frc.robot.settings.Constants.SubsystemsEnabled.INTAKE_EXISTS;
+import static frc.robot.settings.Constants.SubsystemsEnabled.LIGHTS_EXIST;
+import static frc.robot.settings.Constants.SubsystemsEnabled.LIMELIGHTS_EXIST;
+import static frc.robot.settings.Constants.SubsystemsEnabled.SHOOTER_EXISTS;
 import static frc.robot.settings.Constants.XboxDriver.DRIVE_CONTROLLER_ID;
 import static frc.robot.settings.Constants.XboxDriver.OPERATOR_CONTROLLER_ID;
 import static frc.robot.settings.Constants.XboxDriver.X_AXIS;
@@ -32,6 +38,7 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -46,18 +53,21 @@ import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobotMoving;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.Commands.AutomaticClimb;
-import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.ClimberArmDown;
 import frc.robot.Commands.ClimberArmUp;
+import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.Drive;
 import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.OverBump;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.LightsCommand;
+import frc.robot.Commands.MoveToClimbingPose;
+import frc.robot.Commands.Outtake;
 import frc.robot.Commands.RunIntake;
 import frc.robot.Commands.RunShooterVelocity;
 import frc.robot.settings.Constants.IndexerConstants;
+import frc.robot.settings.LightsEnums;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hopper;
@@ -67,9 +77,6 @@ import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
-
-
-import static frc.robot.settings.Constants.SubsystemsEnabled.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -95,6 +102,7 @@ public class RobotContainer {
   private SendableChooser<Command> autoChooser;
   private final XboxController driveController;
   private final XboxController operatorController;
+  private Timer autoTimer;
 
   private AimAtHub aimAtHub;
   private AimHood aimHood;
@@ -104,6 +112,7 @@ public class RobotContainer {
   DoubleSupplier ControllerZAxisSupplier;
   BooleanSupplier ZeroGyroSup;
   BooleanSupplier AimRobotMovingSup;
+  BooleanSupplier TrenchAllignSup;
   BooleanSupplier ClimberUpSup;
   BooleanSupplier ClimberDownSup;
   BooleanSupplier RetractIntakeSup;
@@ -156,6 +165,8 @@ public class RobotContainer {
     RetractIntakeSup = driveController::getLeftStickButton;
     DeployIntakeSup = driveController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
+    //Trench Controls
+    TrenchAllignSup = driveController::getBButton;
 
     crossBumpTowardsAllianceSup = driveController::getYButton;
 
@@ -208,6 +219,7 @@ public class RobotContainer {
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
     new Trigger(crossBumpTowardsAllianceSup).whileTrue(new OverBump(drivetrain, 3));
+    new Trigger(TrenchAllignSup).whileTrue(new MoveToTrenchPose(drivetrain, ControllerForwardAxisSupplier));
   }
 
   private void configureDriveTrain() {
@@ -342,11 +354,22 @@ public class RobotContainer {
   }
 
   public void autonomousInit() {
-    lights.BlinkingLights();
+    autoTimer = new Timer();
+    autoTimer.reset();
+    autoTimer.start();
+
+    lights.blinkLights(LightsEnums.All, 255, 0, 0);
+  }
+
+  public void autonomousPeriodic() {
+    if (autoTimer.hasElapsed(3.0)) {
+      lights.setDefaultCommand(new LightsCommand(lights));
+    }
+
   }
 
   public void runsWhenDisabled() {
-    lights.breathingLights();
+    lights.breathingLights(LightsEnums.All, 255, 0, 255);
   }
 
   private double modifyAxis(double value, double deadband) {
