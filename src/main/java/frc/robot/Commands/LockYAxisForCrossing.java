@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class MoveToTrenchPose extends Command {
+public class LockYAxisForCrossing extends Command {
   DrivetrainSubsystem drivetrain;
   DoubleSupplier xMovementSupplier;
   Boolean toTrench;
@@ -24,7 +24,7 @@ public class MoveToTrenchPose extends Command {
   Pose2d targetPose;
   int cyclesGood;
   /** Creates a new MoveToTrenchPose. */
-  public MoveToTrenchPose(DrivetrainSubsystem drivetrain, DoubleSupplier xMovementSupplier, Boolean toTrench, Boolean toBump) {
+  public LockYAxisForCrossing(DrivetrainSubsystem drivetrain, DoubleSupplier xMovementSupplier, Boolean toTrench, Boolean toBump) {
     this.drivetrain = drivetrain;
     this.xMovementSupplier = xMovementSupplier;
     this.toBump = toBump;
@@ -66,7 +66,7 @@ public class MoveToTrenchPose extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.moveTowardsTrenchPose(xMovementSupplier, targetPose);
+    drivetrain.lockYAxisWithPose(xMovementSupplier, targetPose);
     
     if(drivetrain.getPositionTargetingError() < 0.2) {
       cyclesGood++;

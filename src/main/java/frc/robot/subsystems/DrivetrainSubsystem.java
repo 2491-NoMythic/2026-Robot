@@ -529,7 +529,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * @param pose
    * @param xMovementSupplier
    */
-  public void moveTowardsTrenchPose(DoubleSupplier xMovementSupplier, Pose2d trenchPose) {
+  public void lockYAxisWithPose(DoubleSupplier xMovementSupplier, Pose2d trenchPose) {
     //set the targets for the PID loops
 
     setRotationTarget(trenchPose.getRotation().getDegrees());

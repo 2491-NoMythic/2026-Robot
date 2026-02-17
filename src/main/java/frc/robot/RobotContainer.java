@@ -57,7 +57,7 @@ import frc.robot.Commands.Drive;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.LightsCommand;
 import frc.robot.Commands.MoveToClimbingPose;
-import frc.robot.Commands.MoveToTrenchPose;
+import frc.robot.Commands.LockYAxisForCrossing;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.RunIntake;
 import frc.robot.Commands.RunShooterVelocity;
@@ -211,8 +211,8 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
-    new Trigger(TrenchAllignSup).whileTrue(new MoveToTrenchPose(drivetrain, ControllerForwardAxisSupplier, true, false));
-    new Trigger(BumpAllignSup).whileTrue(new MoveToTrenchPose(drivetrain, ControllerForwardAxisSupplier, false, true));
+    new Trigger(TrenchAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, true, false));
+    new Trigger(BumpAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, false, true));
   }
 
   private void configureDriveTrain() {
