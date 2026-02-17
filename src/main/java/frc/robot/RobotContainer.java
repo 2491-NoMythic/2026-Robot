@@ -63,6 +63,7 @@ import frc.robot.Commands.OverBump;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.LightsCommand;
 import frc.robot.Commands.MoveToClimbingPose;
+import frc.robot.Commands.MoveToTrenchPose;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.RunIntake;
 import frc.robot.Commands.RunShooterVelocity;
