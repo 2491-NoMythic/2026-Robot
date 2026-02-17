@@ -106,6 +106,7 @@ public class RobotContainer {
   DoubleSupplier ControllerZAxisSupplier;
   BooleanSupplier ZeroGyroSup;
   BooleanSupplier AimRobotMovingSup;
+  BooleanSupplier TrenchAllignSup;
   BooleanSupplier ClimberUpSup;
   BooleanSupplier ClimberDownSup;
   BooleanSupplier RetractIntakeSup;
@@ -157,6 +158,8 @@ public class RobotContainer {
     RetractIntakeSup = driveController::getLeftStickButton;
     DeployIntakeSup = driveController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
+    //Trench Controls
+    TrenchAllignSup = driveController::getBButton;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -205,6 +208,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
+    new Trigger(TrenchAllignSup).whileTrue(new MoveToTrenchPose(drivetrain, ControllerForwardAxisSupplier));
   }
 
   private void configureDriveTrain() {
