@@ -57,6 +57,7 @@ import frc.robot.Commands.Drive;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.LightsCommand;
 import frc.robot.Commands.MoveToClimbingPose;
+import frc.robot.Commands.LockYAxisForCrossing;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.RunIntake;
 import frc.robot.Commands.RunShooterVelocity;
@@ -106,6 +107,8 @@ public class RobotContainer {
   DoubleSupplier ControllerZAxisSupplier;
   BooleanSupplier ZeroGyroSup;
   BooleanSupplier AimRobotMovingSup;
+  BooleanSupplier TrenchAllignSup;
+  BooleanSupplier BumpAllignSup;
   BooleanSupplier ClimberUpSup;
   BooleanSupplier ClimberDownSup;
   BooleanSupplier RetractIntakeSup;
@@ -154,9 +157,12 @@ public class RobotContainer {
     ClimberUpSup = operatorController::getYButton;
     //Climber Up is Y button on operator controller
     //intake controls
-    RetractIntakeSup = driveController::getLeftStickButton;
-    DeployIntakeSup = driveController::getRightStickButton;
+    //RetractIntakeSup = driveController::getLeftStickButton;
+    //DeployIntakeSup = driveController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
+    //Trench Controls
+    TrenchAllignSup = driveController::getBButton;
+    BumpAllignSup = driveController::getRightStickButton;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -205,6 +211,8 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
+    new Trigger(TrenchAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, true, false));
+    new Trigger(BumpAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, false, true));
   }
 
   private void configureDriveTrain() {

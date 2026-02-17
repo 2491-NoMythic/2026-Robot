@@ -525,6 +525,30 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   /**
+   * moves toward a position and rotation using the BARGE_POSE in constnats for red or blue alliance.
+   * @param pose
+   * @param xMovementSupplier
+   */
+  public void lockYAxisWithPose(DoubleSupplier xMovementSupplier, Pose2d trenchPose) {
+    //set the targets for the PID loops
+
+    setRotationTarget(trenchPose.getRotation().getDegrees());
+    DRIVE_TO_POSE_Y_CONTROLLER.setSetpoint(trenchPose.getY());
+    //calculate speeds using PID loops
+    double xSpeed = xMovementSupplier.getAsDouble() * 3;
+    double ySpeed = DRIVE_TO_POSE_Y_CONTROLLER.calculate(odometer.getEstimatedPosition().getY());
+
+    //reverse speeds for the red alliance, because directions have flipped
+    if(DriverStation.getAlliance().get() == Alliance.Red) {
+      ySpeed = -ySpeed;
+    }
+    SmartDashboard.putNumber("TARGETINGPOSE/yspeed", ySpeed);
+    SmartDashboard.putNumber("TARGETINGPOSE/xspeed", xSpeed);
+    //drive!
+    moveTowardsRotationTargetFieldRelative(xSpeed, ySpeed);
+  }
+
+  /**
    * moves toward a position and rotation using
    * {@link #moveTowardsRotationTargetFieldRelative(double, double)}. The position
    * is set as if 0 degrees is away from
