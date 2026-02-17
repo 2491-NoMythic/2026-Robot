@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Trench to Collect ML"
+            "pathName": "Slow Trench to Collect ML"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Collect L"
+                  "pathName": "Slow Collect L"
                 }
               },
               {
@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Return L"
+            "pathName": "Copy of Return L"
           }
         },
         {
@@ -88,7 +88,7 @@
       ]
     }
   },
-  "resetOdom": false,
-  "folder": "Collect Half",
+  "resetOdom": true,
+  "folder": "Testing",
   "choreoAuto": false
 }
