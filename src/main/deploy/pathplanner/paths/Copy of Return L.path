@@ -8,68 +8,27 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.902810295652807,
-        "y": 5.937130417900011
+        "x": 7.907011518659089,
+        "y": 5.923433785633818
       },
       "isLocked": true,
       "linkedName": "Return L"
     },
     {
       "anchor": {
-        "x": 4.674783132530121,
-        "y": 5.516155555555556
+        "x": 6.717360912981454,
+        "y": 5.231825962910129
       },
       "prevControl": {
-        "x": 4.935090531711473,
-        "y": 5.449385425037944
-      },
-      "nextControl": {
-        "x": 4.2244400571570955,
-        "y": 5.631670773390033
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.871710843373494,
-        "y": 5.516155555555556
-      },
-      "prevControl": {
-        "x": 2.669907267571149,
-        "y": 5.3685909365122795
-      },
-      "nextControl": {
-        "x": 3.073514419175839,
-        "y": 5.663720174598832
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.7156666666666665,
-        "y": 4.005766666666666
-      },
-      "prevControl": {
-        "x": 2.543352180269995,
-        "y": 4.591052372485683
+        "x": 7.726118334608188,
+        "y": 6.0539107727117685
       },
       "nextControl": null,
-      "isLocked": true,
-      "linkedName": "Front of Hub "
+      "isLocked": false,
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.75,
-      "rotationDegrees": 0.0
-    },
-    {
-      "waypointRelativePos": 1.65,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
