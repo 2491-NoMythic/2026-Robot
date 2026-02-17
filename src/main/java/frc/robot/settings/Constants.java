@@ -53,11 +53,12 @@ public final class Constants {
     public static final float SHOOTING_SPEED_MPS = 7;//not measured, just example
     public static final int SHOOTER_MOTOR_ID = 2491; 
     public static final int HOOD_MOTOR_ID = 2491;
-    public static final double SHOOTER_HEIGHT = 1; //IN METRES
+    public static final double SHOOTER_HEIGHT = 1; //IN METERS
     public static final double AUTO_AIM_ROBOT_kP = 0.125;
     public static final double AUTO_AIM_ROBOT_kI = 0;
     public static final double AUTO_AIM_ROBOT_kD = 0;
     public static final double HOOD_DOWN_POSITION_ROTATIONS = 0;
+    public static final double HOOD_UP_POSITION_ROTATIONS = 1;
     public static TalonFXConfiguration SHOOTER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
         .withKV(0).withKP(0).withKI(0).withKD(0))

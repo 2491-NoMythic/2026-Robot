@@ -11,6 +11,8 @@ import static frc.robot.settings.Constants.DriveConstants.k_XY_D;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
 import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED;
+import static frc.robot.settings.Constants.ShooterConstants.HOOD_DOWN_POSITION_ROTATIONS;
+import static frc.robot.settings.Constants.ShooterConstants.HOOD_UP_POSITION_ROTATIONS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.CLIMBER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.DRIVE_TRAIN_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.INDEXER_EXISTS;
@@ -272,9 +274,8 @@ public class RobotContainer {
   private void shooterInit() {
     shooter = new Shooter();
     shooter.setDefaultCommand(new AimHood(shooter));
-    //hood motor is now servo so cannot set speed
-    //new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodMotor(0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
-    //new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()->shooter.setHoodMotor(-0.2), shooter)).onFalse(new InstantCommand(()->shooter.setHoodMotor(0), shooter));
+    new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngle(HOOD_UP_POSITION_ROTATIONS, true), shooter));
+    new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngle(HOOD_DOWN_POSITION_ROTATIONS, true), shooter));
     new Trigger(ForceHoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
     new Trigger(ShooterToggleSupplier).onTrue(new InstantCommand(()->manualShooterOn = !manualShooterOn));
     new Trigger(()->manualShooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
