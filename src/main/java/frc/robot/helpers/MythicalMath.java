@@ -192,6 +192,31 @@ public class MythicalMath {
     //TODO: simulate found shot and make adjustments 
   }
 
+
+  /**
+   * calculates the length a linear actuator must extend by to angle the shooter 
+   * @param desiredAngleInDegrees the desired angle, in degrees
+   * @param actuatorBodyLength the length of the actuator WHEN NOT EXTENDED AT ALL
+   * @param sideALength the length from the center of the bottom pivot point of the actuator where it is mounted, to the center of the pivot point of the shooter hood piece
+   * @param sideBLength the length from the center of the top pivot point of the actuator where it is mounted, to the center of the pivot point of the shooter hood piece
+   * @param lowerAngleToHorizontal the angle between side A and horizontal
+   * @return the length, in whatever units were inputted, to extend the actuator by. ideally in cm.
+   */
+  public double ServoExtensionToReachHoodAngleInDegrees(double desiredAngleInDegrees, double actuatorBodyLength, double sideALength, double sideBLength, double lowerAngleToHorizontal){
+    double a = sideALength; 
+    double b = sideBLength;
+    double totalAngle = desiredAngleInDegrees + lowerAngleToHorizontal;
+
+    double totalActuatorSideLength = Math.sqrt( -2 * a * b * Math.cos(totalAngle) + a*a + b*b); 
+    double extension = totalActuatorSideLength - actuatorBodyLength;
+    //I don't want to document this, so I will just link a photo of the math. 
+    //https://nomythic.slack.com/archives/CA2SX3M8T/p1771377556413989
+    //TLDR, we know 3 sides, two of which are fixed, so this is solving the Law Of Cosines for the angle, 
+    //and then finding only the portion above horizontal.
+
+    return extension;
+  }
+
   /**
    * calculates expected acceleration due to air resistance base on exit velocity of ball
    * @param currentVelocity
