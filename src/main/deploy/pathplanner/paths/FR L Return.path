@@ -3,28 +3,28 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.703363636363636,
-        "y": 5.728795180722891
+        "x": 7.757,
+        "y": 2.2865662650602405
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.214068207206241,
-        "y": 5.234359410839123
+        "x": 8.006963589435104,
+        "y": 2.2908328745710964
       },
-      "isLocked": false,
-      "linkedName": "Return L-R"
+      "isLocked": true,
+      "linkedName": "FR L Return"
     },
     {
       "anchor": {
-        "x": 5.979857346647646,
-        "y": 5.438844507845934
+        "x": 6.290385164051354,
+        "y": 2.6052781740370903
       },
       "prevControl": {
-        "x": 6.255018890160697,
-        "y": 5.613874415262832
+        "x": 6.027183901025197,
+        "y": 2.6791399813052625
       },
       "nextControl": null,
-      "isLocked": false,
+      "isLocked": true,
       "linkedName": null
     }
   ],
@@ -48,7 +48,7 @@
   "folder": "Return to Hub",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": 89.8955781006048
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

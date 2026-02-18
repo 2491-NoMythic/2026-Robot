@@ -3,11 +3,13 @@
   "robotLength": 0.7874,
   "holonomicMode": true,
   "pathFolders": [
+    "Bump",
     "Collect",
     "Misc",
-    "Testing",
     "Old Paths",
     "Return to Hub",
+    "Temp",
+    "Testing",
     "To Collect"
   ],
   "autoFolders": [
@@ -16,8 +18,9 @@
     "Collect Quarter",
     "Double Back",
     "Misc",
-    "Testing",
-    "Old Autos"
+    "AG FR Autos",
+    "Old Autos",
+    "Testing"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

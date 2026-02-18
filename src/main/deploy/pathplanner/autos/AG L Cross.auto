@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AG L Trench to Collect"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AG L Collect Center"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Return MR"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "AG FR Autos",
+  "choreoAuto": false
+}

@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.791210675962999,
-        "y": 0.6572427748430081
+        "x": 6.41212491887411,
+        "y": 0.6611103591393306
       },
       "isLocked": true,
       "linkedName": "Right Trench Start"
@@ -20,12 +20,12 @@
         "y": 0.6340000000000003
       },
       "prevControl": {
-        "x": 4.27674613218869,
-        "y": 0.5989241029615067
+        "x": 3.977001113847222,
+        "y": 0.626796872320929
       },
       "nextControl": {
-        "x": 6.572359756000449,
-        "y": 0.6433984372173953
+        "x": 6.4132715465689545,
+        "y": 0.6351128644784184
       },
       "isLocked": true,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 1.063
       },
       "prevControl": {
-        "x": 8.004357269373447,
-        "y": 0.9952425192573047
+        "x": 7.311212928887292,
+        "y": 0.6487105373676041
       },
       "nextControl": null,
       "isLocked": true,
@@ -62,11 +62,11 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 3.0,
+    "velocity": 0.0,
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": "To Collect",
+  "folder": "Old Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0
