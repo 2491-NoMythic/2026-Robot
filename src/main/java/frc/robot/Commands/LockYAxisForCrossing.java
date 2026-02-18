@@ -45,8 +45,8 @@ public class LockYAxisForCrossing extends Command {
     double rightDestinationY = 0;
 
     if (toTrench){
-      leftDestinationY = 7.625;
-      rightDestinationY = 0.450;
+      leftDestinationY = 7.41;
+      rightDestinationY = 0.6;
     } else if (toBump){
       leftDestinationY = 5.6;
       rightDestinationY = 2.5;
