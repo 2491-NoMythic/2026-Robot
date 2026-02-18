@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": null
+                  "pathName": "Collect L Center"
                 }
               },
               {
@@ -89,6 +89,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Collect Center",
+  "folder": "Old Autos",
   "choreoAuto": false
 }

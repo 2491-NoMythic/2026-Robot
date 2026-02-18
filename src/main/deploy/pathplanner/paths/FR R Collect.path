@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.703363636363636,
-        "y": 5.728795180722891
+        "x": 7.757,
+        "y": 1.063
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.214068207206241,
-        "y": 5.234359410839123
+        "x": 7.763657292705223,
+        "y": 3.504279900966977
       },
       "isLocked": false,
-      "linkedName": "Return L-R"
+      "linkedName": "Collect BR"
     },
     {
       "anchor": {
-        "x": 5.979857346647646,
-        "y": 5.438844507845934
+        "x": 7.757,
+        "y": 5.783433734939758
       },
       "prevControl": {
-        "x": 6.255018890160697,
-        "y": 5.613874415262832
+        "x": 7.7551126588222585,
+        "y": 5.452549393847847
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0.0
+    "velocity": 0.0,
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Return to Hub",
+  "folder": "Collect",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": 89.8955781006048
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

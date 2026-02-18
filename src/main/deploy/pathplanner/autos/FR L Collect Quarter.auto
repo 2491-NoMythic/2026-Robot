@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "FR R Trench to Collect"
+            "pathName": "FR L Trench to Collect"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Collect BR"
+                  "pathName": "FR L Collect"
                 }
               },
               {
@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Return BL"
+            "pathName": "FR L Return"
           }
         },
         {
@@ -95,6 +95,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Collect Quarter",
+  "folder": "AG FR Autos",
   "choreoAuto": false
 }
