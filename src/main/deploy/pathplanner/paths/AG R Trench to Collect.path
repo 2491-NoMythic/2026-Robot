@@ -3,50 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.390662650602409,
-        "y": 7.422590361445783
+        "x": 4.401,
+        "y": 0.634
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.040406601326317,
-        "y": 7.396511411932988
+        "x": 6.533266363630986,
+        "y": 0.8866852867756172
       },
       "isLocked": true,
-      "linkedName": "Left Trench Start"
+      "linkedName": "Right Trench Start"
     },
     {
       "anchor": {
-        "x": 5.960566666666666,
-        "y": 7.412
+        "x": 6.499710843373493,
+        "y": 1.018951807228916
       },
       "prevControl": {
-        "x": 4.013163764444945,
-        "y": 7.347403843694412
+        "x": 6.250898549379774,
+        "y": 1.0432919460449304
       },
       "nextControl": {
-        "x": 6.210429245529389,
-        "y": 7.420288044646909
+        "x": 6.748523137367213,
+        "y": 0.9946116684129019
       },
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.245,
-        "y": 7.0
+        "x": 8.280927710843374,
+        "y": 3.0952168674698792
       },
       "prevControl": {
-        "x": 8.630983875594508,
-        "y": 6.921113358558331
+        "x": 8.078504223088917,
+        "y": 2.9485037746481364
       },
       "nextControl": null,
-      "isLocked": true,
-      "linkedName": "Collect ML"
+      "isLocked": false,
+      "linkedName": "Agressive Collect Center R"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.9,
+      "waypointRelativePos": 0.27034990791896985,
       "rotationDegrees": 0.0
     }
   ],
@@ -63,10 +63,10 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Old Paths",
+  "folder": "To Collect",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.245,
-        "y": 7.0
+        "x": 8.280927710843374,
+        "y": 3.0952168674698792
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.256445601864563,
-        "y": 6.552580389726585
+        "x": 8.291013134059993,
+        "y": 2.712523482784696
       },
       "isLocked": false,
-      "linkedName": "Collect ML"
+      "linkedName": "Agressive Collect Center R"
     },
     {
       "anchor": {
         "x": 8.245,
-        "y": 2.1226506024096388
+        "y": 6.0
       },
       "prevControl": {
-        "x": 8.250891455670684,
-        "y": 2.397588090047206
+        "x": 8.238852011093696,
+        "y": 6.342113440573844
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Return MR"
+      "linkedName": "Return ML"
     }
   ],
   "rotationTargets": [],
@@ -56,13 +56,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Old Paths",
+  "folder": "Collect",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

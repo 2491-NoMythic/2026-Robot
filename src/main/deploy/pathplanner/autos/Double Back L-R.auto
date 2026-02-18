@@ -5,15 +5,21 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Expand"
+          }
+        },
+        {
           "type": "wait",
           "data": {
-            "waitTime": 5.0
+            "waitTime": 3.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Trench to Collect BR"
+            "pathName": "FR L Trench to Collect"
           }
         },
         {
@@ -23,7 +29,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Aggressive Collect R-L"
+                  "pathName": "Collect L-R"
                 }
               },
               {
@@ -38,7 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Return R-L"
+            "pathName": "Return L-R"
           }
         },
         {
