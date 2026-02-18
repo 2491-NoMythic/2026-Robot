@@ -52,9 +52,10 @@ public class AimAtLocation extends ParallelCommandGroup {
   /** Creates a new AimAtLocation. */
   public AimAtLocation(DrivetrainSubsystem drivetrain, Shooter shooter, DoubleSupplier joystickXSupplier, DoubleSupplier joystickYSupplier, Location location) {
     double hoodAngle = getTargetHoodAngle(location);
-    double robotAngle = getTargetRobotAngle(location);
-    addCommands(new AimHoodFixed(shooter, hoodAngle, false),
-    new AimRobot(drivetrain, joystickXSupplier, joystickYSupplier, ()-> robotAngle));
+    double robotAngle = Math.toDegrees(getTargetRobotAngle(location));
+    addCommands(
+      // new AimHoodFixed(shooter, hoodAngle, false),
+      new AimRobot(drivetrain, joystickXSupplier, joystickYSupplier, ()-> robotAngle));
 
   }
 }
