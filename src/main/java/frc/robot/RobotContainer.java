@@ -221,7 +221,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
-    new Trigger(crossBumpTowardsAllianceSup).whileTrue(new OverBump(drivetrain, 3));
+    new Trigger(crossBumpTowardsAllianceSup).whileTrue(new OverBump(drivetrain, 1));
     new Trigger(TrenchAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, true, false));
     new Trigger(BumpAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, false, true));
   }
@@ -399,14 +399,14 @@ public class RobotContainer {
   private void registerNamedCommands(){
     Command AcrossBumpAwayFromAlliance = new SelectCommand<>(
       Map.ofEntries(
-        Map.entry(true, new OverBump(drivetrain, -3)),
-        Map.entry(false, new OverBump(drivetrain, 3))
+        Map.entry(true, new OverBump(drivetrain, -1)),
+        Map.entry(false, new OverBump(drivetrain, 1))
       ),
       ()->DriverStation.getAlliance().get() == Alliance.Blue);
     Command AcrossBumpTowardsAlliance = new SelectCommand<>(
       Map.ofEntries(
-        Map.entry(true, new OverBump(drivetrain, 3)), 
-        Map.entry(false, new OverBump(drivetrain, -3))
+        Map.entry(true, new OverBump(drivetrain, 1)), 
+        Map.entry(false, new OverBump(drivetrain, -1))
       ),
       ()->DriverStation.getAlliance().get() == Alliance.Blue);
     NamedCommands.registerCommand("AcrossBumpAwayFromAlliance", AcrossBumpAwayFromAlliance);
