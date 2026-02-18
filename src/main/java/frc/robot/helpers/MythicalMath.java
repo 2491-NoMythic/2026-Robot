@@ -202,7 +202,7 @@ public class MythicalMath {
    * @param lowerAngleToHorizontal the angle between side A and horizontal
    * @return the length, in whatever units were inputted, to extend the actuator by. ideally in cm.
    */
-  public double ServoExtensionToReachHoodAngleInDegrees(double desiredAngleInDegrees, double actuatorBodyLength, double sideALength, double sideBLength, double lowerAngleToHorizontal){
+  public static double ServoExtensionToReachHoodAngleInDegrees(double desiredAngleInDegrees, double actuatorBodyLength, double sideALength, double sideBLength, double lowerAngleToHorizontal){
     double a = sideALength; 
     double b = sideBLength;
     double totalAngle = desiredAngleInDegrees + lowerAngleToHorizontal;
