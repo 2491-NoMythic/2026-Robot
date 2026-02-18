@@ -54,7 +54,7 @@ public final class Constants {
     public static final int SHOOTER_MOTOR_ID = 2491; 
     public static final int HOOD_MOTOR_ID = 2491;
     public static final double SHOOTER_HEIGHT = 1; //IN METRES
-    public static final double AUTO_AIM_ROBOT_kP = 0.125;
+    public static final double AUTO_AIM_ROBOT_kP = 0.01;
     public static final double AUTO_AIM_ROBOT_kI = 0;
     public static final double AUTO_AIM_ROBOT_kD = 0;
     public static final double HOOD_DOWN_POSITION_ROTATIONS = 0;

@@ -63,6 +63,7 @@ public class AimRobot extends Command {
       joystickYSupplier.getAsDouble(),
       rotationSpeed,
       new Rotation2d(drivetrain.getOdometryRotation().getRadians())));
+    SmartDashboard.putNumber("angle targeting error", rotationController.getError());
     RobotState.getInstance().Aimed = Math.toDegrees(rotationController.getError()) < 2;
   }
 
