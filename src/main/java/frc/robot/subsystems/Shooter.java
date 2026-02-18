@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.LogInputs.ShooterInputsAutoLogged;
+import frc.robot.helpers.MythicalMath;
 
 import static frc.robot.settings.Constants.ShooterConstants.*;
 
@@ -21,9 +22,8 @@ public class Shooter extends SubsystemBase {
   TalonFX shootMotor;
   Servo hoodMotor;
   ShooterInputsAutoLogged inputs;
-  double desiredAngleRotations;
+  double desiredPosition;
   boolean autoRetractOn;
-  
   /** Creates a new Shooter. */
   public Shooter() {
     shootMotor = new TalonFX(SHOOTER_MOTOR_ID);
@@ -57,19 +57,19 @@ public class Shooter extends SubsystemBase {
 
   /**
    * sends a positionVoltage request to the hood motor
-   * @param rotations rotations to set the hood to
+   * @param angle angle to set the hood to
    */
-  public void setHoodAngle(double rotations, boolean autoRetract){
-    desiredAngleRotations = rotations;
+  public void setHoodAngle(double angle, boolean autoRetract){
+    desiredPosition = MythicalMath.ServoExtensionToReachHoodAngleInDegrees(angle, 6.610, 8.134, 4.914, 54.328);
     autoRetractOn = autoRetract;
   }
   public void setHoodAngleUp(){
-    desiredAngleRotations = 1;
+    desiredPosition = 1;
     autoRetractOn = true;
   }
 
   public void setHoodAngleDown(){
-    desiredAngleRotations = HOOD_DOWN_POSITION_ROTATIONS;
+    desiredPosition = HOOD_DOWN_POSITION_ROTATIONS;
     autoRetractOn = true;
   }
 
@@ -95,10 +95,10 @@ public class Shooter extends SubsystemBase {
       if(inBadxZone && inBadyZone) {
         hoodMotor.set(HOOD_DOWN_POSITION_ROTATIONS);
       } else {
-        hoodMotor.set(desiredAngleRotations);
+        hoodMotor.set(desiredPosition);
       }
     } else {
-      hoodMotor.set(desiredAngleRotations);
+      hoodMotor.set(desiredPosition);
     }
   }
 }
