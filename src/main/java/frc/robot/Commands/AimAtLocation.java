@@ -54,7 +54,7 @@ public class AimAtLocation extends ParallelCommandGroup {
     double hoodAngle = getTargetHoodAngle(location);
     double robotAngle = Math.toDegrees(getTargetRobotAngle(location));
     addCommands(
-      // new AimHoodFixed(shooter, hoodAngle, false),
+      new AimHoodFixed(shooter, hoodAngle, false),
       new AimRobot(drivetrain, joystickXSupplier, joystickYSupplier, ()-> robotAngle));
 
   }
