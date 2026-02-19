@@ -352,12 +352,13 @@ public class RobotContainer {
       SmartDashboard.putData("zeroGyroscope", zeroGyroscope);
       SmartDashboard.putData("set offsets", setOffsets);
     }
-    if(DRIVE_TRAIN_EXISTS){
+    if(DRIVE_TRAIN_EXISTS && SHOOTER_EXISTS){
       // new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
       new Trigger(ManualHubShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Hub));
       new Trigger(ManualTowerShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Tower));
       new Trigger(ManualTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Trench));
     }
+    
   }
 
   /**
