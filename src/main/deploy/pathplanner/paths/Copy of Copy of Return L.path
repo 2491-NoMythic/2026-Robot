@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.245,
-        "y": 2.1226506024096388
+        "x": 6.717,
+        "y": 5.232
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.00577534219429,
-        "y": 2.19525613317515
+        "x": 6.958011518659088,
+        "y": 5.298433785633818
       },
-      "isLocked": false,
-      "linkedName": "Return MR"
+      "isLocked": true,
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.290385164051354,
-        "y": 2.6052781740370903
+        "x": 6.536219686162624,
+        "y": 3.782696148359487
       },
       "prevControl": {
-        "x": 6.088038663885532,
-        "y": 2.7520974298267955
+        "x": 6.484465049928673,
+        "y": 4.9083594864479325
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
+    "velocity": 0,
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Return to Hub",
+  "folder": "Testing",
   "idealStartingState": {
-    "velocity": 3.0,
-    "rotation": -90.0
+    "velocity": 0.0,
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

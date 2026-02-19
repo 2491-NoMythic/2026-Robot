@@ -191,6 +191,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return inputs.gyroScopeRotation;
   }
 
+  public Rotation2d getGyroscopeRotation2(String location) {
+    System.out.println(location);
+    System.out.println(inputs.gyroScopeRotation);
+    System.out.println(pigeon.getRotation2d());
+    return inputs.gyroScopeRotation;
+  }
+
   /**
    * gets the angle of odometer reading, but adds 180 degrees if we are on red
    * alliance. this is useful for whne using
@@ -436,6 +443,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
       } else {
         RobotState.getInstance().LimelightsUpdated = false;
       }
+    } else {
+      RobotState.getInstance().LimelightsUpdated = false;
     }
   }
 
@@ -661,7 +670,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
       updateOdometry();
       if (LIMELIGHTS_EXIST) {
         updateOdometryWithVision();
-        RobotState.getInstance().LimelightsUpdated = true;
       }
     } else {
       RobotState.getInstance().LimelightsUpdated = false;
@@ -685,6 +693,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     Logger.recordOutput("autoaim/pitch", RobotState.getInstance().aimingPitch);
     Logger.recordOutput("autoaim/yaw", RobotState.getInstance().aimingYaw);
     Logger.recordOutput("autoaim/target", BLUE_HUB_COORDINATE);
+    SmartDashboard.putBoolean("LimelightsUpdatedState", RobotState.getInstance().LimelightsUpdated);
   }
 
   private void updateInputs() {

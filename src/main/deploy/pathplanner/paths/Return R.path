@@ -8,84 +8,27 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.905417854496589,
-        "y": 2.136949080426024
+        "x": 7.89504147480455,
+        "y": 2.0807936251186727
       },
       "isLocked": true,
       "linkedName": "Return R"
     },
     {
       "anchor": {
-        "x": 5.590277777777779,
-        "y": 2.4174222222222226
+        "x": 6.290385164051354,
+        "y": 2.6052781740370903
       },
       "prevControl": {
-        "x": 5.8124489205660534,
-        "y": 2.3027924559651467
-      },
-      "nextControl": {
-        "x": 5.366403561944483,
-        "y": 2.5329306933489737
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 3.310077777777778,
-        "y": 2.9436222222222215
-      },
-      "prevControl": {
-        "x": 3.980144314379957,
-        "y": 2.285415050119424
-      },
-      "nextControl": {
-        "x": 3.131729857185893,
-        "y": 3.1188136010641916
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.9982555555555557,
-        "y": 3.625733333333333
-      },
-      "prevControl": {
-        "x": 3.2475097407960827,
-        "y": 3.14886865171937
-      },
-      "nextControl": {
-        "x": 2.8824478378623843,
-        "y": 3.847292744152866
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.7156666666666665,
-        "y": 4.005766666666666
-      },
-      "prevControl": {
-        "x": 2.541303095155974,
-        "y": 4.18492398560741
+        "x": 5.973841708910595,
+        "y": 2.706468327724334
       },
       "nextControl": null,
       "isLocked": true,
-      "linkedName": "Front of Hub "
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.75,
-      "rotationDegrees": -56.648
-    },
-    {
-      "waypointRelativePos": 1.7272440944881946,
-      "rotationDegrees": -56.648
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],

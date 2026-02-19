@@ -5,16 +5,18 @@
   "pathFolders": [
     "Collect",
     "Misc",
+    "Testing",
     "Old Paths",
-    "To Collect",
-    "Return to Hub"
+    "Return to Hub",
+    "To Collect"
   ],
   "autoFolders": [
+    "Collect Center",
     "Collect Half",
     "Collect Quarter",
     "Double Back",
     "Misc",
-    "Collect Center",
+    "Testing",
     "Old Autos"
   ],
   "defaultMaxVel": 3.0,

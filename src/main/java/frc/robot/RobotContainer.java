@@ -26,6 +26,7 @@ import static frc.robot.settings.Constants.XboxDriver.Z_AXIS;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
@@ -44,16 +45,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.AimAtHub;
 import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobotMoving;
+import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.Commands.AutomaticClimb;
 import frc.robot.Commands.ClimberArmDown;
 import frc.robot.Commands.ClimberArmUp;
 import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.Drive;
+import frc.robot.Commands.MoveToClimbingPose;
+import frc.robot.Commands.Outtake;
+import frc.robot.Commands.OverBump;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.LightsCommand;
 import frc.robot.Commands.MoveToClimbingPose;
@@ -122,6 +128,7 @@ public class RobotContainer {
   BooleanSupplier AutoAimSupplier;
   BooleanSupplier ShootIfAimedSup;
   BooleanSupplier ForceHoodDownSupplier;
+  BooleanSupplier crossBumpTowardsAllianceSup;
   boolean manualShooterOn = false;
 
 
@@ -164,6 +171,8 @@ public class RobotContainer {
     TrenchAllignSup = driveController::getBButton;
     BumpAllignSup = driveController::getRightStickButton;
 
+    crossBumpTowardsAllianceSup = driveController::getYButton;
+
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
       configureDriveTrain();
@@ -195,6 +204,7 @@ public class RobotContainer {
 
     SmartDashboard.putBoolean("use limelight", false);
     SmartDashboard.putBoolean("trust limelight", false);
+    registerNamedCommands();
     autoInit();
     configureBindings();
   }
@@ -211,6 +221,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
+    new Trigger(crossBumpTowardsAllianceSup).whileTrue(new OverBump(drivetrain, 3));
     new Trigger(TrenchAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, true, false));
     new Trigger(BumpAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, false, true));
   }
@@ -385,15 +396,48 @@ public class RobotContainer {
     SmartDashboard.putNumber("GetPose", drivetrain.getPose().getRotation().getDegrees());
   }
 
-  void registerNamedCommands(){
-    NamedCommands.registerCommand("ClimberArmUp", new ClimberArmUp(climber));
-    NamedCommands.registerCommand("ClimberArmDown", new ClimberArmDown(climber));
-    NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
-    NamedCommands.registerCommand("ShooterVelocity", new RunShooterVelocity(shooter, Z_AXIS));
-    NamedCommands.registerCommand("AimRobotMoving", new AimRobotMoving(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
-    NamedCommands.registerCommand("Intake", new RunIntake(intake));
-    NamedCommands.registerCommand("Outtake", new Outtake(intake));
+  private void registerNamedCommands(){
+    Command AcrossBumpAwayFromAlliance = new SelectCommand<>(
+      Map.ofEntries(
+        Map.entry(true, new OverBump(drivetrain, 1.5)),
+        Map.entry(false, new OverBump(drivetrain, -1.5))
+      ),
+      ()->DriverStation.getAlliance().get() == Alliance.Blue);
+    Command AcrossBumpTowardsAlliance = new SelectCommand<>(
+      Map.ofEntries(
+        Map.entry(true, new OverBump(drivetrain, -1.5)), 
+        Map.entry(false, new OverBump(drivetrain, 1.5))
+      ),
+      ()->DriverStation.getAlliance().get() == Alliance.Blue);
+    NamedCommands.registerCommand("AcrossBumpAwayFromAlliance", AcrossBumpAwayFromAlliance);
+    NamedCommands.registerCommand("AcrossBumpTowardsAlliance", AcrossBumpTowardsAlliance);
     NamedCommands.registerCommand("MoveToClimbingPose", new MoveToClimbingPose(drivetrain));
-    NamedCommands.registerCommand("AutomaticClimb", new AutomaticClimb(drivetrain, climber));
+    NamedCommands.registerCommand("AimRobotMoving", new AimRobotMoving(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
+    if(CLIMBER_EXISTS) {
+      NamedCommands.registerCommand("ClimberArmUp", new ClimberArmUp(climber));
+      NamedCommands.registerCommand("ClimberArmDown", new ClimberArmDown(climber));
+      NamedCommands.registerCommand("AutomaticClimb", new AutomaticClimb(drivetrain, climber));
+    } else {
+      NamedCommands.registerCommand("ClimberArmUp", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+      NamedCommands.registerCommand("ClimberArmDown", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+      NamedCommands.registerCommand("AutomaticClimb", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+    }
+    if(INDEXER_EXISTS) {
+      NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
+    } else {
+      NamedCommands.registerCommand("RunIndexer", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+    }
+    if(SHOOTER_EXISTS) {
+      NamedCommands.registerCommand("ShooterVelocity", new RunShooterVelocity(shooter, Z_AXIS));
+    } else {
+      NamedCommands.registerCommand("ShooterVelocity", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+    }
+    if(INTAKE_EXISTS) {
+      NamedCommands.registerCommand("Intake", new RunIntake(intake));
+      NamedCommands.registerCommand("Outtake", new Outtake(intake));
+    } else {
+      NamedCommands.registerCommand("Intake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+      NamedCommands.registerCommand("Outtake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+    }
   }
 }

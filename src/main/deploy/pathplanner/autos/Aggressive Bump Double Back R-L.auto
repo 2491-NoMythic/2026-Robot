@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Collect R-L"
+                  "pathName": "Aggressive Collect R-L"
                 }
               },
               {
@@ -39,6 +39,12 @@
           "type": "path",
           "data": {
             "pathName": "Return R-L"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "OverBump"
           }
         },
         {
