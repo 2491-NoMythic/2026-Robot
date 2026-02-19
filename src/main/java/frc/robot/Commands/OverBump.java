@@ -23,11 +23,11 @@ public class OverBump extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new InstantCommand(()-> System.out.println("start")),
-      new InstantCommand(()-> drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(new ChassisSpeeds(speedOverBump, 0, 0), drivetrain.getGyroscopeRotation2("over bump rotation"))), drivetrain),
+      new InstantCommand(()-> drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(new ChassisSpeeds(speedOverBump, 0, 0), drivetrain.getPose().getRotation())), drivetrain),
       new InstantCommand(()-> System.out.println("wait until on bump")),
       new WaitUntilCommand(()->Math.abs(drivetrain.getPigeonPitch()) > 5 || Math.abs(drivetrain.getPigeonRoll()) > 5),
       new InstantCommand(()-> System.out.println("wait 0.9 seconds")),  
-      new WaitCommand(0.9),
+      new WaitCommand(2),
       new InstantCommand(()-> System.out.println("rotating")),
       new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0, 0, 0.5)), drivetrain),
       new InstantCommand(()-> System.out.println("wait for limelight update")),
