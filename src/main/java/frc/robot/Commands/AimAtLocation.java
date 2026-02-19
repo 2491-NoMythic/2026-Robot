@@ -18,14 +18,16 @@ import frc.robot.subsystems.Shooter;
 public class AimAtLocation extends ParallelCommandGroup {
   public enum Location{
     Hub,
-    Trench,
+    LeftTrench,
+    RightTrench,
     Tower
   }
 
   static double getTargetHoodAngle(Location location){
     switch (location) {
       case Hub: return AimAtLocationConstants.HUB_HOOD_ANGLE;
-      case Trench: return AimAtLocationConstants.TRENCH_HOOD_ANGLE;
+      case LeftTrench: return AimAtLocationConstants.TRENCH_HOOD_ANGLE;
+      case RightTrench: return AimAtLocationConstants.TRENCH_HOOD_ANGLE;
       case Tower: return AimAtLocationConstants.TOWER_HOOD_ANGLE;
       default: return 0;
     }
@@ -35,17 +37,19 @@ public class AimAtLocation extends ParallelCommandGroup {
     if (DriverStation.getAlliance().get() == Alliance.Red){
       switch (location) {
         case Hub: return AimAtLocationConstants.HUB_ROBOT_ANGLE + 180;
-        case Trench: return AimAtLocationConstants.TRENCH_ROBOT_ANGLE + 180;
+        case LeftTrench: return AimAtLocationConstants.L_TRENCH_ROBOT_ANGLE + 180;
+        case RightTrench: return AimAtLocationConstants.R_TRENCH_ROBOT_ANGLE + 180;
         case Tower: return AimAtLocationConstants.TOWER_ROBOT_ANGLE + 180;
         default: return 0;
       }
-    }
-
-    switch (location) {
-      case Hub: return AimAtLocationConstants.HUB_ROBOT_ANGLE;
-      case Trench: return AimAtLocationConstants.TRENCH_ROBOT_ANGLE;
-      case Tower: return AimAtLocationConstants.TOWER_ROBOT_ANGLE;
-      default: return 0;
+    } else {
+      switch (location) {
+        case Hub: return AimAtLocationConstants.HUB_ROBOT_ANGLE;
+        case LeftTrench: return AimAtLocationConstants.L_TRENCH_ROBOT_ANGLE;
+        case RightTrench: return AimAtLocationConstants.R_TRENCH_ROBOT_ANGLE;
+        case Tower: return AimAtLocationConstants.TOWER_ROBOT_ANGLE;
+        default: return 0;
+      }
     }
   }
 

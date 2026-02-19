@@ -134,7 +134,8 @@ public class RobotContainer {
   boolean manualShooterOn = false;
   BooleanSupplier ManualHubShotSup;
   BooleanSupplier ManualTowerShotSup;
-  BooleanSupplier ManualTrenchShotSup;
+  BooleanSupplier ManualLeftTrenchShotSup;
+  BooleanSupplier ManualRightTrenchShotSup;
 
 
 
@@ -165,7 +166,8 @@ public class RobotContainer {
     ForceHoodDownSupplier = driveController::getBackButton;
     ManualHubShotSup = operatorController::getBButton;
     ManualTowerShotSup = operatorController::getLeftStickButton;
-    ManualTrenchShotSup = operatorController::getRightStickButton;
+    ManualLeftTrenchShotSup = operatorController::getRightStickButton;
+    ManualRightTrenchShotSup = operatorController::getRightBumperButton;
     //Shooting Command is Right Trigger on drive controller. 
     //climber controls
     ClimberDownSup = operatorController::getAButton;
@@ -356,7 +358,8 @@ public class RobotContainer {
       // new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
       new Trigger(ManualHubShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Hub));
       new Trigger(ManualTowerShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Tower));
-      new Trigger(ManualTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Trench));
+      new Trigger(ManualLeftTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.LeftTrench));
+      new Trigger(ManualRightTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.RightTrench));
     }
     
   }
