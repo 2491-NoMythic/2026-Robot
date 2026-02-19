@@ -9,6 +9,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.LogInputs.ShooterInputsAutoLogged;
@@ -20,7 +21,8 @@ import org.littletonrobotics.junction.Logger;
 
 public class Shooter extends SubsystemBase {
   TalonFX shootMotor;
-  Servo hoodMotor;
+  Servo leftHoodActuator;
+  Servo rightHoodActuator;
   ShooterInputsAutoLogged inputs;
   double desiredPosition;
   boolean autoRetractOn;
@@ -28,8 +30,10 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     shootMotor = new TalonFX(SHOOTER_MOTOR_ID);
     shootMotor.getConfigurator().apply(SHOOTER_CONFIG);
-    hoodMotor = new Servo(HOOD_MOTOR_ID);
+    leftHoodActuator = new Servo(HOOD_LEFT_ACTUATOR_ID);
+    rightHoodActuator = new Servo(HOOD_RIGHT_ACTUATOR_ID);
     inputs = new ShooterInputsAutoLogged();
+    //SmartDashboard.putNumber("hoodPosition", 0);
   }
 
   /**
@@ -57,20 +61,33 @@ public class Shooter extends SubsystemBase {
 
   /**
    * sends a positionVoltage request to the hood motor
-   * @param angle angle to set the hood to
+   * @param angle angle to set the hood to, in radians
    */
   public void setHoodAngle(double angle, boolean autoRetract){
-    desiredPosition = MythicalMath.ServoExtensionToReachHoodAngleInDegrees(angle, 6.610, 8.134, 4.914, 54.328);
+    desiredPosition = InchPositionToActuatorConstrainedPercent(                                                                   //54.328 degrees
+      MythicalMath.ServoExtensionToReachHoodAngleInRadians(angle, 6.610, 8.134, 4.914, 0.948202476)
+    );
+    
     autoRetractOn = autoRetract;
   }
   public void setHoodAngleUp(){
-    desiredPosition = 1;
-    autoRetractOn = true;
+    desiredPosition = HOOD_UP_POSITION;
+    autoRetractOn = false;
   }
 
   public void setHoodAngleDown(){
-    desiredPosition = HOOD_DOWN_POSITION_ROTATIONS;
-    autoRetractOn = true;
+    desiredPosition = HOOD_DOWN_POSITION;
+    autoRetractOn = false;
+  }
+
+  private void setHoodActuators(double position){
+    leftHoodActuator.set(position);
+    rightHoodActuator.set(position);
+  }
+
+  public double InchPositionToActuatorConstrainedPercent(double inches){
+    double range = HOOD_UP_POSITION - HOOD_DOWN_POSITION;
+    return (inches / 3.93701) * range + HOOD_DOWN_POSITION; //Actuator "prefers" (demands) values from 0.2 to 0.8
   }
 
   @Override
@@ -93,12 +110,16 @@ public class Shooter extends SubsystemBase {
       }
       //if we are in position control, and in one of those squares around trenches, hood all the way down
       if(inBadxZone && inBadyZone) {
-        hoodMotor.set(HOOD_DOWN_POSITION_ROTATIONS);
+        setHoodActuators(HOOD_DOWN_POSITION);
       } else {
-        hoodMotor.set(desiredPosition);
+        setHoodActuators(desiredPosition);
       }
     } else {
-      hoodMotor.set(desiredPosition);
+      setHoodActuators(desiredPosition);
     }
+
+    //double smartActuatorValue = SmartDashboard.getNumber("hoodPosition", 0);
+    //leftHoodActuator.set(smartActuatorValue);
+    //System.out.print("Actuator should be at " + smartActuatorValue);
   }
 }

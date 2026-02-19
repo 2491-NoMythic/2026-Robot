@@ -717,10 +717,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     
     Optional<Alliance> alliance = DriverStation.getAlliance();
     if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-		hubPosition = Field.RED_HUB_COORDINATE;
-	} else {
-      	hubPosition = Field.BLUE_HUB_COORDINATE;
-	}
+		  hubPosition = Field.RED_HUB_COORDINATE;
+	  } else {
+      hubPosition = Field.BLUE_HUB_COORDINATE;
+	  }
 
     var fieldChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
     

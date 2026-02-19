@@ -40,25 +40,26 @@ public final class Constants {
   }
 
   public static final class SubsystemsEnabled{
-    public static final boolean SHOOTER_EXISTS = false;
+    public static final boolean SHOOTER_EXISTS = true;
     public static final boolean CLIMBER_EXISTS = false;
     public static final boolean INTAKE_EXISTS = false;
     public static final boolean INDEXER_EXISTS = false;
-    public static final boolean DRIVE_TRAIN_EXISTS = false;
-    public static final boolean LIMELIGHTS_EXIST = false;
+    public static final boolean DRIVE_TRAIN_EXISTS = true;
+    public static final boolean LIMELIGHTS_EXIST = true;
     public static final boolean LIGHTS_EXIST = false;
   }
 
   public static final class ShooterConstants{
     public static final float SHOOTING_SPEED_MPS = 7;//not measured, just example
     public static final int SHOOTER_MOTOR_ID = 2491; 
-    public static final int HOOD_MOTOR_ID = 2491;
+    public static final int HOOD_LEFT_ACTUATOR_ID = 0;
+    public static final int HOOD_RIGHT_ACTUATOR_ID = 1;
     public static final double SHOOTER_HEIGHT = 1; //IN METERS
     public static final double AUTO_AIM_ROBOT_kP = 0.125;
     public static final double AUTO_AIM_ROBOT_kI = 0;
     public static final double AUTO_AIM_ROBOT_kD = 0;
-    public static final double HOOD_DOWN_POSITION_ROTATIONS = 0;
-    public static final double HOOD_UP_POSITION_ROTATIONS = 1;
+    public static final double HOOD_DOWN_POSITION = 0.2;
+    public static final double HOOD_UP_POSITION = 0.8;
     public static TalonFXConfiguration SHOOTER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
         .withKV(0).withKP(0).withKI(0).withKD(0))

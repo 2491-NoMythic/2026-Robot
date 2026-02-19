@@ -195,17 +195,17 @@ public class MythicalMath {
 
   /**
    * calculates the length a linear actuator must extend by to angle the shooter 
-   * @param desiredAngleInDegrees the desired angle, in degrees
+   * @param desiredAngleInRadians the desired angle, in radians
    * @param actuatorBodyLength the length of the actuator WHEN NOT EXTENDED AT ALL
    * @param sideALength the length from the center of the bottom pivot point of the actuator where it is mounted, to the center of the pivot point of the shooter hood piece
    * @param sideBLength the length from the center of the top pivot point of the actuator where it is mounted, to the center of the pivot point of the shooter hood piece
    * @param lowerAngleToHorizontal the angle between side A and horizontal
    * @return the length, in whatever units were inputted, to extend the actuator by. ideally in cm.
    */
-  public static double ServoExtensionToReachHoodAngleInDegrees(double desiredAngleInDegrees, double actuatorBodyLength, double sideALength, double sideBLength, double lowerAngleToHorizontal){
+  public static double ServoExtensionToReachHoodAngleInRadians(double desiredAngleInRadians, double actuatorBodyLength, double sideALength, double sideBLength, double lowerAngleToHorizontal){
     double a = sideALength; 
     double b = sideBLength;
-    double totalAngle = desiredAngleInDegrees + lowerAngleToHorizontal;
+    double totalAngle = desiredAngleInRadians + lowerAngleToHorizontal;
 
     double totalActuatorSideLength = Math.sqrt( -2 * a * b * Math.cos(totalAngle) + a*a + b*b); 
     double extension = totalActuatorSideLength - actuatorBodyLength;
