@@ -399,14 +399,14 @@ public class RobotContainer {
   private void registerNamedCommands(){
     Command AcrossBumpAwayFromAlliance = new SelectCommand<>(
       Map.ofEntries(
-        Map.entry(true, new OverBump(drivetrain, -3)),
-        Map.entry(false, new OverBump(drivetrain, 3))
+        Map.entry(true, new OverBump(drivetrain, 1.5)),
+        Map.entry(false, new OverBump(drivetrain, -1.5))
       ),
       ()->DriverStation.getAlliance().get() == Alliance.Blue);
     Command AcrossBumpTowardsAlliance = new SelectCommand<>(
       Map.ofEntries(
-        Map.entry(true, new OverBump(drivetrain, 3)), 
-        Map.entry(false, new OverBump(drivetrain, -3))
+        Map.entry(true, new OverBump(drivetrain, -1.5)), 
+        Map.entry(false, new OverBump(drivetrain, 1.5))
       ),
       ()->DriverStation.getAlliance().get() == Alliance.Blue);
     NamedCommands.registerCommand("AcrossBumpAwayFromAlliance", AcrossBumpAwayFromAlliance);
