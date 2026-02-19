@@ -115,7 +115,8 @@ public final class Constants {
   public static final class AimAtLocationConstants {
     public static final int HUB_ROBOT_ANGLE = 0;
     public static final int HUB_HOOD_ANGLE = 2491;
-    public static final int TRENCH_ROBOT_ANGLE = 110;
+    public static final int L_TRENCH_ROBOT_ANGLE = 110;
+    public static final int R_TRENCH_ROBOT_ANGLE = -110;
     public static final int TRENCH_HOOD_ANGLE = 2491;
     public static final int TOWER_ROBOT_ANGLE = 0;
     public static final int TOWER_HOOD_ANGLE = 2491;
