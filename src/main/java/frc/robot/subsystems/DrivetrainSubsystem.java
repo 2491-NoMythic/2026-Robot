@@ -443,6 +443,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
       } else {
         RobotState.getInstance().LimelightsUpdated = false;
       }
+    } else {
+      RobotState.getInstance().LimelightsUpdated = false;
     }
   }
 
