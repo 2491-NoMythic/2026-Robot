@@ -25,10 +25,10 @@ public class AimAtLocation extends ParallelCommandGroup {
 
   static double getTargetHoodAngle(Location location){
     switch (location) {
-      case Hub: return AimAtLocationConstants.HUB_HOOD_ANGLE;
-      case LeftTrench: return AimAtLocationConstants.TRENCH_HOOD_ANGLE;
-      case RightTrench: return AimAtLocationConstants.TRENCH_HOOD_ANGLE;
-      case Tower: return AimAtLocationConstants.TOWER_HOOD_ANGLE;
+      case Hub: return Math.toRadians(AimAtLocationConstants.HUB_HOOD_ANGLE);
+      case LeftTrench: return Math.toRadians(AimAtLocationConstants.TRENCH_HOOD_ANGLE);
+      case RightTrench: return Math.toRadians(AimAtLocationConstants.TRENCH_HOOD_ANGLE);
+      case Tower: return Math.toRadians(AimAtLocationConstants.TOWER_HOOD_ANGLE);
       default: return 0;
     }
   }
@@ -36,30 +36,29 @@ public class AimAtLocation extends ParallelCommandGroup {
   static double getTargetRobotAngle(Location location){
     if (DriverStation.getAlliance().get() == Alliance.Red){
       switch (location) {
-        case Hub: return AimAtLocationConstants.HUB_ROBOT_ANGLE + 180;
-        case LeftTrench: return AimAtLocationConstants.L_TRENCH_ROBOT_ANGLE + 180;
+        case Hub:         return AimAtLocationConstants.HUB_ROBOT_ANGLE + 180;
+        case LeftTrench:  return AimAtLocationConstants.L_TRENCH_ROBOT_ANGLE + 180;
         case RightTrench: return AimAtLocationConstants.R_TRENCH_ROBOT_ANGLE + 180;
-        case Tower: return AimAtLocationConstants.TOWER_ROBOT_ANGLE + 180;
+        case Tower:       return AimAtLocationConstants.TOWER_ROBOT_ANGLE + 180;
         default: return 0;
       }
-    } else {
-      switch (location) {
-        case Hub: return AimAtLocationConstants.HUB_ROBOT_ANGLE;
-        case LeftTrench: return AimAtLocationConstants.L_TRENCH_ROBOT_ANGLE;
-        case RightTrench: return AimAtLocationConstants.R_TRENCH_ROBOT_ANGLE;
-        case Tower: return AimAtLocationConstants.TOWER_ROBOT_ANGLE;
-        default: return 0;
-      }
+    }
+
+    switch (location) {
+      case Hub:         return AimAtLocationConstants.HUB_ROBOT_ANGLE;
+      case LeftTrench:  return AimAtLocationConstants.L_TRENCH_ROBOT_ANGLE;
+      case RightTrench: return AimAtLocationConstants.R_TRENCH_ROBOT_ANGLE;
+      case Tower:       return AimAtLocationConstants.TOWER_ROBOT_ANGLE;
+      default: return 0;
     }
   }
 
   /** Creates a new AimAtLocation. */
   public AimAtLocation(DrivetrainSubsystem drivetrain, Shooter shooter, DoubleSupplier joystickXSupplier, DoubleSupplier joystickYSupplier, Location location) {
-    double hoodAngle = getTargetHoodAngle(location);
-    double robotAngle = Math.toDegrees(getTargetRobotAngle(location));
+    double hoodAngle = Math.toRadians(getTargetHoodAngle(location));
+    double robotAngle = Math.toRadians(getTargetRobotAngle(location));
     addCommands(
       new AimHoodFixed(shooter, hoodAngle, false),
       new AimRobot(drivetrain, joystickXSupplier, joystickYSupplier, ()-> robotAngle));
-
   }
 }
