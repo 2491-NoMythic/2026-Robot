@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 7.757,
-        "y": 2.2865662650602405
+        "y": 5.783433734939758
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.006963589435104,
-        "y": 2.2908328745710964
+        "x": 8.006416086319327,
+        "y": 5.766356970458444
       },
       "isLocked": true,
-      "linkedName": "FR L Return"
+      "linkedName": "FR R Return Start"
     },
     {
       "anchor": {
-        "x": 6.290385164051354,
-        "y": 2.6052781740370903
+        "x": 6.122,
+        "y": 5.491
       },
       "prevControl": {
-        "x": 6.027183901025197,
-        "y": 2.6791399813052625
+        "x": 5.875515174954384,
+        "y": 5.566763244590738
       },
       "nextControl": null,
       "isLocked": true,
-      "linkedName": null
+      "linkedName": "FR L Return End"
     }
   ],
   "rotationTargets": [],
@@ -48,7 +48,7 @@
   "folder": "Return to Hub",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

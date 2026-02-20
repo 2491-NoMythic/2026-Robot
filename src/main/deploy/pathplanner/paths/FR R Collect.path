@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.763657292705223,
-        "y": 3.504279900966977
+        "x": 7.754296291715523,
+        "y": 3.5147495282764103
       },
       "isLocked": false,
       "linkedName": "Collect BR"
@@ -20,12 +20,12 @@
         "y": 5.783433734939758
       },
       "prevControl": {
-        "x": 7.7551126588222585,
-        "y": 5.452549393847847
+        "x": 7.757888817562032,
+        "y": 5.528595438171407
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "FR R Return Start"
     }
   ],
   "rotationTargets": [],

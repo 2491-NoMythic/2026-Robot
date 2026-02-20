@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "FR L Return"
+            "pathName": "FR R Return"
           }
         },
         {
@@ -95,6 +95,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "AG FR Autos",
+  "folder": "Old Autos",
   "choreoAuto": false
 }

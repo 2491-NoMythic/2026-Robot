@@ -1,0 +1,150 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.6419999999999995,
+        "y": 0.5927710843373495
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.936713666479047,
+        "y": 0.6064914830459311
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.549158345221112,
+        "y": 0.84410843373494
+      },
+      "prevControl": {
+        "x": 6.319603808858692,
+        "y": 0.7450896737172841
+      },
+      "nextControl": {
+        "x": 7.074051639998089,
+        "y": 1.0705220956646748
+      },
+      "isLocked": false,
+      "linkedName": "AG R Trench to Collect P1"
+    },
+    {
+      "anchor": {
+        "x": 8.280927710843374,
+        "y": 3.0952168674698792
+      },
+      "prevControl": {
+        "x": 8.404294246248975,
+        "y": 3.3126581191725366
+      },
+      "nextControl": {
+        "x": 8.112180189436883,
+        "y": 2.797788783300123
+      },
+      "isLocked": false,
+      "linkedName": "Agressive Collect Center R"
+    },
+    {
+      "anchor": {
+        "x": 8.281,
+        "y": 5.870855421686747
+      },
+      "prevControl": {
+        "x": 9.155138941054842,
+        "y": 5.098040207509666
+      },
+      "nextControl": {
+        "x": 7.865701425003566,
+        "y": 6.238015654585203
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.664,
+        "y": 5.51
+      },
+      "prevControl": {
+        "x": 6.971094826420464,
+        "y": 6.226074417663197
+      },
+      "nextControl": {
+        "x": 6.268717521749527,
+        "y": 4.588292286050671
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.664,
+        "y": 2.373987951807229
+      },
+      "prevControl": {
+        "x": 6.713278088012299,
+        "y": 2.619083178284311
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.8179959100204555,
+      "rotationDegrees": -133.877
+    },
+    {
+      "waypointRelativePos": 3.1513292433537607,
+      "rotationDegrees": -133.877
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    },
+    {
+      "name": "Intake",
+      "waypointRelativePos": 1.465853658536591,
+      "endWaypointRelativePos": 5.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Intake"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": "Auto Paths",
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}
