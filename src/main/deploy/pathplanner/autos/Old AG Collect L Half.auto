@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Copy of Return L"
+            "pathName": "Return L"
           }
         },
         {
@@ -95,6 +95,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Collect Half",
+  "folder": "AG FR Autos",
   "choreoAuto": false
 }

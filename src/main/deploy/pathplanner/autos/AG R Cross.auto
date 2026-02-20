@@ -5,40 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Expand"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Trench to Collect MR"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": null
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Return ML"
+            "pathName": "AG R Tilt Cross"
           }
         },
         {
@@ -48,7 +17,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
@@ -67,7 +36,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
@@ -95,6 +64,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Old Autos",
+  "folder": "AG FR Autos",
   "choreoAuto": false
 }

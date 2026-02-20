@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.052094746081481,
-        "y": 2.34966052819295
+        "x": 8.031604042325881,
+        "y": 2.1979325216508485
       },
       "isLocked": false,
-      "linkedName": "Return MR"
+      "linkedName": "Tilt Return MR Start"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 2.6052781740370903
       },
       "prevControl": {
-        "x": 5.945701566799962,
-        "y": 2.6467728938872495
+        "x": 6.087939289058527,
+        "y": 2.751960373701495
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Return to Hub",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": -90.0
+    "rotation": -50.711
   },
   "useDefaultConstraints": true
 }
