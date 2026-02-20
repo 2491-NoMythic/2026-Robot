@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.496199984168127,
-        "y": 7.267279001883347
+        "x": 6.3667061106278275,
+        "y": 7.2983834848200235
       },
       "isLocked": true,
       "linkedName": "Left Trench Start"
@@ -20,28 +20,28 @@
         "y": 7.3
       },
       "prevControl": {
-        "x": 5.591545026033605,
-        "y": 7.397273892155279
+        "x": 5.700409581759371,
+        "y": 7.399141017477884
       },
       "nextControl": {
-        "x": 7.401152857612147,
-        "y": 7.069293656527542
+        "x": 6.390508582557055,
+        "y": 7.239227145839193
       },
       "isLocked": false,
-      "linkedName": "FR L Trench to Collect P1"
+      "linkedName": "AG L Trench to Collect P1"
     },
     {
       "anchor": {
-        "x": 7.757,
-        "y": 7.0
+        "x": 8.27,
+        "y": 5.218887303851641
       },
       "prevControl": {
-        "x": 6.198312145956683,
-        "y": 6.968280474622764
+        "x": 7.6859083145366,
+        "y": 5.9511244863431845
       },
       "nextControl": null,
-      "isLocked": true,
-      "linkedName": "Collect BL"
+      "isLocked": false,
+      "linkedName": "AG L Trench to Tilt Collect End"
     }
   ],
   "rotationTargets": [
@@ -63,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -90.0
+    "rotation": -50.711
   },
   "reversed": false,
   "folder": "To Collect",

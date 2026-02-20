@@ -1,0 +1,174 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.390662650602409,
+        "y": 7.422590361445783
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.013542168674698,
+        "y": 7.44444578313253
+      },
+      "isLocked": false,
+      "linkedName": "Left Trench Start"
+    },
+    {
+      "anchor": {
+        "x": 6.12824686940966,
+        "y": 7.3
+      },
+      "prevControl": {
+        "x": 5.822192771084336,
+        "y": 7.3023855421686745
+      },
+      "nextControl": {
+        "x": 6.957682957807151,
+        "y": 7.293534950925605
+      },
+      "isLocked": false,
+      "linkedName": "AG L Trench to Collect P1"
+    },
+    {
+      "anchor": {
+        "x": 8.245,
+        "y": 7.0
+      },
+      "prevControl": {
+        "x": 7.876602409638554,
+        "y": 7.389807228915663
+      },
+      "nextControl": {
+        "x": 8.476076363187264,
+        "y": 6.755494500619394
+      },
+      "isLocked": false,
+      "linkedName": "Collect ML"
+    },
+    {
+      "anchor": {
+        "x": 8.445,
+        "y": 4.795
+      },
+      "prevControl": {
+        "x": 8.816810031749709,
+        "y": 5.091854976120113
+      },
+      "nextControl": {
+        "x": 8.237216040752644,
+        "y": 4.629104254879171
+      },
+      "isLocked": false,
+      "linkedName": "Collect L P1"
+    },
+    {
+      "anchor": {
+        "x": 7.666,
+        "y": 5.347
+      },
+      "prevControl": {
+        "x": 7.680197753621415,
+        "y": 4.709907221434056
+      },
+      "nextControl": {
+        "x": 7.655677505627064,
+        "y": 5.8101990945290405
+      },
+      "isLocked": false,
+      "linkedName": "Collect L P2"
+    },
+    {
+      "anchor": {
+        "x": 7.666,
+        "y": 5.857
+      },
+      "prevControl": {
+        "x": 7.716088830494602,
+        "y": 5.598030086066819
+      },
+      "nextControl": {
+        "x": 7.618525931196132,
+        "y": 6.102451039499134
+      },
+      "isLocked": false,
+      "linkedName": "Return L"
+    },
+    {
+      "anchor": {
+        "x": 6.729192771084338,
+        "y": 5.347
+      },
+      "prevControl": {
+        "x": 7.002385542168676,
+        "y": 5.182409638554216
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Return L End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 2.3975460122699337,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 3.261349693251537,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 4.341104294478515,
+      "rotationDegrees": 90.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    },
+    {
+      "name": "Intake",
+      "waypointRelativePos": 1.9,
+      "endWaypointRelativePos": 4.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Intake"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Auto Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}
