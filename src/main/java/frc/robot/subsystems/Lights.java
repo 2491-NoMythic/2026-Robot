@@ -73,7 +73,7 @@ public class Lights extends SubsystemBase {
   public void activeEnding() {
     String phase = RobotState.getPhase();
     boolean hubActive = RobotState.hubActive();
-    int phaseTime = RobotState.getPhaseTime();
+    int phaseTime = RobotState.getPhaseTimeLeft();
     if (phaseTime < 5) {
       if (hubActive) {
         setLights(0, LEDBuffer.getLength(), 100, 50, 0);

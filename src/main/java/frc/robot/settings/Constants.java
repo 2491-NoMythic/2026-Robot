@@ -110,6 +110,7 @@ public final class Constants {
   public static final class Field{
     public static final Translation3d BLUE_HUB_COORDINATE = new Translation3d(4.6, 4, 1.8);
     public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.8);
+    //public static final int TRANSITION_LENGTH = 10;
   }
 
   public static final class AimAtLocationConstants {
