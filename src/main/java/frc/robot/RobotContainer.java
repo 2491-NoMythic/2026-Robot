@@ -119,6 +119,7 @@ public class RobotContainer {
   BooleanSupplier BumpAllignSup;
   BooleanSupplier ClimberUpSup;
   BooleanSupplier ClimberDownSup;
+  BooleanSupplier MoveToClimbingPoseSup;
   BooleanSupplier RetractIntakeSup;
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier AutoIntakeSup;
@@ -171,6 +172,7 @@ public class RobotContainer {
     //Shooting Command is Right Trigger on drive controller. 
     //climber controls
     ClimberDownSup = operatorController::getAButton;
+    MoveToClimbingPoseSup = operatorController::getRightBumperButton;
     //Climber Down is A button on operator controller
     ClimberUpSup = operatorController::getYButton;
     //Climber Up is Y button on operator controller
@@ -235,6 +237,7 @@ public class RobotContainer {
     new Trigger(crossBumpTowardsAllianceSup).whileTrue(new OverBump(drivetrain, 3));
     new Trigger(TrenchAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, true, false));
     new Trigger(BumpAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, false, true));
+    new Trigger(MoveToClimbingPoseSup).whileTrue(new MoveToClimbingPose(drivetrain));
   }
 
   private void configureDriveTrain() {
