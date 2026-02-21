@@ -25,7 +25,7 @@ public class Shooter extends SubsystemBase {
   Servo rightHoodActuator;
   ShooterInputsAutoLogged inputs;
   double desiredPosition;
-  boolean positionControlOn;
+  boolean autoRetractOn;
   /** Creates a new Shooter. */
   public Shooter() {
     shootMotor = new TalonFX(SHOOTER_MOTOR_ID);
@@ -63,25 +63,31 @@ public class Shooter extends SubsystemBase {
    * sends a positionVoltage request to the hood motor
    * @param angle angle to set the hood to, in radians
    */
-  public void setHoodAngle(double angleInRadians){
+  public void setHoodAngle(double angle, boolean autoRetract){
     desiredPosition = InchPositionToActuatorConstrainedPercent(                                                                   //54.328 degrees
-      MythicalMath.ServoExtensionToReachHoodAngleInRadians(angleInRadians, 6.610, 8.134, 4.914, 0.948202476)
+      MythicalMath.ServoExtensionToReachHoodAngleInRadians(angle, 6.610, 8.134, 4.914, 0.948202476)
     );
     
-    positionControlOn = true;
+    autoRetractOn = autoRetract;
   }
   public void setHoodAngleUp(){
-    desiredPosition = 0.8;
-    positionControlOn = true;
+    desiredPosition = HOOD_UP_POSITION;
+    autoRetractOn = false;
   }
 
   public void setHoodAngleDown(){
-    desiredPosition = 0.2;
-    positionControlOn = true;
+    desiredPosition = HOOD_DOWN_POSITION;
+    autoRetractOn = false;
+  }
+
+  private void setHoodActuators(double position){
+    leftHoodActuator.set(position);
+    rightHoodActuator.set(position);
   }
 
   public double InchPositionToActuatorConstrainedPercent(double inches){
-    return (inches / 3.93701) * 0.6 + 0.2; //Actuator "prefers" (demands) values from 0.2 to 0.8
+    double range = HOOD_UP_POSITION - HOOD_DOWN_POSITION;
+    return (inches / 3.93701) * range + HOOD_DOWN_POSITION; //Actuator "prefers" (demands) values from 0.2 to 0.8
   }
 
   @Override
@@ -90,24 +96,26 @@ public class Shooter extends SubsystemBase {
     inputs.shootMotor.log(shootMotor);
     Logger.processInputs("Shooter", inputs);
 
-    //logic below checks if robot is in one of four squares around the trenches
-    double x = RobotState.getInstance().robotPosition.getX();
-    double y = RobotState.getInstance().robotPosition.getY();
-    boolean inBadxZone = false;
-    boolean inBadyZone = false;
-    if((3.5 < x && x < 5.5) || (11 < x && x < 13)) {
-      inBadxZone = true;
-    }
-    if((0 < y && y < 1.75) || (6.5 < y && y < 8)) {
-      inBadyZone = true;
-    }
-    //if we are in position control, and in one of those squares around trenches, hood all the way down
-    if(positionControlOn) {
-      if(inBadxZone && inBadyZone) {
-        shootMotor.setControl(new PositionVoltage(HOOD_DOWN_POSITION));
-      } else {
-        shootMotor.setControl(new PositionVoltage(desiredPosition));
+    if (autoRetractOn) {
+      //logic below checks if robot is in one of four squares around the trenches
+      double x = RobotState.getInstance().robotPosition.getX();
+      double y = RobotState.getInstance().robotPosition.getY();
+      boolean inBadxZone = false;
+      boolean inBadyZone = false;
+      if((3.5 < x && x < 5.5) || (11 < x && x < 13)) {
+        inBadxZone = true;
       }
+      if((0 < y && y < 1.75) || (6.5 < y && y < 8)) {
+        inBadyZone = true;
+      }
+      //if we are in position control, and in one of those squares around trenches, hood all the way down
+      if(inBadxZone && inBadyZone) {
+        setHoodActuators(HOOD_DOWN_POSITION);
+      } else {
+        setHoodActuators(desiredPosition);
+      }
+    } else {
+      setHoodActuators(desiredPosition);
     }
 
     //double smartActuatorValue = SmartDashboard.getNumber("hoodPosition", 0);
