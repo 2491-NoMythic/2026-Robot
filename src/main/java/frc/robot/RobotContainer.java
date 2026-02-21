@@ -184,7 +184,7 @@ public class RobotContainer {
         ControllerZAxisSupplier);
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
-    new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
+    new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain, false, null));
   }
 
   private void configureDriveTrain() {
