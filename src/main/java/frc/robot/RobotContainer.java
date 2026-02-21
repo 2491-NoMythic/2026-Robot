@@ -172,7 +172,7 @@ public class RobotContainer {
     //Shooting Command is Right Trigger on drive controller. 
     //climber controls
     ClimberDownSup = operatorController::getAButton;
-    MoveToClimbingPoseSup = operatorController::getRightBumperButton;
+    MoveToClimbingPoseSup = operatorController::getLeftBumperButton;
     //Climber Down is A button on operator controller
     ClimberUpSup = operatorController::getYButton;
     //Climber Up is Y button on operator controller

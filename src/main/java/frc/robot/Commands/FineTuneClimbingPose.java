@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class MoveToClimbingPose extends Command {
+public class FineTuneClimbingPose extends Command {
   DrivetrainSubsystem drivetrain;
   Pose2d targetPose;
   int cyclesGood;
   /** Creates a new MoveToClimbingPose. */
-  public MoveToClimbingPose(DrivetrainSubsystem drivetrain) {
+  public FineTuneClimbingPose(DrivetrainSubsystem drivetrain) {
     this.drivetrain = drivetrain;
     addRequirements(drivetrain);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -31,15 +31,15 @@ public class MoveToClimbingPose extends Command {
 
     if (DriverStation.getAlliance().get() == Alliance.Red){
       if (drivetrain.getPose().getY() > 4.3){
-        targetPose = new Pose2d(15.5, 5.3, new Rotation2d(Math.PI));
+        targetPose = new Pose2d(15.5, 5.2, new Rotation2d(Math.PI));
       } else {
-        targetPose = new Pose2d(15.5, 3.3, new Rotation2d(0));
+        targetPose = new Pose2d(15.5, 3.4, new Rotation2d(0));
       }
     } else {
       if (drivetrain.getPose().getY() > 3.73){
-        targetPose = new Pose2d(1.1, 4.7, new Rotation2d(Math.PI));
+        targetPose = new Pose2d(1.1, 4.6, new Rotation2d(Math.PI));
       } else {
-        targetPose = new Pose2d(1.1, 2.8, new Rotation2d(0));
+        targetPose = new Pose2d(1.1, 2.9, new Rotation2d(0));
       }
     }
   }
