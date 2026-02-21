@@ -58,7 +58,7 @@ public class RobotState {
     timerPhases.add(new TimerPhase(85, 25, "SHIFT 4"));
     timerPhases.add(new TimerPhase(110, 30, "ENDGAME"));
 
-    autoPhase = new TimerPhase(-20, 20, "AUTO");
+    autoPhase = new TimerPhase(0, 20, "AUTO");
     nullPhase = new TimerPhase(2491, 2491, "NULL");
   }
 
@@ -92,7 +92,7 @@ public class RobotState {
 
   public static int getMatchTimeCountingUp(){
     if (DriverStation.isAutonomousEnabled()) {
-      return (20 - (int) DriverStation.getMatchTime());
+      return ((int) DriverStation.getMatchTime());
     }
     else if (DriverStation.isTeleopEnabled()) {
       return 140 - (int) DriverStation.getMatchTime();
