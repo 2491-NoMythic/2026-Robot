@@ -5,63 +5,38 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "Expand"
+            "waitTime": 4.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Trench to Collect MR"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Collect R"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Return R"
+            "pathName": "AG L Delayed Doubleback"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AcrossBumpTowardsAlliance"
+            "name": "OverBump"
           }
         },
         {
           "type": "race",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AimRobotMoving"
-                }
-              },
               {
                 "type": "wait",
                 "data": {
                   "waitTime": 2.0
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
+                }
               }
             ]
           }
@@ -71,15 +46,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "RunIndexer"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
                   "waitTime": 8.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIndexer"
                 }
               }
             ]
@@ -95,6 +70,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "AG FR Autos",
+  "folder": "WIP",
   "choreoAuto": false
 }

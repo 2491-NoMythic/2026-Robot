@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.390662650602409,
-        "y": 7.422590361445783
+        "x": 4.576433734939759,
+        "y": 7.51001204819277
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.040406601326317,
-        "y": 7.396511411932988
+        "x": 7.226177685663666,
+        "y": 7.483933098679975
       },
       "isLocked": true,
       "linkedName": "Left Trench Start"
@@ -69,7 +69,7 @@
   "folder": "Old Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

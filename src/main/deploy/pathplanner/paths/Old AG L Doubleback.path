@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.576433734939759,
-        "y": 7.51001204819277
+        "x": 4.6529277108433735,
+        "y": 7.433518072289157
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.509479810029547,
-        "y": 7.583109370493722
+        "x": 5.053422594770732,
+        "y": 7.39060485747105
       },
       "isLocked": false,
-      "linkedName": "Left Trench Start"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.9040361445783125,
-        "y": 7.291457831325301
+        "x": 6.980530120481928,
+        "y": 7.280530120481927
       },
       "prevControl": {
-        "x": 7.240885296259759,
-        "y": 7.23516240518619
+        "x": 6.548203081907323,
+        "y": 7.551023968213539
       },
       "nextControl": {
-        "x": 6.657455956919564,
-        "y": 7.332667187716494
+        "x": 7.448425951675199,
+        "y": 6.987781963590492
       },
       "isLocked": false,
       "linkedName": null
@@ -36,54 +36,70 @@
         "y": 5.218887303851641
       },
       "prevControl": {
-        "x": 8.476280726953371,
-        "y": 5.066464727882426
+        "x": 8.221145508648595,
+        "y": 5.464067316647944
       },
       "nextControl": {
-        "x": 7.874649747305315,
-        "y": 5.511014953466842
+        "x": 8.324539521590284,
+        "y": 4.9451765306654725
       },
       "isLocked": false,
       "linkedName": "AG L Trench to Tilt Collect End"
     },
     {
       "anchor": {
-        "x": 8.27,
-        "y": 2.1226506024096388
+        "x": 8.324638554216868,
+        "y": 2.210072289156626
       },
       "prevControl": {
-        "x": 8.630614457831324,
-        "y": 2.647180722891566
+        "x": 8.313710843373494,
+        "y": 2.87666265060241
       },
       "nextControl": {
-        "x": 7.911694854531132,
-        "y": 1.6014794817276492
+        "x": 8.335574365123355,
+        "y": 1.54298782386092
       },
       "isLocked": false,
-      "linkedName": "Tilt Return MR Start"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.290385164051354,
-        "y": 2.6052781740370903
+        "x": 6.663626506024096,
+        "y": 2.9203734939759034
       },
       "prevControl": {
-        "x": 6.506088731886487,
-        "y": 2.3539332358868514
+        "x": 6.745063443175762,
+        "y": 2.350314933914238
+      },
+      "nextControl": {
+        "x": 6.565277108433736,
+        "y": 3.6088192771084344
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.663626506024096,
+        "y": 5.510240963855422
+      },
+      "prevControl": {
+        "x": 6.587132530120481,
+        "y": 3.641602409638554
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Return MR End"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.899386503067477,
-      "rotationDegrees": -90.0
+      "waypointRelativePos": 1.925562372188144,
+      "rotationDegrees": 133.877
     },
     {
-      "waypointRelativePos": 3.0314928425357612,
-      "rotationDegrees": -90.0
+      "waypointRelativePos": 3.1513292433537607,
+      "rotationDegrees": 133.877
     }
   ],
   "constraintZones": [],
@@ -102,8 +118,8 @@
     },
     {
       "name": "Intake",
-      "waypointRelativePos": 1.4536585365853658,
-      "endWaypointRelativePos": 4.0,
+      "waypointRelativePos": 1.465853658536591,
+      "endWaypointRelativePos": 5.0,
       "command": {
         "type": "named",
         "data": {
@@ -122,13 +138,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Auto Paths",
+  "folder": "Misc",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": -90.0
+    "velocity": 0.0,
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

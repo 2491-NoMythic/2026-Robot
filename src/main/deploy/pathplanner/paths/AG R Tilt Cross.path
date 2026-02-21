@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.401,
-        "y": 0.634
+        "x": 4.587361445783132,
+        "y": 0.5709156626506025
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.826835692643414,
-        "y": 0.4756819618481929
+        "x": 6.0826882298653455,
+        "y": 0.5616003111025542
       },
       "isLocked": false,
       "linkedName": "Right Trench Start"
@@ -20,12 +20,12 @@
         "y": 0.8550361445783141
       },
       "prevControl": {
-        "x": 6.899531909099842,
-        "y": 1.3740947038535414
+        "x": 6.270228915662651,
+        "y": 0.6146265060240967
       },
       "nextControl": {
-        "x": 6.347152478623147,
-        "y": 0.656980734794334
+        "x": 6.6723297800441195,
+        "y": 1.0358750306142093
       },
       "isLocked": false,
       "linkedName": "AG R Trench to Tilt Collect P1"
@@ -36,12 +36,12 @@
         "y": 3.0952168674698792
       },
       "prevControl": {
-        "x": 8.188788776097782,
-        "y": 2.766857682910808
+        "x": 8.17110178935844,
+        "y": 2.8183889462030924
       },
       "nextControl": {
-        "x": 8.435079556047166,
-        "y": 3.6438858389881448
+        "x": 8.37324463616411,
+        "y": 3.3275763456474463
       },
       "isLocked": false,
       "linkedName": "Agressive Collect Center R Tilt"
@@ -52,12 +52,12 @@
         "y": 6.0
       },
       "prevControl": {
-        "x": 8.313710843373494,
-        "y": 5.313542168674698
+        "x": 8.388799804719316,
+        "y": 5.774435813785793
       },
       "nextControl": {
-        "x": 8.258785290751891,
-        "y": 6.466189787889619
+        "x": 8.134964393109444,
+        "y": 6.30557015304745
       },
       "isLocked": false,
       "linkedName": "Tilt Return ML"
@@ -68,8 +68,8 @@
         "y": 5.594108416547789
       },
       "prevControl": {
-        "x": 7.6580481927710835,
-        "y": 6.679506024096386
+        "x": 7.297433734939758,
+        "y": 5.914566265060241
       },
       "nextControl": null,
       "isLocked": false,
@@ -77,10 +77,6 @@
     }
   ],
   "rotationTargets": [
-    {
-      "waypointRelativePos": 0.4383057090239359,
-      "rotationDegrees": 0.0
-    },
     {
       "waypointRelativePos": 1.5786372007366452,
       "rotationDegrees": 75.222
@@ -132,7 +128,7 @@
   "folder": "Auto Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

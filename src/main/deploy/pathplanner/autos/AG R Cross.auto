@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "AG R Tilt Cross"
+            "pathName": "AG R Cross"
           }
         },
         {
@@ -64,6 +64,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "AG FR Autos",
+  "folder": "Misc",
   "choreoAuto": false
 }

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.401,
-        "y": 0.634
+        "x": 4.587361445783132,
+        "y": 0.5709156626506025
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.533266363630986,
-        "y": 0.8866852867756172
+        "x": 7.146511127823267,
+        "y": 0.7142899682630466
       },
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": "Right Trench Start"
     },
     {
       "anchor": {
-        "x": 6.549158345221112,
-        "y": 0.84410843373494
+        "x": 6.631,
+        "y": 0.604
       },
       "prevControl": {
-        "x": 6.300346051227393,
-        "y": 0.8684485725509543
+        "x": 6.290775099781535,
+        "y": 1.4804737203797758
       },
       "nextControl": {
-        "x": 6.7979706392148325,
-        "y": 0.8197682949189259
+        "x": 6.721466961190368,
+        "y": 0.3709426488329952
       },
       "isLocked": false,
       "linkedName": "AG R Trench to Collect P1"
@@ -36,20 +36,15 @@
         "y": 3.0952168674698792
       },
       "prevControl": {
-        "x": 8.078504223088917,
-        "y": 2.9485037746481364
+        "x": 7.941976396038128,
+        "y": 3.006205691074265
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Agressive Collect Center R"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.27034990791896985,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -69,7 +64,7 @@
   "folder": "To Collect",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

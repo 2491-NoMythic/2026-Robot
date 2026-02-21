@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.075363636363636,
-        "y": 4.065920454545455
+        "x": 2.9263493975903616,
+        "y": 4.614168674698795
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.065056818181818,
-        "y": 6.158204545454546
+        "x": 2.916042579408544,
+        "y": 6.706452765607886
       },
       "isLocked": false,
       "linkedName": "collect preset at hub"
@@ -48,7 +48,7 @@
   "folder": "Misc",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -0.2754583561352409
+    "rotation": -19.604088150829377
   },
   "useDefaultConstraints": true
 }

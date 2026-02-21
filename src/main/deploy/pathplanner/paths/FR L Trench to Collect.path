@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.390662650602409,
-        "y": 7.422590361445783
+        "x": 4.576433734939759,
+        "y": 7.51001204819277
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.496199984168127,
-        "y": 7.267279001883347
+        "x": 6.746157007831444,
+        "y": 7.352718211381346
       },
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": "Left Trench Start"
     },
     {
       "anchor": {
-        "x": 6.12824686940966,
-        "y": 7.3
+        "x": 6.029819277108434,
+        "y": 7.51001204819277
       },
       "prevControl": {
-        "x": 5.591545026033605,
-        "y": 7.397273892155279
+        "x": 5.541977269443664,
+        "y": 7.654562318201897
       },
       "nextControl": {
-        "x": 7.401152857612147,
-        "y": 7.069293656527542
+        "x": 7.244217752772273,
+        "y": 7.1501791006444995
       },
       "isLocked": false,
       "linkedName": "FR L Trench to Collect P1"
@@ -36,20 +36,15 @@
         "y": 7.0
       },
       "prevControl": {
-        "x": 6.198312145956683,
-        "y": 6.968280474622764
+        "x": 6.164389559598726,
+        "y": 7.445586051384822
       },
       "nextControl": null,
       "isLocked": true,
       "linkedName": "Collect BL"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 1.0,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -68,8 +63,8 @@
   "reversed": false,
   "folder": "To Collect",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 0.0
+    "velocity": 0.0,
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

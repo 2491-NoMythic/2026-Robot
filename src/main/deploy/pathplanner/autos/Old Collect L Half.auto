@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Slow Trench to Collect ML"
+            "pathName": "Trench to Collect ML"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Slow Collect L"
+                  "pathName": "Collect L"
                 }
               },
               {
@@ -44,7 +44,7 @@
         {
           "type": "named",
           "data": {
-            "name": "OverBump"
+            "name": "AcrossBumpTowardsAlliance"
           }
         },
         {
@@ -95,6 +95,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Testing",
+  "folder": "Old Autos",
   "choreoAuto": false
 }
