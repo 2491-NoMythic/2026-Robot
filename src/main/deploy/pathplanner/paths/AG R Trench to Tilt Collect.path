@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.401,
-        "y": 0.634
+        "x": 4.587361445783132,
+        "y": 0.5709156626506025
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.507538658903108,
-        "y": 0.7135155892101558
+        "x": 6.69390010468624,
+        "y": 0.6504312518607582
       },
       "isLocked": true,
       "linkedName": "Right Trench Start"
@@ -69,7 +69,7 @@
   "folder": "To Collect",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

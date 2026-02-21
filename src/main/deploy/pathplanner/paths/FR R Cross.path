@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.401,
-        "y": 0.634
+        "x": 4.587361445783132,
+        "y": 0.5709156626506025
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.20724188709567,
-        "y": 0.6778465680978583
+        "x": 5.226699264050526,
+        "y": 0.6475133135414132
       },
       "isLocked": false,
       "linkedName": "Right Trench Start"
@@ -20,12 +20,12 @@
         "y": 0.74
       },
       "prevControl": {
-        "x": 6.304268293918076,
-        "y": 0.8067539619396213
+        "x": 6.428997604622376,
+        "y": 0.7295985397242247
       },
       "nextControl": {
-        "x": 5.673838156560953,
-        "y": 0.6320769764970666
+        "x": 5.717624923179038,
+        "y": 0.7498344681513708
       },
       "isLocked": false,
       "linkedName": "FR R Trench to Collect P1"
@@ -36,12 +36,12 @@
         "y": 1.063
       },
       "prevControl": {
-        "x": 7.778330955777461,
-        "y": 0.5092154065620549
+        "x": 7.7054977924291475,
+        "y": 0.30089722966188714
       },
       "nextControl": {
-        "x": 7.73513607290657,
-        "y": 1.6306213528690114
+        "x": 7.8219638554216875,
+        "y": 2.024301204819277
       },
       "isLocked": false,
       "linkedName": "Collect BR"
@@ -52,12 +52,12 @@
         "y": 5.783433734939758
       },
       "prevControl": {
-        "x": 7.778330955777461,
-        "y": 5.34827389443652
+        "x": 7.807822356428674,
+        "y": 5.538654062403339
       },
       "nextControl": {
-        "x": 7.73146315676445,
-        "y": 6.304395324531521
+        "x": 7.669205642123072,
+        "y": 6.206284536866264
       },
       "isLocked": false,
       "linkedName": "FR R Return Start"
@@ -68,8 +68,8 @@
         "y": 5.491
       },
       "prevControl": {
-        "x": 6.678544935805991,
-        "y": 6.784465049928674
+        "x": 6.9040361445783125,
+        "y": 6.078481927710843
       },
       "nextControl": null,
       "isLocked": false,
@@ -77,10 +77,6 @@
     }
   ],
   "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 0.0
-    },
     {
       "waypointRelativePos": 2.038926880589173,
       "rotationDegrees": 90.0
@@ -132,7 +128,7 @@
   "folder": "Auto Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

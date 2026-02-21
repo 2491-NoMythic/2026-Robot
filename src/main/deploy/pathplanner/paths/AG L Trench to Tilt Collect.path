@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.390662650602409,
-        "y": 7.422590361445783
+        "x": 4.576433734939759,
+        "y": 7.51001204819277
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.3667061106278275,
-        "y": 7.2983834848200235
+        "x": 6.552477194965177,
+        "y": 7.385805171567011
       },
       "isLocked": true,
       "linkedName": "Left Trench Start"
     },
     {
       "anchor": {
-        "x": 6.12824686940966,
-        "y": 7.3
+        "x": 6.499710843373493,
+        "y": 7.346096385542169
       },
       "prevControl": {
-        "x": 5.700409581759371,
-        "y": 7.399141017477884
+        "x": 6.071873555723204,
+        "y": 7.445237403020053
       },
       "nextControl": {
-        "x": 6.390508582557055,
-        "y": 7.239227145839193
+        "x": 6.761972556520888,
+        "y": 7.285323531381362
       },
       "isLocked": false,
       "linkedName": "AG L Trench to Collect P1"
@@ -69,7 +69,7 @@
   "folder": "To Collect",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }
