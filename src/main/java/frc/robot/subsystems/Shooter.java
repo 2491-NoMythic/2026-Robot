@@ -20,7 +20,8 @@ import static frc.robot.settings.Constants.ShooterConstants.*;
 import org.littletonrobotics.junction.Logger;
 
 public class Shooter extends SubsystemBase {
-  TalonFX shootMotor;
+  TalonFX shootMotor1;
+  TalonFX shootMotor2;
   Servo leftHoodActuator;
   Servo rightHoodActuator;
   ShooterInputsAutoLogged inputs;
@@ -28,8 +29,10 @@ public class Shooter extends SubsystemBase {
   boolean autoRetractOn;
   /** Creates a new Shooter. */
   public Shooter() {
-    shootMotor = new TalonFX(SHOOTER_MOTOR_ID);
-    shootMotor.getConfigurator().apply(SHOOTER_CONFIG);
+    shootMotor1 = new TalonFX(SHOOTER_MOTOR_1_ID);
+    shootMotor1.getConfigurator().apply(SHOOTER_CONFIG);
+    shootMotor2 = new TalonFX(SHOOTER_MOTOR_2_ID);
+    shootMotor2.getConfigurator().apply(SHOOTER_CONFIG);
     leftHoodActuator = new Servo(HOOD_LEFT_ACTUATOR_ID);
     rightHoodActuator = new Servo(HOOD_RIGHT_ACTUATOR_ID);
     inputs = new ShooterInputsAutoLogged();
@@ -41,14 +44,16 @@ public class Shooter extends SubsystemBase {
    * @param speed Motor power from -1 to 1
    */
   public void set(double speed){
-    shootMotor.set(speed);
+    shootMotor1.set(speed);
+    shootMotor2.set(speed);
   }
 
   /**
    * Sets motor power to zero
    */
   public void stop(){
-    shootMotor.set(0);
+    shootMotor1.set(0);
+    shootMotor2.set(0);
   }
 
   /**
@@ -56,7 +61,8 @@ public class Shooter extends SubsystemBase {
    * @param speed RPS
    */
   public void setVelocity(double speed){
-    shootMotor.setControl(new VelocityVoltage(speed));
+    shootMotor1.setControl(new VelocityVoltage(speed));
+    shootMotor2.setControl(new VelocityVoltage(speed));
   }
 
   /**
@@ -93,7 +99,8 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    inputs.shootMotor.log(shootMotor);
+    inputs.shootMotor.log(shootMotor1);
+    inputs.shootMotor.log(shootMotor2);
     Logger.processInputs("Shooter", inputs);
 
     if (autoRetractOn) {
