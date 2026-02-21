@@ -135,17 +135,14 @@ public final class Constants {
       transltionController.setIntegratorRange(-0.25, 0.25);
       return transltionController;
     }
-    public static final double DRIVETRAIN_ROBOT_WIDTH_METERS = 0.60325;
-    //old drivetrain:
-    //public static final double DRIVETRAIN_ROBOT_WIDTH_METERS = 0.83;
+    public static final boolean IS_2026_DRIVETRAIN = false;
+    public static final double DRIVETRAIN_ROBOT_WIDTH_METERS = IS_2026_DRIVETRAIN ? 0.60325: 0.83;
     /**
      * The left-to-right distance between the drivetrain wheels Should be measured
      * from center to
      * center.
      */
-    public static final double DRIVETRAIN_TRACKWIDTH_METERS = 0.50165;
-    //old drivetrain:
-    //public static final double DRIVETRAIN_TRACKWIDTH_METERS = 0.58;
+    public static final double DRIVETRAIN_TRACKWIDTH_METERS = IS_2026_DRIVETRAIN ? 0.50165:0.58;
     /**
      * The front-to-back distance between the drivetrain wheels. Should be measured
      * from center to
@@ -177,17 +174,13 @@ public final class Constants {
      * this value should
      * result in wheel rotations.
      */
-    public static final double DRIVETRAIN_STEER_REDUCTION = (16.0 / 43.0) * (10.0 / 60.0);
-    // old drive train use: 
-    //public static final double DRIVETRAIN_STEER_REDUCTION = (14.0 / 50.0) * (10.0 / 60.0);
+    public static final double DRIVETRAIN_STEER_REDUCTION =IS_2026_DRIVETRAIN ? (16.0 / 43.0) * (10.0 / 60.0) : (14.0 / 50.0) * (10.0 / 60.0);
     /**
      * Whether the steer motor should be counterclockwise or clockwise positive. If
      * there is an odd
      * number of gear reductions this is typically clockwise-positive.
      */
-    public static final InvertedValue DRIVETRAIN_STEER_INVERTED = InvertedValue.CounterClockwise_Positive;
-    //old drivetrain:
-    //    public static final InvertedValue DRIVETRAIN_STEER_INVERTED = InvertedValue.Clockwise_Positive;
+    public static final InvertedValue DRIVETRAIN_STEER_INVERTED = IS_2026_DRIVETRAIN ? InvertedValue.CounterClockwise_Positive : InvertedValue.Clockwise_Positive;
 
     /**
      * How many meters the wheels travel per rotation.
