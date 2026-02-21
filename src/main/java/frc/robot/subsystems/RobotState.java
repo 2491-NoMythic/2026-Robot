@@ -4,11 +4,16 @@ import java.util.Optional;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.units.measure.Time;
+import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.settings.ClimberState;
 import frc.robot.settings.HopperState;
+
+import java.util.ArrayList;
+import java.util.List;
+import frc.robot.helpers.TimerPhase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +39,13 @@ public class RobotState {
 
   public double aimingPitch;
   public double aimingYaw;
+
+  public static List<TimerPhase> timerPhases;
+  public static TimerPhase currentPhase;
+  public static TimerPhase autoPhase;
+  public static TimerPhase nullPhase;
+
+  public static int matchTime;
 
   public static List<TimerPhase> timerPhases;
   public static TimerPhase currentPhase;

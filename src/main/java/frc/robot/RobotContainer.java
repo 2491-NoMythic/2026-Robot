@@ -435,10 +435,11 @@ public class RobotContainer {
   }
 
   public void autonomousPeriodic() {
-    //if (autoTimer.hasElapsed(3.0)) {
-      //lights.setDefaultCommand(new LightsCommand(lights));
-    //}
+    ////if (autoTimer.hasElapsed(3.0)) {
+      ////lights.setDefaultCommand(new LightsCommand(lights));
+    ////}
 
+    displayTimerInfo();
     displayTimerInfo();
   }
 
