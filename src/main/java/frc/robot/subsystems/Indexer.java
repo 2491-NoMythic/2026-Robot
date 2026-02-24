@@ -14,12 +14,14 @@ import static frc.robot.settings.Constants.IndexerConstants.*;
 import org.littletonrobotics.junction.Logger;
 
 public class Indexer extends SubsystemBase {
-  TalonFX motor;
+  TalonFX motor_1;
+  TalonFX motor_2;
   IndexerInputsAutoLogged inputs;
   
   /** Creates a new Indexer. */
   public Indexer() {
-    motor = new TalonFX(INDEXER_MOTOR_ID);
+    motor_1 = new TalonFX(INDEXER_MOTOR_1_ID);
+    motor_2 = new TalonFX(INDEXER_MOTOR_2_ID);
     inputs = new IndexerInputsAutoLogged();
   }
 
@@ -28,20 +30,23 @@ public class Indexer extends SubsystemBase {
    * @param speed Motor power from -1 to 1
    */
   public void set(double speed){
-    motor.set(speed);
+    motor_1.set(speed);
+    motor_2.set(speed);
   }
 
   /**
    * Sets motor power to zero
    */
   public void stop(){
-    motor.set(0);
+    motor_1.set(0);
+    motor_2.set(0);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    inputs.motor.log(motor);
+    inputs.motor.log(motor_1);
+    inputs.motor.log(motor_2);
     Logger.processInputs("Indexer", inputs);
   }
 }

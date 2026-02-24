@@ -51,9 +51,10 @@ public final class Constants {
 
   public static final class ShooterConstants{
     public static final float SHOOTING_SPEED_MPS = 7;//not measured, just example
-    public static final int SHOOTER_MOTOR_ID = 2491; 
-    public static final int HOOD_LEFT_ACTUATOR_ID = 0;
-    public static final int HOOD_RIGHT_ACTUATOR_ID = 1;
+    public static final int SHOOTER_MOTOR_1_ID = 2491; 
+    public static final int SHOOTER_MOTOR_2_ID = 2491; 
+    public static final int HOOD_LEFT_ACTUATOR_ID = 2;
+    public static final int HOOD_RIGHT_ACTUATOR_ID = 3;
     public static final double SHOOTER_HEIGHT = 1; //IN METERS
     public static final double AUTO_AIM_ROBOT_kP = 0.125;
     public static final double AUTO_AIM_ROBOT_kI = 0;
@@ -93,7 +94,8 @@ public final class Constants {
   }
 
   public static final class IndexerConstants{
-    public static final int INDEXER_MOTOR_ID = 2491;
+    public static final int INDEXER_MOTOR_1_ID= 2491;
+    public static final int INDEXER_MOTOR_2_ID= 2491;
     public static final int INDEXER_FEEDING_SPEED = 2491;
   }
 
