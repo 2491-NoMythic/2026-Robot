@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Bump to Collect MR"
+            "pathName": "Bump to Collect ML"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Collect R"
+                  "pathName": "Collect L"
                 }
               },
               {
@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Return R"
+            "pathName": null
           }
         },
         {
@@ -95,6 +95,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Collect Half",
+  "folder": "Old Autos",
   "choreoAuto": false
 }

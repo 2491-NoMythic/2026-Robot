@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.240911397285641,
-        "y": 6.55371105394963
+        "x": 8.256445601864563,
+        "y": 6.552580389726585
       },
       "isLocked": false,
       "linkedName": "Collect ML"
     },
     {
       "anchor": {
-        "x": 8.245,
+        "x": 8.27,
         "y": 2.1226506024096388
       },
       "prevControl": {
-        "x": 8.249964496862049,
-        "y": 2.372601305091001
+        "x": 8.275891455670685,
+        "y": 2.397588090047206
       },
       "nextControl": null,
       "isLocked": false,
@@ -55,13 +55,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 3.0,
+    "velocity": 0.0,
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Collect",
+  "folder": "Old Paths",
   "idealStartingState": {
-    "velocity": 3.0,
+    "velocity": 0.0,
     "rotation": -90.0
   },
   "useDefaultConstraints": true

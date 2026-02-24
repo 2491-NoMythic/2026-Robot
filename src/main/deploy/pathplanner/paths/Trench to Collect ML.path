@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.390662650602409,
-        "y": 7.422590361445783
+        "x": 4.576433734939759,
+        "y": 7.51001204819277
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.0697943875604725,
-        "y": 7.398783315558259
+        "x": 7.226177685663666,
+        "y": 7.483933098679975
       },
       "isLocked": true,
       "linkedName": "Left Trench Start"
@@ -20,12 +20,12 @@
         "y": 7.412
       },
       "prevControl": {
-        "x": 4.034083435916971,
-        "y": 7.37838095638702
+        "x": 4.013163764444945,
+        "y": 7.347403843694412
       },
       "nextControl": {
-        "x": 6.290709471962117,
-        "y": 7.41776131948235
+        "x": 6.210429245529389,
+        "y": 7.420288044646909
       },
       "isLocked": true,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 7.0
       },
       "prevControl": {
-        "x": 8.726326319198344,
-        "y": 6.893438505958118
+        "x": 8.630983875594508,
+        "y": 6.921113358558331
       },
       "nextControl": null,
       "isLocked": true,
@@ -62,14 +62,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 3.0,
+    "velocity": 0.0,
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "To Collect",
+  "folder": "Old Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Bump to Collect ML"
+            "pathName": "Trench to Collect ML"
           }
         },
         {
@@ -95,6 +95,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Collect Half",
+  "folder": "Old Autos",
   "choreoAuto": false
 }

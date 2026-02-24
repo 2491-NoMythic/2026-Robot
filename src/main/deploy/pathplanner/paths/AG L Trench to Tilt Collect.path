@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.390662650602409,
-        "y": 7.422590361445783
+        "x": 4.576433734939759,
+        "y": 7.51001204819277
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.545909077135221,
-        "y": 7.297072765623911
+        "x": 6.552477194965177,
+        "y": 7.385805171567011
       },
       "isLocked": true,
       "linkedName": "Left Trench Start"
     },
     {
       "anchor": {
-        "x": 6.12824686940966,
-        "y": 7.3
+        "x": 6.499710843373493,
+        "y": 7.346096385542169
       },
       "prevControl": {
-        "x": 5.532778364740884,
-        "y": 7.412945982571305
+        "x": 6.071873555723204,
+        "y": 7.445237403020053
       },
       "nextControl": {
-        "x": 7.451927898948315,
-        "y": 7.048929702712991
+        "x": 6.761972556520888,
+        "y": 7.285323531381362
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "AG L Trench to Collect P1"
     },
     {
       "anchor": {
-        "x": 7.757,
-        "y": 7.0
+        "x": 8.27,
+        "y": 5.218887303851641
       },
       "prevControl": {
-        "x": 6.145593511276463,
-        "y": 6.8972267628752535
+        "x": 7.6859083145366,
+        "y": 5.9511244863431845
       },
       "nextControl": null,
-      "isLocked": true,
-      "linkedName": "Collect BL"
+      "isLocked": false,
+      "linkedName": "AG L Trench to Tilt Collect End"
     }
   ],
   "rotationTargets": [
@@ -62,14 +62,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 3.0,
-    "rotation": -90.0
+    "velocity": 0.0,
+    "rotation": -50.711
   },
   "reversed": false,
   "folder": "To Collect",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

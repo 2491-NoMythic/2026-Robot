@@ -1,0 +1,70 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.576433734939759,
+        "y": 7.51001204819277
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.746157007831444,
+        "y": 7.352718211381346
+      },
+      "isLocked": false,
+      "linkedName": "Left Trench Start"
+    },
+    {
+      "anchor": {
+        "x": 6.029819277108434,
+        "y": 7.51001204819277
+      },
+      "prevControl": {
+        "x": 5.541977269443664,
+        "y": 7.654562318201897
+      },
+      "nextControl": {
+        "x": 7.244217752772273,
+        "y": 7.1501791006444995
+      },
+      "isLocked": false,
+      "linkedName": "FR L Trench to Collect P1"
+    },
+    {
+      "anchor": {
+        "x": 7.757,
+        "y": 7.0
+      },
+      "prevControl": {
+        "x": 6.164389559598726,
+        "y": 7.445586051384822
+      },
+      "nextControl": null,
+      "isLocked": true,
+      "linkedName": "Collect BL"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": -90.0
+  },
+  "reversed": false,
+  "folder": "To Collect",
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": -90.0
+  },
+  "useDefaultConstraints": true
+}

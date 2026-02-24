@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Trench to Collect BR"
+            "pathName": "FR R Trench to Collect"
           }
         },
         {
@@ -95,6 +95,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Collect Quarter",
+  "folder": "Old Autos",
   "choreoAuto": false
 }

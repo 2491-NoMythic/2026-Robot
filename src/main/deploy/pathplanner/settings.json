@@ -3,21 +3,20 @@
   "robotLength": 0.7874,
   "holonomicMode": true,
   "pathFolders": [
+    "Auto Paths",
+    "Bump",
     "Collect",
     "Misc",
-    "Testing",
     "Old Paths",
     "Return to Hub",
+    "Testing",
     "To Collect"
   ],
   "autoFolders": [
-    "Collect Center",
-    "Collect Half",
-    "Collect Quarter",
-    "Double Back",
+    "Finalized",
     "Misc",
-    "Testing",
-    "Old Autos"
+    "Old Autos",
+    "WIP"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
@@ -44,6 +43,9 @@
   "bumperOffsetX": 0.0,
   "bumperOffsetY": 0.0,
   "robotFeatures": [
-    "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.51,\"y\":0.0},\"size\":{\"width\":0.914,\"length\":0.229},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}"
+    "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.51,\"y\":0.0},\"size\":{\"width\":0.914,\"length\":0.229},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}",
+    "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.0,\"y\":0.5},\"size\":{\"width\":0.064,\"length\":0.787},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}",
+    "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.0,\"y\":-0.5},\"size\":{\"width\":0.064,\"length\":0.787},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}",
+    "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":-0.43,\"y\":0.0},\"size\":{\"width\":0.914,\"length\":0.064},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}"
   ]
 }

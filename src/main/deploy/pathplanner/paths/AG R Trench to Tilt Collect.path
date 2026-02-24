@@ -3,50 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.401,
-        "y": 0.634
+        "x": 4.587361445783132,
+        "y": 0.5709156626506025
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.524094864789822,
-        "y": 0.7164705229959408
+        "x": 6.69390010468624,
+        "y": 0.6504312518607582
       },
       "isLocked": true,
       "linkedName": "Right Trench Start"
     },
     {
       "anchor": {
-        "x": 6.06334525939177,
-        "y": 0.74
+        "x": 6.499710843373493,
+        "y": 0.8550361445783141
       },
       "prevControl": {
-        "x": 4.80215475411681,
-        "y": 0.6113416545257807
+        "x": 6.256421446865731,
+        "y": 0.9125710865430768
       },
       "nextControl": {
-        "x": 7.722308199308374,
-        "y": 0.9092364683685782
+        "x": 6.743000239881256,
+        "y": 0.7975012026135514
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "AG R Trench to Tilt Collect P1"
     },
     {
       "anchor": {
-        "x": 7.757,
-        "y": 1.063
+        "x": 8.280927710843374,
+        "y": 3.0952168674698792
       },
       "prevControl": {
-        "x": 4.9944511826378655,
-        "y": 1.1818416267058787
+        "x": 8.084946033298285,
+        "y": 2.9374290272053725
       },
       "nextControl": null,
-      "isLocked": true,
-      "linkedName": "Collect BR"
+      "isLocked": false,
+      "linkedName": "Agressive Collect Center R Tilt"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.29279279279279263,
+      "waypointRelativePos": 0.27034990791896985,
       "rotationDegrees": 0.0
     }
   ],
@@ -62,14 +62,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 3.0,
-    "rotation": 90.0
+    "velocity": 0.0,
+    "rotation": 39.289
   },
   "reversed": false,
   "folder": "To Collect",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

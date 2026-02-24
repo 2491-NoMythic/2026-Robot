@@ -1,0 +1,68 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.281,
+        "y": 3.0952168674698792
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.272929322687181,
+        "y": 2.460710694172332
+      },
+      "isLocked": false,
+      "linkedName": "Agressive Collect Center R Tilt"
+    },
+    {
+      "anchor": {
+        "x": 8.281,
+        "y": 6.0
+      },
+      "prevControl": {
+        "x": 8.282672814767071,
+        "y": 6.259549920904475
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Tilt Return ML"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 1,
+      "maxWaypointRelativePos": 1,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 39.289
+  },
+  "reversed": false,
+  "folder": "Collect",
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": 39.289
+  },
+  "useDefaultConstraints": true
+}

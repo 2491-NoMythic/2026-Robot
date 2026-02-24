@@ -5,40 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Expand"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Slow Trench to Collect ML"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Slow Collect L"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Copy of Return L"
+            "pathName": "AG R Cross"
           }
         },
         {
@@ -52,15 +21,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "AimRobotMoving"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
                   "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
                 }
               }
             ]
@@ -71,15 +40,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "RunIndexer"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
                   "waitTime": 8.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIndexer"
                 }
               }
             ]
@@ -95,6 +64,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Testing",
+  "folder": "Misc",
   "choreoAuto": false
 }

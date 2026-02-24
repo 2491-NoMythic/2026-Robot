@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.2233059714693475,
-        "y": 2.703467599306782
+        "x": 5.001756111661919,
+        "y": 2.7104583419070827
       },
       "isLocked": false,
       "linkedName": "Right Bump Start"
@@ -20,12 +20,12 @@
         "y": 2.5666010733452596
       },
       "prevControl": {
-        "x": 5.07343275761197,
-        "y": 2.686382586004982
+        "x": 5.07796720128426,
+        "y": 2.7413658966149885
       },
       "nextControl": {
-        "x": 5.815828344367994,
-        "y": 2.398081286339564
+        "x": 5.810980176749785,
+        "y": 2.319845061065037
       },
       "isLocked": false,
       "linkedName": "Right Trench Start P1"
@@ -36,12 +36,12 @@
         "y": 1.2036672629695886
       },
       "prevControl": {
-        "x": 5.829361755727605,
-        "y": 1.4229992023351241
+        "x": 5.901072529084575,
+        "y": 1.5683311712389405
       },
       "nextControl": {
-        "x": 6.844850983888397,
-        "y": 1.0460940465028086
+        "x": 6.869878201595318,
+        "y": 0.8879248307515413
       },
       "isLocked": false,
       "linkedName": "Right Trench Start P2"
@@ -52,8 +52,8 @@
         "y": 1.063
       },
       "prevControl": {
-        "x": 7.880884283602631,
-        "y": 1.0263153247573407
+        "x": 7.9131067207484636,
+        "y": 1.0845032972444042
       },
       "nextControl": null,
       "isLocked": true,
@@ -78,11 +78,11 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 3.0,
+    "velocity": 0.0,
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": "To Collect",
+  "folder": "Bump",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

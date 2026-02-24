@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.27,
+        "y": 2.1226506024096388
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.031604042325881,
+        "y": 2.1979325216508485
+      },
+      "isLocked": false,
+      "linkedName": "Tilt Return MR Start"
+    },
+    {
+      "anchor": {
+        "x": 6.290385164051354,
+        "y": 2.6052781740370903
+      },
+      "prevControl": {
+        "x": 6.087939289058527,
+        "y": 2.751960373701495
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Return MR End"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Return to Hub",
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": -50.711
+  },
+  "useDefaultConstraints": true
+}

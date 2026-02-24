@@ -1,0 +1,70 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.587361445783132,
+        "y": 0.5709156626506025
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.146511127823267,
+        "y": 0.7142899682630466
+      },
+      "isLocked": false,
+      "linkedName": "Right Trench Start"
+    },
+    {
+      "anchor": {
+        "x": 6.631,
+        "y": 0.604
+      },
+      "prevControl": {
+        "x": 6.290775099781535,
+        "y": 1.4804737203797758
+      },
+      "nextControl": {
+        "x": 6.721466961190368,
+        "y": 0.3709426488329952
+      },
+      "isLocked": false,
+      "linkedName": "AG R Trench to Collect P1"
+    },
+    {
+      "anchor": {
+        "x": 8.280927710843374,
+        "y": 3.0952168674698792
+      },
+      "prevControl": {
+        "x": 7.941976396038128,
+        "y": 3.006205691074265
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Agressive Collect Center R"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": "To Collect",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": true
+}
