@@ -22,12 +22,11 @@ public class Climb extends SequentialCommandGroup {
   public Climb(Climber climber, DrivetrainSubsystem drivetrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new ClimberArmUp(climber),
-     new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0.5,0,0))),
-     new WaitCommand(0.5), new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0,0,0))),
-     new ClimberArmDown(climber),
-     new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(-0.5,0,0))),
-     new WaitCommand(0.5),
-     new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0,0,0))));
+    addCommands(
+      new ClimberArmUp(climber),
+      new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0.5,0,0))),
+      new WaitCommand(0.5),
+      new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0,0,0))),
+      new ClimberArmDown(climber));
   }
 }
