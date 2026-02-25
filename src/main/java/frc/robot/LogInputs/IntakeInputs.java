@@ -9,6 +9,7 @@ import org.littletonrobotics.junction.AutoLog;
 @AutoLog
 /** Add your docs here. */
 public class IntakeInputs {
+    public static final boolean IntakeInputs = false;
     public MotorLoggerInputsAutoLogged wheelsMotor = new MotorLoggerInputsAutoLogged();
     public MotorLoggerInputsAutoLogged deployerMotor = new MotorLoggerInputsAutoLogged();
 }
