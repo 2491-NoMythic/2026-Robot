@@ -51,8 +51,8 @@ public final class Constants {
 
   public static final class ShooterConstants{
     public static final float SHOOTING_SPEED_MPS = 7;//not measured, just example
-    public static final int SHOOTER_MOTOR_1_ID = 2491; 
-    public static final int SHOOTER_MOTOR_2_ID = 2491; 
+    public static final int SHOOTER_MOTOR_1_ID = 9; 
+    public static final int SHOOTER_MOTOR_2_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
     public static final int HOOD_RIGHT_ACTUATOR_ID = 3;
     public static final double SHOOTER_HEIGHT = 1; //IN METERS
@@ -74,7 +74,7 @@ public final class Constants {
   }
 
   public static final class ClimberConstants{
-    public static final int CLIMBER_MOTOR_ID = 2491;
+    public static final int CLIMBER_MOTOR_ID = 16;
     public static final int HALL_EFFECT_ID = 2491;
     public static final double CLIMBER_MAX_POSITION = 100;
     public static final double HALL_EFFECT_HEIGHT = 2491;
@@ -86,10 +86,9 @@ public final class Constants {
   }
 
   public static final class IntakeConstants{
-    public static final int INTAKE_MOTOR_ID = 2491;
     public static final int INTAKE_SPEED = 1;
-    public static final int INTAKE_WHEELS_ID = 2491;
-    public static final int INTAKE_DEPLOYER_ID = 2491;
+    public static final int INTAKE_WHEELS_ID = 14;
+    public static final int INTAKE_DEPLOYER_ID = 13;
     public static TalonFXConfiguration INTAKE_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
         .withKV(0).withKP(0).withKI(0).withKD(0))
@@ -98,13 +97,13 @@ public final class Constants {
   }
 
   public static final class IndexerConstants{
-    public static final int INDEXER_MOTOR_1_ID= 2491;
-    public static final int INDEXER_MOTOR_2_ID= 2491;
+    public static final int INDEXER_MOTOR_1_ID= 11;
+    public static final int INDEXER_MOTOR_2_ID= 12;
     public static final int INDEXER_FEEDING_SPEED = 2491;
   }
 
   public static final class HopperConstants{
-    public static final int HOPPER_MOTOR_ID = 2491;
+    public static final int HOPPER_MOTOR_ID = 15;
     public static final float HOPPER_ROLLER_SPEED = 2491;
 
     public static final int TOP_LEFT_SENSOR_ID = 2491;
