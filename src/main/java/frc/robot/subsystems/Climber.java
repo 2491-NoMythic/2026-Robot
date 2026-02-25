@@ -79,12 +79,12 @@ public class Climber extends SubsystemBase {
     *When the climber goes above max height, stops it and sets the Climber Postion to Up.
     *Sets the Climber Position to Lowering/Raising when it is doing the respective action, then when we want the climber to be stopped, sets the Climber Position to Down.
     */
-    if(desiredSpeed > 0 && motor.getPosition().getValueAsDouble() > CLIMBER_MAX_POSITION) {
+    if(desiredSpeed > 0 && inputs.motor.position > CLIMBER_MAX_POSITION) {
       motor.stopMotor();
       climberState = ClimberState.Up;
     } else if(desiredSpeed < 0 && climberState == ClimberState.Down) {
       motor.stopMotor();
-    } else if(motor.getSupplyCurrent().getValueAsDouble() > 40){
+    } else if(inputs.motor.current > 40){
       climberState = ClimberState.Down;
       motor.stopMotor();
     } else {
