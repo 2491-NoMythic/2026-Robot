@@ -4,15 +4,23 @@
 
 package frc.robot.settings;
 
+import static frc.robot.settings.Constants.DriveConstants.FR_STEER_MOTOR_ID;
+
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.CommutationConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
+import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.TalonFXSConfiguration;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
+import com.ctre.phoenix6.signals.ForwardLimitSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.MotorArrangementValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.signals.ReverseLimitSourceValue;
 import com.pathplanner.lib.path.PathConstraints;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -89,11 +97,21 @@ public final class Constants {
     public static final int INTAKE_SPEED = 1;
     public static final int INTAKE_WHEELS_ID = 14;
     public static final int INTAKE_DEPLOYER_ID = 13;
-    public static TalonFXConfiguration INTAKE_CONFIG = new TalonFXConfiguration()
+    public static TalonFXConfiguration INTAKE_DEPLOYER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
         .withKV(0).withKP(0).withKI(0).withKD(0))
       .withCurrentLimits(new CurrentLimitsConfigs()
-        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50));
+        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
+      .withHardwareLimitSwitch(new HardwareLimitSwitchConfigs()
+        .withForwardLimitAutosetPositionEnable(true)
+        .withForwardLimitRemoteSensorID(FR_STEER_MOTOR_ID)
+        .withForwardLimitSource(ForwardLimitSourceValue.RemoteTalonFX)
+        .withReverseLimitAutosetPositionEnable(true)
+        .withReverseLimitRemoteSensorID(FR_STEER_MOTOR_ID)
+        .withReverseLimitSource(ReverseLimitSourceValue.RemoteTalonFX));
+    public static TalonFXSConfiguration INTAKE_WHEELS_CONFIG = new TalonFXSConfiguration()
+      .withCommutation(new CommutationConfigs()
+        .withMotorArrangement(MotorArrangementValue.Minion_JST));
   }
 
   public static final class IndexerConstants{
