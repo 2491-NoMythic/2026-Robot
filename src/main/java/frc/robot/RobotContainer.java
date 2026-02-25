@@ -120,6 +120,7 @@ public class RobotContainer {
   BooleanSupplier BumpAllignSup;
   BooleanSupplier ClimberUpSup;
   BooleanSupplier ClimberDownSup;
+  BooleanSupplier AutoClimbSup;
   BooleanSupplier RetractIntakeSup;
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier AutoIntakeSup;
@@ -132,7 +133,7 @@ public class RobotContainer {
   BooleanSupplier ShootIfAimedSup;
   BooleanSupplier ForceHoodDownSupplier;
   BooleanSupplier crossBumpTowardsAllianceSup;
-  boolean manualShooterOn = false;
+  boolean shooterOn = false;
   BooleanSupplier ManualHubShotSup;
   BooleanSupplier ManualTowerShotSup;
   BooleanSupplier ManualLeftTrenchShotSup;
@@ -175,6 +176,7 @@ public class RobotContainer {
     //Climber Down is A button on operator controller
     ClimberUpSup = operatorController::getYButton;
     //Climber Up is Y button on operator controller
+    AutoClimbSup = driveController::getAButton;
     //intake controls
     //RetractIntakeSup = driveController::getLeftStickButton;
     //DeployIntakeSup = driveController::getRightStickButton;
@@ -275,8 +277,8 @@ public class RobotContainer {
     // new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
     // new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleDown(), shooter));
     new Trigger(ForceHoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
-    new Trigger(ShooterToggleSupplier).onTrue(new InstantCommand(()->manualShooterOn = !manualShooterOn));
-    new Trigger(()->manualShooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
+    new Trigger(ShooterToggleSupplier).onTrue(new InstantCommand(()->shooterOn = !shooterOn));
+    new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
   }
 
@@ -293,6 +295,7 @@ public class RobotContainer {
 
     new Trigger(ClimberDownSup).whileTrue(new InstantCommand(()->climber.climberDown(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
     new Trigger(ClimberUpSup).whileTrue(new InstantCommand(()->climber.climberUp(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
+    new Trigger(AutoClimbSup).whileTrue(new AutomaticClimb(drivetrain, climber));
   }
   
   private void indexerInit() {
@@ -394,6 +397,8 @@ public class RobotContainer {
     autoTimer.start();
 
     lights.blinkLights(LightsEnums.All, 255, 0, 0);
+
+    shooterOn = true;
   }
 
   public void autonomousPeriodic() {
