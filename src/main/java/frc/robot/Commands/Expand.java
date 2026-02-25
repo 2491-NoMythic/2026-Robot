@@ -10,16 +10,14 @@ import frc.robot.LogInputs.IntakeInputsAutoLogged;
 public class Expand extends Command{
     TalonFX deployer;
     Intake intake;
-    IntakeInputs inputs;
     
-  public Expand(Intake intake, IntakeInputs inputs) {
+  public Expand(Intake intake) {
     this.intake = intake;
     addRequirements(intake);
-    this.inputs = inputs;
   }
     @Override
     public void initialize() {
-      intake.deployIntake();;
+      intake.deployIntake();
     }
 
     @Override
@@ -32,7 +30,7 @@ public class Expand extends Command{
 
     @Override
   public boolean isFinished(){
-    return inputs.IntakeInputs;
+    return intake.getIsDeployed();
   }
 }
 
