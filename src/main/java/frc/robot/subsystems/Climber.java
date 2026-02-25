@@ -89,10 +89,10 @@ public class Climber extends SubsystemBase {
       motor.stopMotor();
     } else {
       motor.set(desiredSpeed);
-      if(desiredSpeed > 0){
+      if(desiredSpeed < 0){
         climberState = ClimberState.LoweringClimber;
       }
-      else if(desiredSpeed < 0){
+      else if(desiredSpeed > 0){
         climberState = ClimberState.RaisingClimber;
       }
       else{
