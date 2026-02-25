@@ -4,13 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.CANdleConfiguration;
-import com.ctre.phoenix6.configs.CANdleFeaturesConfigs;
-import com.ctre.phoenix6.configs.LEDConfigs;
-import com.ctre.phoenix6.hardware.CANdle;
-import com.ctre.phoenix6.signals.Enable5VRailValue;
-import com.ctre.phoenix6.signals.StripTypeValue;
-
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Timer;
@@ -19,8 +12,6 @@ import frc.robot.settings.Constants.LightConstants;
 import frc.robot.settings.LightsEnums;
 
 public class Lights extends SubsystemBase {
-  CANdle candle;
-  CANdleConfiguration candleConfig;
   private AddressableLED lights;
   private AddressableLEDBuffer LEDBuffer;
   Timer timer;
@@ -34,18 +25,8 @@ public class Lights extends SubsystemBase {
   /** Creates a new Lights. */
   public Lights() {
     lights = new AddressableLED(6);
-    lights.setLength(60);
-    LEDBuffer = new AddressableLEDBuffer(60);
-    candle = new CANdle(LightConstants.CANDLE_ID);
-    candleConfig = new CANdleConfiguration();
-    // CANdleConfig = CANdleConfig.withLED(LEDConfigs.withBrightnessScalar(1.0));
-    LEDConfigs ledConfigs = new LEDConfigs();
-    CANdleFeaturesConfigs featuresConfigs = new CANdleFeaturesConfigs();
-    ledConfigs = ledConfigs.withBrightnessScalar(1).withStripType(StripTypeValue.GRB);
-    featuresConfigs = featuresConfigs.withEnable5VRail(Enable5VRailValue.Enabled);
-
-    candleConfig.withLED(ledConfigs).withCANdleFeatures(featuresConfigs);
-    candle.getConfigurator().apply(candleConfig);
+    lights.setLength(30);
+    LEDBuffer = new AddressableLEDBuffer(30);
   }
 
   public void setOneLightRGB(int index, int R, int G, int B) {
