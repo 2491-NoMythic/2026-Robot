@@ -55,6 +55,7 @@ import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobot;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.Commands.AutomaticClimb;
+import frc.robot.Commands.Climb;
 import frc.robot.Commands.ClimberArmDown;
 import frc.robot.Commands.ClimberArmUp;
 import frc.robot.Commands.CollectFuel;
@@ -301,7 +302,7 @@ public class RobotContainer {
 
     new Trigger(ClimberDownSup).whileTrue(new InstantCommand(()->climber.climberDown(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
     new Trigger(ClimberUpSup).whileTrue(new InstantCommand(()->climber.climberUp(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
-    new Trigger(AutoClimbSup).whileTrue(new AutomaticClimb(drivetrain, climber));
+    new Trigger(AutoClimbSup).whileTrue(new Climb(climber, drivetrain));
   }
   
   private void indexerInit() {
