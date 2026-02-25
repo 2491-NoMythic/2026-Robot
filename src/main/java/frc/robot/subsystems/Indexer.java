@@ -8,9 +8,11 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.IndexerInputsAutoLogged;
 
+import static frc.robot.settings.Constants.DriveConstants.CANIVORE_DRIVETRAIN;
 import static frc.robot.settings.Constants.IndexerConstants.*;
 
 import org.littletonrobotics.junction.Logger;
@@ -22,8 +24,8 @@ public class Indexer extends SubsystemBase {
   
   /** Creates a new Indexer. */
   public Indexer() {
-    motor_1 = new TalonFX(INDEXER_MOTOR_1_ID);
-    motor_2 = new TalonFX(INDEXER_MOTOR_2_ID);
+    motor_1 = new TalonFX(INDEXER_MOTOR_1_ID, CANIVORE_DRIVETRAIN);
+    motor_2 = new TalonFX(INDEXER_MOTOR_2_ID, CANIVORE_DRIVETRAIN);
     motor_2.setControl(new Follower(INDEXER_MOTOR_1_ID, MotorAlignmentValue.Opposed));
     inputs = new IndexerInputsAutoLogged();
   }

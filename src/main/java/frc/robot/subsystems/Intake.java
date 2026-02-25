@@ -4,26 +4,31 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.TalonFXSConfiguration;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.hardware.TalonFXS;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.IntakeInputsAutoLogged;
 
+import static frc.robot.settings.Constants.DriveConstants.CANIVORE_DRIVETRAIN;
 import static frc.robot.settings.Constants.IntakeConstants.*;
 
 import org.littletonrobotics.junction.Logger;
 
 public class Intake extends SubsystemBase {
-  TalonFX wheels;
+  TalonFXS wheels;
   TalonFX deployer;
+  TalonFXSConfiguration intakeConfig;
   IntakeInputsAutoLogged inputs;
 
   /** Creates a new Intake. */
   public Intake() {
-    wheels = new TalonFX(INTAKE_WHEELS_ID);
-    deployer = new TalonFX(INTAKE_DEPLOYER_ID);
-    wheels.getConfigurator().apply(INTAKE_CONFIG);
-    deployer.getConfigurator().apply(INTAKE_CONFIG);
+    wheels = new TalonFXS(INTAKE_WHEELS_ID, CANIVORE_DRIVETRAIN);
+    deployer = new TalonFX(INTAKE_DEPLOYER_ID, CANIVORE_DRIVETRAIN);
+    wheels.getConfigurator().apply(INTAKE_WHEELS_CONFIG);
+    deployer.getConfigurator().apply(INTAKE_DEPLOYER_CONFIG);
     inputs = new IntakeInputsAutoLogged();
   }
 
