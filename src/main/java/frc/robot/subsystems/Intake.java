@@ -24,6 +24,7 @@ public class Intake extends SubsystemBase {
     deployer = new TalonFX(INTAKE_DEPLOYER_ID);
     wheels.getConfigurator().apply(INTAKE_CONFIG);
     deployer.getConfigurator().apply(INTAKE_CONFIG);
+    inputs = new IntakeInputsAutoLogged();
   }
 
   /**
