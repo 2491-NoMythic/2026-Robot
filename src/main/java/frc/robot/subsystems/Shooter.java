@@ -17,6 +17,7 @@ import frc.robot.Robot;
 import frc.robot.LogInputs.ShooterInputsAutoLogged;
 import frc.robot.helpers.MythicalMath;
 
+import static frc.robot.settings.Constants.DriveConstants.CANIVORE_DRIVETRAIN;
 import static frc.robot.settings.Constants.ShooterConstants.*;
 
 import org.littletonrobotics.junction.Logger;
@@ -31,9 +32,9 @@ public class Shooter extends SubsystemBase {
   boolean autoRetractOn;
   /** Creates a new Shooter. */
   public Shooter() {
-    shootMotor1 = new TalonFX(SHOOTER_MOTOR_1_ID);
+    shootMotor1 = new TalonFX(SHOOTER_MOTOR_1_ID, CANIVORE_DRIVETRAIN);
     shootMotor1.getConfigurator().apply(SHOOTER_CONFIG);
-    shootMotor2 = new TalonFX(SHOOTER_MOTOR_2_ID);
+    shootMotor2 = new TalonFX(SHOOTER_MOTOR_2_ID, CANIVORE_DRIVETRAIN);
     shootMotor2.setControl(new Follower(SHOOTER_MOTOR_1_ID, MotorAlignmentValue.Opposed));
     shootMotor2.getConfigurator().apply(SHOOTER_CONFIG);
     leftHoodActuator = new Servo(HOOD_LEFT_ACTUATOR_ID);
