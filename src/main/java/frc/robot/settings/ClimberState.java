@@ -9,5 +9,6 @@ public enum ClimberState {
     Down, 
     RaisingClimber,
     LoweringClimber,
-    Up
+    Up,
+    Stopped
 }

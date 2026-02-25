@@ -75,10 +75,14 @@ public final class Constants {
 
   public static final class ClimberConstants{
     public static final int CLIMBER_MOTOR_ID = 2491;
+    public static final int HALL_EFFECT_ID = 2491;
     public static final double CLIMBER_MAX_POSITION = 100;
+    public static final double HALL_EFFECT_HEIGHT = 2491;
     public static TalonFXConfiguration CLIMBER_CONFIG = new TalonFXConfiguration()
       .withCurrentLimits(new CurrentLimitsConfigs()
-        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50));
+        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
+      .withFeedback(new FeedbackConfigs()
+        .withSensorToMechanismRatio((1.2 / 25) * Math.PI));//25 motor rotations = 1.2 pi inches of climber movement
   }
 
   public static final class IntakeConstants{

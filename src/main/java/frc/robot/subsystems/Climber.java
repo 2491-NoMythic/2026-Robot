@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.ClimberInputsAutoLogged;
 import frc.robot.settings.ClimberState;
@@ -16,6 +17,7 @@ import org.littletonrobotics.junction.Logger;
 
 public class Climber extends SubsystemBase {
   TalonFX motor;
+  DigitalInput hallEffect;
   ClimberInputsAutoLogged inputs;
   double maxPosition;
   double desiredSpeed;
@@ -26,6 +28,7 @@ public class Climber extends SubsystemBase {
     motor.getConfigurator().apply(CLIMBER_CONFIG);
     inputs = new ClimberInputsAutoLogged();
     motor.setPosition(0);
+    hallEffect = new DigitalInput(HALL_EFFECT_ID);
   }
 
 
@@ -40,6 +43,10 @@ public class Climber extends SubsystemBase {
    */
   public void climberDown() {
     desiredSpeed = 0.5;
+  }
+
+  public boolean getHallEffect() {
+    return inputs.hallEffect;
   }
 
   /**
@@ -61,7 +68,12 @@ public class Climber extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     inputs.motor.log(motor);
+    inputs.hallEffect = !hallEffect.get();
     Logger.processInputs("Climber", inputs);
+
+    if (inputs.hallEffect) {
+      motor.setPosition(HALL_EFFECT_HEIGHT);
+    }
 
     /**
     *When the climber goes above max height, stops it and sets the Climber Postion to Up.
@@ -70,6 +82,11 @@ public class Climber extends SubsystemBase {
     if(desiredSpeed > 0 && motor.getPosition().getValueAsDouble() > CLIMBER_MAX_POSITION) {
       motor.stopMotor();
       climberState = ClimberState.Up;
+    } else if(desiredSpeed < 0 && climberState == ClimberState.Down) {
+      motor.stopMotor();
+    } else if(motor.getSupplyCurrent().getValueAsDouble() > 40){
+      climberState = ClimberState.Down;
+      motor.stopMotor();
     } else {
       motor.set(desiredSpeed);
       if(desiredSpeed > 0){
@@ -79,7 +96,7 @@ public class Climber extends SubsystemBase {
         climberState = ClimberState.RaisingClimber;
       }
       else{
-        climberState = ClimberState.Down;
+        climberState = ClimberState.Stopped;
       }
     }
     RobotState.getInstance().climberState = climberState;
