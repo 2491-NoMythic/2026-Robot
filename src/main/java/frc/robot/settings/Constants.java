@@ -105,7 +105,6 @@ public final class Constants {
 
   public static final class HopperConstants{
     public static final int HOPPER_MOTOR_ID = 2491;
-    public static final int HOPPER_MOTOR_TWO_ID = 2491;
     public static final float HOPPER_ROLLER_SPEED = 2491;
 
     public static final int TOP_LEFT_SENSOR_ID = 2491;

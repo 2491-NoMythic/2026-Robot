@@ -70,4 +70,5 @@ public class Intake extends SubsystemBase {
     inputs.deployerMotor.log(deployer);
     Logger.processInputs("Intake", inputs);
   }
+
 }

@@ -4,9 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,6 +34,7 @@ public class Shooter extends SubsystemBase {
     shootMotor1 = new TalonFX(SHOOTER_MOTOR_1_ID);
     shootMotor1.getConfigurator().apply(SHOOTER_CONFIG);
     shootMotor2 = new TalonFX(SHOOTER_MOTOR_2_ID);
+    shootMotor2.setControl(new Follower(SHOOTER_MOTOR_1_ID, MotorAlignmentValue.Opposed));
     shootMotor2.getConfigurator().apply(SHOOTER_CONFIG);
     leftHoodActuator = new Servo(HOOD_LEFT_ACTUATOR_ID);
     rightHoodActuator = new Servo(HOOD_RIGHT_ACTUATOR_ID);
@@ -45,7 +48,6 @@ public class Shooter extends SubsystemBase {
    */
   public void set(double speed){
     shootMotor1.set(speed);
-    shootMotor2.set(speed);
   }
 
   /**
@@ -53,7 +55,6 @@ public class Shooter extends SubsystemBase {
    */
   public void stop(){
     shootMotor1.set(0);
-    shootMotor2.set(0);
   }
 
   /**
@@ -62,7 +63,6 @@ public class Shooter extends SubsystemBase {
    */
   public void setVelocity(double speed){
     shootMotor1.setControl(new VelocityVoltage(speed));
-    shootMotor2.setControl(new VelocityVoltage(speed));
   }
 
   /**
