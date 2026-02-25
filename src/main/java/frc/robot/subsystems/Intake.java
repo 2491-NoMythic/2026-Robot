@@ -55,6 +55,14 @@ public class Intake extends SubsystemBase {
     deployer.set(0.1);
   }
 
+  public boolean getIsDeployed() {
+    return inputs.forwardLimitSwitch;
+  }
+
+  public boolean getIsRetracted() {
+    return inputs.reverseLimitSwitch;
+  }
+
   public void retractIntake(){
     deployer.set(-0.1);
   }
@@ -68,6 +76,8 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
     inputs.wheelsMotor.log(wheels);
     inputs.deployerMotor.log(deployer);
+    inputs.forwardLimitSwitch = deployer.getForwardLimit().getValueAsDouble() > 0.5;
+    inputs.reverseLimitSwitch = deployer.getReverseLimit().getValueAsDouble() > 0.5;
     Logger.processInputs("Intake", inputs);
   }
 

@@ -59,6 +59,7 @@ import frc.robot.Commands.ClimberArmDown;
 import frc.robot.Commands.ClimberArmUp;
 import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.Drive;
+import frc.robot.Commands.Expand;
 import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.OverBump;
@@ -466,9 +467,12 @@ public class RobotContainer {
     if(INTAKE_EXISTS) {
       NamedCommands.registerCommand("Intake", new RunIntake(intake));
       NamedCommands.registerCommand("Outtake", new Outtake(intake));
+      NamedCommands.registerCommand("Expand", new Expand(intake));
+      
     } else {
       NamedCommands.registerCommand("Intake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("Outtake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+      NamedCommands.registerCommand("Expand", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
   }
 }
