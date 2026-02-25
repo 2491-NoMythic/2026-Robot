@@ -3,23 +3,23 @@ package frc.robot.Commands;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Hopper;
-import frc.robot.LogInputs.HopperInputsAutoLogged;
+import frc.robot.subsystems.Intake;
+import frc.robot.LogInputs.IntakeInputs;
+import frc.robot.LogInputs.IntakeInputsAutoLogged;
 
 public class Expand extends Command{
-    TalonFX hopperWideMotor;
-    TalonFX hopperTallMotor;
-    Hopper hopperSubsystem;
-    HopperInputsAutoLogged inputs;
+    TalonFX deployer;
+    Intake intake;
+    IntakeInputs inputs;
     
-  public Expand(Hopper hopperSubsystem, HopperInputsAutoLogged inputs) {
-    this.hopperSubsystem = hopperSubsystem;
-    addRequirements(hopperSubsystem);
+  public Expand(Intake intake, IntakeInputs inputs) {
+    this.intake = intake;
+    addRequirements(intake);
     this.inputs = inputs;
   }
     @Override
     public void initialize() {
-      hopperSubsystem.setWideHopper(1);
+      intake.deployIntake();;
     }
 
     @Override
@@ -27,12 +27,12 @@ public class Expand extends Command{
 
     @Override
   public void end(boolean interrupted) {
-    hopperSubsystem.setWideHopper(0);
+    intake.stopDeployer();
   }
 
     @Override
   public boolean isFinished(){
-    return inputs.hopperExpandedInput;
+    return inputs.IntakeInputs;
   }
 }
 
