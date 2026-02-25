@@ -125,7 +125,8 @@ public class RobotContainer {
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier AutoIntakeSup;
   BooleanSupplier IntakeWheelSup;
-  BooleanSupplier ShooterToggleSupplier;
+  BooleanSupplier ShooterOnSupplier;
+  BooleanSupplier ShooterOffSupplier;
   BooleanSupplier HoodUpSupplier;
   BooleanSupplier HoodDownSupplier;
   BooleanSupplier IndexerSup;
@@ -160,23 +161,26 @@ public class RobotContainer {
     ZeroGyroSup = driveController::getStartButton;
     AutoAimSupplier = () -> driveController.getLeftTriggerAxis() >= 0.5;
     AutoIntakeSup = driveController::getXButton;
+
     //Shooter controls
-    HoodUpSupplier = () -> operatorController.getLeftY() < -0.5;
-    HoodDownSupplier = () -> operatorController.getLeftY() > 0.5;
-    ShooterToggleSupplier = operatorController::getXButton;
     IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
     ForceHoodDownSupplier = driveController::getBackButton;
-    ManualHubShotSup = operatorController::getBButton;
-    ManualTowerShotSup = operatorController::getLeftStickButton;
-    ManualLeftTrenchShotSup = operatorController::getRightStickButton;
-    ManualRightTrenchShotSup = operatorController::getRightBumperButton;
+
+    HoodUpSupplier = () -> operatorController.getLeftStickButton();
+    HoodDownSupplier = () -> operatorController.getRightStickButton();
+    ShooterOffSupplier = ()-> operatorController.getPOV() >= 135 && operatorController.getPOV() <= 225;
+    ShooterOnSupplier = ()-> operatorController.getPOV() >= 315 || operatorController.getPOV() <= 45;
+    ManualHubShotSup = operatorController::getYButton;
+    ManualTowerShotSup = operatorController::getAButton;
+    ManualLeftTrenchShotSup = operatorController::getXButton;
+    ManualRightTrenchShotSup = operatorController::getBButton;
     //Shooting Command is Right Trigger on drive controller. 
-    //climber controls
-    ClimberDownSup = operatorController::getAButton;
-    //Climber Down is A button on operator controller
-    ClimberUpSup = operatorController::getYButton;
-    //Climber Up is Y button on operator controller
-    AutoClimbSup = driveController::getAButton;
+
+    //Climber controls
+    AutoClimbSup = () -> driveController.getStartButton() && driveController.getBackButton();
+    ClimberUpSup = operatorController::getLeftBumperButton;
+    ClimberDownSup = operatorController::getRightBumperButton;
+
     //intake controls
     //RetractIntakeSup = driveController::getLeftStickButton;
     //DeployIntakeSup = driveController::getRightStickButton;
@@ -277,7 +281,8 @@ public class RobotContainer {
     // new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
     // new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleDown(), shooter));
     new Trigger(ForceHoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
-    new Trigger(ShooterToggleSupplier).onTrue(new InstantCommand(()->shooterOn = !shooterOn));
+    new Trigger(ShooterOnSupplier).onTrue(new InstantCommand(()->shooterOn = true));
+    new Trigger(ShooterOffSupplier).onTrue(new InstantCommand(()->shooterOn = false));
     new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
   }
