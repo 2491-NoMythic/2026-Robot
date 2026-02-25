@@ -166,8 +166,8 @@ public class RobotContainer {
     IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
     ForceHoodDownSupplier = driveController::getBackButton;
 
-    HoodUpSupplier = () -> operatorController.getLeftStickButton();
-    HoodDownSupplier = () -> operatorController.getRightStickButton();
+    HoodUpSupplier = () -> operatorController.getLeftTriggerAxis() > 0.5;
+    HoodDownSupplier = () -> operatorController.getRightTriggerAxis() > 0.5;
     ShooterOffSupplier = ()-> operatorController.getPOV() >= 135 && operatorController.getPOV() <= 225;
     ShooterOnSupplier = ()-> operatorController.getPOV() >= 315 || operatorController.getPOV() <= 45;
     ManualHubShotSup = operatorController::getYButton;
@@ -182,12 +182,13 @@ public class RobotContainer {
     ClimberDownSup = operatorController::getRightBumperButton;
 
     //intake controls
-    //RetractIntakeSup = driveController::getLeftStickButton;
-    //DeployIntakeSup = driveController::getRightStickButton;
+    RetractIntakeSup = operatorController::getLeftStickButton;
+    DeployIntakeSup = operatorController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
+
     //Trench Controls
-    TrenchAllignSup = driveController::getBButton;
-    BumpAllignSup = driveController::getRightStickButton;
+    TrenchAllignSup = driveController::getLeftStickButton; //NOT FINAL THIS IS BATCRAP INSANE
+    BumpAllignSup = driveController::getRightStickButton; //NOT FINAL THIS IS BATCRAP INSANE
 
     crossBumpTowardsAllianceSup = driveController::getYButton;
 
