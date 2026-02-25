@@ -10,4 +10,5 @@ import org.littletonrobotics.junction.AutoLog;
 /** Add your docs here. */
 public class ClimberInputs {
     public MotorLoggerInputsAutoLogged motor = new MotorLoggerInputsAutoLogged();
+    public boolean hallEffect;
 }
