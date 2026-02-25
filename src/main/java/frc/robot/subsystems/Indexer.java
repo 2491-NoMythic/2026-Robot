@@ -4,7 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.IndexerInputsAutoLogged;
@@ -22,6 +24,7 @@ public class Indexer extends SubsystemBase {
   public Indexer() {
     motor_1 = new TalonFX(INDEXER_MOTOR_1_ID);
     motor_2 = new TalonFX(INDEXER_MOTOR_2_ID);
+    motor_2.setControl(new Follower(INDEXER_MOTOR_1_ID, MotorAlignmentValue.Opposed));
     inputs = new IndexerInputsAutoLogged();
   }
 
@@ -31,7 +34,6 @@ public class Indexer extends SubsystemBase {
    */
   public void set(double speed){
     motor_1.set(speed);
-    motor_2.set(speed);
   }
 
   /**
@@ -39,7 +41,6 @@ public class Indexer extends SubsystemBase {
    */
   public void stop(){
     motor_1.set(0);
-    motor_2.set(0);
   }
 
   @Override

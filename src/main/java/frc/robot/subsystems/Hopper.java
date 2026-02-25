@@ -13,15 +13,13 @@ import static frc.robot.settings.Constants.HopperConstants.*;
 import org.littletonrobotics.junction.Logger;
 
 public class Hopper extends SubsystemBase {
-  TalonFX wideMotor;
   TalonFX hopperRollerMotor;
   boolean hopperExpanded = false;
   HopperInputsAutoLogged inputs;
 
   /** Creates a new Hopper. */
   public Hopper() {
-    wideMotor = new TalonFX(HOPPER_MOTOR_ID);
-    hopperRollerMotor = new TalonFX(HOPPER_MOTOR_TWO_ID);
+    hopperRollerMotor = new TalonFX(HOPPER_MOTOR_ID);
     inputs = new HopperInputsAutoLogged();
   }
 
@@ -33,15 +31,6 @@ public class Hopper extends SubsystemBase {
    */
   public void setMotor(double speed, TalonFX motor){
     motor.set(speed);
-  }
-
-  /**
-   * expands the hopper
-   * @param speed Motor power from -1 to 1
-   * 
-   */
-  public void setWideHopper(double speed){
-    wideMotor.set(speed);
   }
 
   /**
@@ -64,7 +53,6 @@ public class Hopper extends SubsystemBase {
   
   public void periodic() {
     inputs.hopperExpandedInput = this.getHopperExpanded();
-    inputs.wideMotorInput.log(wideMotor);
     inputs.tallMotorInput.log(hopperRollerMotor);
 
     Logger.processInputs("Hopper", inputs);
