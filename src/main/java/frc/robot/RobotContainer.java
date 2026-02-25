@@ -55,6 +55,7 @@ import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobot;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.Commands.AutomaticClimb;
+import frc.robot.Commands.Climb;
 import frc.robot.Commands.ClimberArmDown;
 import frc.robot.Commands.ClimberArmUp;
 import frc.robot.Commands.CollectFuel;
@@ -121,11 +122,13 @@ public class RobotContainer {
   BooleanSupplier BumpAllignSup;
   BooleanSupplier ClimberUpSup;
   BooleanSupplier ClimberDownSup;
+  BooleanSupplier AutoClimbSup;
   BooleanSupplier RetractIntakeSup;
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier AutoIntakeSup;
   BooleanSupplier IntakeWheelSup;
-  BooleanSupplier ShooterToggleSupplier;
+  BooleanSupplier ShooterOnSupplier;
+  BooleanSupplier ShooterOffSupplier;
   BooleanSupplier HoodUpSupplier;
   BooleanSupplier HoodDownSupplier;
   BooleanSupplier IndexerSup;
@@ -133,7 +136,7 @@ public class RobotContainer {
   BooleanSupplier ShootIfAimedSup;
   BooleanSupplier ForceHoodDownSupplier;
   BooleanSupplier crossBumpTowardsAllianceSup;
-  boolean manualShooterOn = false;
+  boolean shooterOn = false;
   BooleanSupplier ManualHubShotSup;
   BooleanSupplier ManualTowerShotSup;
   BooleanSupplier ManualLeftTrenchShotSup;
@@ -160,29 +163,34 @@ public class RobotContainer {
     ZeroGyroSup = driveController::getStartButton;
     AutoAimSupplier = () -> driveController.getLeftTriggerAxis() >= 0.5;
     AutoIntakeSup = driveController::getXButton;
+
     //Shooter controls
-    HoodUpSupplier = () -> operatorController.getLeftY() < -0.5;
-    HoodDownSupplier = () -> operatorController.getLeftY() > 0.5;
-    ShooterToggleSupplier = operatorController::getXButton;
     IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
     ForceHoodDownSupplier = driveController::getBackButton;
-    ManualHubShotSup = operatorController::getBButton;
-    ManualTowerShotSup = operatorController::getLeftStickButton;
-    ManualLeftTrenchShotSup = operatorController::getRightStickButton;
-    ManualRightTrenchShotSup = operatorController::getRightBumperButton;
+
+    HoodUpSupplier = () -> operatorController.getLeftTriggerAxis() > 0.5;
+    HoodDownSupplier = () -> operatorController.getRightTriggerAxis() > 0.5;
+    ShooterOffSupplier = ()-> operatorController.getPOV() >= 135 && operatorController.getPOV() <= 225;
+    ShooterOnSupplier = ()-> operatorController.getPOV() >= 315 || operatorController.getPOV() <= 45;
+    ManualHubShotSup = operatorController::getYButton;
+    ManualTowerShotSup = operatorController::getAButton;
+    ManualLeftTrenchShotSup = operatorController::getXButton;
+    ManualRightTrenchShotSup = operatorController::getBButton;
     //Shooting Command is Right Trigger on drive controller. 
-    //climber controls
-    ClimberDownSup = operatorController::getAButton;
-    //Climber Down is A button on operator controller
-    ClimberUpSup = operatorController::getYButton;
-    //Climber Up is Y button on operator controller
+
+    //Climber controls
+    AutoClimbSup = () -> driveController.getStartButton() && driveController.getBackButton();
+    ClimberUpSup = operatorController::getLeftBumperButton;
+    ClimberDownSup = operatorController::getRightBumperButton;
+
     //intake controls
-    //RetractIntakeSup = driveController::getLeftStickButton;
-    //DeployIntakeSup = driveController::getRightStickButton;
+    RetractIntakeSup = operatorController::getLeftStickButton;
+    DeployIntakeSup = operatorController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
+
     //Trench Controls
-    TrenchAllignSup = driveController::getBButton;
-    BumpAllignSup = driveController::getRightStickButton;
+    TrenchAllignSup = driveController::getLeftStickButton; //NOT FINAL THIS IS BATCRAP INSANE
+    BumpAllignSup = driveController::getRightStickButton; //NOT FINAL THIS IS BATCRAP INSANE
 
     crossBumpTowardsAllianceSup = driveController::getYButton;
 
@@ -276,8 +284,9 @@ public class RobotContainer {
     // new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
     // new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleDown(), shooter));
     new Trigger(ForceHoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
-    new Trigger(ShooterToggleSupplier).onTrue(new InstantCommand(()->manualShooterOn = !manualShooterOn));
-    new Trigger(()->manualShooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
+    new Trigger(ShooterOnSupplier).onTrue(new InstantCommand(()->shooterOn = true));
+    new Trigger(ShooterOffSupplier).onTrue(new InstantCommand(()->shooterOn = false));
+    new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
   }
 
@@ -294,6 +303,7 @@ public class RobotContainer {
 
     new Trigger(ClimberDownSup).whileTrue(new InstantCommand(()->climber.climberDown(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
     new Trigger(ClimberUpSup).whileTrue(new InstantCommand(()->climber.climberUp(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
+    new Trigger(AutoClimbSup).whileTrue(new Climb(climber, drivetrain));
   }
   
   private void indexerInit() {
@@ -395,6 +405,8 @@ public class RobotContainer {
     autoTimer.start();
 
     lights.blinkLights(LightsEnums.All, 255, 0, 0);
+
+    shooterOn = true;
   }
 
   public void autonomousPeriodic() {
