@@ -40,9 +40,9 @@ public final class Constants {
   }
 
   public static final class SubsystemsEnabled{
-    public static final boolean SHOOTER_EXISTS = true;
+    public static final boolean SHOOTER_EXISTS = false;
     public static final boolean CLIMBER_EXISTS = false;
-    public static final boolean INTAKE_EXISTS = false;
+    public static final boolean INTAKE_EXISTS = true;
     public static final boolean INDEXER_EXISTS = false;
     public static final boolean DRIVE_TRAIN_EXISTS = true;
     public static final boolean LIMELIGHTS_EXIST = true;
@@ -99,12 +99,12 @@ public final class Constants {
   public static final class IndexerConstants{
     public static final int INDEXER_MOTOR_1_ID= 11;
     public static final int INDEXER_MOTOR_2_ID= 12;
-    public static final int INDEXER_FEEDING_SPEED = 2491;
+    public static final int INDEXER_FEEDING_SPEED = 1;
   }
 
   public static final class HopperConstants{
     public static final int HOPPER_MOTOR_ID = 15;
-    public static final float HOPPER_ROLLER_SPEED = 2491;
+    public static final float HOPPER_ROLLER_SPEED = 1;
 
     public static final int TOP_LEFT_SENSOR_ID = 2491;
     public static final int LIMIT_SWITCH_1_ID = 2491;
