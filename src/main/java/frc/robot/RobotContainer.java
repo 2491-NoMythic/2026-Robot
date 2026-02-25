@@ -293,7 +293,7 @@ public class RobotContainer {
   private void intakeInit() {
     intake = new Intake();
     
-    new Trigger(IntakeWheelSup).whileTrue(new InstantCommand(()->intake.setWheelsVelocity(1), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
+    new Trigger(IntakeWheelSup).whileTrue(new InstantCommand(()->intake.setWheels(0.5), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
     new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
   }
@@ -376,6 +376,7 @@ public class RobotContainer {
       new Trigger(ManualRightTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.RightTrench));
     }
 
+    if (SHOOTER_EXISTS) {
     InstantCommand setServoAngleUp = new InstantCommand(shooter::setHoodAngleUp) {
       public boolean runsWhenDisabled() {
         return true;
@@ -389,7 +390,7 @@ public class RobotContainer {
     SmartDashboard.putData("set hood angle up", setServoAngleUp);
     SmartDashboard.putData("set hood angle down", setServoAngleDown);
   }
-
+  }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -457,6 +458,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("AcrossBumpTowardsAlliance", AcrossBumpTowardsAlliance);
     NamedCommands.registerCommand("MoveToClimbingPose", new MoveToClimbingPose(drivetrain));
     NamedCommands.registerCommand("AimRobotMoving", new AimRobot(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, () -> RobotState.getInstance().aimingYaw));
+    NamedCommands.registerCommand("OverBump", AcrossBumpTowardsAlliance);
     if(CLIMBER_EXISTS) {
       NamedCommands.registerCommand("ClimberArmUp", new ClimberArmUp(climber));
       NamedCommands.registerCommand("ClimberArmDown", new ClimberArmDown(climber));
