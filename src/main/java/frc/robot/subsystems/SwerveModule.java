@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
@@ -67,6 +68,11 @@ public class SwerveModule {
     drive_Configuration = CTREConfigs.driveMotorConfig;
     steer_Configuration = CTREConfigs.steerMotorConfig;
     enc_Configuration = CTREConfigs.steerEncoderConfig;
+    
+    HardwareLimitSwitchConfigs limitSwitchConfig = new HardwareLimitSwitchConfigs();
+    limitSwitchConfig.ForwardLimitEnable = false;
+    limitSwitchConfig.ReverseLimitEnable = false;
+    steer_Configuration.withHardwareLimitSwitch(limitSwitchConfig);
 
     enc_Configuration.MagnetSensor.MagnetOffset = -m_steerEncoderOffset.getRotations();
     steer_Configuration.Feedback.FeedbackRemoteSensorID = steerEncoderChannel;
