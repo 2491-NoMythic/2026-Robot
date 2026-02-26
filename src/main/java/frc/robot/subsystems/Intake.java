@@ -41,6 +41,10 @@ public class Intake extends SubsystemBase {
     wheels.set(speed);
   }
 
+  public void setVelocity(double RPS){
+    wheels.setControl(new VelocityVoltage(RPS));
+  }
+
   /**
    * Sets motor power to zero
    */

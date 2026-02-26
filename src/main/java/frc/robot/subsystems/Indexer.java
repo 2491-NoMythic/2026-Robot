@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
@@ -27,6 +28,8 @@ public class Indexer extends SubsystemBase {
     motor_1 = new TalonFX(INDEXER_MOTOR_1_ID, CANIVORE_DRIVETRAIN);
     motor_2 = new TalonFX(INDEXER_MOTOR_2_ID, CANIVORE_DRIVETRAIN);
     motor_2.setControl(new Follower(INDEXER_MOTOR_1_ID, MotorAlignmentValue.Opposed));
+    motor_1.getConfigurator().apply(INDEXER_RIGHT_CONFIG);
+    motor_2.getConfigurator().apply(INDEXER_LEFT_CONFIG);
     inputs = new IndexerInputsAutoLogged();
   }
 
@@ -36,6 +39,10 @@ public class Indexer extends SubsystemBase {
    */
   public void set(double speed){
     motor_1.set(speed);
+  }
+
+  public void setVelocity(double RPS){
+    motor_1.setControl(new VelocityVoltage(RPS));
   }
 
   /**

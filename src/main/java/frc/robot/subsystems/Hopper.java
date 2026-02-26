@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,6 +23,7 @@ public class Hopper extends SubsystemBase {
   /** Creates a new Hopper. */
   public Hopper() {
     hopperRollerMotor = new TalonFX(HOPPER_MOTOR_ID, CANIVORE_DRIVETRAIN);
+    hopperRollerMotor.getConfigurator().apply(HOPPER_CONFIG);
     inputs = new HopperInputsAutoLogged();
   }
 
@@ -33,6 +35,10 @@ public class Hopper extends SubsystemBase {
    */
   public void setMotor(double speed, TalonFX motor){
     motor.set(speed);
+  }
+
+  public void setVelocity(double RPS){
+    hopperRollerMotor.setControl(new VelocityVoltage(RPS));
   }
 
   /**
