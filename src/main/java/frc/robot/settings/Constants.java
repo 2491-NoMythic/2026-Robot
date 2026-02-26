@@ -16,6 +16,7 @@ import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXSConfiguration;
+import com.ctre.phoenix6.configs.VoltageConfigs;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.ForwardLimitSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -73,16 +74,11 @@ public final class Constants {
     public static final double HOOD_UP_POSITION = 0.8;
     public static TalonFXConfiguration SHOOTER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
-        .withKV(0).withKP(0).withKI(0).withKD(0))
+        .withKV(0.17).withKP(0.8).withKI(0).withKD(0).withKS(0.675))
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
       .withMotorOutput(new MotorOutputConfigs()
         .withInverted(InvertedValue.Clockwise_Positive));
-    public static TalonFXConfiguration HOOD_CONFIG = new TalonFXConfiguration()
-      .withSlot0(new Slot0Configs()
-        .withKV(0).withKP(0).withKI(0).withKD(0))
-      .withFeedback(new FeedbackConfigs()
-        .withSensorToMechanismRatio(1));
   }
 
   public static final class ClimberConstants{
@@ -98,7 +94,7 @@ public final class Constants {
   }
 
   public static final class IntakeConstants{
-    public static final int INTAKE_SPEED = 1;
+    public static final double INTAKE_SPEED = 0.5;
     public static final int INTAKE_WHEELS_ID = 14;
     public static final int INTAKE_DEPLOYER_ID = 13;
     public static TalonFXConfiguration INTAKE_DEPLOYER_CONFIG = new TalonFXConfiguration()
@@ -115,24 +111,46 @@ public final class Constants {
         .withReverseLimitSource(ReverseLimitSourceValue.RemoteTalonFX));
     public static TalonFXSConfiguration INTAKE_WHEELS_CONFIG = new TalonFXSConfiguration()
       .withCommutation(new CommutationConfigs()
-        .withMotorArrangement(MotorArrangementValue.Minion_JST));
+        .withMotorArrangement(MotorArrangementValue.Minion_JST))
+      .withSlot0(new Slot0Configs()
+        .withKV(0.095).withKS(0.37).withKP(0.1).withKI(0).withKD(0));
   }
 
   public static final class IndexerConstants{
-    public static final int INDEXER_MOTOR_1_ID= 11;
-    public static final int INDEXER_MOTOR_2_ID= 12;
-    public static final int INDEXER_FEEDING_SPEED = 1;
+    public static final int INDEXER_MOTOR_1_ID= 11;//right motor (leader)
+    public static final int INDEXER_MOTOR_2_ID= 12;//left motor (follower)
+    public static final double INDEXER_FEEDING_SPEED = 0.5;
+
+    public static TalonFXConfiguration INDEXER_RIGHT_CONFIG = new TalonFXConfiguration()
+      .withSlot0(new Slot0Configs()
+        .withKV(0.091).withKP(0.1).withKI(0).withKD(0).withKS(0.5))
+      .withMotorOutput(new MotorOutputConfigs()
+        .withInverted(InvertedValue.Clockwise_Positive));
+    
+      public static TalonFXConfiguration INDEXER_LEFT_CONFIG = new TalonFXConfiguration()
+        .withMotorOutput(new MotorOutputConfigs()
+          .withInverted(InvertedValue.CounterClockwise_Positive));
+
   }
 
   public static final class HopperConstants{
     public static final int HOPPER_MOTOR_ID = 15;
-    public static final float HOPPER_ROLLER_SPEED = 1;
+    public static final double HOPPER_ROLLER_SPEED = 0.3;
 
     public static final int TOP_LEFT_SENSOR_ID = 2491;
     public static final int LIMIT_SWITCH_1_ID = 2491;
     public static final int LIMIT_SWITCH_2_ID = 2491;
 
     public static final double DISTANCE_SENSOR_RANGE = 2491;
+
+    public static TalonFXConfiguration HOPPER_CONFIG = new TalonFXConfiguration()
+      .withSlot0(new Slot0Configs()
+        .withKV(0.115).withKP(0.1).withKI(0).withKD(0).withKS(0.65))
+      .withMotorOutput(new MotorOutputConfigs()
+        .withInverted(InvertedValue.Clockwise_Positive))
+      .withVoltage(new VoltageConfigs()
+        .withPeakForwardVoltage(5)
+        .withPeakReverseVoltage(-5));
   }
 
   public static final class Field{

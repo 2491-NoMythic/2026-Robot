@@ -77,6 +77,10 @@ public class Shooter extends SubsystemBase {
     
     autoRetractOn = autoRetract;
   }
+
+  public void setHoodAngleDegrees(double degrees, boolean autoRetract) {
+    setHoodAngle(Math.toRadians(degrees), autoRetract);
+  }
   public void setHoodAngleUp(){
     desiredPosition = HOOD_UP_POSITION;
     autoRetractOn = false;
@@ -119,11 +123,14 @@ public class Shooter extends SubsystemBase {
       //if we are in position control, and in one of those squares around trenches, hood all the way down
       if(inBadxZone && inBadyZone) {
         setHoodActuators(HOOD_DOWN_POSITION);
+        SmartDashboard.putBoolean("Shooter/automaticallyRetraced", true);
       } else {
         setHoodActuators(desiredPosition);
+        SmartDashboard.putBoolean("Shooter/automaticallyRetraced", false);
       }
     } else {
       setHoodActuators(desiredPosition);
+      SmartDashboard.putBoolean("Shooter/automaticallyRetraced", false);
     }
 
     //double smartActuatorValue = SmartDashboard.getNumber("hoodPosition", 0);
