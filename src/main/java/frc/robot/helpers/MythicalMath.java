@@ -184,7 +184,7 @@ public class MythicalMath {
 
       //Rotation3d rotation = new Rotation3d(chosenSolution.toVector(), target.toVector()); //TODO: test this, does it do what we expect?
     
-      return new Tuple2<Double>(pitch, yaw); 
+      return new Tuple2<Double>(pitch, yaw);
     }
 
     return null;
