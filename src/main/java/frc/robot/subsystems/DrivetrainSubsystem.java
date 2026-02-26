@@ -731,7 +731,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       new Translation3d(fieldChassisSpeeds.vxMetersPerSecond, fieldChassisSpeeds.vyMetersPerSecond, 0));
 
     if(desiredRotation != null){
-      RobotState.getInstance().aimingPitch = desiredRotation.get_0();
+      RobotState.getInstance().aimingPitch = Math.toRadians(90) - desiredRotation.get_0(); //subtracting pitch from 90 degrees becuase math believes 90 degrees is straight up, but servo believes 90 degrees is forward
       RobotState.getInstance().aimingYaw = desiredRotation.get_1();
     } else {
       // System.out.println("desiredRotation calculations failed - most likely no solutions. Aiming angles were not updated.");
