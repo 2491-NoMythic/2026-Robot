@@ -184,7 +184,7 @@ public class MythicalMath {
 
       //Rotation3d rotation = new Rotation3d(chosenSolution.toVector(), target.toVector()); //TODO: test this, does it do what we expect?
     
-      return new Tuple2<Double>(Math.toRadians(90) - pitch, yaw); //subtracting pitch from 90 degrees becuase math believes 90 degrees is straight up, but servo believes 90 degrees is forward
+      return new Tuple2<Double>(pitch, yaw); 
     }
 
     return null;
