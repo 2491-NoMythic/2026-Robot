@@ -396,7 +396,7 @@ public class RobotContainer {
     }
 
     if(INTAKE_EXISTS && HOPPER_EXISTS) {
-      new Trigger(IntakeWheelSup).whileTrue(new RunIntake(intake, hopper));
+      new Trigger(IntakeWheelSup).whileTrue(new RunIntake(intake));
     }
 
     if (SHOOTER_EXISTS) {
@@ -502,7 +502,7 @@ public class RobotContainer {
       NamedCommands.registerCommand("ShooterVelocity", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(INTAKE_EXISTS&&HOPPER_EXISTS) {
-      NamedCommands.registerCommand("Intake", new RunIntake(intake, hopper));
+      NamedCommands.registerCommand("Intake", new RunIntake(intake));
     } else {
       NamedCommands.registerCommand("Intake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
