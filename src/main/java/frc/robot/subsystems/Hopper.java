@@ -8,6 +8,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.HopperInputsAutoLogged;
+
+import static frc.robot.settings.Constants.DriveConstants.CANIVORE_DRIVETRAIN;
 import static frc.robot.settings.Constants.HopperConstants.*;
 
 import org.littletonrobotics.junction.Logger;
@@ -19,7 +21,7 @@ public class Hopper extends SubsystemBase {
 
   /** Creates a new Hopper. */
   public Hopper() {
-    hopperRollerMotor = new TalonFX(HOPPER_MOTOR_ID);
+    hopperRollerMotor = new TalonFX(HOPPER_MOTOR_ID, CANIVORE_DRIVETRAIN);
     inputs = new HopperInputsAutoLogged();
   }
 

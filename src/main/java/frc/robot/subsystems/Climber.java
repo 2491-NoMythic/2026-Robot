@@ -12,6 +12,7 @@ import frc.robot.LogInputs.ClimberInputsAutoLogged;
 import frc.robot.settings.ClimberState;
 
 import static frc.robot.settings.Constants.ClimberConstants.*;
+import static frc.robot.settings.Constants.DriveConstants.CANIVORE_DRIVETRAIN;
 
 import org.littletonrobotics.junction.Logger;
 
@@ -24,7 +25,7 @@ public class Climber extends SubsystemBase {
   ClimberState climberState;
   /** Creates a new Climber. */
   public Climber() {
-    motor = new TalonFX(CLIMBER_MOTOR_ID);
+    motor = new TalonFX(CLIMBER_MOTOR_ID, CANIVORE_DRIVETRAIN);
     motor.getConfigurator().apply(CLIMBER_CONFIG);
     inputs = new ClimberInputsAutoLogged();
     motor.setPosition(0);
