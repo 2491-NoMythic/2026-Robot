@@ -11,6 +11,7 @@ import com.ctre.phoenix6.configs.CommutationConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
+import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -48,13 +49,14 @@ public final class Constants {
   }
 
   public static final class SubsystemsEnabled{
-    public static final boolean SHOOTER_EXISTS = false;
-    public static final boolean CLIMBER_EXISTS = false;
+    public static final boolean SHOOTER_EXISTS = true;
+    public static final boolean CLIMBER_EXISTS = true;
     public static final boolean INTAKE_EXISTS = true;
-    public static final boolean INDEXER_EXISTS = false;
+    public static final boolean INDEXER_EXISTS = true;
     public static final boolean DRIVE_TRAIN_EXISTS = true;
     public static final boolean LIMELIGHTS_EXIST = true;
     public static final boolean LIGHTS_EXIST = false;
+    public static final boolean HOPPER_EXISTS = true;
   }
 
   public static final class ShooterConstants{
@@ -73,7 +75,9 @@ public final class Constants {
       .withSlot0(new Slot0Configs()
         .withKV(0).withKP(0).withKI(0).withKD(0))
       .withCurrentLimits(new CurrentLimitsConfigs()
-        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50));
+        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
+      .withMotorOutput(new MotorOutputConfigs()
+        .withInverted(InvertedValue.Clockwise_Positive));
     public static TalonFXConfiguration HOOD_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
         .withKV(0).withKP(0).withKI(0).withKD(0))
@@ -83,7 +87,7 @@ public final class Constants {
 
   public static final class ClimberConstants{
     public static final int CLIMBER_MOTOR_ID = 16;
-    public static final int HALL_EFFECT_ID = 2491;
+    public static final int HALL_EFFECT_ID = 6;
     public static final double CLIMBER_MAX_POSITION = 100;
     public static final double HALL_EFFECT_HEIGHT = 2491;
     public static TalonFXConfiguration CLIMBER_CONFIG = new TalonFXConfiguration()

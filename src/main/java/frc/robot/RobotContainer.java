@@ -13,6 +13,7 @@ import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
 import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED;
 import static frc.robot.settings.Constants.SubsystemsEnabled.CLIMBER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.DRIVE_TRAIN_EXISTS;
+import static frc.robot.settings.Constants.SubsystemsEnabled.HOPPER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.INDEXER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.INTAKE_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIGHTS_EXIST;
@@ -127,10 +128,10 @@ public class RobotContainer {
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier AutoIntakeSup;
   BooleanSupplier IntakeWheelSup;
-  BooleanSupplier ShooterOnSupplier;
-  BooleanSupplier ShooterOffSupplier;
+  BooleanSupplier ShooterToggleSup;
   BooleanSupplier HoodUpSupplier;
   BooleanSupplier HoodDownSupplier;
+  BooleanSupplier HopperWheelsSup;
   BooleanSupplier IndexerSup;
   BooleanSupplier AutoAimSupplier;
   BooleanSupplier ShootIfAimedSup;
@@ -170,8 +171,7 @@ public class RobotContainer {
 
     HoodUpSupplier = () -> operatorController.getLeftTriggerAxis() > 0.5;
     HoodDownSupplier = () -> operatorController.getRightTriggerAxis() > 0.5;
-    ShooterOffSupplier = ()-> operatorController.getPOV() >= 135 && operatorController.getPOV() <= 225;
-    ShooterOnSupplier = ()-> operatorController.getPOV() >= 315 || operatorController.getPOV() <= 45;
+    ShooterToggleSup = ()-> operatorController.getPOV() == 90;
     ManualHubShotSup = operatorController::getYButton;
     ManualTowerShotSup = operatorController::getAButton;
     ManualLeftTrenchShotSup = operatorController::getXButton;
@@ -188,15 +188,23 @@ public class RobotContainer {
     DeployIntakeSup = operatorController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
 
+    //hopper controls
+    HopperWheelsSup = ()-> operatorController.getPOV() == 270;
+
     //Trench Controls
     TrenchAllignSup = driveController::getLeftStickButton; //NOT FINAL THIS IS BATCRAP INSANE
     BumpAllignSup = driveController::getRightStickButton; //NOT FINAL THIS IS BATCRAP INSANE
 
     crossBumpTowardsAllianceSup = driveController::getYButton;
+    ShootIfAimedSup = ()->false;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
       configureDriveTrain();
+    }
+
+    if(HOPPER_EXISTS) {
+      hopperInit();
     }
 
     if (LIMELIGHTS_EXIST) {
@@ -281,13 +289,17 @@ public class RobotContainer {
   private void shooterInit() {
     shooter = new Shooter();
     shooter.setDefaultCommand(new AimHood(shooter));
-    // new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
-    // new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleDown(), shooter));
+    new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
     new Trigger(ForceHoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
-    new Trigger(ShooterOnSupplier).onTrue(new InstantCommand(()->shooterOn = true));
-    new Trigger(ShooterOffSupplier).onTrue(new InstantCommand(()->shooterOn = false));
+    new Trigger(ShooterToggleSup).onTrue(new InstantCommand(()->shooterOn = !shooterOn));
     new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
+  }
+
+  private void hopperInit() {
+    hopper = new Hopper();
+
+    new Trigger(HopperWheelsSup).onTrue(new InstantCommand(()->hopper.setHopperRoller(0.5), hopper )).onFalse(new InstantCommand(()->hopper.setHopperRoller(0), hopper));
   }
 
   private void intakeInit() {
@@ -308,7 +320,9 @@ public class RobotContainer {
   
   private void indexerInit() {
     indexer = new Indexer();
-    new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, IndexerConstants.INDEXER_FEEDING_SPEED, hopper, HOPPER_ROLLER_SPEED));
+    new Trigger(IndexerSup).whileTrue(new InstantCommand(()->indexer.set(0.5))).onFalse(new InstantCommand(()->indexer.stop(), indexer));
+    // new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, IndexerConstants.INDEXER_FEEDING_SPEED, hopper, HOPPER_ROLLER_SPEED));
+
     new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
   }
 

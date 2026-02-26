@@ -20,7 +20,7 @@ public class AimAtHub extends ParallelCommandGroup {
   public AimAtHub(DrivetrainSubsystem drivetrain, Shooter shooter, DoubleSupplier joystickXSupplier, DoubleSupplier joystickYSupplier) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new InstantCommand(() -> drivetrain.updateDesiredRobotAngle(), drivetrain),
+    addCommands(
     new AimRobot(drivetrain, joystickXSupplier, joystickYSupplier, ()-> RobotState.getInstance().aimingYaw),
     new AimHood(shooter));
   }
