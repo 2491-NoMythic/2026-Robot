@@ -310,9 +310,9 @@ public class RobotContainer {
   private void intakeInit() {
     intake = new Intake();
     
-    // new Trigger(IntakeWheelSup).whileTrue(new InstantCommand(()->intake.setWheels(0.5), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
     new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
+    new Trigger(IntakeWheelSup).whileTrue(new RunIntake(intake));
   }
 
   private void climberInit() {
@@ -393,10 +393,6 @@ public class RobotContainer {
       new Trigger(ManualTowerShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Tower));
       new Trigger(ManualLeftTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.LeftTrench));
       new Trigger(ManualRightTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.RightTrench));
-    }
-
-    if(INTAKE_EXISTS && HOPPER_EXISTS) {
-      new Trigger(IntakeWheelSup).whileTrue(new RunIntake(intake));
     }
 
     if (SHOOTER_EXISTS) {
@@ -501,16 +497,13 @@ public class RobotContainer {
     } else {
       NamedCommands.registerCommand("ShooterVelocity", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
-    if(INTAKE_EXISTS&&HOPPER_EXISTS) {
-      NamedCommands.registerCommand("Intake", new RunIntake(intake));
-    } else {
-      NamedCommands.registerCommand("Intake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
-    }
     if(INTAKE_EXISTS) {
       NamedCommands.registerCommand("Outtake", new Outtake(intake));
       NamedCommands.registerCommand("Expand", new Expand(intake));
+      NamedCommands.registerCommand("Intake", new RunIntake(intake));
       
     } else {
+      NamedCommands.registerCommand("Intake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("Outtake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("Expand", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
