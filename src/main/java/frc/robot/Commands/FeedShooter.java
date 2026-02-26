@@ -12,13 +12,15 @@ import frc.robot.subsystems.Hopper;
 public class FeedShooter extends Command {
   Indexer indexer;
   Hopper hopper;
-  float indexerSpeed;
-  float motorRollerSpeed;
+  double indexerSpeed;
+  double motorRollerSpeed;
   
   /** Creates a new RunIndexer. */
-  public FeedShooter(Indexer indexer, float indexerSpeed, Hopper hopper, float motorRollerSpeed) {
+  public FeedShooter(Indexer indexer, double indexerSpeed, Hopper hopper, double motorRollerSpeed) {
     this.indexer = indexer;
     this.hopper = hopper;
+    this.indexerSpeed = indexerSpeed;
+    this.motorRollerSpeed = motorRollerSpeed;
     addRequirements(hopper, indexer);
   }
 
@@ -29,7 +31,6 @@ public class FeedShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("executing feedshooter command");
     indexer.set(indexerSpeed);
     hopper.setHopperRoller(motorRollerSpeed);
   }

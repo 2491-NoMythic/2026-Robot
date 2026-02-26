@@ -131,7 +131,8 @@ public class RobotContainer {
   BooleanSupplier ShooterToggleSup;
   BooleanSupplier HoodUpSupplier;
   BooleanSupplier HoodDownSupplier;
-  BooleanSupplier HopperWheelsSup;
+  BooleanSupplier HopperWheelsForwardSup;
+  BooleanSupplier HopperWheelsBackwardSup;
   BooleanSupplier IndexerSup;
   BooleanSupplier AutoAimSupplier;
   BooleanSupplier ShootIfAimedSup;
@@ -189,7 +190,8 @@ public class RobotContainer {
     IntakeWheelSup = driveController::getLeftBumperButton;
 
     //hopper controls
-    HopperWheelsSup = ()-> operatorController.getPOV() == 270;
+    HopperWheelsForwardSup = ()-> operatorController.getPOV() == 270;
+    HopperWheelsBackwardSup = ()-> operatorController.getPOV() == 180;
 
     //Trench Controls
     TrenchAllignSup = driveController::getLeftStickButton; //NOT FINAL THIS IS BATCRAP INSANE
@@ -292,20 +294,23 @@ public class RobotContainer {
     new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
     new Trigger(ForceHoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
     new Trigger(ShooterToggleSup).onTrue(new InstantCommand(()->shooterOn = !shooterOn));
-    new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.set(0.2), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
+    new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.set(0.5), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
+
+    SmartDashboard.putData("TESTING/HoodTo45Degrees", new RunCommand(()->shooter.setHoodAngleDegrees(45, true), shooter));
   }
 
   private void hopperInit() {
     hopper = new Hopper();
 
-    new Trigger(HopperWheelsSup).onTrue(new InstantCommand(()->hopper.setHopperRoller(0.5), hopper )).onFalse(new InstantCommand(()->hopper.setHopperRoller(0), hopper));
+    new Trigger(HopperWheelsForwardSup).onTrue(new InstantCommand(()->hopper.setHopperRoller(HOPPER_ROLLER_SPEED), hopper )).onFalse(new InstantCommand(()->hopper.setHopperRoller(0), hopper));
+    new Trigger(HopperWheelsBackwardSup).onTrue(new InstantCommand(()->hopper.setHopperRoller(-HOPPER_ROLLER_SPEED), hopper )).onFalse(new InstantCommand(()->hopper.setHopperRoller(0), hopper));
   }
 
   private void intakeInit() {
     intake = new Intake();
     
-    new Trigger(IntakeWheelSup).whileTrue(new InstantCommand(()->intake.setWheels(0.5), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
+    // new Trigger(IntakeWheelSup).whileTrue(new InstantCommand(()->intake.setWheels(0.5), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
     new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
   }
@@ -320,8 +325,8 @@ public class RobotContainer {
   
   private void indexerInit() {
     indexer = new Indexer();
-    new Trigger(IndexerSup).whileTrue(new InstantCommand(()->indexer.set(0.5))).onFalse(new InstantCommand(()->indexer.stop(), indexer));
-    // new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, IndexerConstants.INDEXER_FEEDING_SPEED, hopper, HOPPER_ROLLER_SPEED));
+    // new Trigger(IndexerSup).whileTrue(new InstantCommand(()->indexer.set(0.5))).onFalse(new InstantCommand(()->indexer.stop(), indexer));
+    new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, IndexerConstants.INDEXER_FEEDING_SPEED, hopper, HOPPER_ROLLER_SPEED));
 
     new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
   }
@@ -388,6 +393,10 @@ public class RobotContainer {
       new Trigger(ManualTowerShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Tower));
       new Trigger(ManualLeftTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.LeftTrench));
       new Trigger(ManualRightTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.RightTrench));
+    }
+
+    if(INTAKE_EXISTS && HOPPER_EXISTS) {
+      new Trigger(IntakeWheelSup).whileTrue(new RunIntake(intake, hopper));
     }
 
     if (SHOOTER_EXISTS) {
@@ -492,13 +501,16 @@ public class RobotContainer {
     } else {
       NamedCommands.registerCommand("ShooterVelocity", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
+    if(INTAKE_EXISTS&&HOPPER_EXISTS) {
+      NamedCommands.registerCommand("Intake", new RunIntake(intake, hopper));
+    } else {
+      NamedCommands.registerCommand("Intake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+    }
     if(INTAKE_EXISTS) {
-      NamedCommands.registerCommand("Intake", new RunIntake(intake));
       NamedCommands.registerCommand("Outtake", new Outtake(intake));
       NamedCommands.registerCommand("Expand", new Expand(intake));
       
     } else {
-      NamedCommands.registerCommand("Intake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("Outtake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("Expand", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
