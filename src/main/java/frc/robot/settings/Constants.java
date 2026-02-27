@@ -76,7 +76,7 @@ public final class Constants {
     public static final double HOOD_UP_POSITION = 0.8;
     public static TalonFXConfiguration SHOOTER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
-        .withKV(0.17).withKP(0.8).withKI(0).withKD(0).withKS(0.675))
+        .withKV(0.17).withKP(1).withKI(0).withKD(0).withKS(0.675))
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
       .withMotorOutput(new MotorOutputConfigs()
@@ -96,7 +96,7 @@ public final class Constants {
   }
 
   public static final class IntakeConstants{
-    public static final double INTAKE_SPEED = 0.5;
+    public static final double INTAKE_SPEED = 0.8;
     public static final int INTAKE_WHEELS_ID = 14;
     public static final int INTAKE_DEPLOYER_ID = 13;
     public static TalonFXConfiguration INTAKE_DEPLOYER_CONFIG = new TalonFXConfiguration()
@@ -166,8 +166,8 @@ public final class Constants {
   public static final class AimAtLocationConstants {
     public static final int HUB_ROBOT_ANGLE = 0;
     public static final int HUB_HOOD_ANGLE = 2491;
-    public static final int L_TRENCH_ROBOT_ANGLE = 110;
-    public static final int R_TRENCH_ROBOT_ANGLE = -110;
+    public static final int L_TRENCH_ROBOT_ANGLE = -80;
+    public static final int R_TRENCH_ROBOT_ANGLE = 80;
     public static final int TRENCH_HOOD_ANGLE = 2491;
     public static final int TOWER_ROBOT_ANGLE = 0;
     public static final int TOWER_HOOD_ANGLE = 2491;

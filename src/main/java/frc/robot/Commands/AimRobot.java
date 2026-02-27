@@ -37,6 +37,13 @@ public class AimRobot extends Command {
   DoubleSupplier joystickYSupplier;
   DoubleSupplier targetSupplier;
 
+  /**
+   * Aims the robot using an angle supplier
+   * @param drivetrain
+   * @param joystickXSupplier
+   * @param joystickYSupplier
+   * @param targetSupplier Supplier for angle, in degrees
+   */
   public AimRobot(DrivetrainSubsystem drivetrain, DoubleSupplier joystickXSupplier, DoubleSupplier joystickYSupplier, DoubleSupplier targetSupplier) {
     this.drivetrain = drivetrain;
     this.joystickXSupplier = joystickXSupplier;

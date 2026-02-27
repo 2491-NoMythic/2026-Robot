@@ -690,7 +690,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     logDrivetrainData();
 
     this.updateDesiredRobotAngle();
-    Logger.recordOutput("autoaim/pitch", RobotState.getInstance().aimingPitch);
+    Logger.recordOutput("autoaim/pitchDegrees", Math.toDegrees(RobotState.getInstance().aimingPitch));
     Logger.recordOutput("autoaim/yaw", RobotState.getInstance().aimingYaw);
     Logger.recordOutput("autoaim/target", BLUE_HUB_COORDINATE);
     SmartDashboard.putBoolean("LimelightsUpdatedState", RobotState.getInstance().LimelightsUpdated);
@@ -732,7 +732,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     if(desiredRotation != null){
       RobotState.getInstance().aimingPitch = Math.toRadians(90) - desiredRotation.get_0(); //subtracting pitch from 90 degrees becuase math believes 90 degrees is straight up, but servo believes 90 degrees is forward
-      RobotState.getInstance().aimingYaw = desiredRotation.get_1();
+      RobotState.getInstance().aimingYaw = 0 - Math.toDegrees(desiredRotation.get_1()) + 90;
     } else {
       // System.out.println("desiredRotation calculations failed - most likely no solutions. Aiming angles were not updated.");
     }

@@ -299,7 +299,7 @@ public class RobotContainer {
     new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.set(0.5), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
-    SmartDashboard.putData("TESTING/HoodTo45Degrees", new RunCommand(()->shooter.setHoodAngleDegrees(45, true), shooter));
+    SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setHoodAngleDegrees(25, true), shooter));
   }
 
   private void hopperInit() {
@@ -458,7 +458,7 @@ public class RobotContainer {
   }
 
   public void teleopPeriodic() {
-    SmartDashboard.putNumber("RobotAngle", drivetrain.getGyroscopeRotation().getDegrees());
+    SmartDashboard.putNumber("RobotAngle", drivetrain.getOdometryRotation().getDegrees());
     SmartDashboard.putNumber("GetPose", drivetrain.getPose().getRotation().getDegrees());
   }
 
