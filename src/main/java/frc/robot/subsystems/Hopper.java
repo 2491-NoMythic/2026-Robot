@@ -41,6 +41,10 @@ public class Hopper extends SubsystemBase {
     hopperRollerMotor.setControl(new VelocityVoltage(RPS));
   }
 
+  public void stop() {
+    setHopperRoller(0);
+  }
+
   /**
    * feeds to indexer
    * @param speed Motor power from -1 to 1
@@ -51,6 +55,21 @@ public class Hopper extends SubsystemBase {
   }
 
   /**
+   * sets the hopper rollers to the HOPPER_ROLLER_SPEED
+   */
+  public void feedIndexer() {
+    setHopperRoller(HOPPER_ROLLER_SPEED);
+  }
+
+  /**
+   * checks if motor is stalled by checking if Voltage is applied but roller's aren't moving
+   * @return true if the motor is stalled
+   */
+  public boolean isStalled() {
+    return hopperRollerMotor.getMotorVoltage().getValueAsDouble() > 1 && hopperRollerMotor.getVelocity().getValueAsDouble() < 1;
+  }
+
+  /**
    * up position will be gotten by limit switch, down will be gotten by current spike
    * @return hopperExpanded (Boolean, true = expanded, false = retracted)
    */
@@ -58,7 +77,6 @@ public class Hopper extends SubsystemBase {
     return hopperExpanded;
   }
  
-  
   public void periodic() {
     inputs.hopperExpandedInput = this.getHopperExpanded();
     inputs.tallMotorInput.log(hopperRollerMotor);

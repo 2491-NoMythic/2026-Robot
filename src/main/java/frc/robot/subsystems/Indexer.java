@@ -40,6 +40,13 @@ public class Indexer extends SubsystemBase {
   public void set(double speed){
     motor_1.set(speed);
   }
+  
+  /**
+   * sets the RPS of the indexer to the
+   */
+  public void feedShooter() {
+    setVelocity(INDEXER_FEEDING_RPS);
+  }
 
   public void setVelocity(double RPS){
     motor_1.setControl(new VelocityVoltage(RPS));
