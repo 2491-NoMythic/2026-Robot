@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXSConfiguration;
 import com.ctre.phoenix6.controls.VelocityVoltage;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.TalonFXS;
 
@@ -62,7 +63,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void deployIntake(){
-    deployer.set(0.1);
+    deployer.setControl(new VoltageOut(2));
   }
 
   public boolean getIsDeployed() {
@@ -74,7 +75,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void retractIntake(){
-    deployer.set(-0.1);
+    deployer.setControl(new VoltageOut(-2));
   }
 
   public void stopDeployer(){
