@@ -1,0 +1,170 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.5,
+        "y": 7.51001204819277
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.941249805144998,
+        "y": 7.477942409134885
+      },
+      "isLocked": false,
+      "linkedName": "Left Detrench Start"
+    },
+    {
+      "anchor": {
+        "x": 6.536219686162624,
+        "y": 7.51001204819277
+      },
+      "prevControl": {
+        "x": 6.173002781023183,
+        "y": 7.525493269306296
+      },
+      "nextControl": {
+        "x": 7.236988573216393,
+        "y": 7.480143509761735
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.245,
+        "y": 7.0
+      },
+      "prevControl": {
+        "x": 7.852300988083952,
+        "y": 7.2937533603171
+      },
+      "nextControl": {
+        "x": 8.445188474897634,
+        "y": 6.850251629330537
+      },
+      "isLocked": false,
+      "linkedName": "Collect ML"
+    },
+    {
+      "anchor": {
+        "x": 8.445,
+        "y": 4.795
+      },
+      "prevControl": {
+        "x": 9.222493978033299,
+        "y": 5.373226765564213
+      },
+      "nextControl": {
+        "x": 8.244395561307789,
+        "y": 4.645809319403044
+      },
+      "isLocked": false,
+      "linkedName": "Collect L P1"
+    },
+    {
+      "anchor": {
+        "x": 7.666,
+        "y": 5.347
+      },
+      "prevControl": {
+        "x": 7.6499316574584215,
+        "y": 4.819289981063327
+      },
+      "nextControl": {
+        "x": 7.682697995599228,
+        "y": 5.895388830464071
+      },
+      "isLocked": false,
+      "linkedName": "Collect L P2"
+    },
+    {
+      "anchor": {
+        "x": 7.666,
+        "y": 5.857
+      },
+      "prevControl": {
+        "x": 7.674191741669207,
+        "y": 5.607134245306755
+      },
+      "nextControl": {
+        "x": 7.653533369373193,
+        "y": 6.2372590701509205
+      },
+      "isLocked": false,
+      "linkedName": "Return L"
+    },
+    {
+      "anchor": {
+        "x": 6.729192771084338,
+        "y": 5.347
+      },
+      "prevControl": {
+        "x": 6.887686089021553,
+        "y": 5.153661260557403
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Return L End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 2.3975460122699337,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 3.261349693251537,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 4.341104294478515,
+      "rotationDegrees": 90.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 1.0234541577825034,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    },
+    {
+      "name": "Intake",
+      "waypointRelativePos": 1.9,
+      "endWaypointRelativePos": 4.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Intake"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Detrench Auto Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -90.0
+  },
+  "useDefaultConstraints": true
+}

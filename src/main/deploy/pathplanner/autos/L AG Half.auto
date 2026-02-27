@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "R AG Cross"
+            "pathName": "L AG Half"
           }
         },
         {
@@ -64,6 +64,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Misc",
+  "folder": "Finalized",
   "choreoAuto": false
 }

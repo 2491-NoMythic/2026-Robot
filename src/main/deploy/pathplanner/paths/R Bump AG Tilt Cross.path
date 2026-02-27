@@ -1,0 +1,138 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.5,
+        "y": 0.5709156626506025
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.87629778542316,
+        "y": 0.7115319023851023
+      },
+      "isLocked": false,
+      "linkedName": "Right Bump Start"
+    },
+    {
+      "anchor": {
+        "x": 6.401361445783133,
+        "y": 2.2974939759036137
+      },
+      "prevControl": {
+        "x": 4.826001276764471,
+        "y": 2.3709091285725497
+      },
+      "nextControl": {
+        "x": 6.835999127256791,
+        "y": 2.2772389305060026
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.281,
+        "y": 3.0952168674698792
+      },
+      "prevControl": {
+        "x": 8.241221775078401,
+        "y": 2.377626480652156
+      },
+      "nextControl": {
+        "x": 8.313710843373494,
+        "y": 3.6853132530120476
+      },
+      "isLocked": false,
+      "linkedName": "Agressive Collect Center R Tilt"
+    },
+    {
+      "anchor": {
+        "x": 8.281,
+        "y": 6.0
+      },
+      "prevControl": {
+        "x": 8.45577108433735,
+        "y": 5.641373493975904
+      },
+      "nextControl": {
+        "x": 8.065312318899263,
+        "y": 6.442586482534436
+      },
+      "isLocked": false,
+      "linkedName": "Tilt Return ML"
+    },
+    {
+      "anchor": {
+        "x": 6.549158345221112,
+        "y": 5.594108416547789
+      },
+      "prevControl": {
+        "x": 7.188156626506023,
+        "y": 6.220542168674699
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Tilt Return ML End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.9518248175182433,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1.9503649635036453,
+      "rotationDegrees": 75.222
+    },
+    {
+      "waypointRelativePos": 3.0,
+      "rotationDegrees": 75.222
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 0.7995431182181731,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    },
+    {
+      "name": "Intake",
+      "waypointRelativePos": 1.342672413793107,
+      "endWaypointRelativePos": 5.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Intake"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}

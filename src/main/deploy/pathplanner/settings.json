@@ -3,10 +3,12 @@
   "robotLength": 0.7874,
   "holonomicMode": true,
   "pathFolders": [
-    "Auto Paths",
     "Bump",
     "Collect",
+    "Detrench Auto Paths",
+    "Entrench Auto Paths",
     "Misc",
+    "Bump Auto Paths",
     "Old Paths",
     "Return to Hub",
     "Testing",

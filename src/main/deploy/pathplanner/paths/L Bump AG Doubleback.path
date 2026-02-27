@@ -1,0 +1,158 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.5164457831325304,
+        "y": 5.681878354203935
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.9511295995846467,
+        "y": 5.6002490682409345
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.52156626506024,
+        "y": 5.681878354203935
+      },
+      "prevControl": {
+        "x": 5.9103096577110845,
+        "y": 5.488065283581033
+      },
+      "nextControl": {
+        "x": 6.969602409638555,
+        "y": 5.82393859516779
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.27,
+        "y": 5.218887303851641
+      },
+      "prevControl": {
+        "x": 7.898457831325301,
+        "y": 5.892710843373494
+      },
+      "nextControl": {
+        "x": 8.390713900938877,
+        "y": 4.999962307288622
+      },
+      "isLocked": false,
+      "linkedName": "AG L Trench to Tilt Collect End"
+    },
+    {
+      "anchor": {
+        "x": 8.324638554216868,
+        "y": 2.210072289156626
+      },
+      "prevControl": {
+        "x": 8.357421686746987,
+        "y": 2.472337349397591
+      },
+      "nextControl": {
+        "x": 8.254871398493624,
+        "y": 1.6519350433706395
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.746,
+        "y": 1.008024096385542
+      },
+      "prevControl": {
+        "x": 5.949099913979001,
+        "y": 0.10831816252672333
+      },
+      "nextControl": {
+        "x": 5.570855421686747,
+        "y": 1.7838915662650607
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.746,
+        "y": 5.510240963855422
+      },
+      "prevControl": {
+        "x": 5.712915662650602,
+        "y": 3.4449036144578313
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 1.925562372188144,
+      "rotationDegrees": 133.877
+    },
+    {
+      "waypointRelativePos": 3.1513292433537607,
+      "rotationDegrees": 133.877
+    },
+    {
+      "waypointRelativePos": 3.9626556016597436,
+      "rotationDegrees": 90.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    },
+    {
+      "name": "Intake",
+      "waypointRelativePos": 1.465853658536591,
+      "endWaypointRelativePos": 5.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Intake"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}

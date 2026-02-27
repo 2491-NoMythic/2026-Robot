@@ -1,0 +1,134 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.5,
+        "y": 7.51001204819277
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.165914451072475,
+        "y": 7.516085258084502
+      },
+      "isLocked": false,
+      "linkedName": "Left Detrench Start"
+    },
+    {
+      "anchor": {
+        "x": 6.029819277108434,
+        "y": 7.51001204819277
+      },
+      "prevControl": {
+        "x": 5.550481315967835,
+        "y": 7.536641934922801
+      },
+      "nextControl": {
+        "x": 6.279434365409787,
+        "y": 7.496144543287141
+      },
+      "isLocked": false,
+      "linkedName": "FR L Trench to Collect P1"
+    },
+    {
+      "anchor": {
+        "x": 7.757,
+        "y": 7.0
+      },
+      "prevControl": {
+        "x": 7.647120481927709,
+        "y": 7.805060240963856
+      },
+      "nextControl": {
+        "x": 7.8364733056186235,
+        "y": 6.417718609491622
+      },
+      "isLocked": false,
+      "linkedName": "Collect BL"
+    },
+    {
+      "anchor": {
+        "x": 7.757,
+        "y": 2.2865662650602405
+      },
+      "prevControl": {
+        "x": 7.86567469879518,
+        "y": 2.756457831325301
+      },
+      "nextControl": {
+        "x": 7.700667908729143,
+        "y": 2.0429955453645987
+      },
+      "isLocked": false,
+      "linkedName": "FR L Return"
+    },
+    {
+      "anchor": {
+        "x": 6.290385164051354,
+        "y": 2.6052781740370903
+      },
+      "prevControl": {
+        "x": 7.046096385542168,
+        "y": 1.4560602409638557
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "FR R Return End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 2.038926880589173,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 2.9900052603892973,
+      "rotationDegrees": -90.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 0.9825159914712136,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    },
+    {
+      "name": "Intake",
+      "waypointRelativePos": 2.1168658698539238,
+      "endWaypointRelativePos": 4.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Intake"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Detrench Auto Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -90.0
+  },
+  "useDefaultConstraints": true
+}

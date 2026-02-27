@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 8.27,
-        "y": 2.1226506024096388
+        "y": 2.166361445783133
       },
       "prevControl": null,
       "nextControl": {
         "x": 8.052094746081481,
-        "y": 2.34966052819295
+        "y": 2.393371371566444
       },
       "isLocked": false,
       "linkedName": "Return MR"
