@@ -45,7 +45,7 @@ public final class Constants {
     public static final boolean INTAKE_EXISTS = false;
     public static final boolean INDEXER_EXISTS = false;
     public static final boolean DRIVE_TRAIN_EXISTS = true;
-    public static final boolean LIMELIGHTS_EXIST = true;
+    public static final boolean LIMELIGHTS_EXIST = false;
     public static final boolean LIGHTS_EXIST = false;
   }
 

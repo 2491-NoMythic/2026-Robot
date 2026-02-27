@@ -411,13 +411,15 @@ public class RobotContainer {
   public void teleopPeriodic() {
     SmartDashboard.putNumber("RobotAngle", drivetrain.getGyroscopeRotation().getDegrees());
     SmartDashboard.putNumber("GetPose", drivetrain.getPose().getRotation().getDegrees());
+    
+    SmartDashboard.putBoolean("ShooterOn", manualShooterOn);
 
     displayTimerInfo();
   }
 
   public void displayTimerInfo(){
-    SmartDashboard.putNumber("DisplayMatchTime", RobotState.getMatchTimeCountingUp());
-    SmartDashboard.putNumber("DisplayPhaseTime", RobotState.getPhaseTime());
+    SmartDashboard.putNumber("DisplayMatchTime", RobotState.getMatchTime());
+    SmartDashboard.putNumber("DisplayPhaseTime", RobotState.getPhaseTimeLeft());
     SmartDashboard.putString("CurrentPhase", RobotState.getPhase());
     SmartDashboard.putBoolean("HubActive", RobotState.hubActive());
   }

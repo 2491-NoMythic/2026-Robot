@@ -10,17 +10,13 @@ public class TimerPhase{
     this.length = length;
     this.name = name;
   }
-  
-  public int getPhaseTime(int totalTime){
-    return totalTime - startTime;
-  }
 
-  public int getPhaseTimeLeft(int totalTime){
-    return length - (totalTime - startTime);
+  public int getPhaseTimeLeft(int totalTimeLeft){
+    return totalTimeLeft - (startTime - length);
   }
 
   public boolean isCurrentPhase(int totalTime){
-    return (startTime + length) > totalTime && startTime <= totalTime;
+    return (startTime - length) < totalTime && startTime >= totalTime;
   }
 
   public String getPhaseName() {

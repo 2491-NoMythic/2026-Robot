@@ -51,14 +51,14 @@ public class RobotState {
   public static void initializeTimerPhases(){
     timerPhases = new ArrayList<TimerPhase>();
     
-    timerPhases.add(new TimerPhase(0, 10, "TRANSITION"));
-    timerPhases.add(new TimerPhase(10, 25, "SHIFT 1"));
-    timerPhases.add(new TimerPhase(35, 25, "SHIFT 2"));
-    timerPhases.add(new TimerPhase(60, 25, "SHIFT 3"));
-    timerPhases.add(new TimerPhase(85, 25, "SHIFT 4"));
-    timerPhases.add(new TimerPhase(110, 30, "ENDGAME"));
+    timerPhases.add(new TimerPhase(140, 10, "TRANSITION"));
+    timerPhases.add(new TimerPhase(130, 25, "SHIFT 1"));
+    timerPhases.add(new TimerPhase(105, 25, "SHIFT 2"));
+    timerPhases.add(new TimerPhase(80, 25, "SHIFT 3"));
+    timerPhases.add(new TimerPhase(55, 25, "SHIFT 4"));
+    timerPhases.add(new TimerPhase(30, 30, "ENDGAME"));
 
-    autoPhase = new TimerPhase(0, 20, "AUTO");
+    autoPhase = new TimerPhase(20, 20, "AUTO");
     nullPhase = new TimerPhase(2491, 2491, "NULL");
   }
 
@@ -90,7 +90,7 @@ public class RobotState {
     }
   }
 
-  public static int getMatchTimeCountingUp(){
+  /* public static int getMatchTimeCountingUp(){ 
     if (DriverStation.isAutonomousEnabled()) {
       return ((int) DriverStation.getMatchTime());
     }
@@ -99,10 +99,14 @@ public class RobotState {
     } else {
       return 2491;
     }
+  } */
+
+  public static int getMatchTime(){
+    return (int)DriverStation.getMatchTime();
   }
 
   public static void updatePhase(){
-    matchTime = getMatchTimeCountingUp();
+    matchTime = (int) DriverStation.getMatchTime();
 
     if(DriverStation.isAutonomousEnabled()){
       currentPhase = autoPhase;
@@ -121,11 +125,6 @@ public class RobotState {
   public static String getPhase(){
     updatePhase();
     return currentPhase.getPhaseName();
-  }
-
-  public static int getPhaseTime(){
-    updatePhase();
-    return currentPhase.getPhaseTime(matchTime);
   }
 
   public static int getPhaseTimeLeft(){
