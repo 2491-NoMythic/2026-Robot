@@ -19,10 +19,12 @@ import com.ctre.phoenix6.configs.TalonFXSConfiguration;
 import com.ctre.phoenix6.configs.VoltageConfigs;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.ForwardLimitSourceValue;
+import com.ctre.phoenix6.signals.ForwardLimitTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorArrangementValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.ReverseLimitSourceValue;
+import com.ctre.phoenix6.signals.ReverseLimitTypeValue;
 import com.pathplanner.lib.path.PathConstraints;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -62,8 +64,8 @@ public final class Constants {
 
   public static final class ShooterConstants{
     public static final float SHOOTING_SPEED_MPS = 7;//not measured, just example
-    public static final int SHOOTER_MOTOR_1_ID = 9; 
-    public static final int SHOOTER_MOTOR_2_ID = 10; 
+    public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
+    public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
     public static final int HOOD_RIGHT_ACTUATOR_ID = 3;
     public static final double SHOOTER_HEIGHT = 1; //IN METERS
@@ -103,12 +105,14 @@ public final class Constants {
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
       .withHardwareLimitSwitch(new HardwareLimitSwitchConfigs()
-        .withForwardLimitAutosetPositionEnable(true)
+        .withForwardLimitEnable(true)
         .withForwardLimitRemoteSensorID(FR_STEER_MOTOR_ID)
         .withForwardLimitSource(ForwardLimitSourceValue.RemoteTalonFX)
-        .withReverseLimitAutosetPositionEnable(true)
+        .withForwardLimitType(ForwardLimitTypeValue.NormallyOpen)
+        .withReverseLimitEnable(true)
         .withReverseLimitRemoteSensorID(FR_STEER_MOTOR_ID)
-        .withReverseLimitSource(ReverseLimitSourceValue.RemoteTalonFX));
+        .withReverseLimitSource(ReverseLimitSourceValue.RemoteTalonFX)
+        .withReverseLimitType(ReverseLimitTypeValue.NormallyOpen));
     public static TalonFXSConfiguration INTAKE_WHEELS_CONFIG = new TalonFXSConfiguration()
       .withCommutation(new CommutationConfigs()
         .withMotorArrangement(MotorArrangementValue.Minion_JST))
