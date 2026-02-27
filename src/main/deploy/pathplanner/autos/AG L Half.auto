@@ -48,7 +48,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "RunIndexer"
+                  "name": "FeedShooterAntiStall"
                 }
               }
             ]

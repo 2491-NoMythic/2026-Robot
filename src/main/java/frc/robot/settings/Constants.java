@@ -124,6 +124,7 @@ public final class Constants {
     public static final int INDEXER_MOTOR_1_ID= 11;//right motor (leader)
     public static final int INDEXER_MOTOR_2_ID= 12;//left motor (follower)
     public static final double INDEXER_FEEDING_SPEED = 0.5;
+    public static final double INDEXER_FEEDING_RPS = 10;
 
     public static TalonFXConfiguration INDEXER_RIGHT_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
