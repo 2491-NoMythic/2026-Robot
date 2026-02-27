@@ -40,7 +40,7 @@ public class FeedShooterAntiHopperStall extends ParallelCommandGroup {
           Map.entry(true, new SequentialCommandGroup(
             new InstantCommand(()->hopper.setHopperRoller(-0.3)),
             new WaitCommand(1),
-            new InstantCommand(()->indexer.feedShooter(), indexer)
+            new InstantCommand(()->hopper.feedIndexer(), hopper)
           )),
           Map.entry(false, new InstantCommand(()->hopper.feedIndexer(), hopper))
         ),
