@@ -736,7 +736,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       RobotState.getInstance().aimingYaw = desiredRotation.get_1();
 
       RobotState.getInstance().aimingPitch = Math.round(RobotState.getInstance().aimingPitch);
-      RobotState.getInstance().aimingYaw = Math.round(RobotState.getInstance().aimingYaw);
+      RobotState.getInstance().aimingYaw = Math.round(RobotState.getInstance().aimingYaw * (360/3.14))/(360/3.14);
     } else {
       // System.out.println("desiredRotation calculations failed - most likely no solutions. Aiming angles were not updated.");
     }
