@@ -4,8 +4,6 @@
 
 package frc.robot.Commands;
 
-import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED;
-
 import java.util.Map;
 
 import edu.wpi.first.wpilibj.DriverStation;

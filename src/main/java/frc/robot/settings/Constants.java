@@ -124,7 +124,7 @@ public final class Constants {
   public static final class IndexerConstants{
     public static final int INDEXER_MOTOR_1_ID= 11;//right motor (leader)
     public static final int INDEXER_MOTOR_2_ID= 12;//left motor (follower)
-    public static final double INDEXER_FEEDING_SPEED = 0.5;
+    public static final double INDEXER_FEEDING_SPEED_RPS = 58;
     public static final double INDEXER_FEEDING_RPS = 10;
 
     public static TalonFXConfiguration INDEXER_RIGHT_CONFIG = new TalonFXConfiguration()
@@ -141,7 +141,7 @@ public final class Constants {
 
   public static final class HopperConstants{
     public static final int HOPPER_MOTOR_ID = 15;
-    public static final double HOPPER_ROLLER_SPEED = 0.3;
+    public static final double HOPPER_ROLLER_SPEED_RPS = 26;
 
     public static final int TOP_LEFT_SENSOR_ID = 2491;
     public static final int LIMIT_SWITCH_1_ID = 2491;
