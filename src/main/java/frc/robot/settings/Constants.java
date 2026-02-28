@@ -129,7 +129,7 @@ public final class Constants {
 
     public static TalonFXConfiguration INDEXER_RIGHT_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
-        .withKV(0.091).withKP(0.1).withKI(0).withKD(0).withKS(0.5))
+        .withKV(0.091).withKP(0.4).withKI(0).withKD(0).withKS(0.5))
       .withMotorOutput(new MotorOutputConfigs()
         .withInverted(InvertedValue.Clockwise_Positive));
     
