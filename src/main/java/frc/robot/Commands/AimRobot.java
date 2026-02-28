@@ -63,7 +63,7 @@ public class AimRobot extends Command {
   @Override
   public void execute() {
     double target = targetSupplier.getAsDouble();
-    rotationController.setSetpoint(target); //this is in radians
+    rotationController.setSetpoint(target); //this is in degrees
     SmartDashboard.putNumber("Desired robot angle", target);
     Logger.recordOutput("Blue hub", BLUE_HUB_COORDINATE);
     Logger.recordOutput("Red hub", RED_HUB_COORDINATE);
@@ -81,7 +81,7 @@ public class AimRobot extends Command {
       rotationSpeed,
       drivetrain.getOdometryRotation()));
     SmartDashboard.putNumber("angle targeting error", rotationController.getError());
-    RobotState.getInstance().Aimed = Math.toDegrees(rotationController.getError()) < 2;
+    RobotState.getInstance().Aimed = rotationController.getError() < 2;
   }
 
   // Called once the command ends or is interrupted.

@@ -300,7 +300,7 @@ public class RobotContainer {
     new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
-    SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setHoodAngleDegrees(25, true), shooter));
+    SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setHoodAngle(25, true), shooter));
   }
 
   private void hopperInit() {

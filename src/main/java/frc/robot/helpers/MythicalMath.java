@@ -178,8 +178,8 @@ public class MythicalMath {
       Translation3d direction = target.minus(chosenSolution); //Dangerous, does this mutate target directly? IDK
       direction = direction.times(1/direction.getNorm());
 
-      double pitch = Math.asin(direction.getZ());
-      double yaw = Math.atan2(direction.getX(), direction.getY());
+      double pitch = Math.toDegrees(Math.asin(direction.getZ()));
+      double yaw = Math.toDegrees(Math.atan2(direction.getX(), direction.getY()));
 
 
       //Rotation3d rotation = new Rotation3d(chosenSolution.toVector(), target.toVector()); //TODO: test this, does it do what we expect?
@@ -195,19 +195,19 @@ public class MythicalMath {
 
   /**
    * calculates the length a linear actuator must extend by to angle the shooter 
-   * @param desiredAngleInRadians the desired angle, in radians
+   * @param desiredAngle the desired angle, in degrees
    * @param actuatorBodyLength the length of the actuator WHEN NOT EXTENDED AT ALL
    * @param sideALength the length from the center of the bottom pivot point of the actuator where it is mounted, to the center of the pivot point of the shooter hood piece
    * @param sideBLength the length from the center of the top pivot point of the actuator where it is mounted, to the center of the pivot point of the shooter hood piece
    * @param lowerAngleToHorizontal the angle between side A and horizontal
    * @return the length, in whatever units were inputted, to extend the actuator by. ideally in cm.
    */
-  public static double ServoExtensionToReachHoodAngleInRadians(double desiredAngleInRadians, double actuatorBodyLength, double sideALength, double sideBLength, double lowerAngleToHorizontal){
+  public static double ServoExtensionToReachHoodAngle(double desiredAngle, double actuatorBodyLength, double sideALength, double sideBLength, double lowerAngleToHorizontal){
     double a = sideALength; 
     double b = sideBLength;
-    double totalAngle = desiredAngleInRadians + lowerAngleToHorizontal;
+    double totalAngle = desiredAngle + lowerAngleToHorizontal;
 
-    double totalActuatorSideLength = Math.sqrt( -2 * a * b * Math.cos(totalAngle) + a*a + b*b); 
+    double totalActuatorSideLength = Math.sqrt( -2 * a * b * Math.cos(Math.toRadians(totalAngle)) + a*a + b*b); 
     double extension = totalActuatorSideLength - actuatorBodyLength;
     //I don't want to document this, so I will just link a photo of the math. 
     //https://nomythic.slack.com/archives/CA2SX3M8T/p1771377556413989

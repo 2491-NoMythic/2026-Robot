@@ -24,7 +24,7 @@ class AimingTest {
     var Rot = MythicalMath.aimProjectileAtPoint(new Translation3d(0, 0, 0), new Translation3d(10, 10, 0), 20, new Translation3d(0, 0, 0));
     System.out.println(Rot.get_0());
     assertEquals(
-        1.425, Rot.get_0(), 0.1);
+        Math.toDegrees(1.425), Rot.get_0(), 2);
   }
 
   @Test
@@ -33,8 +33,8 @@ class AimingTest {
     System.out.println(Rot.get_0());
     System.out.println(Rot.get_1());
     assertEquals(
-        1.477, Rot.get_0(), 0.1);
+        Math.toDegrees(1.477), Rot.get_0(), 2);
     assertEquals(
-        0.785, Rot.get_1(), 0.1);
+        Math.toDegrees(0.785), Rot.get_1(), 2);
   }
 }
