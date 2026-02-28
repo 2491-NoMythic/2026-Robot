@@ -10,7 +10,7 @@ import static frc.robot.settings.Constants.DriveConstants.k_THETA_P;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_D;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
-import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED;
+import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED_RPS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.CLIMBER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.DRIVE_TRAIN_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.HOPPER_EXISTS;
@@ -305,8 +305,8 @@ public class RobotContainer {
   private void hopperInit() {
     hopper = new Hopper();
 
-    new Trigger(HopperWheelsForwardSup).onTrue(new InstantCommand(()->hopper.setHopperRoller(HOPPER_ROLLER_SPEED), hopper )).onFalse(new InstantCommand(()->hopper.setHopperRoller(0), hopper));
-    new Trigger(HopperWheelsBackwardSup).onTrue(new InstantCommand(()->hopper.setHopperRoller(-HOPPER_ROLLER_SPEED), hopper )).onFalse(new InstantCommand(()->hopper.setHopperRoller(0), hopper));
+    new Trigger(HopperWheelsForwardSup).onTrue(new InstantCommand(()->hopper.setVelocity(HOPPER_ROLLER_SPEED_RPS), hopper )).onFalse(new InstantCommand(()->hopper.setHopperRoller(0), hopper));
+    new Trigger(HopperWheelsBackwardSup).onTrue(new InstantCommand(()->hopper.setVelocity(-HOPPER_ROLLER_SPEED_RPS), hopper )).onFalse(new InstantCommand(()->hopper.setHopperRoller(0), hopper));
   }
 
   private void intakeInit() {
@@ -327,10 +327,9 @@ public class RobotContainer {
   
   private void indexerInit() {
     indexer = new Indexer();
-    // new Trigger(IndexerSup).whileTrue(new InstantCommand(()->indexer.set(0.5))).onFalse(new InstantCommand(()->indexer.stop(), indexer));
-    new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, IndexerConstants.INDEXER_FEEDING_SPEED, hopper, HOPPER_ROLLER_SPEED));
+    new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, IndexerConstants.INDEXER_FEEDING_SPEED_RPS, hopper, HOPPER_ROLLER_SPEED_RPS));
 
-    new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
+    new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED_RPS));
   }
 
   private void lightsInit() {
@@ -491,7 +490,7 @@ public class RobotContainer {
       NamedCommands.registerCommand("AutomaticClimb", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
-      NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED));
+      NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED_RPS));
       NamedCommands.registerCommand("FeedShooterAntiStall", new FeedShooterAntiHopperStall(hopper, indexer));
     } else {
       NamedCommands.registerCommand("RunIndexer", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));

@@ -97,7 +97,7 @@ public final class Constants {
   }
 
   public static final class IntakeConstants{
-    public static final double INTAKE_SPEED = 0.8;
+    public static final double INTAKE_SPEED_RPS = 90;
     public static final int INTAKE_WHEELS_ID = 14;
     public static final int INTAKE_DEPLOYER_ID = 13;
     public static TalonFXConfiguration INTAKE_DEPLOYER_CONFIG = new TalonFXConfiguration()
@@ -124,12 +124,12 @@ public final class Constants {
   public static final class IndexerConstants{
     public static final int INDEXER_MOTOR_1_ID= 11;//right motor (leader)
     public static final int INDEXER_MOTOR_2_ID= 12;//left motor (follower)
-    public static final double INDEXER_FEEDING_SPEED = 0.5;
+    public static final double INDEXER_FEEDING_SPEED_RPS = 58;
     public static final double INDEXER_FEEDING_RPS = 10;
 
     public static TalonFXConfiguration INDEXER_RIGHT_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
-        .withKV(0.091).withKP(0.1).withKI(0).withKD(0).withKS(0.5))
+        .withKV(0.091).withKP(0.4).withKI(0).withKD(0).withKS(0.5))
       .withMotorOutput(new MotorOutputConfigs()
         .withInverted(InvertedValue.Clockwise_Positive));
     
@@ -141,7 +141,7 @@ public final class Constants {
 
   public static final class HopperConstants{
     public static final int HOPPER_MOTOR_ID = 15;
-    public static final double HOPPER_ROLLER_SPEED = 0.3;
+    public static final double HOPPER_ROLLER_SPEED_RPS = 26;
 
     public static final int TOP_LEFT_SENSOR_ID = 2491;
     public static final int LIMIT_SWITCH_1_ID = 2491;
