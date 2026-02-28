@@ -690,7 +690,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     logDrivetrainData();
 
     this.updateDesiredRobotAngle();
-    Logger.recordOutput("autoaim/pitchDegrees", Math.toDegrees(RobotState.getInstance().aimingPitch));
+    Logger.recordOutput("autoaim/pitchDegrees", RobotState.getInstance().aimingPitch);
     Logger.recordOutput("autoaim/yaw", RobotState.getInstance().aimingYaw);
     Logger.recordOutput("autoaim/target", BLUE_HUB_COORDINATE);
     SmartDashboard.putBoolean("LimelightsUpdatedState", RobotState.getInstance().LimelightsUpdated);
