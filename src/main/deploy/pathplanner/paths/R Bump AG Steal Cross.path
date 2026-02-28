@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 3.5,
-        "y": 0.5709156626506025
+        "y": 2.2974939759036137
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.574270738159068,
-        "y": 0.638027949673728
+        "x": 4.620144578313253,
+        "y": 2.330277108433736
       },
       "isLocked": false,
       "linkedName": "Right Bump Start"
@@ -145,7 +145,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Bump Auto Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

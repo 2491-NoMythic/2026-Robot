@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 3.5,
-        "y": 0.5709156626506025
+        "y": 2.2974939759036137
       },
       "prevControl": null,
       "nextControl": {
         "x": 5.164756111661919,
-        "y": 0.7147729312124256
+        "y": 2.441351244465437
       },
       "isLocked": false,
       "linkedName": "Right Bump Start"

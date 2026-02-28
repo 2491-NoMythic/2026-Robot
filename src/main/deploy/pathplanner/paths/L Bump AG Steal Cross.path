@@ -4,63 +4,79 @@
     {
       "anchor": {
         "x": 3.337477638640429,
-        "y": 5.681878354203935
+        "y": 5.682
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.090036144578314,
-        "y": 5.685084337349398
+        "x": 3.6577072242738153,
+        "y": 5.74356354375155
       },
-      "isLocked": false,
+      "isLocked": true,
       "linkedName": "Left Bump Start"
     },
     {
       "anchor": {
-        "x": 6.39,
-        "y": 5.682
+        "x": 6.587132530120481,
+        "y": 6.0
       },
       "prevControl": {
-        "x": 5.975528641671159,
-        "y": 5.6761771507169465
+        "x": 6.116176534474131,
+        "y": 5.613546018073254
       },
       "nextControl": {
-        "x": 6.63997533234984,
-        "y": 5.685511867962658
+        "x": 8.087364329096637,
+        "y": 7.231050369646043
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.27,
-        "y": 5.218887303851641
+        "x": 8.412,
+        "y": 6.0
       },
       "prevControl": {
-        "x": 8.051445783132529,
-        "y": 6.603012048192771
+        "x": 8.411837400161053,
+        "y": 6.249999947122579
       },
       "nextControl": {
-        "x": 8.43802920308269,
-        "y": 4.15474230087646
+        "x": 8.412498009114637,
+        "y": 5.234302732820678
       },
       "isLocked": false,
-      "linkedName": "AG L Trench to Tilt Collect End"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.27,
-        "y": 2.166361445783133
+        "x": 8.543192771084337,
+        "y": 3.8
       },
       "prevControl": {
-        "x": 8.378277894760814,
-        "y": 2.3916965240691517
+        "x": 8.516846391412384,
+        "y": 4.048607860451316
       },
       "nextControl": {
-        "x": 7.86567469879518,
-        "y": 1.324927710843374
+        "x": 8.581442402204214,
+        "y": 3.439071512892232
       },
       "isLocked": false,
-      "linkedName": "Return MR"
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.412,
+        "y": 2.4395542168674704
+      },
+      "prevControl": {
+        "x": 8.894420407941665,
+        "y": 2.771980899239939
+      },
+      "nextControl": {
+        "x": 7.836238565844617,
+        "y": 2.0428080174043797
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -68,26 +84,26 @@
         "y": 2.6052781740370903
       },
       "prevControl": {
-        "x": 6.794759036144578,
-        "y": 2.2647108433734933
+        "x": 7.327216267219337,
+        "y": 2.523597194028689
       },
       "nextControl": null,
-      "isLocked": false,
+      "isLocked": true,
       "linkedName": "Return MR End"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.1737226277372228,
+      "waypointRelativePos": 1.043795620437966,
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 2.072992700729926,
-      "rotationDegrees": -75.222
+      "waypointRelativePos": 1.5786372007366452,
+      "rotationDegrees": -82.201
     },
     {
-      "waypointRelativePos": 3.0314928425357612,
-      "rotationDegrees": -75.222
+      "waypointRelativePos": 4.0,
+      "rotationDegrees": -82.201
     }
   ],
   "constraintZones": [],
@@ -95,7 +111,7 @@
   "eventMarkers": [
     {
       "name": "Expand",
-      "waypointRelativePos": 0.9756929637526538,
+      "waypointRelativePos": 0.9552238805970059,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -106,8 +122,8 @@
     },
     {
       "name": "Intake",
-      "waypointRelativePos": 1.4536585365853683,
-      "endWaypointRelativePos": 4.0,
+      "waypointRelativePos": 1.342672413793107,
+      "endWaypointRelativePos": 5.0,
       "command": {
         "type": "named",
         "data": {
