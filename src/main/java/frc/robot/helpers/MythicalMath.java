@@ -143,7 +143,7 @@ public class MythicalMath {
   public static Tuple2<Double> aimProjectileAtPoint(Translation3d origin, Translation3d target, float initialVelocity, Translation3d inheritedVelocity)
   {
     float radius = 0f;
-    Translation3d velocity = new Translation3d(0, 0, 0); //inheritedVelocity;
+    Translation3d velocity = inheritedVelocity; //inheritedVelocity;
     Translation3d position = origin;
 
     float timeStep = 0.1f; //Checks per second

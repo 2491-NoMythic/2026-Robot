@@ -4,6 +4,7 @@
 
 package frc.robot.Commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Hopper;
@@ -14,6 +15,7 @@ public class FeedShooter extends Command {
   Hopper hopper;
   double indexerSpeed;
   double motorRollerSpeed;
+  Timer timer;
   
   /** Creates a new RunIndexer. */
   public FeedShooter(Indexer indexer, double indexerSpeed, Hopper hopper, double motorRollerSpeed) {
@@ -21,17 +23,25 @@ public class FeedShooter extends Command {
     this.hopper = hopper;
     this.indexerSpeed = indexerSpeed;
     this.motorRollerSpeed = motorRollerSpeed;
+    timer = new Timer();
     addRequirements(hopper, indexer);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer.start();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    indexer.setVelocity(indexerSpeed);
+    if(timer.get() < 0.2
+    ) {
+      indexer.set(-0.5);
+    } else {
+      indexer.setVelocity(indexerSpeed);
+    }
     hopper.setVelocity(motorRollerSpeed);
   }
 
@@ -40,6 +50,8 @@ public class FeedShooter extends Command {
   public void end(boolean interrupted) {
     indexer.stop();
     hopper.setHopperRoller(0);
+    timer.stop();
+    timer.reset();
   }
 
   // Returns true when the command should end.

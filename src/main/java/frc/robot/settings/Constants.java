@@ -63,7 +63,7 @@ public final class Constants {
   }
 
   public static final class ShooterConstants{
-    public static final float SHOOTING_SPEED_MPS = 7;//not measured, just example
+    public static final float SHOOTING_SPEED_MPS = 7;
     public static final float SHOOTING_SPEED_RPS = 25;
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
@@ -77,7 +77,7 @@ public final class Constants {
     public static final double HOOD_UP_POSITION = 0.8;
     public static TalonFXConfiguration SHOOTER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
-        .withKV(0.17).withKP(1).withKI(0).withKD(0).withKS(0.675))
+        .withKV(0.17).withKP(0.8).withKI(0).withKD(0).withKS(0.675))
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
       .withMotorOutput(new MotorOutputConfigs()

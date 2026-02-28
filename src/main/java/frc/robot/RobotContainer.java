@@ -76,6 +76,7 @@ import frc.robot.Commands.RunIntake;
 import frc.robot.Commands.RunShooterVelocity;
 import frc.robot.Commands.AimAtLocation.Location;
 import frc.robot.settings.Constants.IndexerConstants;
+import frc.robot.settings.Constants.ShooterConstants;
 import frc.robot.settings.LightsEnums;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -296,7 +297,7 @@ public class RobotContainer {
     new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
     new Trigger(ForceHoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
     new Trigger(ShooterToggleSup).onTrue(new InstantCommand(()->shooterOn = !shooterOn));
-    new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.set(0.5), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
+    new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
     SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setHoodAngleDegrees(25, true), shooter));
@@ -314,7 +315,10 @@ public class RobotContainer {
     
     new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
     new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
-    new Trigger(IntakeWheelSup).whileTrue(new RunIntake(intake));
+    
+    if(HOPPER_EXISTS) {
+      new Trigger(IntakeWheelSup).whileTrue(new RunIntake(intake, hopper));
+    }
   }
 
   private void climberInit() {
@@ -504,8 +508,9 @@ public class RobotContainer {
     if(INTAKE_EXISTS) {
       NamedCommands.registerCommand("Outtake", new Outtake(intake));
       NamedCommands.registerCommand("Expand", new Expand(intake));
-      NamedCommands.registerCommand("Intake", new RunIntake(intake));
-      
+      if(HOPPER_EXISTS) {
+        NamedCommands.registerCommand("Intake", new RunIntake(intake, hopper));
+      }
     } else {
       NamedCommands.registerCommand("Intake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("Outtake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));

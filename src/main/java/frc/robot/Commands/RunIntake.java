@@ -7,15 +7,20 @@ package frc.robot.Commands;
 import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Hopper;
+import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class RunIntake extends Command {
   Intake intake;
+  Hopper hopper;
+
   /** Creates a new Intake. */
-  public RunIntake(Intake intake) {
+  public RunIntake(Intake intake, Hopper hopper) {
     this.intake = intake;
-    addRequirements(intake);
+    this.hopper = hopper;
+    addRequirements(intake, hopper);
   }
 
   // Called when the command is initially scheduled.
@@ -26,12 +31,14 @@ public class RunIntake extends Command {
   @Override
   public void execute() {
     intake.setVelocity(INTAKE_SPEED_RPS);
+    hopper.feedIndexer();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     intake.stopWheels();
+    hopper.stop();
   }
 
   // Returns true when the command should end.
