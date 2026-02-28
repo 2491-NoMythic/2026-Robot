@@ -3,11 +3,16 @@ package frc.robot.subsystems;
 import java.util.Optional;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.settings.ClimberState;
 import frc.robot.settings.HopperState;
+
+import java.util.ArrayList;
+import java.util.List;
+import frc.robot.helpers.TimerPhase;
 
 public class RobotState {
   private static RobotState instance;
@@ -30,9 +35,31 @@ public class RobotState {
   public double aimingPitch;
   public double aimingYaw;
 
+  public static List<TimerPhase> timerPhases;
+  public static TimerPhase currentPhase;
+  public static TimerPhase autoPhase;
+  public static TimerPhase nullPhase;
+
+  public static int matchTime;
+
   public RobotState() {
     // sets any values that aren't periodically updated by a subsystem to a value,
     // so that they won't return null if called before they are updated
+    initializeTimerPhases();
+  }
+
+  public static void initializeTimerPhases(){
+    timerPhases = new ArrayList<TimerPhase>();
+    
+    timerPhases.add(new TimerPhase(140, 10, "TRANSITION"));
+    timerPhases.add(new TimerPhase(130, 25, "SHIFT 1"));
+    timerPhases.add(new TimerPhase(105, 25, "SHIFT 2"));
+    timerPhases.add(new TimerPhase(80, 25, "SHIFT 3"));
+    timerPhases.add(new TimerPhase(55, 25, "SHIFT 4"));
+    timerPhases.add(new TimerPhase(30, 30, "ENDGAME"));
+
+    autoPhase = new TimerPhase(20, 20, "AUTO");
+    nullPhase = new TimerPhase(2491, 2491, "NULL");
   }
 
   public static boolean IsAlliance(Alliance alliance) {
@@ -62,60 +89,47 @@ public class RobotState {
       return false;
     }
   }
-  
-  public static String getPhase() {
-    double matchTime = DriverStation.getMatchTime();
+
+  /* public static int getMatchTimeCountingUp(){ 
     if (DriverStation.isAutonomousEnabled()) {
-      return "AUTONOMOUS";
+      return ((int) DriverStation.getMatchTime());
     }
     else if (DriverStation.isTeleopEnabled()) {
-      if (matchTime <= 140 && matchTime > 130) {
-        return "TRANSITION SHIFT";
-      } else if (matchTime <= 130 && matchTime > 105) {
-        return "SHIFT 1";
-      } else if (matchTime <= 105 && matchTime > 80) {
-        return "SHIFT 2";
-      } else if (matchTime <= 80 && matchTime > 55) {
-        return "SHIFT 3";
-      } else if (matchTime <= 55 && matchTime > 30) {
-        return "SHIFT 4";
-      } else if (matchTime <= 30 && matchTime > 0) {
-        return "END GAME";
-      } else {
-        return "NOT FOUND";
-      }
+      return 140 - (int) DriverStation.getMatchTime();
+    } else {
+      return 2491;
     }
-    else {
-      return "NO GAME";
+  } */
+
+  public static int getMatchTime(){
+    return (int)DriverStation.getMatchTime();
+  }
+
+  public static void updatePhase(){
+    matchTime = (int) DriverStation.getMatchTime();
+
+    if(DriverStation.isAutonomousEnabled()){
+      currentPhase = autoPhase;
+    } else if (DriverStation.isTeleopEnabled()) {
+      for (TimerPhase phase : timerPhases) {
+        if(phase.isCurrentPhase(matchTime)) {
+          currentPhase = phase;
+          return;
+        }
+      }
+    } else {
+      currentPhase = nullPhase;
     }
   }
 
-  public static int getPhaseTime() {
-    double matchTime = DriverStation.getMatchTime();
-    String phase = getPhase();
-    if (DriverStation.isAutonomousEnabled()) {
-        return (int) matchTime;
-    } 
-    else if (DriverStation.isTeleopEnabled()) {
-      if (phase == "TRANSITION SHIFT") {
-        return (int) matchTime - 130;
-      } else if (phase == "PHASE 1") {
-        return (int) matchTime - 105;
-      } else if (phase == "PHASE 2") {
-        return (int) matchTime - 80;
-      } else if (phase == "PHASE 3") {
-        return (int) matchTime - 55;
-      } else if (phase == "PHASE 4") {
-        return (int) matchTime - 30;
-      } else if (phase == "END GAME") {
-        return (int) matchTime - 0;
-      } else {
-        return (int) matchTime;
-      }
-    }
-    else {
-      return 2491;
-    }
+  public static String getPhase(){
+    updatePhase();
+    return currentPhase.getPhaseName();
+  }
+
+  public static int getPhaseTimeLeft(){
+    updatePhase();
+    return currentPhase.getPhaseTimeLeft(matchTime);
   }
 
   public static Boolean hubActive() {

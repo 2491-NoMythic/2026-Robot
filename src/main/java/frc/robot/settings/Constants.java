@@ -57,7 +57,7 @@ public final class Constants {
     public static final boolean INTAKE_EXISTS = true;
     public static final boolean INDEXER_EXISTS = true;
     public static final boolean DRIVE_TRAIN_EXISTS = true;
-    public static final boolean LIMELIGHTS_EXIST = true;
+    public static final boolean LIMELIGHTS_EXIST = false;
     public static final boolean LIGHTS_EXIST = false;
     public static final boolean HOPPER_EXISTS = true;
   }
@@ -162,6 +162,7 @@ public final class Constants {
   public static final class Field{
     public static final Translation3d BLUE_HUB_COORDINATE = new Translation3d(4.6, 4, 1.8);
     public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.8);
+    //public static final int TRANSITION_LENGTH = 10;
   }
 
   public static final class AimAtLocationConstants {

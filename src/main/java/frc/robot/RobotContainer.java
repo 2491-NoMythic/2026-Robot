@@ -431,10 +431,11 @@ public class RobotContainer {
   }
 
   public void autonomousPeriodic() {
-    if (autoTimer.hasElapsed(3.0)) {
-      lights.setDefaultCommand(new LightsCommand(lights));
-    }
+    //if (autoTimer.hasElapsed(3.0)) {
+      //lights.setDefaultCommand(new LightsCommand(lights));
+    //}
 
+    displayTimerInfo();
   }
 
   public void runsWhenDisabled() {
@@ -459,6 +460,17 @@ public class RobotContainer {
   public void teleopPeriodic() {
     SmartDashboard.putNumber("RobotAngle", drivetrain.getOdometryRotation().getDegrees());
     SmartDashboard.putNumber("GetPose", drivetrain.getPose().getRotation().getDegrees());
+    
+    SmartDashboard.putBoolean("ShooterOn", manualShooterOn);
+
+    displayTimerInfo();
+  }
+
+  public void displayTimerInfo(){
+    SmartDashboard.putNumber("DisplayMatchTime", RobotState.getMatchTime());
+    SmartDashboard.putNumber("DisplayPhaseTime", RobotState.getPhaseTimeLeft());
+    SmartDashboard.putString("CurrentPhase", RobotState.getPhase());
+    SmartDashboard.putBoolean("HubActive", RobotState.hubActive());
   }
 
   private void registerNamedCommands(){
