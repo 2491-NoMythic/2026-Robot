@@ -65,6 +65,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
+import frc.robot.Robot;
 import frc.robot.LogInputs.DrivetrainInputsAutoLogged;
 import frc.robot.LogInputs.LimelightInputs;
 import frc.robot.helpers.MotorLogger;
@@ -733,6 +734,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     if(desiredRotation != null){
       RobotState.getInstance().aimingPitch = Math.toRadians(90) - desiredRotation.get_0(); //subtracting pitch from 90 degrees becuase math believes 90 degrees is straight up, but servo believes 90 degrees is forward
       RobotState.getInstance().aimingYaw = desiredRotation.get_1();
+
+      RobotState.getInstance().aimingPitch = Math.round(RobotState.getInstance().aimingPitch);
+      RobotState.getInstance().aimingYaw = Math.round(RobotState.getInstance().aimingYaw);
     } else {
       // System.out.println("desiredRotation calculations failed - most likely no solutions. Aiming angles were not updated.");
     }
