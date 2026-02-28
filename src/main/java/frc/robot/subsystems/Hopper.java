@@ -58,7 +58,7 @@ public class Hopper extends SubsystemBase {
    * sets the hopper rollers to the HOPPER_ROLLER_SPEED
    */
   public void feedIndexer() {
-    setHopperRoller(HOPPER_ROLLER_SPEED);
+    setVelocity(HOPPER_ROLLER_SPEED_RPS);
   }
 
   /**

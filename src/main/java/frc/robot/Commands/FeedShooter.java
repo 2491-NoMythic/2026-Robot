@@ -31,8 +31,8 @@ public class FeedShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    indexer.set(indexerSpeed);
-    hopper.setHopperRoller(motorRollerSpeed);
+    indexer.setVelocity(indexerSpeed);
+    hopper.setVelocity(motorRollerSpeed);
   }
 
   // Called once the command ends or is interrupted.
