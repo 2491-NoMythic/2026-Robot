@@ -6,7 +6,7 @@
 
 package frc.robot.Commands;
 
-import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED;
+import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
@@ -27,7 +27,7 @@ public class Outtake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setWheels(INTAKE_SPEED * -1);
+    intake.setVelocity(-INTAKE_SPEED_RPS);
   }
 
   // Called once the command ends or is interrupted.

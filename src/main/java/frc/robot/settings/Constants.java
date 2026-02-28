@@ -97,7 +97,7 @@ public final class Constants {
   }
 
   public static final class IntakeConstants{
-    public static final double INTAKE_SPEED = 0.8;
+    public static final double INTAKE_SPEED_RPS = 90;
     public static final int INTAKE_WHEELS_ID = 14;
     public static final int INTAKE_DEPLOYER_ID = 13;
     public static TalonFXConfiguration INTAKE_DEPLOYER_CONFIG = new TalonFXConfiguration()
