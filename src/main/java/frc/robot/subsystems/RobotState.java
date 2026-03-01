@@ -47,12 +47,6 @@ public class RobotState {
 
   public static int matchTime;
 
-  public static List<TimerPhase> timerPhases;
-  public static TimerPhase currentPhase;
-  public static TimerPhase autoPhase;
-  public static TimerPhase nullPhase;
-
-  public static int matchTime;
 
   public RobotState() {
     // sets any values that aren't periodically updated by a subsystem to a value,

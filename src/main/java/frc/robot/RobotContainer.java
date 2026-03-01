@@ -466,7 +466,7 @@ public class RobotContainer {
     SmartDashboard.putNumber("RobotAngle", drivetrain.getOdometryRotation().getDegrees());
     SmartDashboard.putNumber("GetPose", drivetrain.getPose().getRotation().getDegrees());
     
-    SmartDashboard.putBoolean("ShooterOn", manualShooterOn);
+    //SmartDashboard.putBoolean("ShooterOn", manualShooterOn);
 
     displayTimerInfo();
   }
