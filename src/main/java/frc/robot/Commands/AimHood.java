@@ -28,7 +28,7 @@ public class AimHood extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double angle = RobotState.getInstance().aimingPitch; //this is in radians
+    double angle = RobotState.getInstance().aimingPitch; //this is in degrees
     shooter.setHoodAngle(angle, true);
   }
 
