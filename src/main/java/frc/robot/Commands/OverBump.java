@@ -27,7 +27,7 @@ public class OverBump extends SequentialCommandGroup {
       new InstantCommand(()-> System.out.println("wait until on bump")),
       new WaitUntilCommand(()->Math.abs(drivetrain.getPigeonPitch()) > 5 || Math.abs(drivetrain.getPigeonRoll()) > 5),
       new InstantCommand(()-> System.out.println("wait 0.9 seconds")),  
-      new WaitCommand(2),
+      new WaitCommand(1),// (1/speed)?
       new InstantCommand(()-> System.out.println("rotating")),
       new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0, 0, 0.5)), drivetrain),
       new InstantCommand(()-> System.out.println("wait for limelight update")),
