@@ -65,11 +65,11 @@
     {
       "anchor": {
         "x": 6.703363636363636,
-        "y": 5.728795180722891
+        "y": 5.490599144079885
       },
       "prevControl": {
         "x": 6.825737193044054,
-        "y": 4.283694924160765
+        "y": 4.04549888751776
       },
       "nextControl": null,
       "isLocked": false,
@@ -124,8 +124,8 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 3.0,
-    "rotation": 89.8955781006048
+    "velocity": 0.0,
+    "rotation": -93.62990750985051
   },
   "reversed": false,
   "folder": "Old Paths",

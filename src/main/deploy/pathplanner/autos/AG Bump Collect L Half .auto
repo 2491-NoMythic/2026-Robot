@@ -11,9 +11,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Bump to Collect ML"
+            "name": "AcrossBumpAwayFromAlliance"
           }
         },
         {
@@ -33,6 +33,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Return L"
           }
         },
         {
@@ -88,7 +94,7 @@
       ]
     }
   },
-  "resetOdom": true,
+  "resetOdom": false,
   "folder": "Old Autos",
   "choreoAuto": false
 }

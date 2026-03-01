@@ -7,19 +7,13 @@
         {
           "type": "named",
           "data": {
+            "name": "AcrossBumpAwayFromAlliance"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "Expand"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Bump to Collect BL"
           }
         },
         {
@@ -42,27 +36,59 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Return L-R"
+            "name": "AcrossBumpTowardsAlliance"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIndexer"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 8.0
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "OverBump"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "RunIndexer"
+            "name": "AutomaticClimb"
           }
         }
       ]
     }
   },
-  "resetOdom": true,
+  "resetOdom": false,
   "folder": "Old Autos",
   "choreoAuto": false
 }

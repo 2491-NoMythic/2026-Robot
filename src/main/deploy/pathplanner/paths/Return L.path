@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.907011518659089,
-        "y": 5.923433785633818
+        "x": 7.449493649053891,
+        "y": 5.731999999999999
       },
       "isLocked": true,
       "linkedName": "Return L"
@@ -20,8 +20,8 @@
         "y": 5.347
       },
       "prevControl": {
-        "x": 7.737950192711072,
-        "y": 6.16908480980164
+        "x": 6.957079541631909,
+        "y": 5.449798929028462
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,7 +47,7 @@
   "reversed": false,
   "folder": "Return to Hub",
   "idealStartingState": {
-    "velocity": 3.0,
+    "velocity": 0.0,
     "rotation": 90.0
   },
   "useDefaultConstraints": true
