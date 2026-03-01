@@ -72,7 +72,7 @@ public class Shooter extends SubsystemBase {
    */
   public void setHoodAngle(double angle, boolean autoRetract){
     desiredPosition = InchPositionToActuatorConstrainedPercent(                                                                   //54.328 degrees
-      MythicalMath.ServoExtensionToReachHoodAngle(angle, 6.610, 8.134, 4.914, 0.948202476)
+      MythicalMath.ServoExtensionToReachHoodAngle(angle, 6.610, 8.134, 4.914, 54.328)
     );
     
     autoRetractOn = autoRetract;
@@ -104,6 +104,11 @@ public class Shooter extends SubsystemBase {
     inputs.shootMotor.log(shootMotor1);
     inputs.shootMotor.log(shootMotor2);
     Logger.processInputs("Shooter", inputs);
+    if(this.getCurrentCommand() != null) {
+      SmartDashboard.putString("ShooterCurrentCommand", this.getCurrentCommand().toString());
+    } else {
+      SmartDashboard.putString("ShooterCurrentCommand", "null");
+    }
 
     if (autoRetractOn) {
       //logic below checks if robot is in one of four squares around the trenches

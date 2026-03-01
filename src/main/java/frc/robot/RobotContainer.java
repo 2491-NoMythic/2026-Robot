@@ -181,7 +181,6 @@ public class RobotContainer {
     ManualLeftTrenchShotSup = operatorController::getXButton;
     ManualRightTrenchShotSup = operatorController::getBButton;
     //Shooting Command is Right Trigger on drive controller. 
-
     //Climber controls
     AutoClimbSup = () -> driveController.getStartButton() && driveController.getBackButton();
     ClimberUpSup = operatorController::getLeftBumperButton;
@@ -295,7 +294,7 @@ public class RobotContainer {
     shooter = new Shooter();
     shooter.setDefaultCommand(new AimHood(shooter));
     new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
-    new Trigger(ForceHoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
+    new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
     new Trigger(ShooterToggleSup).onTrue(new InstantCommand(()->shooterOn = !shooterOn));
     new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
@@ -331,9 +330,6 @@ public class RobotContainer {
   
   private void indexerInit() {
     indexer = new Indexer();
-    new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, IndexerConstants.INDEXER_FEEDING_SPEED_RPS, hopper, HOPPER_ROLLER_SPEED_RPS));
-
-    new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED_RPS));
   }
 
   private void lightsInit() {
@@ -400,6 +396,10 @@ public class RobotContainer {
       new Trigger(ManualRightTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.RightTrench));
     }
 
+    if(INTAKE_EXISTS && INDEXER_EXISTS && HOPPER_EXISTS) {
+      new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper));  
+      new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, hopper));
+    }
     if (SHOOTER_EXISTS) {
     InstantCommand setServoAngleUp = new InstantCommand(shooter::setHoodAngleUp) {
       public boolean runsWhenDisabled() {
@@ -494,7 +494,7 @@ public class RobotContainer {
       NamedCommands.registerCommand("AutomaticClimb", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
-      NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED_RPS));
+      NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, hopper));
       NamedCommands.registerCommand("FeedShooterAntiStall", new FeedShooterAntiHopperStall(hopper, indexer));
     } else {
       NamedCommands.registerCommand("RunIndexer", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));

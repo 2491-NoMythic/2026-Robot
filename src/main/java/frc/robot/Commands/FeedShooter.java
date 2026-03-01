@@ -7,22 +7,20 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Intake;
+import frc.robot.settings.Constants.IntakeConstants;
 import frc.robot.subsystems.Hopper;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class FeedShooter extends Command {
   Indexer indexer;
   Hopper hopper;
-  double indexerSpeed;
-  double motorRollerSpeed;
   Timer timer;
   
   /** Creates a new RunIndexer. */
-  public FeedShooter(Indexer indexer, double indexerSpeed, Hopper hopper, double motorRollerSpeed) {
+  public FeedShooter(Indexer indexer, Hopper hopper) {
     this.indexer = indexer;
     this.hopper = hopper;
-    this.indexerSpeed = indexerSpeed;
-    this.motorRollerSpeed = motorRollerSpeed;
     timer = new Timer();
     addRequirements(hopper, indexer);
   }
@@ -40,9 +38,9 @@ public class FeedShooter extends Command {
     ) {
       indexer.set(-0.5);
     } else {
-      indexer.setVelocity(indexerSpeed);
+      indexer.feedShooter();
     }
-    hopper.setVelocity(motorRollerSpeed);
+    hopper.feedIndexer();
   }
 
   // Called once the command ends or is interrupted.

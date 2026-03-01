@@ -47,6 +47,13 @@ public class Intake extends SubsystemBase {
   }
 
   /**
+   * runs the intake at the INTAKE_SPEED_RPS velocity
+   */
+  public void feedHopper() {
+    setVelocity(INTAKE_SPEED_RPS);
+  }
+
+  /**
    * Sets motor power to zero
    */
   public void stopWheels() {
