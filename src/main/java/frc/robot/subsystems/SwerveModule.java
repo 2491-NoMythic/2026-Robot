@@ -200,8 +200,8 @@ public class SwerveModule {
           m_driveControl
               .withVelocity(m_desiredDriveSpeed)
               .withFeedForward(
-                  (m_desiredDriveSpeed / DriveConstants.MAX_VELOCITY_RPS_EMPIRICAL)
-                      * 12)); // TODO verify that this feedforward is effective
+                  (m_desiredDriveSpeed * DriveConstants.k_DRIVE_FF_V)
+)); // TODO verify that this feedforward is effective
     }
     m_steerMotor.setControl(m_steerControl.withPosition(m_desiredSteerAngle));
 

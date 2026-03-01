@@ -62,6 +62,7 @@ import frc.robot.Commands.ClimberArmDown;
 import frc.robot.Commands.ClimberArmUp;
 import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.Drive;
+import frc.robot.Commands.DriveConstantSpeed;
 import frc.robot.Commands.Expand;
 import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
@@ -257,6 +258,10 @@ public class RobotContainer {
     new Trigger(crossBumpTowardsAllianceSup).whileTrue(new OverBump(drivetrain, 3));
     new Trigger(TrenchAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, true, false));
     new Trigger(BumpAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, false, true));
+
+    SmartDashboard.putData("DriveConstant1", new DriveConstantSpeed(drivetrain, 1, 2));
+    SmartDashboard.putData("DriveConstant2", new DriveConstantSpeed(drivetrain, 2, 2));
+    SmartDashboard.putData("DriveConstant3", new DriveConstantSpeed(drivetrain, 3, 1.5));
   }
 
   private void configureDriveTrain() {
@@ -468,7 +473,7 @@ public class RobotContainer {
   private void registerNamedCommands(){
     Command AcrossBumpAwayFromAlliance = new SelectCommand<>(
       Map.ofEntries(
-        Map.entry(true, new OverBump(drivetrain, 1.5)),
+        Map.entry(true, new OverBump(drivetrain, 2.5)),
         Map.entry(false, new OverBump(drivetrain, -1.5))
       ),
       ()->DriverStation.getAlliance().get() == Alliance.Blue);
