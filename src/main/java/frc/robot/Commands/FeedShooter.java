@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.RobotState;
 import frc.robot.settings.Constants.IntakeConstants;
 import frc.robot.subsystems.Hopper;
 
@@ -28,6 +29,7 @@ public class FeedShooter extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    RobotState.getInstance().feedingShooter = true;
     timer.start();
   }
 
@@ -46,6 +48,7 @@ public class FeedShooter extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotState.getInstance().feedingShooter = true;
     indexer.stop();
     hopper.setHopperRoller(0);
     timer.stop();
