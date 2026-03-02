@@ -48,6 +48,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -524,7 +525,7 @@ public class RobotContainer {
     }
     if(INTAKE_EXISTS) {
       NamedCommands.registerCommand("Outtake", new Outtake(intake));
-      NamedCommands.registerCommand("Expand", new Expand(intake));
+      NamedCommands.registerCommand("Expand", new Expand(intake).withDeadline(new WaitCommand(0.5)));
       NamedCommands.registerCommand("RunOnlyIntake", new InstantCommand(()->intake.feedHopper(), intake));
       if(HOPPER_EXISTS) {
         NamedCommands.registerCommand("Intake", new RunIntake(intake, hopper));

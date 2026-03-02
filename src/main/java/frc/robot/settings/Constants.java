@@ -106,11 +106,11 @@ public final class Constants {
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
       .withHardwareLimitSwitch(new HardwareLimitSwitchConfigs()
-        .withForwardLimitEnable(true)
+        .withForwardLimitEnable(false)//true
         .withForwardLimitRemoteSensorID(FR_STEER_MOTOR_ID)
         .withForwardLimitSource(ForwardLimitSourceValue.RemoteTalonFX)
         .withForwardLimitType(ForwardLimitTypeValue.NormallyOpen)
-        .withReverseLimitEnable(true)
+        .withReverseLimitEnable(false)//true
         .withReverseLimitRemoteSensorID(FR_STEER_MOTOR_ID)
         .withReverseLimitSource(ReverseLimitSourceValue.RemoteTalonFX)
         .withReverseLimitType(ReverseLimitTypeValue.NormallyOpen));
