@@ -114,7 +114,7 @@ public class Shooter extends SubsystemBase {
       SmartDashboard.putString("ShooterCurrentCommand", "null");
     }
 
-    if (autoRetractOn) {
+    if (false)/**used to be autorectracton*/ {
       //logic below checks if robot is in one of four squares around the trenches
       double x = RobotState.getInstance().robotPosition.getX();
       double y = RobotState.getInstance().robotPosition.getY();
