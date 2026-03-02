@@ -81,13 +81,14 @@ public class AimRobot extends Command {
       rotationSpeed,
       drivetrain.getOdometryRotation()));
     SmartDashboard.putNumber("angle targeting error", rotationController.getError());
-    RobotState.getInstance().Aimed = rotationController.getError() < 2;
+    RobotState.getInstance().Aimed = Math.abs(rotationController.getError()) < 2;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     RobotState.getInstance().Aimed = false;
+    drivetrain.stop();
   }
 
   // Returns true when the command should end.

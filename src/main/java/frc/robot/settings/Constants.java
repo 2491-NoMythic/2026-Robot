@@ -124,8 +124,7 @@ public final class Constants {
   public static final class IndexerConstants{
     public static final int INDEXER_MOTOR_1_ID= 11;//right motor (leader)
     public static final int INDEXER_MOTOR_2_ID= 12;//left motor (follower)
-    public static final double INDEXER_FEEDING_SPEED_RPS = 58;
-    public static final double INDEXER_FEEDING_RPS = 10;
+    public static final double INDEXER_FEEDING_RPS = 60;
 
     public static TalonFXConfiguration INDEXER_RIGHT_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
@@ -326,7 +325,7 @@ public final class Constants {
     public static final double k_DRIVE_I = 0;
     public static final double k_DRIVE_D = 0;
     public static final double k_DRIVE_FF_S = 0;
-    public static final double k_DRIVE_FF_V = 0;
+    public static final double k_DRIVE_FF_V = 0.45;
     public static final double DRIVE_DEADBAND_MPS = 0.01;
     public static final double DRIVE_MOTOR_RAMP = 0.1;
     public static final double DRIVE_CURRENT_LIMIT = 30;

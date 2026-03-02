@@ -66,13 +66,17 @@ public class Shooter extends SubsystemBase {
     shootMotor1.setControl(new VelocityVoltage(speed));
   }
 
+  public boolean isAtSpeed() {
+    return shootMotor1.getVelocity().getValueAsDouble() > 24;
+  }
+
   /**
    * sends a positionVoltage request to the hood motor
    * @param angle angle to set the hood to, in radians
    */
   public void setHoodAngle(double angle, boolean autoRetract){
     desiredPosition = InchPositionToActuatorConstrainedPercent(                                                                   //54.328 degrees
-      MythicalMath.ServoExtensionToReachHoodAngle(angle, 6.610, 8.134, 4.914, 0.948202476)
+      MythicalMath.ServoExtensionToReachHoodAngle(angle, 6.610, 8.134, 4.914, 54.328)
     );
     
     autoRetractOn = autoRetract;
@@ -104,8 +108,13 @@ public class Shooter extends SubsystemBase {
     inputs.shootMotor.log(shootMotor1);
     inputs.shootMotor.log(shootMotor2);
     Logger.processInputs("Shooter", inputs);
+    if(this.getCurrentCommand() != null) {
+      SmartDashboard.putString("ShooterCurrentCommand", this.getCurrentCommand().toString());
+    } else {
+      SmartDashboard.putString("ShooterCurrentCommand", "null");
+    }
 
-    if (autoRetractOn) {
+    if (false)/**used to be autorectracton*/ {
       //logic below checks if robot is in one of four squares around the trenches
       double x = RobotState.getInstance().robotPosition.getX();
       double y = RobotState.getInstance().robotPosition.getY();

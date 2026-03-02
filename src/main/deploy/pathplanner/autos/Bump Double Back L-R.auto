@@ -7,19 +7,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Expand"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.0
+            "name": "AcrossBumpAwayFromAlliance"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Bump to Collect BL"
+            "pathName": "AG L OverBump to CollectBL"
           }
         },
         {
@@ -42,27 +36,71 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Return L-R"
+            "name": "ShooterOn"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "OverBump"
+            "name": "AcrossBumpTowardsAlliance"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "RunIndexer"
+            "name": "RunOnlyIntake"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIndexer"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 8.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutomaticClimb"
           }
         }
       ]
     }
   },
-  "resetOdom": true,
+  "resetOdom": false,
   "folder": "Old Autos",
   "choreoAuto": false
 }

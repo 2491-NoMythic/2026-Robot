@@ -7,13 +7,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Expand"
+            "name": "AcrossBumpAwayFromAlliance"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Bump to Collect ML"
+            "pathName": "AG L OverBump to Collect"
           }
         },
         {
@@ -33,6 +33,18 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Return L"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShooterOn"
           }
         },
         {
@@ -58,6 +70,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RunOnlyIntake"
           }
         },
         {
@@ -88,7 +106,7 @@
       ]
     }
   },
-  "resetOdom": true,
+  "resetOdom": false,
   "folder": "Old Autos",
   "choreoAuto": false
 }

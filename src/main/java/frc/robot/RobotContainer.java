@@ -62,6 +62,7 @@ import frc.robot.Commands.ClimberArmDown;
 import frc.robot.Commands.ClimberArmUp;
 import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.Drive;
+import frc.robot.Commands.DriveConstantSpeed;
 import frc.robot.Commands.Expand;
 import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
@@ -181,7 +182,6 @@ public class RobotContainer {
     ManualLeftTrenchShotSup = operatorController::getXButton;
     ManualRightTrenchShotSup = operatorController::getBButton;
     //Shooting Command is Right Trigger on drive controller. 
-
     //Climber controls
     AutoClimbSup = () -> driveController.getStartButton() && driveController.getBackButton();
     ClimberUpSup = operatorController::getLeftBumperButton;
@@ -258,6 +258,10 @@ public class RobotContainer {
     new Trigger(crossBumpTowardsAllianceSup).whileTrue(new OverBump(drivetrain, 3));
     new Trigger(TrenchAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, true, false));
     new Trigger(BumpAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, false, true));
+
+    SmartDashboard.putData("DriveConstant1", new DriveConstantSpeed(drivetrain, 1, 2));
+    SmartDashboard.putData("DriveConstant2", new DriveConstantSpeed(drivetrain, 2, 2));
+    SmartDashboard.putData("DriveConstant3", new DriveConstantSpeed(drivetrain, 3, 1.5));
   }
 
   private void configureDriveTrain() {
@@ -295,7 +299,7 @@ public class RobotContainer {
     shooter = new Shooter();
     shooter.setDefaultCommand(new AimHood(shooter));
     new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
-    new Trigger(ForceHoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
+    new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
     new Trigger(ShooterToggleSup).onTrue(new InstantCommand(()->shooterOn = !shooterOn));
     new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
@@ -331,9 +335,6 @@ public class RobotContainer {
   
   private void indexerInit() {
     indexer = new Indexer();
-    new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, IndexerConstants.INDEXER_FEEDING_SPEED_RPS, hopper, HOPPER_ROLLER_SPEED_RPS));
-
-    new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED_RPS));
   }
 
   private void lightsInit() {
@@ -400,6 +401,10 @@ public class RobotContainer {
       new Trigger(ManualRightTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.RightTrench));
     }
 
+    if(INTAKE_EXISTS && INDEXER_EXISTS && HOPPER_EXISTS) {
+      new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper));  
+      new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, hopper));
+    }
     if (SHOOTER_EXISTS) {
     InstantCommand setServoAngleUp = new InstantCommand(shooter::setHoodAngleUp) {
       public boolean runsWhenDisabled() {
@@ -468,14 +473,14 @@ public class RobotContainer {
   private void registerNamedCommands(){
     Command AcrossBumpAwayFromAlliance = new SelectCommand<>(
       Map.ofEntries(
-        Map.entry(true, new OverBump(drivetrain, 1.5)),
-        Map.entry(false, new OverBump(drivetrain, -1.5))
+        Map.entry(true, new OverBump(drivetrain, 3)),
+        Map.entry(false, new OverBump(drivetrain, -3))
       ),
       ()->DriverStation.getAlliance().get() == Alliance.Blue);
     Command AcrossBumpTowardsAlliance = new SelectCommand<>(
       Map.ofEntries(
-        Map.entry(true, new OverBump(drivetrain, -1.5)), 
-        Map.entry(false, new OverBump(drivetrain, 1.5))
+        Map.entry(true, new OverBump(drivetrain, -3)), 
+        Map.entry(false, new OverBump(drivetrain, 3))
       ),
       ()->DriverStation.getAlliance().get() == Alliance.Blue);
     NamedCommands.registerCommand("AcrossBumpAwayFromAlliance", AcrossBumpAwayFromAlliance);
@@ -487,32 +492,36 @@ public class RobotContainer {
     if(CLIMBER_EXISTS) {
       NamedCommands.registerCommand("ClimberArmUp", new ClimberArmUp(climber));
       NamedCommands.registerCommand("ClimberArmDown", new ClimberArmDown(climber));
-      NamedCommands.registerCommand("AutomaticClimb", new AutomaticClimb(drivetrain, climber));
+      NamedCommands.registerCommand("AutomaticClimb", new AutomaticClimb(drivetrain, climber, shooter));
     } else {
       NamedCommands.registerCommand("ClimberArmUp", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("ClimberArmDown", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("AutomaticClimb", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
-      NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, Z_AXIS, hopper, HOPPER_ROLLER_SPEED_RPS));
+      NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, hopper));
       NamedCommands.registerCommand("FeedShooterAntiStall", new FeedShooterAntiHopperStall(hopper, indexer));
     } else {
       NamedCommands.registerCommand("RunIndexer", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("FeedShooterAntiStall", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(SHOOTER_EXISTS) {
-      NamedCommands.registerCommand("ShooterVelocity", new RunShooterVelocity(shooter, Z_AXIS));
+      NamedCommands.registerCommand("ShooterOn", new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter));
+      NamedCommands.registerCommand("WaitUntilShooterIsSpooled", new WaitUntilCommand(()->shooter.isAtSpeed()));
     } else {
-      NamedCommands.registerCommand("ShooterVelocity", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+      NamedCommands.registerCommand("ShooterOn", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+      NamedCommands.registerCommand("WaitUntilShooterIsSpooled", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(INTAKE_EXISTS) {
       NamedCommands.registerCommand("Outtake", new Outtake(intake));
       NamedCommands.registerCommand("Expand", new Expand(intake));
+      NamedCommands.registerCommand("RunOnlyIntake", new InstantCommand(()->intake.feedHopper(), intake));
       if(HOPPER_EXISTS) {
         NamedCommands.registerCommand("Intake", new RunIntake(intake, hopper));
       }
     } else {
       NamedCommands.registerCommand("Intake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+      NamedCommands.registerCommand("RunOnlyIntake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("Outtake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("Expand", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }

@@ -5,21 +5,59 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "Expand"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "RunIndexer"
+            "name": "ShooterOn"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "collect preset climb"
+            "name": "WaitUntilShooterIsSpooled"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RunOnlyIntake"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIndexer"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 8.0
+                }
+              }
+            ]
           }
         },
         {
@@ -31,7 +69,7 @@
       ]
     }
   },
-  "resetOdom": true,
+  "resetOdom": false,
   "folder": "Finalized",
   "choreoAuto": false
 }
