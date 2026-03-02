@@ -66,6 +66,10 @@ public class Shooter extends SubsystemBase {
     shootMotor1.setControl(new VelocityVoltage(speed));
   }
 
+  public boolean isAtSpeed() {
+    return shootMotor1.getVelocity().getValueAsDouble() > 24;
+  }
+
   /**
    * sends a positionVoltage request to the hood motor
    * @param angle angle to set the hood to, in radians

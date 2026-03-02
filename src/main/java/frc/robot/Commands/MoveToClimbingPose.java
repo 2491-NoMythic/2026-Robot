@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
@@ -30,15 +31,15 @@ public class MoveToClimbingPose extends Command {
 
     if (DriverStation.getAlliance().get() == Alliance.Red){
       if (drivetrain.getPose().getY() > 4.3){
-        targetPose = new Pose2d(15.5, 5.2, new Rotation2d(Math.PI));
+        targetPose = new Pose2d(15.5, 5.2, new Rotation2d(0));
       } else {
-        targetPose = new Pose2d(15.5, 3.4, new Rotation2d(0));
+        targetPose = new Pose2d(15.5, 3.4, new Rotation2d(Math.PI));
       }
     } else {
       if (drivetrain.getPose().getY() > 3.73){
-        targetPose = new Pose2d(1.1, 4.6, new Rotation2d(Math.PI));
+        targetPose = new Pose2d(1.1, 4.6, new Rotation2d(0));
       } else {
-        targetPose = new Pose2d(1.1, 2.9, new Rotation2d(0));
+        targetPose = new Pose2d(1.1, 2.9, new Rotation2d(Math.PI));
       }
     }
   }
@@ -53,6 +54,8 @@ public class MoveToClimbingPose extends Command {
     } else {
       cyclesGood = 0;
     }
+    SmartDashboard.putNumber("DRIVETOPOSE/cyclesgood", cyclesGood);
+    SmartDashboard.putBoolean("DRIVETOPOSE/isAtRotationTarget", drivetrain.isAtRotationTarget());
   }
 
   // Called once the command ends or is interrupted.

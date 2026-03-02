@@ -38,6 +38,12 @@
         {
           "type": "named",
           "data": {
+            "name": "ShooterOn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "AcrossBumpTowardsAlliance"
           }
         },

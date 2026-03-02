@@ -57,7 +57,7 @@ public final class Constants {
     public static final boolean INTAKE_EXISTS = true;
     public static final boolean INDEXER_EXISTS = true;
     public static final boolean DRIVE_TRAIN_EXISTS = true;
-    public static final boolean LIMELIGHTS_EXIST = false;
+    public static final boolean LIMELIGHTS_EXIST = true;
     public static final boolean LIGHTS_EXIST = false;
     public static final boolean HOPPER_EXISTS = true;
   }
@@ -124,8 +124,7 @@ public final class Constants {
   public static final class IndexerConstants{
     public static final int INDEXER_MOTOR_1_ID= 11;//right motor (leader)
     public static final int INDEXER_MOTOR_2_ID= 12;//left motor (follower)
-    public static final double INDEXER_FEEDING_SPEED_RPS = 58;
-    public static final double INDEXER_FEEDING_RPS = 10;
+    public static final double INDEXER_FEEDING_RPS = 60;
 
     public static TalonFXConfiguration INDEXER_RIGHT_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()

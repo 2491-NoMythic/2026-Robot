@@ -492,7 +492,7 @@ public class RobotContainer {
     if(CLIMBER_EXISTS) {
       NamedCommands.registerCommand("ClimberArmUp", new ClimberArmUp(climber));
       NamedCommands.registerCommand("ClimberArmDown", new ClimberArmDown(climber));
-      NamedCommands.registerCommand("AutomaticClimb", new AutomaticClimb(drivetrain, climber));
+      NamedCommands.registerCommand("AutomaticClimb", new AutomaticClimb(drivetrain, climber, shooter));
     } else {
       NamedCommands.registerCommand("ClimberArmUp", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("ClimberArmDown", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
@@ -506,18 +506,22 @@ public class RobotContainer {
       NamedCommands.registerCommand("FeedShooterAntiStall", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(SHOOTER_EXISTS) {
-      NamedCommands.registerCommand("ShooterVelocity", new RunShooterVelocity(shooter, Z_AXIS));
+      NamedCommands.registerCommand("ShooterOn", new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter));
+      NamedCommands.registerCommand("WaitUntilShooterIsSpooled", new WaitUntilCommand(()->shooter.isAtSpeed()));
     } else {
-      NamedCommands.registerCommand("ShooterVelocity", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+      NamedCommands.registerCommand("ShooterOn", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+      NamedCommands.registerCommand("WaitUntilShooterIsSpooled", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(INTAKE_EXISTS) {
       NamedCommands.registerCommand("Outtake", new Outtake(intake));
       NamedCommands.registerCommand("Expand", new Expand(intake));
+      NamedCommands.registerCommand("RunOnlyIntake", new InstantCommand(()->intake.feedHopper(), intake));
       if(HOPPER_EXISTS) {
         NamedCommands.registerCommand("Intake", new RunIntake(intake, hopper));
       }
     } else {
       NamedCommands.registerCommand("Intake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+      NamedCommands.registerCommand("RunOnlyIntake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("Outtake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("Expand", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
