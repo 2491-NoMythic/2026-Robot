@@ -123,6 +123,7 @@ public class RobotState {
           return;
         }
       }
+      currentPhase = nullPhase;
     } else {
       currentPhase = nullPhase;
     }
