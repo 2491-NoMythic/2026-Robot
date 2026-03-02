@@ -130,7 +130,7 @@ public class Robot extends LoggedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() { // not sure what we do here
-    RobotContainer.autonomousPeriodic();
+    RobotContainer.getInstance().autonomousPeriodic();
   }
 
   @Override
