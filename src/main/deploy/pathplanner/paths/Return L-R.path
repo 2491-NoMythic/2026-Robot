@@ -8,7 +8,7 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.466658926674623,
+        "x": 6.466658926674622,
         "y": 5.410157361335842
       },
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Return to Hub",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": -93.62990750985051
+    "rotation": 0.3926380095529355
   },
   "useDefaultConstraints": true
 }

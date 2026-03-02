@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.248373493975904,
-        "y": 7.3023855421686745
+        "x": 5.9423975903614465,
+        "y": 7.378879518072289
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.245,
+        "x": 7.757,
         "y": 7.0
       },
       "prevControl": {
-        "x": 8.193506024096386,
+        "x": 7.705506024096387,
         "y": 7.8269156626506025
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Collect ML"
+      "linkedName": "Collect BL"
     }
   ],
   "rotationTargets": [],

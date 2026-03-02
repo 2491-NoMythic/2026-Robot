@@ -73,6 +73,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "RunOnlyIntake"
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [

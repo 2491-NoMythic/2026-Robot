@@ -94,6 +94,10 @@
       "rotationDegrees": 90.0
     },
     {
+      "waypointRelativePos": 3.966804979253102,
+      "rotationDegrees": 89.52531871796867
+    },
+    {
       "waypointRelativePos": 4.0,
       "rotationDegrees": 90.0
     }
@@ -125,12 +129,12 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -93.62990750985051
+    "rotation": 0.3926380095529355
   },
   "reversed": false,
   "folder": "Old Paths",
   "idealStartingState": {
-    "velocity": 3.0,
+    "velocity": 1.0,
     "rotation": -90.0
   },
   "useDefaultConstraints": true
