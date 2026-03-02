@@ -324,9 +324,9 @@ public class RobotContainer {
     if(HOPPER_EXISTS) {
       new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunIntake(intake, hopper));
     } else {
-      new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunCommand(()->intake.feedHopper(), intake));
+      new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunCommand(()->intake.feedHopper(), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     }
-    new Trigger(()->IntakeWheelSup.getAsBoolean() && RobotState.getInstance().feedingShooter).whileTrue(new RunCommand(()->intake.feedHopper(), intake));
+    new Trigger(()->IntakeWheelSup.getAsBoolean() && RobotState.getInstance().feedingShooter).whileTrue(new RunCommand(()->intake.feedHopper(), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
   }
 
   private void climberInit() {

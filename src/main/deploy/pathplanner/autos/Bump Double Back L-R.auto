@@ -11,9 +11,9 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "AG L OverBump to CollectBL"
+            "name": "Expand"
           }
         },
         {
