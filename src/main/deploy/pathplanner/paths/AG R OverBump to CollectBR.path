@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.9423975903614465,
-        "y": 5.532096385542169
+        "x": 5.898686746987952,
+        "y": 2.4941927710843377
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.9423975903614465,
-        "y": 7.378879518072289
+        "x": 6.390433734939759,
+        "y": 0.5053493975903618
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.757,
-        "y": 7.0
+        "x": 8.245,
+        "y": 1.063
       },
       "prevControl": {
-        "x": 7.705506024096387,
-        "y": 7.8269156626506025
+        "x": 8.324638554216868,
+        "y": 0.3960722891566273
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Collect BL"
+      "linkedName": "Collect MR"
     }
   ],
   "rotationTargets": [],
@@ -34,7 +34,7 @@
   "eventMarkers": [
     {
       "name": "Expand",
-      "waypointRelativePos": 0.11017369727047664,
+      "waypointRelativePos": 0.04069478908188725,
       "endWaypointRelativePos": null,
       "command": null
     },
@@ -55,7 +55,7 @@
   },
   "goalEndState": {
     "velocity": 1.0,
-    "rotation": -90.0
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "To Collect",
