@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.600295454545455,
-        "y": 2.499284090909091
+        "x": 6.52156626506024,
+        "y": 2.5488313253012054
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.182383793020486,
-        "y": 2.5397737338839805
+        "x": 6.103654603535272,
+        "y": 2.5893209682760947
       },
       "isLocked": false,
       "linkedName": "Return R-L"
@@ -48,7 +48,7 @@
   "folder": "Return to Hub",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": -86.81576130672597
+    "rotation": 1.2188752351312102
   },
   "useDefaultConstraints": true
 }

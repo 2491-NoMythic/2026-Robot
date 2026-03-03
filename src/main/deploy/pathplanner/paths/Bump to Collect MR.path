@@ -3,48 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.337,
-        "y": 2.5666010733452596
+        "x": 5.854975903614458,
+        "y": 2.5816144578313254
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.001756111661919,
-        "y": 2.7104583419070827
+        "x": 6.936819277108433,
+        "y": 0.38514457831325233
       },
       "isLocked": false,
       "linkedName": "Right Bump Start"
-    },
-    {
-      "anchor": {
-        "x": 5.381878354203935,
-        "y": 2.5666010733452596
-      },
-      "prevControl": {
-        "x": 5.07796720128426,
-        "y": 2.7413658966149885
-      },
-      "nextControl": {
-        "x": 5.810980176749785,
-        "y": 2.319845061065037
-      },
-      "isLocked": false,
-      "linkedName": "Right Trench Start P1"
-    },
-    {
-      "anchor": {
-        "x": 6.420304114490161,
-        "y": 1.2036672629695886
-      },
-      "prevControl": {
-        "x": 5.901072529084575,
-        "y": 1.5683311712389405
-      },
-      "nextControl": {
-        "x": 6.869878201595318,
-        "y": 0.8879248307515413
-      },
-      "isLocked": false,
-      "linkedName": "Right Trench Start P2"
     },
     {
       "anchor": {
@@ -52,8 +20,8 @@
         "y": 1.063
       },
       "prevControl": {
-        "x": 7.9131067207484636,
-        "y": 1.0845032972444042
+        "x": 8.245,
+        "y": 0.4041897471241812
       },
       "nextControl": null,
       "isLocked": true,
@@ -62,7 +30,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.1283783783783756,
+      "waypointRelativePos": 0.3,
       "rotationDegrees": 0.0
     }
   ],
@@ -78,7 +46,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
+    "velocity": 1.0,
     "rotation": 90.0
   },
   "reversed": false,
