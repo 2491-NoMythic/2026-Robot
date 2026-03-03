@@ -63,7 +63,7 @@ public final class Constants {
   }
 
   public static final class ShooterConstants{
-    public static final float SHOOTING_SPEED_MPS = 7;
+    public static final float SHOOTING_SPEED_MPS = 7.3f;
     public static final float SHOOTING_SPEED_RPS = 25;
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
@@ -106,11 +106,11 @@ public final class Constants {
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
       .withHardwareLimitSwitch(new HardwareLimitSwitchConfigs()
-        .withForwardLimitEnable(true)
+        .withForwardLimitEnable(false)//true
         .withForwardLimitRemoteSensorID(FR_STEER_MOTOR_ID)
         .withForwardLimitSource(ForwardLimitSourceValue.RemoteTalonFX)
         .withForwardLimitType(ForwardLimitTypeValue.NormallyOpen)
-        .withReverseLimitEnable(true)
+        .withReverseLimitEnable(false)//true
         .withReverseLimitRemoteSensorID(FR_STEER_MOTOR_ID)
         .withReverseLimitSource(ReverseLimitSourceValue.RemoteTalonFX)
         .withReverseLimitType(ReverseLimitTypeValue.NormallyOpen));

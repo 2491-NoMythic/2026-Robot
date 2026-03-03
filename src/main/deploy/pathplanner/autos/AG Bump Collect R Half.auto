@@ -11,9 +11,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Expand"
+            "pathName": "AG R OverBump to CollectBR"
           }
         },
         {
@@ -44,6 +44,12 @@
         {
           "type": "named",
           "data": {
+            "name": "ShooterOn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "AcrossBumpTowardsAlliance"
           }
         },
@@ -64,6 +70,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RunOnlyIntake"
           }
         },
         {

@@ -36,6 +36,7 @@ public class RobotState {
   public HopperState hopperState;
   public boolean halfFullSwitchTriggered;
   public boolean fullSwitchTriggered;
+  public boolean feedingShooter;
 
   public double aimingPitch;
   public double aimingYaw;
@@ -123,6 +124,7 @@ public class RobotState {
           return;
         }
       }
+      currentPhase = nullPhase;
     } else {
       currentPhase = nullPhase;
     }

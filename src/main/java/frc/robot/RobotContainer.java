@@ -48,6 +48,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -153,6 +154,8 @@ public class RobotContainer {
   public static HashMap<String, Command> eventMap;
 
   public RobotContainer() {
+
+    autoTimer = new Timer();
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -321,8 +324,11 @@ public class RobotContainer {
     new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
     
     if(HOPPER_EXISTS) {
-      new Trigger(IntakeWheelSup).whileTrue(new RunIntake(intake, hopper));
+      new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunIntake(intake, hopper));
+    } else {
+      new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunCommand(()->intake.feedHopper(), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     }
+    new Trigger(()->IntakeWheelSup.getAsBoolean() && RobotState.getInstance().feedingShooter).whileTrue(new RunCommand(()->intake.feedHopper(), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
   }
 
   private void climberInit() {
@@ -430,7 +436,6 @@ public class RobotContainer {
   }
 
   public void autonomousInit() {
-    autoTimer = new Timer();
     autoTimer.reset();
     autoTimer.start();
 
@@ -524,7 +529,7 @@ public class RobotContainer {
     }
     if(INTAKE_EXISTS) {
       NamedCommands.registerCommand("Outtake", new Outtake(intake));
-      NamedCommands.registerCommand("Expand", new Expand(intake));
+      NamedCommands.registerCommand("Expand", new Expand(intake).withDeadline(new WaitCommand(0.5)));
       NamedCommands.registerCommand("RunOnlyIntake", new InstantCommand(()->intake.feedHopper(), intake));
       if(HOPPER_EXISTS) {
         NamedCommands.registerCommand("Intake", new RunIntake(intake, hopper));

@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.HopperInputsAutoLogged;
 
@@ -82,5 +83,10 @@ public class Hopper extends SubsystemBase {
     inputs.tallMotorInput.log(hopperRollerMotor);
 
     Logger.processInputs("Hopper", inputs);
-}
+    if(this.getCurrentCommand() != null) {
+      SmartDashboard.putString("HopperCurrentCommand", this.getCurrentCommand().toString());
+    } else {
+      SmartDashboard.putString("HopperCurrentCommand", "null");
+    }
+  }
 }
