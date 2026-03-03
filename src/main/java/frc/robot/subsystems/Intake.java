@@ -10,6 +10,7 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.TalonFXS;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.IntakeInputsAutoLogged;
 
@@ -97,6 +98,10 @@ public class Intake extends SubsystemBase {
     inputs.forwardLimitSwitch = deployer.getForwardLimit().getValueAsDouble() > 0.5;
     inputs.reverseLimitSwitch = deployer.getReverseLimit().getValueAsDouble() > 0.5;
     Logger.processInputs("Intake", inputs);
+    if(this.getCurrentCommand() != null) {
+    } else {
+      SmartDashboard.putString("IntakeCurrentCommand", "null");
+    }
   }
 
 }
