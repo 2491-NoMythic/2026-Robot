@@ -155,6 +155,8 @@ public class RobotContainer {
 
   public RobotContainer() {
 
+    autoTimer = new Timer();
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -434,7 +436,6 @@ public class RobotContainer {
   }
 
   public void autonomousInit() {
-    autoTimer = new Timer();
     autoTimer.reset();
     autoTimer.start();
 
