@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.ClimberInputsAutoLogged;
 import frc.robot.settings.ClimberState;
@@ -37,13 +38,13 @@ public class Climber extends SubsystemBase {
    * raises the climber arm, lowering the robot unless the climber has reached the soft limit, which is relative to the climbers start position when code was deployed
    */
   public void climberUp() {
-    desiredSpeed = -0.5;
+    desiredSpeed = 0.5;
   }
   /**
    *Lowers the climber arm, lifting the robot.
    */
   public void climberDown() {
-    desiredSpeed = 0.5;
+    desiredSpeed = -0.5;
   }
 
   public boolean getHallEffect() {
@@ -76,6 +77,9 @@ public class Climber extends SubsystemBase {
       motor.setPosition(HALL_EFFECT_HEIGHT);
     }
 
+    if(inputs.motor.position < 0){
+      climberState = ClimberState.Down;
+    } 
     /**
     *When the climber goes above max height, stops it and sets the Climber Postion to Up.
     *Sets the Climber Position to Lowering/Raising when it is doing the respective action, then when we want the climber to be stopped, sets the Climber Position to Down.
@@ -84,9 +88,6 @@ public class Climber extends SubsystemBase {
       motor.stopMotor();
       climberState = ClimberState.Up;
     } else if(desiredSpeed < 0 && climberState == ClimberState.Down) {
-      motor.stopMotor();
-    } else if(inputs.motor.current > 40){
-      climberState = ClimberState.Down;
       motor.stopMotor();
     } else {
       motor.set(desiredSpeed);
@@ -101,5 +102,6 @@ public class Climber extends SubsystemBase {
       }
     }
     RobotState.getInstance().climberState = climberState;
+    SmartDashboard.putString("ClimberState", climberState.toString());
   }
 }
