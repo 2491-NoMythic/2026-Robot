@@ -11,9 +11,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Bump to Collect MR"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Bump to Collect MR"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Expand"
+                }
+              }
+            ]
           }
         },
         {
@@ -100,7 +113,7 @@
       ]
     }
   },
-  "resetOdom": true,
+  "resetOdom": false,
   "folder": "Old Autos",
   "choreoAuto": false
 }

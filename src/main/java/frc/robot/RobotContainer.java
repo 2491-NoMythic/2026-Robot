@@ -529,7 +529,7 @@ public class RobotContainer {
     }
     if(INTAKE_EXISTS) {
       NamedCommands.registerCommand("Outtake", new Outtake(intake));
-      NamedCommands.registerCommand("Expand", new Expand(intake).withDeadline(new WaitCommand(0.5)));
+      NamedCommands.registerCommand("Expand", new Expand(intake).withDeadline(new WaitCommand(1)));
       NamedCommands.registerCommand("RunOnlyIntake", new InstantCommand(()->intake.feedHopper(), intake));
       if(HOPPER_EXISTS) {
         NamedCommands.registerCommand("Intake", new RunIntake(intake, hopper));
