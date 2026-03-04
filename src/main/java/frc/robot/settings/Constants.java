@@ -87,7 +87,7 @@ public final class Constants {
   public static final class ClimberConstants{
     public static final int CLIMBER_MOTOR_ID = 16;
     public static final int HALL_EFFECT_ID = 6;
-    public static final double CLIMBER_MAX_POSITION = 100;
+    public static final double CLIMBER_MAX_POSITION = 610;
     public static final double HALL_EFFECT_HEIGHT = 2491;
     public static TalonFXConfiguration CLIMBER_CONFIG = new TalonFXConfiguration()
       .withCurrentLimits(new CurrentLimitsConfigs()
