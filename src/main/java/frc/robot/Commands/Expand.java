@@ -18,6 +18,7 @@ public class Expand extends Command{
     @Override
     public void initialize() {
       intake.deployIntake();
+      intake.feedHopper();
     }
 
     @Override
