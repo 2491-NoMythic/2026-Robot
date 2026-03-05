@@ -76,7 +76,7 @@ public class AimRobot extends Command {
       invert = 1;
     }
 
-    if(Math.abs(joystickYSupplier.getAsDouble()) <  0.05 && Math.abs(joystickXSupplier.getAsDouble()) < 0.05 && RobotState.getInstance().Aimed) {
+    if(Math.abs(joystickYSupplier.getAsDouble()) <  0.01 && Math.abs(joystickXSupplier.getAsDouble()) < 0.01 && RobotState.getInstance().Aimed) {
       drivetrain.pointWheelsInward();
     } else {
       drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(
