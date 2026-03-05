@@ -467,6 +467,10 @@ public class RobotContainer {
 
   public void robotInit() {
     drivetrain.zeroGyroscope();
+    SmartDashboard.putNumber("DisplayMatchTime", -1);
+    SmartDashboard.putNumber("DisplayPhaseTime", -1);
+    SmartDashboard.putString("CurrentPhase", "NO FMS DATA YET");
+    SmartDashboard.putBoolean("HubActive", false);
   }
 
   public void teleopInit() {

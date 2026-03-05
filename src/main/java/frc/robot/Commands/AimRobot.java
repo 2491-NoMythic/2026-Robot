@@ -75,11 +75,16 @@ public class AimRobot extends Command {
     } else {
       invert = 1;
     }
-    drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(
-      joystickYSupplier.getAsDouble() * invert * MAX_VELOCITY_METERS_PER_SECOND,
-      joystickXSupplier.getAsDouble() * invert * MAX_VELOCITY_METERS_PER_SECOND,
-      rotationSpeed,
-      drivetrain.getOdometryRotation()));
+
+    if(Math.abs(joystickYSupplier.getAsDouble()) <  0.05 && Math.abs(joystickXSupplier.getAsDouble()) < 0.05 && RobotState.getInstance().Aimed) {
+      drivetrain.pointWheelsInward();
+    } else {
+      drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(
+        joystickYSupplier.getAsDouble() * invert * MAX_VELOCITY_METERS_PER_SECOND,
+        joystickXSupplier.getAsDouble() * invert * MAX_VELOCITY_METERS_PER_SECOND,
+        rotationSpeed,
+        drivetrain.getOdometryRotation()));
+      }
     SmartDashboard.putNumber("angle targeting error", rotationController.getError());
     RobotState.getInstance().Aimed = Math.abs(rotationController.getError()) < 2;
   }
