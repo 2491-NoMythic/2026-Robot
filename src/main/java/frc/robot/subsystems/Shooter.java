@@ -67,7 +67,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean isAtSpeed() {
-    return shootMotor1.getVelocity().getValueAsDouble() > 24;
+    return shootMotor1.getVelocity().getValueAsDouble() > 22;
   }
 
   /**
@@ -75,7 +75,7 @@ public class Shooter extends SubsystemBase {
    * @param angle angle to set the hood to, in radians
    */
   public void setHoodAngle(double angle, boolean autoRetract){
-    desiredPosition = InchPositionToActuatorConstrainedPercent(                                                                   //54.328 degrees
+    desiredPosition = InchPositionToActuatorConstrainedPercent(
       MythicalMath.ServoExtensionToReachHoodAngle(angle, 6.610, 8.134, 4.914, 54.328)
     );
     

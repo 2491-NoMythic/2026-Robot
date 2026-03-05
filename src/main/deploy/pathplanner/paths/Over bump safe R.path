@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 8.0,
-        "y": 1.0337111111111108
+        "x": 7.685333333333334,
+        "y": 1.072688888888888
       },
       "prevControl": {
-        "x": 8.079638554216869,
-        "y": 0.36678340026773815
+        "x": 7.764971887550203,
+        "y": 0.40576117804551526
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Collect MR"
+      "linkedName": "collect safe r"
     }
   ],
   "rotationTargets": [],

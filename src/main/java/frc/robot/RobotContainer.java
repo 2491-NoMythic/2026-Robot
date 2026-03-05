@@ -178,7 +178,7 @@ public class RobotContainer {
     IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
     ForceHoodDownSupplier = driveController::getBackButton;
 
-    HoodUpSupplier = () -> operatorController.getLeftTriggerAxis() > 0.5;
+    HoodUpSupplier = () -> operatorController.getPOV() == 0;
     HoodDownSupplier = () -> operatorController.getRightTriggerAxis() > 0.5;
     ShooterToggleSup = ()-> operatorController.getPOV() == 90;
     ManualHubShotSup = operatorController::getYButton;

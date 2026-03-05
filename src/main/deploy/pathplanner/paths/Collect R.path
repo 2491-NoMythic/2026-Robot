@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.245,
-        "y": 1.063
+        "x": 8.0,
+        "y": 1.0337111111111108
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.245,
-        "y": 1.4105069655922358
+        "x": 8.0,
+        "y": 1.3812180767033466
       },
       "isLocked": true,
       "linkedName": "Collect MR"

@@ -3,48 +3,35 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.898686746987952,
-        "y": 2.4941927710843377
+        "x": 5.9423975903614465,
+        "y": 5.532096385542169
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.390433734939759,
-        "y": 0.5053493975903618
+        "x": 5.9423975903614465,
+        "y": 7.378879518072289
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.0,
-        "y": 1.0337111111111108
+        "x": 7.763288888888889,
+        "y": 6.948588888888889
       },
       "prevControl": {
-        "x": 8.079638554216869,
-        "y": 0.36678340026773815
+        "x": 7.711794912985276,
+        "y": 7.775504551539491
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Collect MR"
+      "linkedName": "collect safe L"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "Expand",
-      "waypointRelativePos": 0.04069478908188725,
-      "endWaypointRelativePos": null,
-      "command": null
-    },
-    {
-      "name": "Intake",
-      "waypointRelativePos": 0.5766749379652598,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 2.5,
@@ -55,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 1.0,
-    "rotation": 90.0
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": "To Collect",
