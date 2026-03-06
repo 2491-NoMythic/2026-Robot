@@ -5,6 +5,7 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
@@ -30,11 +31,16 @@ public class JiggleIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setDeployer(-(3 * Math.sin(Math.toDegrees(timer.get())) + 0.7));
+    double intakeSpeed = -(3 * Math.sin(Math.toDegrees(timer.get())) + 0.7);
+    intake.setDeployer(intakeSpeed);
+    SmartDashboard.putNumber("sinewave intake speed", intakeSpeed);
   }
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intake.stopDeployer();
+    intake.stopWheels();
+  }
 
   // Returns true when the command should end.
   @Override

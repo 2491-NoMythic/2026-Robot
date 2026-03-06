@@ -421,11 +421,10 @@ public class RobotContainer {
 
       //if the hub is active when the button is pressed, go straight into shooting. If the hub is not active, wait until it is almost active, then start feeding.
       //if we start feeding before the hub is active, don't stop feeding until button is released, even when the hub becomes active.
-      new Trigger(()->IndexerSup.getAsBoolean() && RobotState.hubActive() && !RobotState.getInstance().feedingShooter).whileTrue(combinedFeedShooter);
-      new Trigger(()->IndexerSup.getAsBoolean() && !RobotState.hubActive()).onTrue(new SequentialCommandGroup(
-        new WaitUntilCommand(()->RobotState.getPhaseTimeLeft() < 2),
-        combinedFeedShooter
-      ).withDeadline(new WaitUntilCommand(()->!IndexerSup.getAsBoolean())));
+      new Trigger(()->IndexerSup.getAsBoolean() && RobotState.clearToShoot()).whileTrue(new ParallelCommandGroup(
+        new FeedShooter(indexer, hopper),
+        new JiggleIntake(intake)
+      ));
     }
     if (SHOOTER_EXISTS) {
     InstantCommand setServoAngleUp = new InstantCommand(shooter::setHoodAngleUp) {

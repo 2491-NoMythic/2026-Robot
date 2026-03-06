@@ -177,6 +177,10 @@ public class RobotState {
     }
   }
 
+  public static boolean clearToShoot() {
+    return (hubActive() || getPhaseTimeLeft() < 2);
+  }
+
   public static RobotState getInstance() {
     if (instance == null) {
       instance = new RobotState();
