@@ -46,9 +46,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -71,6 +73,7 @@ import frc.robot.Commands.Outtake;
 import frc.robot.Commands.OverBump;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.FeedShooterAntiHopperStall;
+import frc.robot.Commands.JiggleIntake;
 import frc.robot.Commands.LightsCommand;
 import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.LockYAxisForCrossing;
@@ -409,8 +412,20 @@ public class RobotContainer {
     }
 
     if(INTAKE_EXISTS && INDEXER_EXISTS && HOPPER_EXISTS) {
-      new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper));  
-      new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, hopper));
+      new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper));
+
+      Command combinedFeedShooter = new ParallelCommandGroup(
+        new FeedShooter(indexer, hopper),
+        new JiggleIntake(intake)
+      );
+
+      //if the hub is active when the button is pressed, go straight into shooting. If the hub is not active, wait until it is almost active, then start feeding.
+      //if we start feeding before the hub is active, don't stop feeding until button is released, even when the hub becomes active.
+      new Trigger(()->IndexerSup.getAsBoolean() && RobotState.hubActive() && !RobotState.getInstance().feedingShooter).whileTrue(combinedFeedShooter);
+      new Trigger(()->IndexerSup.getAsBoolean() && !RobotState.hubActive()).onTrue(new SequentialCommandGroup(
+        new WaitUntilCommand(()->RobotState.getPhaseTimeLeft() < 2),
+        combinedFeedShooter
+      ).withDeadline(new WaitUntilCommand(()->!IndexerSup.getAsBoolean())));
     }
     if (SHOOTER_EXISTS) {
     InstantCommand setServoAngleUp = new InstantCommand(shooter::setHoodAngleUp) {
@@ -521,7 +536,9 @@ public class RobotContainer {
       NamedCommands.registerCommand("AutomaticClimb", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
-      NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, hopper));
+      NamedCommands.registerCommand("RunIndexer", new ParallelCommandGroup(
+        new FeedShooter(indexer, hopper),
+        new JiggleIntake(intake)));
       NamedCommands.registerCommand("FeedShooterAntiStall", new FeedShooterAntiHopperStall(hopper, indexer));
     } else {
       NamedCommands.registerCommand("RunIndexer", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
