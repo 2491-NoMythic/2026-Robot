@@ -71,7 +71,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void deployIntake(){
-    setDeployer(2);
+    deployer.setControl(new VoltageOut(2));
   }
 
   public boolean getIsDeployed() {
@@ -83,11 +83,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void retractIntake(){
-    setDeployer(-2);
-  }
-
-  public void setDeployer(double volts) {
-    deployer.setControl(new VoltageOut(volts));
+    deployer.setControl(new VoltageOut(-2));
   }
 
   public void stopDeployer(){
