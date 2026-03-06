@@ -60,11 +60,11 @@ public class Hopper extends SubsystemBase {
    * sets the hopper rollers to the HOPPER_ROLLER_SPEED
    */
   public void feedIndexer() {
-    if(SmartDashboard.getBoolean("Old intake speed activate", true)) {
-      setVelocity(HOPPER_ROLLER_SPEED_RPS);
-    } else {
-      setVelocity(75);
-    }
+    // if(SmartDashboard.getBoolean("Old intake speed activate", true)) {
+    // } else {
+    //   setVelocity(75);
+    // }
+    setVelocity(HOPPER_ROLLER_SPEED_RPS);
   }
 
   /**

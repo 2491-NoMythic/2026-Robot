@@ -48,7 +48,7 @@ public class FeedShooter extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotState.getInstance().feedingShooter = false;
+    RobotState.getInstance().feedingShooter = true;
     indexer.stop();
     hopper.setHopperRoller(0);
     timer.stop();

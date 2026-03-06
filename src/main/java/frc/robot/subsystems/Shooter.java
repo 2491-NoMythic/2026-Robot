@@ -105,8 +105,8 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    inputs.shootMotor.log(shootMotor1);
-    inputs.shootMotor.log(shootMotor2);
+    inputs.shootMotorLead.log(shootMotor1);
+    inputs.shootMotorFollow.log(shootMotor2);
     Logger.processInputs("Shooter", inputs);
     SmartDashboard.putBoolean("SHOOTER/isAtSpeed", isAtSpeed());
     if(this.getCurrentCommand() != null) {
