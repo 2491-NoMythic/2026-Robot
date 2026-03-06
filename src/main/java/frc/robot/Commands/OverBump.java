@@ -24,10 +24,10 @@ public class OverBump extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new InstantCommand(()-> System.out.println("start")),
-      new RunCommand(()-> drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(new ChassisSpeeds(speedOverBump, 0, 0), drivetrain.getPose().getRotation())), drivetrain).withDeadline(new WaitUntilCommand(()->Math.abs(drivetrain.getPigeonPitch()) > 5 || Math.abs(drivetrain.getPigeonRoll()) > 5)),
+      new RunCommand(()-> drivetrain.drive(ChassisSpeeds.fromFieldRelativeSpeeds(new ChassisSpeeds(speedOverBump, 0, 0), drivetrain.getPose().getRotation())), drivetrain).withDeadline(new WaitCommand(0.5)),
       new WaitCommand(1),
       new InstantCommand(()-> System.out.println("rotating")),
-      new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0, 0, 0.5)), drivetrain),
+      new InstantCommand(()->drivetrain.turnToSeeAprilTag(), drivetrain),
       new InstantCommand(()-> System.out.println("wait for limelight update")),
       new WaitUntilCommand(()->RobotState.getInstance().LimelightsUpdated),
       new WaitCommand(0.4),

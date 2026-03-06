@@ -358,6 +358,23 @@ public class DrivetrainSubsystem extends SubsystemBase {
     setModule(3, new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
   }
 
+  public void turnToSeeAprilTag() {
+
+    //in this method, rightHalf refers to blue alliance side (higher X-coordinate). top half refers higher Y-coordinate
+    boolean rightHalf = false;
+    boolean topHalf = false;
+    if(getPose().getY() > 4) {
+      topHalf = true;
+    } 
+    if(getPose().getX() > 8.2) {
+      rightHalf = true;
+    }
+    if(topHalf^rightHalf) {
+      drive(new ChassisSpeeds(0, 0, -0.5));
+    } else {
+      drive(new ChassisSpeeds(0, 0, 0.5));
+    }
+  }
   /**
    * The function that actually lets us drive the robot.
    * 

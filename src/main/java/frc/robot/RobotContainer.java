@@ -46,6 +46,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
@@ -521,7 +522,9 @@ public class RobotContainer {
       NamedCommands.registerCommand("AutomaticClimb", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
-      NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, hopper));
+      NamedCommands.registerCommand("RunIndexer", new ParallelCommandGroup(
+        new FeedShooter(indexer, hopper),
+        new AimRobot(drivetrain, ()->0, ()->0, () -> RobotState.getInstance().aimingYaw)));
       NamedCommands.registerCommand("FeedShooterAntiStall", new FeedShooterAntiHopperStall(hopper, indexer));
     } else {
       NamedCommands.registerCommand("RunIndexer", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
