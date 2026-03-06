@@ -26,6 +26,7 @@ public class Hopper extends SubsystemBase {
     hopperRollerMotor = new TalonFX(HOPPER_MOTOR_ID, CANIVORE_DRIVETRAIN);
     hopperRollerMotor.getConfigurator().apply(HOPPER_CONFIG);
     inputs = new HopperInputsAutoLogged();
+    SmartDashboard.putBoolean("Old intake speed activate", false);
   }
 
   /**
@@ -59,7 +60,11 @@ public class Hopper extends SubsystemBase {
    * sets the hopper rollers to the HOPPER_ROLLER_SPEED
    */
   public void feedIndexer() {
-    setVelocity(HOPPER_ROLLER_SPEED_RPS);
+    if(SmartDashboard.getBoolean("Old intake speed activate", true)) {
+      setVelocity(HOPPER_ROLLER_SPEED_RPS);
+    } else {
+      setVelocity(75);
+    }
   }
 
   /**
