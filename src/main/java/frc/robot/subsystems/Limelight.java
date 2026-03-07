@@ -193,9 +193,13 @@ public class Limelight {
    * @return
    */
   public double getClosestTagDist(String limelightName) {
-    double limelight1y = LimelightHelpers.getTargetPose3d_CameraSpace(limelightName).getY();
-    double limelight1x = LimelightHelpers.getTargetPose3d_CameraSpace(limelightName).getX();
-    double limelight1z = LimelightHelpers.getTargetPose3d_CameraSpace(limelightName).getZ();
+    LimelightInputs limelight = limelightA;
+    if(limelightName == limelightA.name) {limelight = limelightA;}
+    if(limelightName == limelightB.name) {limelight = limelightB;}
+    if(limelightName == limelightC.name) {limelight = limelightC;}
+    double limelight1y = limelight.targetInCameraSpace.getX();
+    double limelight1x = limelight.targetInCameraSpace.getX();
+    double limelight1z = limelight.targetInCameraSpace.getZ();
     // use those coordinates to find the distance to the closest apriltag for each
     // limelight
     double distance1 = MythicalMath.DistanceFromOrigin3d(limelight1x, limelight1y, limelight1z);
@@ -321,6 +325,8 @@ public class Limelight {
     Logger.processInputs("Limelights/Right", limelightB);
     Logger.processInputs("Limelights/Extra", limelightC);
     Logger.processInputs("Limelights/ObjectDetection", detectorLimelight);
+    Logger.recordOutput("Limelights/LEFT-closestTagDist", getClosestTagDist(APRILTAG_LIMELIGHTA_NAME));
+    Logger.recordOutput("Limelights/RIGHT-closestTagDist", getClosestTagDist(APRILTAG_LIMELIGHTB_NAME));
   }
 
 }

@@ -34,7 +34,13 @@ public class AimAtLocation extends ParallelCommandGroup {
   }
 
   static double getTargetRobotAngle(Location location){
-    if (DriverStation.getAlliance().get() == Alliance.Red){
+    boolean redAlliance = false;
+    try {
+      redAlliance = DriverStation.getAlliance().get() == Alliance.Red;
+    } catch (Exception e) {
+     System.out.println(e.getStackTrace().toString());
+    }
+    if (redAlliance){
       switch (location) {
         case Hub:         return AimAtLocationConstants.HUB_ROBOT_ANGLE + 180;
         case LeftTrench:  return AimAtLocationConstants.L_TRENCH_ROBOT_ANGLE + 180;

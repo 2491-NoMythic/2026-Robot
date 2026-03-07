@@ -23,8 +23,7 @@ public class MythicalMath {
    */
   public static double DistanceFromOrigin3d(
       double XfromOrigin, double YfromOrigin, double ZfromOrigin) {
-    double Distance2d = Math.sqrt(Math.pow(YfromOrigin, 2) + Math.pow(XfromOrigin, 2));
-    return Math.sqrt(Math.pow(Distance2d, 2) + Math.pow(ZfromOrigin, 2));
+    return Math.sqrt(Math.pow(YfromOrigin, 2) + Math.pow(XfromOrigin, 2) + Math.pow(ZfromOrigin, 2));
   }
 
   /**
