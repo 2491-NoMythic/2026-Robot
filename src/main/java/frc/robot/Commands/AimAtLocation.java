@@ -4,6 +4,8 @@
 
 package frc.robot.Commands;
 
+import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
+
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -20,15 +22,21 @@ public class AimAtLocation extends ParallelCommandGroup {
     Hub,
     LeftTrench,
     RightTrench,
-    Tower
+    Tower,
+    LeftCorner,
+    RightCorner,
   }
 
   static double getTargetHoodAngle(Location location){
     switch (location) {
-      case Hub: return Math.toRadians(AimAtLocationConstants.HUB_HOOD_ANGLE);
-      case LeftTrench: return Math.toRadians(AimAtLocationConstants.TRENCH_HOOD_ANGLE);
-      case RightTrench: return Math.toRadians(AimAtLocationConstants.TRENCH_HOOD_ANGLE);
-      case Tower: return Math.toRadians(AimAtLocationConstants.TOWER_HOOD_ANGLE);
+      case Hub: return AimAtLocationConstants.HUB_HOOD_ANGLE;
+      case Tower: return AimAtLocationConstants.TOWER_HOOD_ANGLE;
+      case LeftTrench: 
+      case RightTrench:
+        return AimAtLocationConstants.TRENCH_HOOD_ANGLE;
+      case LeftCorner:
+      case RightCorner:
+        return AimAtLocationConstants.CORNER_HOOD_ANGLE;
       default: return 0;
     }
   }
@@ -40,6 +48,8 @@ public class AimAtLocation extends ParallelCommandGroup {
         case LeftTrench:  return AimAtLocationConstants.L_TRENCH_ROBOT_ANGLE + 180;
         case RightTrench: return AimAtLocationConstants.R_TRENCH_ROBOT_ANGLE + 180;
         case Tower:       return AimAtLocationConstants.TOWER_ROBOT_ANGLE + 180;
+        case LeftCorner:  return AimAtLocationConstants.L_CORNER_ROBOT_ANGLE + 180;
+        case RightCorner: return AimAtLocationConstants.R_CORNER_ROBOT_ANGLE + 180;
         default: return 0;
       }
     }
@@ -49,16 +59,21 @@ public class AimAtLocation extends ParallelCommandGroup {
       case LeftTrench:  return AimAtLocationConstants.L_TRENCH_ROBOT_ANGLE;
       case RightTrench: return AimAtLocationConstants.R_TRENCH_ROBOT_ANGLE;
       case Tower:       return AimAtLocationConstants.TOWER_ROBOT_ANGLE;
+      case LeftCorner:  return AimAtLocationConstants.L_CORNER_ROBOT_ANGLE;
+      case RightCorner: return AimAtLocationConstants.R_CORNER_ROBOT_ANGLE;
       default: return 0;
     }
   }
 
   /** Creates a new AimAtLocation. */
   public AimAtLocation(DrivetrainSubsystem drivetrain, Shooter shooter, DoubleSupplier joystickXSupplier, DoubleSupplier joystickYSupplier, Location location) {
-    double hoodAngle = Math.toRadians(getTargetHoodAngle(location));
-    double robotAngle = getTargetRobotAngle(location);
+    double hoodAngle = getTargetHoodAngle(location);
+    double shootSpeed = SHOOTING_SPEED_RPS;
+    if(location == Location.LeftCorner || location == Location.RightCorner) {
+      shootSpeed = AimAtLocationConstants.CORNER_SHOOTING_SPEED;
+    }
     addCommands(
-      new AimHoodFixed(shooter, hoodAngle, false),
-      new AimRobot(drivetrain, joystickXSupplier, joystickYSupplier, ()-> robotAngle));
+      new AimHoodFixed(shooter, hoodAngle, false, shootSpeed),
+      new AimRobot(drivetrain, joystickXSupplier, joystickYSupplier, ()-> getTargetRobotAngle(location)));
   }
 }
