@@ -36,12 +36,6 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "safe Return R"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "ShooterOn"
