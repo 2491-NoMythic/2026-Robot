@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import gg.questnav.questnav.PoseFrame;
 import gg.questnav.questnav.QuestNav;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.settings.Constants.QuestNavConstants;
 public class Quest extends SubsystemBase {
   QuestNav questNav = new QuestNav();
   Transform3d robotToQuest =new Transform3d();
@@ -44,7 +43,7 @@ public class Quest extends SubsystemBase {
           double timestamp = questFrame.dataTimestamp();
           // Transform by the mount pose to get your robot pose
           Pose3d robotPose = questPose.transformBy(robotToQuest.inverse());
-          // Add the measurement to our estimator
+          // addVisionMeasurement not working but this is what it said in docs
           drivetrain.addVisionMeasurement(robotPose, timestamp, questnavStandardDeviations);
         }
       }
