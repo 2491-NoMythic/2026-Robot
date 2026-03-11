@@ -54,6 +54,7 @@ import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -76,6 +77,7 @@ import frc.robot.helpers.MotorLogger;
 import frc.robot.helpers.MythicalMath;
 import frc.robot.settings.Constants.DriveConstants;
 import frc.robot.settings.Constants.Field;
+import frc.robot.settings.Constants.ShooterConstants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
   // These are our swerve drive kinematics and Pigeon (gyroscope)
@@ -722,9 +724,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
 	  }
 
     var fieldChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
+
+    var shooterOffset = MythicalMath.RotateShooterOffset(getGyroscopeRotation(), new Translation2d(ShooterConstants.SHOOTER_X_OFFSET, ShooterConstants.SHOOTER_Y_OFFSET));
     
     Tuple2<Double> desiredRotation = MythicalMath.aimProjectileAtPoint(
-      new Translation3d(getPose().getX(), getPose().getY(), SHOOTER_HEIGHT), 
+      new Translation3d(getPose().getX() + shooterOffset.getX(), getPose().getY() + shooterOffset.getY(), SHOOTER_HEIGHT), 
       hubPosition, 
       SHOOTING_SPEED_MPS, 
       new Translation3d(fieldChassisSpeeds.vxMetersPerSecond, fieldChassisSpeeds.vyMetersPerSecond, 0));
