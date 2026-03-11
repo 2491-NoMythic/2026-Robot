@@ -13,10 +13,9 @@
     "To Collect"
   ],
   "autoFolders": [
+    "Duluth Autos",
     "Finalized",
-    "Misc",
-    "Old Autos",
-    "WIP"
+    "Misc"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 2.5,
