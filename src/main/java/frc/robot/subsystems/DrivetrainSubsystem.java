@@ -51,6 +51,7 @@ import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -430,24 +431,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * a little,
    * larger pose shifts will take multiple calls to complete.
    */
-  public void updateOdometryWithVision() {
-    Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
-    if (estimate != null) {
-      boolean doRejectUpdate = false;
-      if (Math.abs(pigeon.getAngularVelocityZWorld().getValueAsDouble()) > 720) {
-        doRejectUpdate = true;
-      }
-      if (estimate.getSecond().tagCount == 0) {
-        doRejectUpdate = true;
-      }
-      if (!doRejectUpdate) {
-        odometer.addVisionMeasurement(estimate.getFirst(), estimate.getSecond().timeStampSeconds);
-        RobotState.getInstance().LimelightsUpdated = true;
-      } else {
-        RobotState.getInstance().LimelightsUpdated = false;
-      }
-    } else {
-      RobotState.getInstance().LimelightsUpdated = false;
+  public void updateOdometryWithVision( Pair<Pose2d, Double> questUpdate) {
+    if(questUpdate!=null){
+      odometer.addVisionMeasurement(questUpdate.getFirst(), questUpdate.getSecond());
     }
   }
 
@@ -671,9 +657,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     setRobotOrientationOnLimelights();
     if(!(Math.abs(inputs.pitch) > 5 || Math.abs(inputs.roll) > 5)) {
       updateOdometry();
-      if (LIMELIGHTS_EXIST) {
-        updateOdometryWithVision();
-      }
     } else {
       RobotState.getInstance().LimelightsUpdated = false;
     }
