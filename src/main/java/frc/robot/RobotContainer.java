@@ -89,8 +89,10 @@ import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Quest;
 import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
+import gg.questnav.questnav.QuestNav;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -112,6 +114,7 @@ public class RobotContainer {
   private Hopper hopper;
   private Limelight limelight;
   private Lights lights;
+  private Quest quest;
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
   private final XboxController driveController;
@@ -153,6 +156,7 @@ public class RobotContainer {
   BooleanSupplier ManualRightCornerShotSup;
   BooleanSupplier ManualLeftCornerShotSup;
 
+  BooleanSupplier ResetQuestSup;
 
 
   public static HashMap<String, Command> eventMap;
@@ -179,7 +183,7 @@ public class RobotContainer {
 
     //Shooter controls
     IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
-    ForceHoodDownSupplier = driveController::getBackButton;
+    ForceHoodDownSupplier = operatorController::getBackButton;
 
     HoodUpSupplier = () -> operatorController.getPOV() == 0;
     HoodDownSupplier = () -> operatorController.getRightTriggerAxis() > 0.5;
@@ -192,9 +196,8 @@ public class RobotContainer {
     ManualRightCornerShotSup = operatorController::getRightBumperButton;
     //Shooting Command is Right Trigger on drive controller. 
     //Climber controls
-    AutoClimbSup = () -> driveController.getStartButton() && driveController.getBackButton();
-    ClimberUpSup = ()->operatorController.getPOV() == 0;
-    ClimberDownSup = ()->operatorController.getPOV() == 180;
+    AutoClimbSup = () ->false;// driveController.getStartButton() && driveController.getBackButton();
+    ClimberUpSup = operatorController::getLeftBumperButton;
     ClimberDownSup = operatorController::getRightBumperButton;
 
     //intake controls
@@ -212,6 +215,9 @@ public class RobotContainer {
 
     crossBumpTowardsAllianceSup = driveController::getYButton;
     ShootIfAimedSup = ()->false;
+
+    //QuestNav Controls
+    ResetQuestSup = driveController::getBackButton;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -391,7 +397,7 @@ public class RobotContainer {
     if (DRIVE_TRAIN_EXISTS) {
       SmartDashboard.putData("drivetrain", drivetrain);
       new Trigger(ZeroGyroSup).onTrue(new InstantCommand(drivetrain::zeroGyroscope));
-
+      new Trigger(ResetQuestSup).onTrue(new InstantCommand(()->quest.resetQuestPose()));
       InstantCommand setOffsets = new InstantCommand(drivetrain::setEncoderOffsets) {
         public boolean runsWhenDisabled() {
           return true;
