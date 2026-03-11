@@ -168,9 +168,13 @@ public final class Constants {
     public static final int HUB_HOOD_ANGLE = 5;
     public static final int L_TRENCH_ROBOT_ANGLE = -80;
     public static final int R_TRENCH_ROBOT_ANGLE = 80;
+    public static final int L_CORNER_ROBOT_ANGLE = -40;
+    public static final int R_CORNER_ROBOT_ANGLE = 40;
     public static final int TRENCH_HOOD_ANGLE = 2491;
+    public static final int CORNER_HOOD_ANGLE = 35;
     public static final int TOWER_ROBOT_ANGLE = 0;
-    public static final int TOWER_HOOD_ANGLE = 30;
+    public static final int TOWER_HOOD_ANGLE = 21;
+    public static final double CORNER_SHOOTING_SPEED = 26;
   }
 
   public static final class DriveConstants {
@@ -507,7 +511,7 @@ public final class Constants {
     public static final String LIMELIGHT_SHUFFLEBOARD_TAB = "Vision";
 
     public static final double ALLOWABLE_POSE_DIFFERENCE = 0.5;
-    public static final double MAX_TAG_DISTANCE = 3;
+    public static final double MAX_TAG_DISTANCE = 3.5;
 
     public static final Translation2d FIELD_CORNER = new Translation2d(17.54, 8.02);
 

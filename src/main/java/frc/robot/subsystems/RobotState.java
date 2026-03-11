@@ -67,6 +67,8 @@ public class RobotState {
 
     autoPhase = new TimerPhase(20, 20, "AUTO");
     nullPhase = new TimerPhase(2491, 2491, "NULL");
+
+    currentPhase = nullPhase;
   }
 
   public static boolean IsAlliance(Alliance alliance) {
@@ -80,7 +82,12 @@ public class RobotState {
   
   public static boolean isSecond() {
     String gameData;
-    gameData = DriverStation.getGameSpecificMessage();
+    try{
+      gameData = DriverStation.getGameSpecificMessage();
+    } catch(Exception e) {
+      gameData = "";
+      System.out.println(e.getStackTrace().toString());
+    }
     if(gameData.length() > 0)
     {
       switch (gameData.charAt(0))
@@ -109,11 +116,21 @@ public class RobotState {
   } */
 
   public static int getMatchTime(){
-    return (int)DriverStation.getMatchTime();
+    try {
+      int matchTime = (int)DriverStation.getMatchTime();
+      if(matchTime >= 0 && matchTime <= 140) {
+        return matchTime;
+      } else {
+        return 1;
+      }
+    } catch(Exception e) {
+      System.out.println(e.getStackTrace().toString());
+      return 0;
+    }
   }
 
   public static void updatePhase(){
-    matchTime = (int) DriverStation.getMatchTime();
+    matchTime = getMatchTime();
 
     if(DriverStation.isAutonomousEnabled()){
       currentPhase = autoPhase;

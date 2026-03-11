@@ -67,7 +67,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean isAtSpeed() {
-    return shootMotor1.getVelocity().getValueAsDouble() > 24;
+    return shootMotor1.getVelocity().getValueAsDouble() > 22;
   }
 
   /**
@@ -75,7 +75,7 @@ public class Shooter extends SubsystemBase {
    * @param angle angle to set the hood to, in radians
    */
   public void setHoodAngle(double angle, boolean autoRetract){
-    desiredPosition = InchPositionToActuatorConstrainedPercent(                                                                   //54.328 degrees
+    desiredPosition = InchPositionToActuatorConstrainedPercent(
       MythicalMath.ServoExtensionToReachHoodAngle(angle, 6.610, 8.134, 4.914, 54.328)
     );
     
@@ -105,9 +105,10 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    inputs.shootMotor.log(shootMotor1);
-    inputs.shootMotor.log(shootMotor2);
+    inputs.shootMotorLead.log(shootMotor1);
+    inputs.shootMotorFollow.log(shootMotor2);
     Logger.processInputs("Shooter", inputs);
+    SmartDashboard.putBoolean("SHOOTER/isAtSpeed", isAtSpeed());
     if(this.getCurrentCommand() != null) {
       SmartDashboard.putString("ShooterCurrentCommand", this.getCurrentCommand().toString());
     } else {
