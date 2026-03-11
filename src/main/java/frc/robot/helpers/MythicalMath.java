@@ -9,6 +9,7 @@ import org.opencv.core.Mat.Tuple2;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 
 /** Add your docs here. */
@@ -214,6 +215,10 @@ public class MythicalMath {
     //and then finding only the portion above horizontal.
 
     return extension;
+  }
+
+  public static Translation2d RotateShooterOffset(Rotation2d robotDirection, Translation2d shooterOffset){
+    return shooterOffset.rotateAround(new Translation2d(0, 0), robotDirection);
   }
 
   /**
