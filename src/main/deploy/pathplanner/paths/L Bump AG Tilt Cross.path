@@ -3,32 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.337477638640429,
-        "y": 5.681878354203935
+        "x": 6.052,
+        "y": 5.857
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.090036144578314,
-        "y": 5.685084337349398
+        "x": 7.8045585059378855,
+        "y": 5.860205983145463
       },
       "isLocked": false,
       "linkedName": "Left Bump Start"
-    },
-    {
-      "anchor": {
-        "x": 6.39,
-        "y": 5.682
-      },
-      "prevControl": {
-        "x": 5.975528641671159,
-        "y": 5.6761771507169465
-      },
-      "nextControl": {
-        "x": 6.63997533234984,
-        "y": 5.685511867962658
-      },
-      "isLocked": false,
-      "linkedName": null
     },
     {
       "anchor": {
@@ -36,12 +20,12 @@
         "y": 5.218887303851641
       },
       "prevControl": {
-        "x": 8.051445783132529,
-        "y": 6.603012048192771
+        "x": 8.189584987744924,
+        "y": 5.455601109541162
       },
       "nextControl": {
-        "x": 8.43802920308269,
-        "y": 4.15474230087646
+        "x": 8.616533792434506,
+        "y": 4.198812438389986
       },
       "isLocked": false,
       "linkedName": "AG L Trench to Tilt Collect End"
@@ -68,8 +52,8 @@
         "y": 2.6052781740370903
       },
       "prevControl": {
-        "x": 6.794759036144578,
-        "y": 2.2647108433734933
+        "x": 6.772903614457831,
+        "y": 1.9150240963855412
       },
       "nextControl": null,
       "isLocked": false,
@@ -78,15 +62,15 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.1737226277372228,
+      "waypointRelativePos": 0.6,
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 2.072992700729926,
+      "waypointRelativePos": 1.0729927007299258,
       "rotationDegrees": -75.222
     },
     {
-      "waypointRelativePos": 3.0314928425357612,
+      "waypointRelativePos": 2.0314928425357612,
       "rotationDegrees": -75.222
     }
   ],
@@ -95,7 +79,7 @@
   "eventMarkers": [
     {
       "name": "Expand",
-      "waypointRelativePos": 0.9756929637526538,
+      "waypointRelativePos": 0.5,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -106,7 +90,7 @@
     },
     {
       "name": "Intake",
-      "waypointRelativePos": 1.4536585365853683,
+      "waypointRelativePos": 0.75,
       "endWaypointRelativePos": 4.0,
       "command": {
         "type": "named",

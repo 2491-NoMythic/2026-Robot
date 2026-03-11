@@ -3,29 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5164457831325304,
-        "y": 5.681878354203935
+        "x": 5.505289156626507,
+        "y": 5.510240963855422
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.9511295995846467,
-        "y": 5.6002490682409345
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 6.52156626506024,
-        "y": 5.681878354203935
-      },
-      "prevControl": {
-        "x": 5.9103096577110845,
-        "y": 5.488065283581033
-      },
-      "nextControl": {
-        "x": 6.969602409638555,
-        "y": 5.82393859516779
+        "x": 6.569398315826508,
+        "y": 5.513123700870001
       },
       "isLocked": false,
       "linkedName": null
@@ -36,12 +20,12 @@
         "y": 5.218887303851641
       },
       "prevControl": {
-        "x": 7.898457831325301,
-        "y": 5.892710843373494
+        "x": 7.882460548399297,
+        "y": 5.951029120879507
       },
       "nextControl": {
-        "x": 8.390713900938879,
-        "y": 4.99996230728862
+        "x": 8.433915662650602,
+        "y": 4.909216867469879
       },
       "isLocked": false,
       "linkedName": "AG L Trench to Tilt Collect End"
@@ -52,12 +36,12 @@
         "y": 2.210072289156626
       },
       "prevControl": {
-        "x": 8.357421686746987,
-        "y": 2.472337349397591
+        "x": 8.313710843373494,
+        "y": 3.0733614457831333
       },
       "nextControl": {
-        "x": 8.254871398493624,
-        "y": 1.6519350433706395
+        "x": 8.327835338821473,
+        "y": 1.9575263053928844
       },
       "isLocked": false,
       "linkedName": null
@@ -68,12 +52,12 @@
         "y": 1.008024096385542
       },
       "prevControl": {
-        "x": 5.949099913979001,
-        "y": 0.10831816252672333
+        "x": 5.714389882522614,
+        "y": 0.030442782986185857
       },
       "nextControl": {
-        "x": 5.570855421686747,
-        "y": 1.7838915662650607
+        "x": 5.767554216867469,
+        "y": 1.6746144578313262
       },
       "isLocked": false,
       "linkedName": null
@@ -84,8 +68,8 @@
         "y": 5.510240963855422
       },
       "prevControl": {
-        "x": 5.712915662650602,
-        "y": 3.4449036144578313
+        "x": 5.781036910575638,
+        "y": 5.262708309651345
       },
       "nextControl": null,
       "isLocked": false,
@@ -94,19 +78,19 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.25,
       "rotationDegrees": 180.0
     },
     {
-      "waypointRelativePos": 1.925562372188144,
+      "waypointRelativePos": 0.95,
       "rotationDegrees": 133.877
     },
     {
-      "waypointRelativePos": 3.1513292433537607,
+      "waypointRelativePos": 2.1513292433537607,
       "rotationDegrees": 133.877
     },
     {
-      "waypointRelativePos": 3.9626556016597436,
+      "waypointRelativePos": 2.9626556016597436,
       "rotationDegrees": 90.0
     }
   ],
@@ -126,7 +110,7 @@
     },
     {
       "name": "Intake",
-      "waypointRelativePos": 1.465853658536591,
+      "waypointRelativePos": 0.75,
       "endWaypointRelativePos": 5.0,
       "command": {
         "type": "named",

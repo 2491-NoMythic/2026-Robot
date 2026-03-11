@@ -3,32 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.337477638640429,
-        "y": 5.681878354203935
+        "x": 6.052,
+        "y": 5.857
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.003392089712904,
-        "y": 5.687951564095666
+        "x": 6.718265060240964,
+        "y": 5.805289156626507
       },
       "isLocked": false,
       "linkedName": "Left Bump Start"
-    },
-    {
-      "anchor": {
-        "x": 5.953325301204819,
-        "y": 5.681878354203935
-      },
-      "prevControl": {
-        "x": 5.47398734006422,
-        "y": 5.708508240933965
-      },
-      "nextControl": {
-        "x": 6.202940389506172,
-        "y": 5.668010849298305
-      },
-      "isLocked": false,
-      "linkedName": null
     },
     {
       "anchor": {
@@ -78,15 +62,15 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.9693430656934194,
+      "waypointRelativePos": 0.5,
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 2.038926880589173,
+      "waypointRelativePos": 1.0389268805891732,
       "rotationDegrees": -90.0
     },
     {
-      "waypointRelativePos": 2.9900052603892973,
+      "waypointRelativePos": 1.9900052603892973,
       "rotationDegrees": -90.0
     }
   ],
@@ -95,7 +79,7 @@
   "eventMarkers": [
     {
       "name": "Expand",
-      "waypointRelativePos": 0.9825159914712136,
+      "waypointRelativePos": 0.5,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -106,7 +90,7 @@
     },
     {
       "name": "Intake",
-      "waypointRelativePos": 2.1168658698539238,
+      "waypointRelativePos": 1.1168658698539238,
       "endWaypointRelativePos": 4.0,
       "command": {
         "type": "named",

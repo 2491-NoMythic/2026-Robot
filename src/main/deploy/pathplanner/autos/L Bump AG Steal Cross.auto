@@ -5,15 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "L Bump AG Steal Cross"
+            "name": "AcrossBumpTowardsAlliance"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "OverBump"
+            "pathName": "L Bump AG Steal Cross"
           }
         },
         {
