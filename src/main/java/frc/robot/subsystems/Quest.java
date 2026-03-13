@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import java.util.List;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix6.Utils;
 
 import edu.wpi.first.math.Matrix;
@@ -26,36 +28,50 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import gg.questnav.questnav.PoseFrame;
 import gg.questnav.questnav.QuestNav;
+import frc.robot.LogInputs.LimelightInputs;
+import frc.robot.LogInputs.QuestInputs;
+import frc.robot.LogInputs.QuestInputsAutoLogged;
 import frc.robot.subsystems.DrivetrainSubsystem;
 public class Quest extends SubsystemBase {
   QuestNav questNav = new QuestNav();
   Transform3d robotToQuest =new Transform3d();
   Matrix<N3, N1> questnavStandardDeviations = VecBuilder.fill(0.02, 0.02, 0.035); //The suggested Standerd Deviations for QuestNav
   DrivetrainSubsystem drivetrain;
+  QuestInputsAutoLogged inputs;
+  Limelight limelight;
   /** Creates a new Quest. */
   public Quest(DrivetrainSubsystem drivetrain) {
     this.drivetrain = drivetrain;
+    limelight = Limelight.getInstance();
+    inputs = new QuestInputsAutoLogged();
   }
-  public void setQuestNavPose(Pose3d pose) {
-    questNav.setPose(pose.transformBy(robotToQuest));
+  public void setQuestNavPose(Pose3d robotPose) {
+    questNav.setPose(robotPose.transformBy(robotToQuest));
   }
- 
-  public void resetQuestPose(Pose3d pose) {
-    setQuestNavPose(pose);
+  public void setQuestNavPose(Pose2d robotPose){
+    setQuestNavPose(new Pose3d(robotPose.getX(), 0, robotPose.getY(), new Rotation3d(0, 0, robotPose.getRotation().getRadians())));
   }
   public void resetQuestPose(){
     drivetrain.zeroGyroscope();
     if(DriverStation.getAlliance() != null && DriverStation.getAlliance().get() == Alliance.Blue){
-      resetQuestPose(new Pose3d(new Translation3d(3.6,4.05,0),new Rotation3d(drivetrain.getOdometryRotation()))); 
+      setQuestNavPose(new Pose3d(new Translation3d(3.6,0,4.05),new Rotation3d(drivetrain.getOdometryRotation()))); 
     }else {
-      resetQuestPose(new Pose3d(new Translation3d(12.9,4.05,0),new Rotation3d(drivetrain.getOdometryRotation()))); 
+      setQuestNavPose(new Pose3d(new Translation3d(12.9,0,4.05),new Rotation3d(drivetrain.getOdometryRotation()))); 
     }
   }
 
   @Override
   public void periodic() {
+    inputs.questFrames = questNav.getAllUnreadPoseFrames();
+    Logger.processInputs("Quest", inputs);
     questNav.commandPeriodic();
-    PoseFrame[] questFrames = questNav.getAllUnreadPoseFrames();
+    if (limelight.getTrustedPose()!= null){
+      Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
+      if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 720 && estimate.getSecond().tagCount != 0 ) {
+        setQuestNavPose(estimate.getFirst());
+      }
+    }
+    PoseFrame[] questFrames = inputs.questFrames;
     for (PoseFrame questFrame : questFrames) {
       if (questFrame.isTracking()) {
         // Get the pose of the Quest
@@ -68,5 +84,6 @@ public class Quest extends SubsystemBase {
         drivetrain.updateOdometryWithVision(new Pair<>(new Pose2d(robotPose.getX(), robotPose.getZ(), robotPose.getRotation().toRotation2d()), timestamp));
       }
     }
-  }
-}
+   }
+ }
+
