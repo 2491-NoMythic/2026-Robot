@@ -18,6 +18,7 @@ import static frc.robot.settings.Constants.SubsystemsEnabled.INDEXER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.INTAKE_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIGHTS_EXIST;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIMELIGHTS_EXIST;
+import static frc.robot.settings.Constants.SubsystemsEnabled.QUEST_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.SHOOTER_EXISTS;
 import static frc.robot.settings.Constants.XboxDriver.DRIVE_CONTROLLER_ID;
 import static frc.robot.settings.Constants.XboxDriver.OPERATOR_CONTROLLER_ID;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -37,6 +39,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -221,7 +224,13 @@ public class RobotContainer {
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
-      configureDriveTrain();
+      if (QUEST_EXISTS){
+        questInit();
+        configureDriveTrain(quest::setQuestNavPose);
+      }else{
+        configureDriveTrain(drivetrain::resetOdometry);
+      }
+      
     }
 
     if(HOPPER_EXISTS) {
@@ -279,12 +288,14 @@ public class RobotContainer {
     SmartDashboard.putData("DriveConstant2", new DriveConstantSpeed(drivetrain, 2, 2));
     SmartDashboard.putData("DriveConstant3", new DriveConstantSpeed(drivetrain, 3, 1.5));
   }
-
-  private void configureDriveTrain() {
+  private void questInit(){
+    quest = new Quest(drivetrain);
+  }
+  private void configureDriveTrain(Consumer<Pose2d> resetOdometryConsumer) {
     try {
       AutoBuilder.configure(
           drivetrain::getPose, // Pose2d supplier
-          drivetrain::resetOdometry, // Pose2d consumer, used to reset odometry at the beginning of auto
+          resetOdometryConsumer, // Pose2d consumer, used to reset odometry at the beginning of auto
           drivetrain::getChassisSpeeds,
           (speeds) -> drivetrain.drive(speeds),
           new PPHolonomicDriveController(
@@ -363,7 +374,6 @@ public class RobotContainer {
 
   private void autoInit() {
     if (DRIVE_TRAIN_EXISTS){
-      configureDriveTrain(); 
       autoChooser = AutoBuilder.buildAutoChooser();
       SmartDashboard.putData("Auto Chooser", autoChooser);
     }

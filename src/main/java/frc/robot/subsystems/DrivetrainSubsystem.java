@@ -235,6 +235,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return inputs.roll;
   }
 
+  public double getAngularVelocity(){
+    return inputs.angularVelocity;
+  }
+
   /**
    * @return a rotation2D of the angle according to the odometer
    */
@@ -285,6 +289,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
   public ChassisSpeeds getChassisSpeeds() {
     return kinematics.toChassisSpeeds(getModuleStates());
+  }
+
+  public double getDrivetrainVelocity(){
+    return Math.sqrt(Math.pow(getChassisSpeeds().vxMetersPerSecond, 2)+Math.pow(getChassisSpeeds().vyMetersPerSecond, 2));
   }
 
   // This is the odometry section. It has odometry-related functions.
