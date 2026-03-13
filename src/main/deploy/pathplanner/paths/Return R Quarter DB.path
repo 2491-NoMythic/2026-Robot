@@ -3,51 +3,51 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.587361445783132,
-        "y": 0.5709156626506025
+        "x": 7.757,
+        "y": 4.799939759036144
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.598486364657242,
-        "y": 0.598026021789933
+        "x": 5.436870789705503,
+        "y": 4.548866861344365
       },
-      "isLocked": true,
-      "linkedName": "Right Trench Start"
+      "isLocked": false,
+      "linkedName": "Return BL"
     },
     {
       "anchor": {
-        "x": 6.087244444444444,
-        "y": 0.6340000000000003
+        "x": 5.691060240963855,
+        "y": 6.646722891566265
       },
       "prevControl": {
-        "x": 3.977001113847222,
-        "y": 0.626796872320929
+        "x": 5.722257686813852,
+        "y": 6.311010565411026
       },
       "nextControl": {
-        "x": 6.4132715465689545,
-        "y": 0.6351128644784184
+        "x": 5.664340044455647,
+        "y": 6.934256023869029
       },
-      "isLocked": true,
-      "linkedName": "Trench to Collect MR P1"
+      "isLocked": false,
+      "linkedName": "Return R Quarter DB End"
     },
     {
       "anchor": {
-        "x": 8.0,
-        "y": 1.0337111111111108
+        "x": 5.691060240963855,
+        "y": 2.4941927710843377
       },
       "prevControl": {
-        "x": 7.066212928887293,
-        "y": 0.619421648478715
+        "x": 5.82245879459486,
+        "y": 2.240643927207793
       },
       "nextControl": null,
-      "isLocked": true,
-      "linkedName": "Collect MR"
+      "isLocked": false,
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.9,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 0.9344398340249022,
+      "rotationDegrees": -90.0
     }
   ],
   "constraintZones": [],
@@ -62,13 +62,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 90.0
+    "velocity": 0,
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Old Paths",
+  "folder": "Return to Hub",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 3.0,
     "rotation": 90.0
   },
   "useDefaultConstraints": true
