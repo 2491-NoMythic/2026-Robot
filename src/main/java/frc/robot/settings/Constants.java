@@ -70,7 +70,7 @@ public final class Constants {
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
     public static final int HOOD_RIGHT_ACTUATOR_ID = 3;
     public static final double SHOOTER_HEIGHT = 0.552; //IN METERS
-    public static final double SHOOTER_X_OFFSET = 0.16; //Positive X is towards Blue when facing 0* (which is away from DS when on Blue)
+    public static final double SHOOTER_X_OFFSET = 0.16; //Positive X is towards Blue when facing 0* (which is away from DS when on Blue), aka front to back on the robot
     public static final double SHOOTER_Y_OFFSET = 0;
     public static final double AUTO_AIM_ROBOT_kP = 0.125;
     public static final double AUTO_AIM_ROBOT_kI = 0;
