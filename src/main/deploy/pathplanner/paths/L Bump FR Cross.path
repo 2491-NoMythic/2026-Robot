@@ -64,16 +64,16 @@
     },
     {
       "anchor": {
-        "x": 5.953325301204819,
-        "y": 2.679963855421686
+        "x": 6.290385164051354,
+        "y": 2.6052781740370903
       },
       "prevControl": {
-        "x": 6.117240963855421,
-        "y": 1.9805903614457838
+        "x": 6.454300826701957,
+        "y": 1.9059046800611883
       },
       "nextControl": {
-        "x": 5.845296698154183,
-        "y": 3.1408858951043976
+        "x": 6.182356561000718,
+        "y": 3.066200213719802
       },
       "isLocked": false,
       "linkedName": "FR R Return End"
@@ -143,6 +143,17 @@
           "name": "Expand"
         }
       }
+    },
+    {
+      "name": "ShooterOn",
+      "waypointRelativePos": 5.18568534773801,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ShooterOn"
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -158,7 +169,7 @@
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Bump Auto Paths",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

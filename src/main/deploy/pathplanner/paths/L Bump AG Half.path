@@ -139,6 +139,17 @@
           "name": "Expand"
         }
       }
+    },
+    {
+      "name": "ShooterOn",
+      "waypointRelativePos": 5.139454094292798,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ShooterOn"
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -154,7 +165,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Bump Auto Paths",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0.0,
     "rotation": 0.0
