@@ -101,6 +101,7 @@ public final class Constants {
     public static final double INTAKE_SPEED_RPS = 90;
     public static final int INTAKE_WHEELS_ID = 14;
     public static final int INTAKE_DEPLOYER_ID = 13;
+    public static final int INTAKE_ENCODER_ID = 2491;
     public static TalonFXConfiguration INTAKE_DEPLOYER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
         .withKV(0).withKP(0).withKI(0).withKD(0))
@@ -114,12 +115,17 @@ public final class Constants {
         .withReverseLimitEnable(false)//true
         .withReverseLimitRemoteSensorID(FR_STEER_MOTOR_ID)
         .withReverseLimitSource(ReverseLimitSourceValue.RemoteTalonFX)
-        .withReverseLimitType(ReverseLimitTypeValue.NormallyOpen));
+        .withReverseLimitType(ReverseLimitTypeValue.NormallyOpen))
+      .withFeedback(new FeedbackConfigs()
+        .withFeedbackSensorSource(FeedbackSensorSourceValue.RemoteCANcoder)
+        .withFeedbackRemoteSensorID(INTAKE_ENCODER_ID));
     public static TalonFXSConfiguration INTAKE_WHEELS_CONFIG = new TalonFXSConfiguration()
       .withCommutation(new CommutationConfigs()
         .withMotorArrangement(MotorArrangementValue.Minion_JST))
       .withSlot0(new Slot0Configs()
         .withKV(0.095).withKS(0.37).withKP(0.1).withKI(0).withKD(0));
+    public static final double INTAKE_RETRACTED_POSITION = 0;
+    public static final double INTAKE_DEPLOYED_POSITION = 2491;
   }
 
   public static final class IndexerConstants{
