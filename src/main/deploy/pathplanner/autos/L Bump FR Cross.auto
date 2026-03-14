@@ -11,12 +11,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "OverBump"
-          }
-        },
-        {
           "type": "race",
           "data": {
             "commands": [
