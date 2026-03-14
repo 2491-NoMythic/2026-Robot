@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.666,
-        "y": 5.857
+        "x": 3.636650602409638,
+        "y": 5.521168674698795
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.8838359264416127,
-        "y": 5.281688629385191
+        "x": 4.840028874022412,
+        "y": 5.598602629470024
       },
-      "isLocked": true,
-      "linkedName": "Return L"
+      "isLocked": false,
+      "linkedName": "L Over Bump Start"
     },
     {
       "anchor": {
-        "x": 3.057481927710843,
-        "y": 5.575807228915662
+        "x": 5.855,
+        "y": 5.681878354203935
       },
       "prevControl": {
-        "x": 3.8115599071628687,
-        "y": 5.765609043934427
+        "x": 4.955854257881518,
+        "y": 5.620083143496469
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Return L End"
+      "linkedName": "Left Bump Start"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.15684647302904622,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -50,10 +45,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Return to Hub",
+  "folder": "OverBump",
   "idealStartingState": {
-    "velocity": 0.0,
-    "rotation": 90.0
+    "velocity": 0,
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
