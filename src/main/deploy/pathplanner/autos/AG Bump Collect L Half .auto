@@ -11,28 +11,9 @@
           }
         },
         {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Collect L"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Return L"
+            "pathName": "Collect L"
           }
         },
         {
@@ -42,9 +23,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "AcrossBumpTowardsAlliance"
+            "pathName": "Return L"
           }
         },
         {

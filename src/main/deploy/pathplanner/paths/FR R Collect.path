@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.997296291715523,
-        "y": 3.4854606393875214
+        "x": 7.926233854771439,
+        "y": 3.6489288260421153
       },
       "isLocked": false,
       "linkedName": "Collect MR"
@@ -20,12 +20,12 @@
         "y": 5.783433734939758
       },
       "prevControl": {
-        "x": 7.84424061104594,
-        "y": 5.543991835346595
+        "x": 8.590585287547466,
+        "y": 5.273260615524904
       },
       "nextControl": {
-        "x": 7.519557774607703,
-        "y": 6.435121255349501
+        "x": 7.306531578800075,
+        "y": 6.059130634914571
       },
       "isLocked": false,
       "linkedName": "FR R Return Start"
@@ -36,8 +36,24 @@
         "y": 5.542353780313838
       },
       "prevControl": {
-        "x": 6.794992867332382,
-        "y": 6.202225392296719
+        "x": 6.774786995228157,
+        "y": 5.74013023429377
+      },
+      "nextControl": {
+        "x": 6.155318612990847,
+        "y": 5.429041995311295
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.133975903614458,
+        "y": 5.542353780313838
+      },
+      "prevControl": {
+        "x": 4.36329499605795,
+        "y": 5.584688594188124
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,12 +63,24 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 1.1130063965884753,
-      "rotationDegrees": 93.60994057652186
+      "rotationDegrees": 93.61
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "ShooterOn",
+      "waypointRelativePos": 1.2178660049627767,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ShooterOn"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 2.5,
@@ -63,7 +91,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -2.726310993906355
+    "rotation": 93.61
   },
   "reversed": false,
   "folder": "Collect",

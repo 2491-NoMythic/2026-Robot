@@ -3,15 +3,31 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.855,
-        "y": 2.582
+        "x": 3.3962409638554214,
+        "y": 2.4395542168674704
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.072585949485502,
-        "y": 2.4588888527123034
+        "x": 4.507359579316506,
+        "y": 2.5975756428643866
       },
-      "isLocked": true,
+      "isLocked": false,
+      "linkedName": "R Over Bump Start"
+    },
+    {
+      "anchor": {
+        "x": 5.855,
+        "y": 2.582
+      },
+      "prevControl": {
+        "x": 5.297662650602409,
+        "y": 2.811096385542169
+      },
+      "nextControl": {
+        "x": 6.33908844843533,
+        "y": 2.3830129521390906
+      },
+      "isLocked": false,
       "linkedName": "Right Bump Start"
     },
     {
@@ -20,12 +36,12 @@
         "y": 1.2036672629695886
       },
       "prevControl": {
-        "x": 5.6430071886634385,
-        "y": 2.0728457808869045
+        "x": 5.998985135868686,
+        "y": 1.6461782184791813
       },
       "nextControl": {
-        "x": 6.871482128228229,
-        "y": 0.699157050375293
+        "x": 6.875001629069644,
+        "y": 0.7260988602768272
       },
       "isLocked": false,
       "linkedName": "Right Trench Start P2"
@@ -36,23 +52,35 @@
         "y": 1.063
       },
       "prevControl": {
-        "x": 7.5146539837410655,
-        "y": 1.0016126364515934
+        "x": 7.537127956442669,
+        "y": 0.9440198148348928
       },
       "nextControl": null,
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": "Collect BR"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.6,
+      "waypointRelativePos": 1.2,
       "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 1.0034739454094213,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 2.5,
@@ -62,7 +90,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 3.0,
+    "velocity": 1.0,
     "rotation": 90.0
   },
   "reversed": false,

@@ -5,40 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "AcrossBumpAwayFromAlliance"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "AG R OverBump to CollectBR"
           }
         },
         {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Collect R"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Return R"
+            "pathName": "Collect R"
           }
         },
         {
@@ -48,9 +23,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "AcrossBumpTowardsAlliance"
+            "pathName": "Return R"
           }
         },
         {
