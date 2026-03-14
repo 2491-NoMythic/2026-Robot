@@ -159,6 +159,7 @@ public class RobotContainer {
   BooleanSupplier ResetQuestSup;
   BooleanSupplier ManualRightCornerShotSup;
   BooleanSupplier ManualLeftCornerShotSup;
+  BooleanSupplier DrivetrainXPositionSup;
 
 
 
@@ -183,6 +184,8 @@ public class RobotContainer {
     ZeroGyroSup = driveController::getStartButton;
     AutoAimSupplier = () -> driveController.getLeftTriggerAxis() >= 0.5;
     AutoIntakeSup = driveController::getXButton;
+    DrivetrainXPositionSup = () -> driveController.getAButton();
+
 
     //Shooter controls
     IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
@@ -284,6 +287,7 @@ public class RobotContainer {
     new Trigger(crossBumpTowardsAllianceSup).whileTrue(new OverBump(drivetrain, 3));
     new Trigger(TrenchAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, true, false));
     new Trigger(BumpAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, false, true));
+    new Trigger(DrivetrainXPositionSup).whileTrue(drivetrain.run(()->drivetrain.pointWheelsInward()));
 
     SmartDashboard.putData("DriveConstant1", new DriveConstantSpeed(drivetrain, 1, 2));
     SmartDashboard.putData("DriveConstant2", new DriveConstantSpeed(drivetrain, 2, 2));
