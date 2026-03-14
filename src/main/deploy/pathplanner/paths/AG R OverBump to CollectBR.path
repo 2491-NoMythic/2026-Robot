@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.898686746987952,
-        "y": 2.4941927710843377
+        "x": 5.854975903614458,
+        "y": 2.5816144578313254
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.390433734939759,
-        "y": 0.5053493975903618
+        "x": 6.346722891566265,
+        "y": 0.5927710843373495
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Bump Start"
     },
     {
       "anchor": {
@@ -21,7 +21,7 @@
       },
       "prevControl": {
         "x": 8.079638554216869,
-        "y": 0.36678340026773826
+        "y": 0.36678340026773815
       },
       "nextControl": null,
       "isLocked": false,
