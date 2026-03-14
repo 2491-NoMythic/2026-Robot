@@ -25,6 +25,7 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import gg.questnav.questnav.PoseFrame;
 import gg.questnav.questnav.QuestNav;
@@ -51,14 +52,14 @@ public class Quest extends SubsystemBase {
     questNav.setPose(robotPose.transformBy(robotToQuest));
   }
   public void setQuestNavPose(Pose2d robotPose){
-    setQuestNavPose(new Pose3d(robotPose.getX(), 0, robotPose.getY(), new Rotation3d(0, 0, robotPose.getRotation().getRadians())));
+    setQuestNavPose(new Pose3d(robotPose.getX(), robotPose.getY(), 0, new Rotation3d(0, 0, robotPose.getRotation().getRadians())));
   }
   public void resetQuestPose(){
     drivetrain.zeroGyroscope();
     if(DriverStation.getAlliance() != null && DriverStation.getAlliance().get() == Alliance.Blue){
-      setQuestNavPose(new Pose3d(new Translation3d(3.6,0,4.05),new Rotation3d(drivetrain.getOdometryRotation()))); 
+      setQuestNavPose(new Pose3d(new Translation3d(3.6,4.05,0),new Rotation3d(drivetrain.getOdometryRotation()))); 
     }else {
-      setQuestNavPose(new Pose3d(new Translation3d(12.9,0,4.05),new Rotation3d(drivetrain.getOdometryRotation()))); 
+      setQuestNavPose(new Pose3d(new Translation3d(12.9,4.05,0),new Rotation3d(drivetrain.getOdometryRotation()))); 
     }
   }
 
@@ -76,6 +77,7 @@ public class Quest extends SubsystemBase {
     PoseFrame[] questFrames = inputs.questFrames;
     for (PoseFrame questFrame : questFrames) {
       if (questFrame.isTracking()) {
+        SmartDashboard.putString("PoseFromQuest", questFrame.questPose3d().toString());
         // Get the pose of the Quest
         Pose3d questPose = questFrame.questPose3d();
         // Get timestamp for when the data was sent
@@ -83,7 +85,7 @@ public class Quest extends SubsystemBase {
         // Transform by the mount pose to get your robot pose
         Pose3d robotPose = questPose.transformBy(robotToQuest.inverse());
         // addVisionMeasurement not working but this is what it said in docs
-        drivetrain.updateOdometryWithVision(new Pair<>(new Pose2d(robotPose.getX(), robotPose.getZ(), robotPose.getRotation().toRotation2d()), timestamp));
+        drivetrain.updateOdometryWithVision(new Pair<>(new Pose2d(robotPose.getX(), robotPose.getY(), robotPose.getRotation().toRotation2d()), timestamp));
       }
     }
    }
