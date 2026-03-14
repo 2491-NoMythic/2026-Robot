@@ -141,7 +141,8 @@ public class RobotContainer {
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier AutoIntakeSup;
   BooleanSupplier IntakeWheelSup;
-  BooleanSupplier ShooterToggleSup;
+  BooleanSupplier ShooterOnSup;
+  BooleanSupplier ShooterOffSup;
   BooleanSupplier HoodUpSupplier;
   BooleanSupplier HoodDownSupplier;
   BooleanSupplier HopperWheelsForwardSup;
@@ -190,7 +191,8 @@ public class RobotContainer {
 
     HoodUpSupplier = () -> operatorController.getPOV() == 0;
     HoodDownSupplier = () -> operatorController.getRightTriggerAxis() > 0.5;
-    ShooterToggleSup = ()-> operatorController.getPOV() == 90;
+    ShooterOnSup = ()-> operatorController.getStartButton();
+    ShooterOffSup = ()-> operatorController.getBackButton();
     ManualHubShotSup = operatorController::getYButton;
     ManualTowerShotSup = operatorController::getAButton;
     ManualLeftTrenchShotSup = operatorController::getXButton;
@@ -327,7 +329,8 @@ public class RobotContainer {
     shooter.setDefaultCommand(new AimHood(shooter));
     new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
     new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
-    new Trigger(ShooterToggleSup).onTrue(new InstantCommand(()->shooterOn = !shooterOn));
+    new Trigger(ShooterOnSup).onTrue(new InstantCommand(()->shooterOn = true));
+    new Trigger(ShooterOffSup).onTrue(new InstantCommand(()->shooterOn = false));
     new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
