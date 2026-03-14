@@ -32,10 +32,11 @@ import frc.robot.LogInputs.LimelightInputs;
 import frc.robot.LogInputs.QuestInputs;
 import frc.robot.LogInputs.QuestInputsAutoLogged;
 import frc.robot.subsystems.DrivetrainSubsystem;
+
 public class Quest extends SubsystemBase {
   QuestNav questNav = new QuestNav();
   //for the transform3D below, x is forward, either y or z is how far left of center the quest is. The other one is upwardsness, but that doesn't matter to us. The Rotation3d matters for some reason, even though we don't get pitch, roll, or yaw from the quest
-  Transform3d robotToQuest = new Transform3d(-0.076, -0.292, -0.292, new Rotation3d(0, 0, -Math.PI/2));
+  Transform3d robotToQuest = new Transform3d(-0.370, -0.248, -0.248, new Rotation3d(0, 0, Math.toRadians(-165)));
   Matrix<N3, N1> questnavStandardDeviations = VecBuilder.fill(0.02, 0.02, 0.035); //The suggested Standerd Deviations for QuestNav
   DrivetrainSubsystem drivetrain;
   QuestInputsAutoLogged inputs;
@@ -68,7 +69,7 @@ public class Quest extends SubsystemBase {
     questNav.commandPeriodic();
     if (limelight.getTrustedPose()!= null){
       Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
-      if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 720 && estimate.getSecond().tagCount != 0 ) {
+      if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 10 && estimate.getSecond().tagCount != 0 && drivetrain.isFlat()) {
         setQuestNavPose(estimate.getFirst());
       }
     }
