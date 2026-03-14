@@ -52,7 +52,9 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -74,6 +76,7 @@ import frc.robot.helpers.MotorLogger;
 import frc.robot.helpers.MythicalMath;
 import frc.robot.settings.Constants.DriveConstants;
 import frc.robot.settings.Constants.Field;
+import frc.robot.subsystems.Quest;
 
 public class DrivetrainSubsystem extends SubsystemBase {
   // These are our swerve drive kinematics and Pigeon (gyroscope)
@@ -104,6 +107,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   DrivetrainInputsAutoLogged inputs;
   Limelight limelight;
+  Quest questNav;
   MotorLogger[] motorLoggers;
   PIDController speedController;
   PIDController rotationSpeedController;
@@ -229,6 +233,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return inputs.roll;
   }
 
+  public double getAngularVelocity(){
+    return inputs.angularVelocity;
+  }
+
   /**
    * @return a rotation2D of the angle according to the odometer
    */
@@ -279,6 +287,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
   public ChassisSpeeds getChassisSpeeds() {
     return kinematics.toChassisSpeeds(getModuleStates());
+  }
+
+  public double getDrivetrainVelocity(){
+    return Math.sqrt(Math.pow(getChassisSpeeds().vxMetersPerSecond, 2)+Math.pow(getChassisSpeeds().vyMetersPerSecond, 2));
   }
 
   // This is the odometry section. It has odometry-related functions.
@@ -430,24 +442,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * a little,
    * larger pose shifts will take multiple calls to complete.
    */
-  public void updateOdometryWithVision() {
-    Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
-    if (estimate != null) {
-      boolean doRejectUpdate = false;
-      if (Math.abs(pigeon.getAngularVelocityZWorld().getValueAsDouble()) > 720) {
-        doRejectUpdate = true;
-      }
-      if (estimate.getSecond().tagCount == 0) {
-        doRejectUpdate = true;
-      }
-      if (!doRejectUpdate) {
-        odometer.addVisionMeasurement(estimate.getFirst(), estimate.getSecond().timeStampSeconds);
-        RobotState.getInstance().LimelightsUpdated = true;
-      } else {
-        RobotState.getInstance().LimelightsUpdated = false;
-      }
-    } else {
-      RobotState.getInstance().LimelightsUpdated = false;
+  public void updateOdometryWithVision( Pair<Pose2d, Double> questUpdate) {
+    if(questUpdate!=null){
+      odometer.addVisionMeasurement(questUpdate.getFirst(), questUpdate.getSecond());
     }
   }
 
@@ -675,9 +672,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     setRobotOrientationOnLimelights();
     if(!(Math.abs(inputs.pitch) > 5 || Math.abs(inputs.roll) > 5)) {
       updateOdometry();
-      if (LIMELIGHTS_EXIST) {
-        updateOdometryWithVision();
-      }
     } else {
       RobotState.getInstance().LimelightsUpdated = false;
     }
