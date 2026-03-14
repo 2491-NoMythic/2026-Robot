@@ -13,12 +13,6 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Collect close wall"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
             "pathName": "Steal Out"
           }
         },
