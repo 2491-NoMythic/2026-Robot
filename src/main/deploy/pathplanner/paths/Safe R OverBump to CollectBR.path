@@ -3,16 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.898686746987952,
-        "y": 2.4941927710843377
+        "x": 3.3962409638554214,
+        "y": 2.4395542168674704
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.390433734939759,
-        "y": 0.5053493975903618
+        "x": 4.518218801555039,
+        "y": 2.4554285555402324
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "R Over Bump Start"
+    },
+    {
+      "anchor": {
+        "x": 5.854975903614458,
+        "y": 2.5816144578313254
+      },
+      "prevControl": {
+        "x": 5.778756727111239,
+        "y": 2.8653191703710874
+      },
+      "nextControl": {
+        "x": 6.051674698795181,
+        "y": 1.8494578313253012
+      },
+      "isLocked": false,
+      "linkedName": "Right Bump Start"
     },
     {
       "anchor": {
@@ -20,27 +36,30 @@
         "y": 1.072688888888888
       },
       "prevControl": {
-        "x": 7.764971887550203,
-        "y": 0.40576117804551526
+        "x": 7.439493975903615,
+        "y": 0.4616385542168676
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "collect safe r"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
       "name": "Expand",
-      "waypointRelativePos": 0.04069478908188725,
-      "endWaypointRelativePos": null,
-      "command": null
-    },
-    {
-      "name": "Intake",
-      "waypointRelativePos": 0.5766749379652598,
+      "waypointRelativePos": 0.9508684863523349,
       "endWaypointRelativePos": null,
       "command": null
     }
