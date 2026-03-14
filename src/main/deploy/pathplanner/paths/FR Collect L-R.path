@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.678309761732054,
-        "y": 5.326762116618063
+        "x": 7.80201954683117,
+        "y": 5.52540078509966
       },
       "isLocked": false,
       "linkedName": "Collect BL"
@@ -20,12 +20,12 @@
         "y": 3.9912891566265065
       },
       "prevControl": {
-        "x": 7.7502552717436375,
-        "y": 4.413562835833408
+        "x": 7.783719742561285,
+        "y": 4.428149783291137
       },
       "nextControl": {
-        "x": 7.764722700577856,
-        "y": 3.5077866250977183
+        "x": 7.7339669068816,
+        "y": 3.6147042598727386
       },
       "isLocked": false,
       "linkedName": null
@@ -36,12 +36,12 @@
         "y": 2.2865662650602405
       },
       "prevControl": {
-        "x": 7.767352795737043,
-        "y": 2.6563977279136424
+        "x": 7.669697661704142,
+        "y": 2.5208274477774713
       },
       "nextControl": {
-        "x": 7.7499038065482475,
-        "y": 2.033069946615379
+        "x": 7.844302338295857,
+        "y": 2.05230508234301
       },
       "isLocked": false,
       "linkedName": null
@@ -52,12 +52,12 @@
         "y": 1.1387840909090914
       },
       "prevControl": {
-        "x": 7.833105553783525,
-        "y": 1.4250409262852006
+        "x": 8.151680479782186,
+        "y": 1.2835761186781938
       },
       "nextControl": {
-        "x": 7.151588521428044,
-        "y": 0.3760916370205245
+        "x": 6.929891310763441,
+        "y": 0.9329630458210526
       },
       "isLocked": false,
       "linkedName": null
@@ -68,12 +68,28 @@
         "y": 2.4370756062767476
       },
       "prevControl": {
-        "x": 6.646243362821615,
-        "y": 2.1912196392449035
+        "x": 6.71394092779972,
+        "y": 2.2140852850851998
+      },
+      "nextControl": {
+        "x": 6.379350298259401,
+        "y": 2.8741916955951132
+      },
+      "isLocked": false,
+      "linkedName": "FR Return L-R"
+    },
+    {
+      "anchor": {
+        "x": 3.07933734939759,
+        "y": 2.4370756062767476
+      },
+      "prevControl": {
+        "x": 4.570156618206829,
+        "y": 2.30773307774728
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "FR Return L-R"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -84,11 +100,22 @@
     {
       "waypointRelativePos": 3.0,
       "rotationDegrees": -110.0
+    },
+    {
+      "waypointRelativePos": 4,
+      "rotationDegrees": 90.0
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "ShooterOn",
+      "waypointRelativePos": 3.032258064516105,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 2.5,

@@ -52,7 +52,7 @@
   "reversed": false,
   "folder": "Return to Hub",
   "idealStartingState": {
-    "velocity": 0.0,
+    "velocity": 1.0,
     "rotation": 90.0
   },
   "useDefaultConstraints": true

@@ -5,52 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "AcrossBumpAwayFromAlliance"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Expand"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Over bump to collect safe L"
           }
         },
         {
-          "type": "deadline",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Safe Collect L-R"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShooterOn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AcrossBumpTowardsAlliance"
+            "pathName": "Safe Collect L-R"
           }
         },
         {

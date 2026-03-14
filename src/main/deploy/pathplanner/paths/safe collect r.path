@@ -52,12 +52,28 @@
         "y": 2.527646219686162
       },
       "prevControl": {
-        "x": 6.1351212553495005,
-        "y": 2.7993580599144083
+        "x": 6.176736181410517,
+        "y": 2.76173196232486
+      },
+      "nextControl": {
+        "x": 6.370165807448698,
+        "y": 2.245857985169468
+      },
+      "isLocked": false,
+      "linkedName": "Safe End R"
+    },
+    {
+      "anchor": {
+        "x": 2.980987951807229,
+        "y": 2.527646219686162
+      },
+      "prevControl": {
+        "x": 4.5071339652475775,
+        "y": 2.370270035921144
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Safe End R"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -80,7 +96,19 @@
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "ShooterOn",
+      "waypointRelativePos": 2.9498759305210474,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ShooterOn"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 2.5,
