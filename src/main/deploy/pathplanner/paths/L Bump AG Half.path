@@ -87,6 +87,22 @@
         "x": 7.01840485833707,
         "y": 5.1621468140830915
       },
+      "nextControl": {
+        "x": 6.67959514166293,
+        "y": 5.529853185916909
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.9919156626506025,
+        "y": 5.4883855421686745
+      },
+      "prevControl": {
+        "x": 4.682767450349535,
+        "y": 5.481800086934357
+      },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
@@ -121,17 +137,6 @@
         "type": "named",
         "data": {
           "name": "Expand"
-        }
-      }
-    },
-    {
-      "name": "Intake",
-      "waypointRelativePos": 1.9,
-      "endWaypointRelativePos": 4.0,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "Intake"
         }
       }
     }
