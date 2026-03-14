@@ -4,36 +4,30 @@
 
 package frc.robot.Commands;
 
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Shooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AimHoodFixed extends Command {
+public class SetpointTesting extends Command {
   Shooter shooter;
-  double angle;
-  boolean autoRetract;
-  double shooterSpeed;
-  /** Creates a new AimHoodFixed. */
-  public AimHoodFixed(Shooter shooter, double angle, boolean autoRetract) {
-    this(shooter, angle, autoRetract, SHOOTING_SPEED_RPS);
-  }
-
-  public AimHoodFixed(Shooter shooter, double angle, boolean autoRetract, double speed) {
+  /** Creates a new SetpointTesting. */
+  public SetpointTesting(Shooter shooter) {
     this.shooter = shooter;
-    this.angle = angle;
-    this.autoRetract = autoRetract;
-    this.shooterSpeed = speed;
     addRequirements(shooter);
-  }
+    SmartDashboard.putNumber("SetpointTesting/RobotAngle", -40);
+    SmartDashboard.putNumber("SetpointTesting/ShooterSpeed", 0);
+    SmartDashboard.putNumber("SetpointTesting/ShooterAngle", 0);
 
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.setHoodAngle(angle, autoRetract);
-    shooter.setVelocity(shooterSpeed);
+    shooter.setVelocity(SmartDashboard.getNumber("SetpointTesting/ShooterSpeed", 0));
+    shooter.setHoodAngle(SmartDashboard.getNumber("SetpointTesting/ShooterAngle", 0), false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,10 +36,7 @@ public class AimHoodFixed extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    shooter.setHoodAngleDown();
-    shooter.setVelocity(SHOOTING_SPEED_RPS);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

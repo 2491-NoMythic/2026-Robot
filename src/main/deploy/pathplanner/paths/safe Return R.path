@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.854975903614458,
-        "y": 2.5816144578313254
+        "x": 6.264507845934379,
+        "y": 2.527646219686162
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.936819277108433,
-        "y": 0.38514457831325233
+        "x": 6.5139239322537055,
+        "y": 2.5105694552048474
       },
-      "isLocked": false,
-      "linkedName": "Right Bump Start"
+      "isLocked": true,
+      "linkedName": "Safe End R"
     },
     {
       "anchor": {
-        "x": 8.0,
-        "y": 1.0337111111111108
+        "x": 6.290385164051354,
+        "y": 2.4
       },
       "prevControl": {
-        "x": 8.0,
-        "y": 0.37490085823529207
+        "x": 6.051419100960296,
+        "y": 2.473452166004553
       },
       "nextControl": null,
       "isLocked": true,
-      "linkedName": "Collect MR"
+      "linkedName": "Return R End"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.3,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -46,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 1.0,
-    "rotation": 90.0
-  },
-  "reversed": false,
-  "folder": "Bump",
-  "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Return to Hub",
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

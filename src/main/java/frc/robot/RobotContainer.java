@@ -49,6 +49,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -155,6 +157,9 @@ public class RobotContainer {
   BooleanSupplier ManualLeftTrenchShotSup;
   BooleanSupplier ManualRightTrenchShotSup;
   BooleanSupplier ResetQuestSup;
+  BooleanSupplier ManualRightCornerShotSup;
+  BooleanSupplier ManualLeftCornerShotSup;
+
 
 
   public static HashMap<String, Command> eventMap;
@@ -183,17 +188,20 @@ public class RobotContainer {
     IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
     ForceHoodDownSupplier = operatorController::getBackButton;
 
-    HoodUpSupplier = () -> operatorController.getLeftTriggerAxis() > 0.5;
+    HoodUpSupplier = () -> operatorController.getPOV() == 0;
     HoodDownSupplier = () -> operatorController.getRightTriggerAxis() > 0.5;
     ShooterToggleSup = ()-> operatorController.getPOV() == 90;
     ManualHubShotSup = operatorController::getYButton;
     ManualTowerShotSup = operatorController::getAButton;
     ManualLeftTrenchShotSup = operatorController::getXButton;
     ManualRightTrenchShotSup = operatorController::getBButton;
+    ManualLeftCornerShotSup = operatorController::getLeftBumperButton;
+    ManualRightCornerShotSup = operatorController::getRightBumperButton;
     //Shooting Command is Right Trigger on drive controller. 
     //Climber controls
-    AutoClimbSup = () ->false;// driveController.getStartButton() && driveController.getBackButton();
-    ClimberUpSup = operatorController::getLeftBumperButton;
+    AutoClimbSup = () -> false;
+    ClimberUpSup = ()->operatorController.getPOV() == 0;
+    ClimberDownSup = ()->operatorController.getPOV() == 180;
     ClimberDownSup = operatorController::getRightBumperButton;
 
     //intake controls
@@ -202,8 +210,8 @@ public class RobotContainer {
     IntakeWheelSup = driveController::getLeftBumperButton;
 
     //hopper controls
-    HopperWheelsForwardSup = ()-> operatorController.getPOV() == 270;
-    HopperWheelsBackwardSup = ()-> operatorController.getPOV() == 180;
+    HopperWheelsForwardSup = ()-> false;//operatorController.getPOV() == 270;
+    HopperWheelsBackwardSup = ()-> false;//operatorController.getPOV() == 180;
 
     //Trench Controls
     TrenchAllignSup = driveController::getLeftStickButton; //NOT FINAL THIS IS BATCRAP INSANE
@@ -421,6 +429,8 @@ public class RobotContainer {
       new Trigger(ManualTowerShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Tower));
       new Trigger(ManualLeftTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.LeftTrench));
       new Trigger(ManualRightTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.RightTrench));
+      new Trigger(ManualLeftCornerShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.LeftCorner));
+      new Trigger(ManualRightCornerShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.RightCorner));
     }
 
     if(INTAKE_EXISTS && INDEXER_EXISTS && HOPPER_EXISTS) {
@@ -482,6 +492,10 @@ public class RobotContainer {
 
   public void robotInit() {
     drivetrain.zeroGyroscope();
+    SmartDashboard.putNumber("DisplayMatchTime", -1);
+    SmartDashboard.putNumber("DisplayPhaseTime", -1);
+    SmartDashboard.putString("CurrentPhase", "NO FMS DATA YET");
+    SmartDashboard.putBoolean("HubActive", false);
   }
 
   public void teleopInit() {
@@ -517,8 +531,10 @@ public class RobotContainer {
     NamedCommands.registerCommand("AcrossBumpAwayFromAlliance", AcrossBumpAwayFromAlliance);
     NamedCommands.registerCommand("AcrossBumpTowardsAlliance", AcrossBumpTowardsAlliance);
     NamedCommands.registerCommand("MoveToClimbingPose", new MoveToClimbingPose(drivetrain));
-    NamedCommands.registerCommand("AimRobotMoving", new AimRobot(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, () -> RobotState.getInstance().aimingYaw)
-      .withDeadline(new WaitUntilCommand((()->RobotState.getInstance().Aimed))));
+    NamedCommands.registerCommand("AimRobotMoving", new ParallelRaceGroup(
+      new AimRobot(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, () -> RobotState.getInstance().aimingYaw)
+        .withDeadline(new WaitUntilCommand((()->RobotState.getInstance().Aimed))),
+      new AimHood(shooter)));
     NamedCommands.registerCommand("OverBump", AcrossBumpTowardsAlliance);
     if(CLIMBER_EXISTS) {
       NamedCommands.registerCommand("ClimberArmUp", new ClimberArmUp(climber));
@@ -530,7 +546,9 @@ public class RobotContainer {
       NamedCommands.registerCommand("AutomaticClimb", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
-      NamedCommands.registerCommand("RunIndexer", new FeedShooter(indexer, hopper));
+      NamedCommands.registerCommand("RunIndexer", new ParallelCommandGroup(
+        new AimRobot(drivetrain, ControllerZAxisSupplier, ControllerSidewaysAxisSupplier, ()->RobotState.getInstance().aimingYaw),
+        new FeedShooter(indexer, hopper)));
       NamedCommands.registerCommand("FeedShooterAntiStall", new FeedShooterAntiHopperStall(hopper, indexer));
     } else {
       NamedCommands.registerCommand("RunIndexer", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));

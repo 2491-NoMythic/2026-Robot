@@ -37,6 +37,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
+
+import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
+
 // import java.util.logging.Logger;
 import org.littletonrobotics.junction.Logger;
 import org.opencv.core.Mat.Tuple2;
@@ -586,6 +589,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("TARGETINGPOSE/yspeed", ySpeed);
     SmartDashboard.putNumber("TARGETINGPOSE/xspeed", xSpeed);
+    xSpeed = xSpeed > 1 ? 1: xSpeed;
+    xSpeed = xSpeed < -1 ? -1: xSpeed;
+    ySpeed = ySpeed > 1 ? 1: ySpeed;
+    ySpeed = ySpeed < -1 ? -1: ySpeed;
     // drive!
     moveTowardsRotationTargetFieldRelative(xSpeed, ySpeed);
   }
