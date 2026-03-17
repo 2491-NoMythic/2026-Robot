@@ -1,0 +1,30 @@
+# To connect Quest to the computer, plug it in via USB-C
+# To SetupQuest for configuration:
+    # 1. Startup the quest, wait until you see QuestNav on the screen
+    # 2. press the meta button on the right controller to pause the application. You should a resume button, and right below that a 
+    #    quick settings button, displayed as a clock next to wifi symbol
+    # 3. click on the 'quick settings' in lower-left corner of the window, which will open a new window to the right
+    # 4. In the top-right of the new window, select 'Settings'. A new window should appear
+    # 5. After a few seconds, scroll down on the left sidebar of the new Settings window to 'Developer' and select it
+    # 6. enable 'USB Debugging', then select 'allow' if a window pops unplug
+    # 7. Now, close settings and resume the QuestNav app
+# To configure the quest's settings through the computer:
+    # 1. download the platform tools for adb from https://developer.android.com/tools/releases/platform-tools 
+    # 2. extract the contents of the .zip file, then inside the platform-tools folder, right click. Select 'open in terminal'
+    # 3. In the terminal, type ".\adb devices" and press enter to verify that the quest is plugged into the computer and is powered on
+    # 4. In the terminal type ".\adb shell" and press enter to jump in to the configuration of the device listed
+    # 5. In the terminal paste the text below and press enter. This will set all of the desired configurations. You can then unplug the quest and it is ready for use
+# NOTE: we got the commands below from setup.questnav.gg on Chrome. in that window, we scrolled down to 'View Command details' and pressed it to view necessary setup commands
+
+
+
+setprop debug.oculus.guardian_pause 1
+setprop debug.oculus.experimentalEnabled 1
+cmd bluetooth_manager disable
+svc wifi disable
+cmd display set-brightness 0.1
+cmd settings put secure double_tap_to_wake 0
+cmd settings put secure wake_gesture_enabled 0
+cmd settings put global stay_on_while_plugged_in 1
+cmd settings put secure adaptive_sleep -1
+cmd settings put system screen_off_timeout 2147483647
