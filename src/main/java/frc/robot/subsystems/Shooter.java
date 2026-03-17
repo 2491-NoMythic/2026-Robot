@@ -38,6 +38,7 @@ public class Shooter extends SubsystemBase {
     shootMotor2.setControl(new Follower(SHOOTER_LEFT_MOTOR_ID, MotorAlignmentValue.Opposed));
     shootMotor2.getConfigurator().apply(SHOOTER_CONFIG);
     hoodMotor = new TalonFXS(HOOD_MOTOR_ID, CANIVORE_DRIVETRAIN);
+    hoodMotor.getConfigurator().apply(HOOD_MOTOR_CONFIG);
     inputs = new ShooterInputsAutoLogged();
     //SmartDashboard.putNumber("hoodPosition", 0);
   }
@@ -73,22 +74,12 @@ public class Shooter extends SubsystemBase {
    * sends a positionVoltage request to the hood motor
    * @param angle angle to set the hood to, in radians
    */
-  public void setHoodAngle(double angle, boolean autoRetract){
+  public void setDesiredHoodAngle(double angle, boolean autoRetract){
     desiredPosition = InchPositionToActuatorConstrainedPercent(
       MythicalMath.ServoExtensionToReachHoodAngle(angle, 6.610, 8.134, 4.914, 54.328)
     );
     
     autoRetractOn = autoRetract;
-  }
-
-  public void setHoodAngleUp(){
-    desiredPosition = HOOD_UP_POSITION;
-    autoRetractOn = false;
-  }
-
-  public void setHoodAngleDown(){
-    desiredPosition = HOOD_DOWN_POSITION;
-    autoRetractOn = false;
   }
 
   private void setHoodMotor(double angle){
@@ -110,6 +101,7 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
     inputs.shootMotorLead.log(shootMotor1);
     inputs.shootMotorFollow.log(shootMotor2);
+    inputs.hoodMotor.log(hoodMotor);
     Logger.processInputs("Shooter", inputs);
     SmartDashboard.putBoolean("SHOOTER/isAtSpeed", isAtSpeed());
     if(this.getCurrentCommand() != null) {

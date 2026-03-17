@@ -6,10 +6,12 @@ package frc.robot.LogInputs;
 
 import org.littletonrobotics.junction.AutoLog;
 
+
 @AutoLog
 
 /** Add your docs here. */
 public class ShooterInputs {
     public MotorLoggerInputsAutoLogged shootMotorLead = new MotorLoggerInputsAutoLogged();
     public MotorLoggerInputsAutoLogged shootMotorFollow = new MotorLoggerInputsAutoLogged();
+    public MotorLoggerInputsAutoLogged hoodMotor = new MotorLoggerInputsAutoLogged();
 }

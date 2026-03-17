@@ -11,6 +11,7 @@ import static frc.robot.settings.Constants.DriveConstants.k_XY_D;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
 import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED_RPS;
+import static frc.robot.settings.Constants.ShooterConstants.HOOD_UP_POSITION;
 import static frc.robot.settings.Constants.SubsystemsEnabled.CLIMBER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.DRIVE_TRAIN_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.HOPPER_EXISTS;
@@ -308,13 +309,13 @@ public class RobotContainer {
   private void shooterInit() {
     shooter = new Shooter();
     shooter.setDefaultCommand(new AimHood(shooter));
-    new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
-    new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
+    new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setDesiredHoodAngle(HOOD_UP_POSITION,false), shooter));
+    new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setDesiredHoodAngle(ShooterConstants.HOOD_DOWN_POSITION, false), shooter));
     new Trigger(ShooterToggleSup).onTrue(new InstantCommand(()->shooterOn = !shooterOn));
     new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
-    SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setHoodAngle(25, true), shooter));
+    SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setDesiredHoodAngle(25, true), shooter));
   }
 
   private void hopperInit() {
@@ -421,18 +422,18 @@ public class RobotContainer {
       new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, hopper));
     }
     if (SHOOTER_EXISTS) {
-    InstantCommand setServoAngleUp = new InstantCommand(shooter::setHoodAngleUp) {
-      public boolean runsWhenDisabled() {
-        return true;
-      };
-    };
-     InstantCommand setServoAngleDown = new InstantCommand(shooter::setHoodAngleDown) {
-      public boolean runsWhenDisabled() {
-        return true;
-      };
-    };
-    SmartDashboard.putData("set hood angle up", setServoAngleUp);
-    SmartDashboard.putData("set hood angle down", setServoAngleDown);
+    // InstantCommand setServoAngleUp = new InstantCommand(shooter::setHoodAngleUp) {
+    //   public boolean runsWhenDisabled() {
+    //     return true;
+    //   };
+    // };
+    //  InstantCommand setServoAngleDown = new InstantCommand(shooter::setHoodAngleDown) {
+    //   public boolean runsWhenDisabled() {
+    //     return true;
+    //   };
+    // };
+    // SmartDashboard.putData("set hood angle up", setServoAngleUp);
+    // SmartDashboard.putData("set hood angle down", setServoAngleDown);
   }
   }
   /**
