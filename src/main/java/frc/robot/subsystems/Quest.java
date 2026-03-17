@@ -25,6 +25,7 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import gg.questnav.questnav.PoseFrame;
 import gg.questnav.questnav.QuestNav;
@@ -32,10 +33,11 @@ import frc.robot.LogInputs.LimelightInputs;
 import frc.robot.LogInputs.QuestInputs;
 import frc.robot.LogInputs.QuestInputsAutoLogged;
 import frc.robot.subsystems.DrivetrainSubsystem;
+
 public class Quest extends SubsystemBase {
   QuestNav questNav = new QuestNav();
   //for the transform3D below, x is forward, either y or z is how far left of center the quest is. The other one is upwardsness, but that doesn't matter to us. The Rotation3d matters for some reason, even though we don't get pitch, roll, or yaw from the quest
-  Transform3d robotToQuest = new Transform3d(-0.076, -0.292, -0.292, new Rotation3d(0, 0, -Math.PI/2));
+  Transform3d robotToQuest = new Transform3d(-0.370, -0.248, -0.248, new Rotation3d(0, 0, Math.toRadians(-165)));
   Matrix<N3, N1> questnavStandardDeviations = VecBuilder.fill(0.02, 0.02, 0.035); //The suggested Standerd Deviations for QuestNav
   DrivetrainSubsystem drivetrain;
   QuestInputsAutoLogged inputs;
@@ -50,14 +52,14 @@ public class Quest extends SubsystemBase {
     questNav.setPose(robotPose.transformBy(robotToQuest));
   }
   public void setQuestNavPose(Pose2d robotPose){
-    setQuestNavPose(new Pose3d(robotPose.getX(), 0, robotPose.getY(), new Rotation3d(0, 0, robotPose.getRotation().getRadians())));
+    setQuestNavPose(new Pose3d(robotPose.getX(), robotPose.getY(), 0, new Rotation3d(0, 0, robotPose.getRotation().getRadians())));
   }
   public void resetQuestPose(){
     drivetrain.zeroGyroscope();
     if(DriverStation.getAlliance() != null && DriverStation.getAlliance().get() == Alliance.Blue){
-      setQuestNavPose(new Pose3d(new Translation3d(3.6,0,4.05),new Rotation3d(drivetrain.getOdometryRotation()))); 
+      setQuestNavPose(new Pose3d(new Translation3d(3.6,4.05,0),new Rotation3d(drivetrain.getOdometryRotation()))); 
     }else {
-      setQuestNavPose(new Pose3d(new Translation3d(12.9,0,4.05),new Rotation3d(drivetrain.getOdometryRotation()))); 
+      setQuestNavPose(new Pose3d(new Translation3d(12.9,4.05,0),new Rotation3d(drivetrain.getOdometryRotation()))); 
     }
   }
 
@@ -68,13 +70,14 @@ public class Quest extends SubsystemBase {
     questNav.commandPeriodic();
     if (limelight.getTrustedPose()!= null){
       Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
-      if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 720 && estimate.getSecond().tagCount != 0 ) {
+      if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 10 && estimate.getSecond().tagCount != 0 && drivetrain.isFlat()) {
         setQuestNavPose(estimate.getFirst());
       }
     }
     PoseFrame[] questFrames = inputs.questFrames;
     for (PoseFrame questFrame : questFrames) {
       if (questFrame.isTracking()) {
+        SmartDashboard.putString("PoseFromQuest", questFrame.questPose3d().toString());
         // Get the pose of the Quest
         Pose3d questPose = questFrame.questPose3d();
         // Get timestamp for when the data was sent
@@ -82,7 +85,7 @@ public class Quest extends SubsystemBase {
         // Transform by the mount pose to get your robot pose
         Pose3d robotPose = questPose.transformBy(robotToQuest.inverse());
         // addVisionMeasurement not working but this is what it said in docs
-        drivetrain.updateOdometryWithVision(new Pair<>(new Pose2d(robotPose.getX(), robotPose.getZ(), robotPose.getRotation().toRotation2d()), timestamp));
+        drivetrain.updateOdometryWithVision(new Pair<>(new Pose2d(robotPose.getX(), robotPose.getY(), robotPose.getRotation().toRotation2d()), timestamp));
       }
     }
    }
