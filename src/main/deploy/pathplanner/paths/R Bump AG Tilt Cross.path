@@ -12,7 +12,7 @@
         "y": 2.4381102156381136
       },
       "isLocked": false,
-      "linkedName": "null"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -44,7 +44,7 @@
         "y": 3.6853132530120476
       },
       "isLocked": false,
-      "linkedName": "null"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -60,7 +60,7 @@
         "y": 6.442586482534436
       },
       "isLocked": false,
-      "linkedName": "null"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -73,7 +73,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "null"
+      "linkedName": null
     }
   ],
   "rotationTargets": [

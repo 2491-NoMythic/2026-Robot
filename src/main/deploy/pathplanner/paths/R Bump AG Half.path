@@ -12,7 +12,7 @@
         "y": 0.5232274637512081
       },
       "isLocked": false,
-      "linkedName": "null"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -28,7 +28,7 @@
         "y": 0.6031136270062382
       },
       "isLocked": false,
-      "linkedName": "null"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -44,7 +44,7 @@
         "y": 1.397133173790932
       },
       "isLocked": false,
-      "linkedName": "null"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -60,7 +60,7 @@
         "y": 3.493696257278389
       },
       "isLocked": false,
-      "linkedName": "null"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -76,7 +76,7 @@
         "y": 2.1831746512880295
       },
       "isLocked": false,
-      "linkedName": "null"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -92,7 +92,7 @@
         "y": 2.160198283749561
       },
       "isLocked": false,
-      "linkedName": "null"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -105,7 +105,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "null"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
