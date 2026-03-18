@@ -53,7 +53,7 @@
       },
       "prevControl": {
         "x": 7.537127956442669,
-        "y": 0.9440198148348928
+        "y": 0.9440198148348927
       },
       "nextControl": null,
       "isLocked": false,
@@ -94,7 +94,7 @@
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Bump",
+  "folder": "To Collect Bump",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0
