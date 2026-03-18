@@ -55,7 +55,7 @@ public final class Constants {
 
   public static final class SubsystemsEnabled{
     public static final boolean SHOOTER_EXISTS = true;
-    public static final boolean CLIMBER_EXISTS = true;
+    public static final boolean CLIMBER_EXISTS = false;
     public static final boolean INTAKE_EXISTS = true;
     public static final boolean INDEXER_EXISTS = true;
     public static final boolean DRIVE_TRAIN_EXISTS = true;

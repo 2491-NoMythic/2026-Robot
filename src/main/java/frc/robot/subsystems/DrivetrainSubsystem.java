@@ -76,7 +76,6 @@ import frc.robot.helpers.MotorLogger;
 import frc.robot.helpers.MythicalMath;
 import frc.robot.settings.Constants.DriveConstants;
 import frc.robot.settings.Constants.Field;
-import frc.robot.subsystems.Quest;
 
 public class DrivetrainSubsystem extends SubsystemBase {
   // These are our swerve drive kinematics and Pigeon (gyroscope)
@@ -107,7 +106,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   DrivetrainInputsAutoLogged inputs;
   Limelight limelight;
-  Quest questNav;
   MotorLogger[] motorLoggers;
   PIDController speedController;
   PIDController rotationSpeedController;
@@ -187,6 +185,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
   public Pose2d getPose() {
     return odometer.getEstimatedPosition();
+  }
+
+  public boolean isFlat() {
+    return !(Math.abs(inputs.pitch) > 5 || Math.abs(inputs.roll) > 5);
   }
 
   /**
@@ -670,11 +672,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("pose2d X", getPose().getX());
     SmartDashboard.putNumber("pose2d Y", getPose().getY());
     setRobotOrientationOnLimelights();
-    if(!(Math.abs(inputs.pitch) > 5 || Math.abs(inputs.roll) > 5)) {
-      updateOdometry();
-    } else {
-      RobotState.getInstance().LimelightsUpdated = false;
-    }
+    updateOdometry();
     // sets the robot orientation for each of the limelights, which is required for
     // the
 

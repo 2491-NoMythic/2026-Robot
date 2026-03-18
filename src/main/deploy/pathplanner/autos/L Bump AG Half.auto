@@ -5,52 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "AcrossBumpAwayFromAlliance"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "AG L OverBump to Collect"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Collect L"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Return L"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShooterOn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AcrossBumpTowardsAlliance"
+            "pathName": "L Bump AG Half"
           }
         },
         {
@@ -96,17 +53,11 @@
               }
             ]
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutomaticClimb"
-          }
         }
       ]
     }
   },
   "resetOdom": false,
-  "folder": "Old Autos",
+  "folder": null,
   "choreoAuto": false
 }
