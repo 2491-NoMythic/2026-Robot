@@ -81,7 +81,7 @@ public class Quest extends SubsystemBase {
     if(RobotState.getInstance().questIsConnected) {
       if (limelight.getTrustedPose()!= null) {
         Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
-        if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 720 && estimate.getSecond().tagCount != 0 && drivetrain.isFlat()) {
+        if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 10 && estimate.getSecond().tagCount != 0 && drivetrain.isFlat()) {
           setQuestNavPose(estimate.getFirst());
         }
       }
