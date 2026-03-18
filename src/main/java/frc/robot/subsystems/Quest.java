@@ -63,27 +63,32 @@ public class Quest extends SubsystemBase {
 
   @Override
   public void periodic() {
+    RobotState.getInstance().questIsConnected = !questNav.isConnected()||!questNav.isTracking();
     inputs.questFrames = questNav.getAllUnreadPoseFrames();
     Logger.processInputs("Quest", inputs);
     questNav.commandPeriodic();
-    if (limelight.getTrustedPose()!= null){
-      Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
-      if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 720 && estimate.getSecond().tagCount != 0 ) {
-        setQuestNavPose(estimate.getFirst());
+    if(RobotState.getInstance().questIsConnected) {
+      if (limelight.getTrustedPose()!= null) {
+        Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
+        if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 720 && estimate.getSecond().tagCount != 0 ) {
+          setQuestNavPose(estimate.getFirst());
+          PoseFrame[] questFrames = inputs.questFrames;
+          for (PoseFrame questFrame : questFrames) {
+            if (questFrame.isTracking()) {
+              // Get the pose of the Quest
+              Pose3d questPose = questFrame.questPose3d();
+              // Get timestamp for when the data was sent
+              double timestamp = questFrame.dataTimestamp();
+              // Transform by the mount pose to get your robot pose
+              Pose3d robotPose = questPose.transformBy(robotToQuest.inverse());
+              // addVisionMeasurement not working but this is what it said in docs
+              drivetrain.updateOdometryWithVision(new Pair<>(new Pose2d(robotPose.getX(), robotPose.getZ(), robotPose.getRotation().toRotation2d()), timestamp));
+            }
+          }
+        }
       }
-    }
-    PoseFrame[] questFrames = inputs.questFrames;
-    for (PoseFrame questFrame : questFrames) {
-      if (questFrame.isTracking()) {
-        // Get the pose of the Quest
-        Pose3d questPose = questFrame.questPose3d();
-        // Get timestamp for when the data was sent
-        double timestamp = questFrame.dataTimestamp();
-        // Transform by the mount pose to get your robot pose
-        Pose3d robotPose = questPose.transformBy(robotToQuest.inverse());
-        // addVisionMeasurement not working but this is what it said in docs
-        drivetrain.updateOdometryWithVision(new Pair<>(new Pose2d(robotPose.getX(), robotPose.getZ(), robotPose.getRotation().toRotation2d()), timestamp));
-      }
+    }else{
+     setQuestNavPose(limelight.getTrustedPose().getFirst());
     }
    }
  }

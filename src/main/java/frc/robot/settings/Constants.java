@@ -26,6 +26,8 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.ReverseLimitSourceValue;
 import com.ctre.phoenix6.signals.ReverseLimitTypeValue;
 import com.pathplanner.lib.path.PathConstraints;
+import gg.questnav.questnav.QuestNav;
+import frc.robot.subsystems.Quest;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -512,7 +514,9 @@ public final class Constants {
     public static final String LIMELIGHT_SHUFFLEBOARD_TAB = "Vision";
 
     public static final double ALLOWABLE_POSE_DIFFERENCE = 0.5;
-    public static final double MAX_TAG_DISTANCE = 1.5;
+
+      public static final double MAX_TAG_DISTANCE_WITH_QUEST = 1.5;
+      public static final double MAX_TAG_DISTANCE_NO_QUEST = 3;
 
     public static final Translation2d FIELD_CORNER = new Translation2d(17.54, 8.02);
 
