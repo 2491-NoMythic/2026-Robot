@@ -37,6 +37,7 @@ public class RobotState {
   public boolean halfFullSwitchTriggered;
   public boolean fullSwitchTriggered;
   public boolean feedingShooter;
+  public boolean questIsConnected;
 
   public double aimingPitch;
   public double aimingYaw;
