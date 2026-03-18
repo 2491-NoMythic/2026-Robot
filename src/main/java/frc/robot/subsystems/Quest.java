@@ -80,25 +80,25 @@ public class Quest extends SubsystemBase {
     if(RobotState.getInstance().questIsConnected) {
       if (limelight.getTrustedPose()!= null) {
         Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
-        if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 720 && estimate.getSecond().tagCount != 0 ) {
+        if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 720 && estimate.getSecond().tagCount != 0 && drivetrain.isFlat()) {
           setQuestNavPose(estimate.getFirst());
-          PoseFrame[] questFrames = inputs.questFrames;
-          for (PoseFrame questFrame : questFrames) {
-            if (questFrame.isTracking()) {
-              // Get the pose of the Quest
-              Pose3d questPose = questFrame.questPose3d();
-              // Get timestamp for when the data was sent
-              double timestamp = questFrame.dataTimestamp();
-              // Transform by the mount pose to get your robot pose
-              Pose3d robotPose = questPose.transformBy(robotToQuest.inverse());
-              // addVisionMeasurement not working but this is what it said in docs
-              drivetrain.updateOdometryWithVision(new Pair<>(new Pose2d(robotPose.getX(), robotPose.getZ(), robotPose.getRotation().toRotation2d()), timestamp));
-            }
-          }
+        }
+      }
+      PoseFrame[] questFrames = inputs.questFrames;
+      for (PoseFrame questFrame : questFrames) {
+        if (questFrame.isTracking()) {
+          // Get the pose of the Quest
+          Pose3d questPose = questFrame.questPose3d();
+          // Get timestamp for when the data was sent
+          double timestamp = questFrame.dataTimestamp();
+          // Transform by the mount pose to get your robot pose
+          Pose3d robotPose = questPose.transformBy(robotToQuest.inverse());
+          // addVisionMeasurement not working but this is what it said in docs
+          drivetrain.updateOdometryWithVision(new Pair<>(new Pose2d(robotPose.getX(), robotPose.getZ(), robotPose.getRotation().toRotation2d()), timestamp));
         }
       }
     }else{
-      if(limelight.getTrustedPose() != null && limelight.getTrustedPose().getSecond().tagCount != 0 ) {//add isflat check after merging
+      if(limelight.getTrustedPose() != null && limelight.getTrustedPose().getSecond().tagCount != 0 && drivetrain.isFlat()) {//add isflat check after merging
         drivetrain.updateOdometryWithVision(new Pair<Pose2d,Double>(limelight.getTrustedPose().getFirst(), limelight.getTrustedPose().getSecond().timeStampSeconds));
       }
     }
