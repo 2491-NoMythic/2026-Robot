@@ -737,7 +737,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
       new Translation3d(getPose().getX() + shooterOffset.getX(), getPose().getY() + shooterOffset.getY(), SHOOTER_HEIGHT), 
       hubPosition, 
       SHOOTING_SPEED_MPS, 
-      new Translation3d(fieldChassisSpeeds.vxMetersPerSecond + linearVelocityFromRotation.getX(), fieldChassisSpeeds.vyMetersPerSecond + linearVelocityFromRotation.getY(), 0));
+      new Translation3d(fieldChassisSpeeds.vxMetersPerSecond + linearVelocityFromRotation.getX(), fieldChassisSpeeds.vyMetersPerSecond + linearVelocityFromRotation.getY(), 0), 
+      0);
 
     if(desiredRotation != null){
       RobotState.getInstance().aimingPitch = 90 - desiredRotation.get_0(); //subtracting pitch from 90 degrees becuase math believes 90 degrees is straight up, but servo believes 90 degrees is forward

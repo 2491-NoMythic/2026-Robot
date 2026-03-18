@@ -87,6 +87,13 @@ public final class Constants {
         .withInverted(InvertedValue.Clockwise_Positive));
   }
 
+  public static final class FuelConstants{
+    public static final double FUEL_WEIGHT = 0.215; //kg
+    public static final double FUEL_RADIUS = 0.075; //meters
+    public static final double AIR_DENSITY = 1.1839; //kg/m^3 at 25 degrees celsius
+    
+  }
+
   public static final class ClimberConstants{
     public static final int CLIMBER_MOTOR_ID = 16;
     public static final int HALL_EFFECT_ID = 6;
