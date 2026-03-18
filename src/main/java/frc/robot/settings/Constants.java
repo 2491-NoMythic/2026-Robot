@@ -53,13 +53,14 @@ public final class Constants {
 
   public static final class SubsystemsEnabled{
     public static final boolean SHOOTER_EXISTS = true;
-    public static final boolean CLIMBER_EXISTS = true;
+    public static final boolean CLIMBER_EXISTS = false;
     public static final boolean INTAKE_EXISTS = true;
     public static final boolean INDEXER_EXISTS = true;
     public static final boolean DRIVE_TRAIN_EXISTS = true;
     public static final boolean LIMELIGHTS_EXIST = true;
     public static final boolean LIGHTS_EXIST = false;
     public static final boolean HOPPER_EXISTS = true;
+    public static final boolean QUEST_EXISTS = true;
   }
 
   public static final class ShooterConstants{
@@ -84,6 +85,13 @@ public final class Constants {
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
       .withMotorOutput(new MotorOutputConfigs()
         .withInverted(InvertedValue.Clockwise_Positive));
+  }
+
+  public static final class FuelConstants{
+    public static final double FUEL_WEIGHT = 0.215; //kg
+    public static final double FUEL_RADIUS = 0.075; //meters
+    public static final double AIR_DENSITY = 1.1839; //kg/m^3 at 25 degrees celsius
+    
   }
 
   public static final class ClimberConstants{
@@ -513,7 +521,7 @@ public final class Constants {
     public static final String LIMELIGHT_SHUFFLEBOARD_TAB = "Vision";
 
     public static final double ALLOWABLE_POSE_DIFFERENCE = 0.5;
-    public static final double MAX_TAG_DISTANCE = 3.5;
+    public static final double MAX_TAG_DISTANCE = 1.5;
 
     public static final Translation2d FIELD_CORNER = new Translation2d(17.54, 8.02);
 
