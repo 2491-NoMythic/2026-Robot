@@ -81,11 +81,11 @@ public class Intake extends SubsystemBase {
   }
 
   public boolean getIsDeployed() {
-    return inputs.deployerMotor.position > INTAKE_DEPLOYED_POSITION - 0.1;
+    return inputs.deployerMotor.position > INTAKE_DEPLOYED_POSITION - 0.05;
   }
 
   public boolean getIsRetracted() {
-    return inputs.deployerMotor.position < INTAKE_RETRACTED_POSITION + 0.1;
+    return inputs.deployerMotor.position < INTAKE_RETRACTED_POSITION + 0.05;
   }
 
   public void retractIntake(){
