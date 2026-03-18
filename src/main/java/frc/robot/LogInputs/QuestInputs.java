@@ -4,6 +4,8 @@
 
 package frc.robot.LogInputs;
 
+import java.util.OptionalInt;
+
 import org.littletonrobotics.junction.AutoLog;
 
 import gg.questnav.questnav.PoseFrame;
@@ -12,4 +14,8 @@ import gg.questnav.questnav.PoseFrame;
 @AutoLog
 public class QuestInputs {
     public PoseFrame[] questFrames;
+    public boolean isTracking;
+    public boolean isConnected;
+    public int frameCount;
+    public boolean frameCountPresent;
 }

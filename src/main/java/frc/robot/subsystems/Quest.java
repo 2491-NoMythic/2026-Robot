@@ -25,6 +25,7 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import gg.questnav.questnav.PoseFrame;
 import gg.questnav.questnav.QuestNav;
@@ -40,6 +41,7 @@ public class Quest extends SubsystemBase {
   DrivetrainSubsystem drivetrain;
   QuestInputsAutoLogged inputs;
   Limelight limelight;
+  double lastFrameCount = 0;
   /** Creates a new Quest. */
   public Quest(DrivetrainSubsystem drivetrain) {
     this.drivetrain = drivetrain;
@@ -63,9 +65,17 @@ public class Quest extends SubsystemBase {
 
   @Override
   public void periodic() {
-    RobotState.getInstance().questIsConnected = !questNav.isConnected()||!questNav.isTracking();
     inputs.questFrames = questNav.getAllUnreadPoseFrames();
+    inputs.frameCountPresent = questNav.getFrameCount().isPresent();
+    inputs.frameCount = questNav.getFrameCount().orElse(0);
+    inputs.isConnected = questNav.isConnected();
+    inputs.isTracking = questNav.isTracking();
+
     Logger.processInputs("Quest", inputs);
+
+    RobotState.getInstance().questIsConnected = inputs.isConnected && inputs.isTracking && inputs.frameCount != lastFrameCount;
+    lastFrameCount = inputs.frameCount;
+    SmartDashboard.getBoolean("Quest Connected", RobotState.getInstance().questIsConnected);
     questNav.commandPeriodic();
     if(RobotState.getInstance().questIsConnected) {
       if (limelight.getTrustedPose()!= null) {
@@ -88,7 +98,9 @@ public class Quest extends SubsystemBase {
         }
       }
     }else{
-     setQuestNavPose(limelight.getTrustedPose().getFirst());
+      if(limelight.getTrustedPose() != null && limelight.getTrustedPose().getSecond().tagCount != 0 ) {//add isflat check after merging
+        drivetrain.updateOdometryWithVision(new Pair<Pose2d,Double>(limelight.getTrustedPose().getFirst(), limelight.getTrustedPose().getSecond().timeStampSeconds));
+      }
     }
    }
  }
