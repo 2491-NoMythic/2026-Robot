@@ -18,6 +18,7 @@ import org.littletonrobotics.junction.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Limelight {
 
   private static Limelight limelight;
@@ -99,16 +100,27 @@ public class Limelight {
     Boolean poseATrust = false;
     Boolean poseBTrust = false;
     Boolean poseCTrust = false;
-    if (poseA != null && limelightA.isConnected && limelightA.getClosestTagDistCameraSpace() < MAX_TAG_DISTANCE) {
-      poseATrust = isInField(limelightA);
+    if (RobotState.getInstance().questIsConnected){
+      if (poseA != null && limelightA.isConnected && limelightA.getClosestTagDistCameraSpace() < MAX_TAG_DISTANCE_WITH_QUEST) {
+        poseATrust = isInField(limelightA);
+      }
+      if (poseB != null && limelightB.isConnected && limelightB.getClosestTagDistCameraSpace() < MAX_TAG_DISTANCE_WITH_QUEST) {
+        poseBTrust = isInField(limelightB);
+      }
+      if (poseC != null && limelightC.isConnected && limelightC.getClosestTagDistCameraSpace() < MAX_TAG_DISTANCE_WITH_QUEST) {
+        poseCTrust = isInField(limelightC);
+      }
+    }else{
+      if (poseA != null && limelightA.isConnected && limelightA.getClosestTagDistCameraSpace() < MAX_TAG_DISTANCE_NO_QUEST) {
+        poseATrust = isInField(limelightA);
+      }
+      if (poseB != null && limelightB.isConnected && limelightB.getClosestTagDistCameraSpace() < MAX_TAG_DISTANCE_NO_QUEST) {
+        poseBTrust = isInField(limelightB);
+      }
+      if (poseC != null && limelightC.isConnected && limelightC.getClosestTagDistCameraSpace() < MAX_TAG_DISTANCE_NO_QUEST) {
+        poseCTrust = isInField(limelightC);
+      }
     }
-    if (poseB != null && limelightB.isConnected && limelightB.getClosestTagDistCameraSpace() < MAX_TAG_DISTANCE) {
-      poseBTrust = isInField(limelightB);
-    }
-    if (poseC != null && limelightC.isConnected && limelightC.getClosestTagDistCameraSpace() < MAX_TAG_DISTANCE) {
-      poseCTrust = isInField(limelightC);
-    }
-
     logTrustToSmartDashboard(poseATrust, limelightA, "Left");
     logTrustToSmartDashboard(poseBTrust, limelightB, "Right");
     logTrustToSmartDashboard(poseCTrust, limelightC, "Extra");
