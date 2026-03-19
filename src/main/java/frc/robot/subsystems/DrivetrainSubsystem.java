@@ -52,7 +52,10 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -74,6 +77,8 @@ import frc.robot.helpers.MotorLogger;
 import frc.robot.helpers.MythicalMath;
 import frc.robot.settings.Constants.DriveConstants;
 import frc.robot.settings.Constants.Field;
+import frc.robot.settings.Constants.ShooterConstants;
+import frc.robot.subsystems.Quest;
 
 public class DrivetrainSubsystem extends SubsystemBase {
   // These are our swerve drive kinematics and Pigeon (gyroscope)
@@ -185,6 +190,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return odometer.getEstimatedPosition();
   }
 
+  public boolean isFlat() {
+    return !(Math.abs(inputs.pitch) > 5 || Math.abs(inputs.roll) > 5);
+  }
+
   /**
    * Returns the gyroscope rotation.
    * 
@@ -227,6 +236,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public double getPigeonRoll() {
     return inputs.roll;
+  }
+
+  public double getAngularVelocity(){
+    return inputs.angularVelocity;
   }
 
   /**
@@ -279,6 +292,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
   public ChassisSpeeds getChassisSpeeds() {
     return kinematics.toChassisSpeeds(getModuleStates());
+  }
+
+  public double getDrivetrainVelocity(){
+    return Math.sqrt(Math.pow(getChassisSpeeds().vxMetersPerSecond, 2)+Math.pow(getChassisSpeeds().vyMetersPerSecond, 2));
   }
 
   // This is the odometry section. It has odometry-related functions.
@@ -430,24 +447,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * a little,
    * larger pose shifts will take multiple calls to complete.
    */
-  public void updateOdometryWithVision() {
-    Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
-    if (estimate != null) {
-      boolean doRejectUpdate = false;
-      if (Math.abs(pigeon.getAngularVelocityZWorld().getValueAsDouble()) > 720) {
-        doRejectUpdate = true;
-      }
-      if (estimate.getSecond().tagCount == 0) {
-        doRejectUpdate = true;
-      }
-      if (!doRejectUpdate) {
-        odometer.addVisionMeasurement(estimate.getFirst(), estimate.getSecond().timeStampSeconds);
-        RobotState.getInstance().LimelightsUpdated = true;
-      } else {
-        RobotState.getInstance().LimelightsUpdated = false;
-      }
-    } else {
-      RobotState.getInstance().LimelightsUpdated = false;
+  public void updateOdometryWithVision( Pair<Pose2d, Double> questUpdate) {
+    if(questUpdate!=null){
+      odometer.addVisionMeasurement(questUpdate.getFirst(), questUpdate.getSecond());
     }
   }
 
@@ -673,14 +675,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("pose2d X", getPose().getX());
     SmartDashboard.putNumber("pose2d Y", getPose().getY());
     setRobotOrientationOnLimelights();
-    if(!(Math.abs(inputs.pitch) > 5 || Math.abs(inputs.roll) > 5)) {
-      updateOdometry();
-      if (LIMELIGHTS_EXIST) {
-        updateOdometryWithVision();
-      }
-    } else {
-      RobotState.getInstance().LimelightsUpdated = false;
-    }
+    updateOdometry();
     // sets the robot orientation for each of the limelights, which is required for
     // the
 
@@ -730,12 +725,21 @@ public class DrivetrainSubsystem extends SubsystemBase {
 	  }
 
     var fieldChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
-    
+
+    var shooterOffset = MythicalMath.RotateShooterOffset(getGyroscopeRotation(), new Translation2d(ShooterConstants.SHOOTER_X_OFFSET, ShooterConstants.SHOOTER_Y_OFFSET));
+
+    double angularVelocity = 0;
+    if(Math.abs(inputs.angularVelocity) > 0.5 ) {
+      // angularVelocity = getAngularVelocity() * ShooterConstants.SHOOTER_X_OFFSET;
+    }
+    var linearVelocityFromRotation = MythicalMath.RotateShooterOffset(getGyroscopeRotation(), new Translation2d(0, angularVelocity)); //Movement vector with linear velocity as magnitude perpendicular to the radius, rotated by the robot rotation
+
     Tuple2<Double> desiredRotation = MythicalMath.aimProjectileAtPoint(
-      new Translation3d(getPose().getX(), getPose().getY(), SHOOTER_HEIGHT), 
+      new Translation3d(getPose().getX() + shooterOffset.getX(), getPose().getY() + shooterOffset.getY(), SHOOTER_HEIGHT), 
       hubPosition, 
       SHOOTING_SPEED_MPS, 
-      new Translation3d(fieldChassisSpeeds.vxMetersPerSecond, fieldChassisSpeeds.vyMetersPerSecond, 0));
+      new Translation3d(fieldChassisSpeeds.vxMetersPerSecond + linearVelocityFromRotation.getX(), fieldChassisSpeeds.vyMetersPerSecond + linearVelocityFromRotation.getY(), 0), 
+      0);
 
     if(desiredRotation != null){
       RobotState.getInstance().aimingPitch = 90 - desiredRotation.get_0(); //subtracting pitch from 90 degrees becuase math believes 90 degrees is straight up, but servo believes 90 degrees is forward

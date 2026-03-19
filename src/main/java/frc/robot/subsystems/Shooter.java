@@ -76,7 +76,7 @@ public class Shooter extends SubsystemBase {
    */
   public void setHoodAngle(double angle, boolean autoRetract){
     desiredPosition = InchPositionToActuatorConstrainedPercent(
-      MythicalMath.ServoExtensionToReachHoodAngle(angle, 6.610, 8.134, 4.914, 54.328)
+      MythicalMath.ServoExtensionToReachHoodAngle(angle + 10, 6.610, 8.134, 4.914, 54.328)
     );
     
     autoRetractOn = autoRetract;

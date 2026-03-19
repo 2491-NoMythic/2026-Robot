@@ -7,25 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "AG L OverBump to Collect"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Collect L"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShooterOn"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Return L"
+            "pathName": "L Bump AG Half"
           }
         },
         {
@@ -71,17 +53,11 @@
               }
             ]
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutomaticClimb"
-          }
         }
       ]
     }
   },
   "resetOdom": false,
-  "folder": "Duluth Autos",
+  "folder": null,
   "choreoAuto": false
 }

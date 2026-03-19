@@ -15,7 +15,6 @@ import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -25,7 +24,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import static frc.robot.settings.Constants.ShooterConstants.*;
-import static frc.robot.settings.Constants.Vision.MAX_TAG_DISTANCE;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AimRobot extends Command {

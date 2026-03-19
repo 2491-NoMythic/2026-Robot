@@ -18,6 +18,7 @@ import static frc.robot.settings.Constants.SubsystemsEnabled.INDEXER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.INTAKE_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIGHTS_EXIST;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIMELIGHTS_EXIST;
+import static frc.robot.settings.Constants.SubsystemsEnabled.QUEST_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.SHOOTER_EXISTS;
 import static frc.robot.settings.Constants.XboxDriver.DRIVE_CONTROLLER_ID;
 import static frc.robot.settings.Constants.XboxDriver.OPERATOR_CONTROLLER_ID;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -37,6 +39,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -89,8 +92,10 @@ import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Quest;
 import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
+import gg.questnav.questnav.QuestNav;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -112,6 +117,7 @@ public class RobotContainer {
   private Hopper hopper;
   private Limelight limelight;
   private Lights lights;
+  private Quest quest;
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
   private final XboxController driveController;
@@ -135,7 +141,8 @@ public class RobotContainer {
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier AutoIntakeSup;
   BooleanSupplier IntakeWheelSup;
-  BooleanSupplier ShooterToggleSup;
+  BooleanSupplier ShooterOnSup;
+  BooleanSupplier ShooterOffSup;
   BooleanSupplier HoodUpSupplier;
   BooleanSupplier HoodDownSupplier;
   BooleanSupplier HopperWheelsForwardSup;
@@ -150,8 +157,10 @@ public class RobotContainer {
   BooleanSupplier ManualTowerShotSup;
   BooleanSupplier ManualLeftTrenchShotSup;
   BooleanSupplier ManualRightTrenchShotSup;
+  BooleanSupplier ResetQuestSup;
   BooleanSupplier ManualRightCornerShotSup;
   BooleanSupplier ManualLeftCornerShotSup;
+  BooleanSupplier DrivetrainXPositionSup;
 
 
 
@@ -176,14 +185,17 @@ public class RobotContainer {
     ZeroGyroSup = driveController::getStartButton;
     AutoAimSupplier = () -> driveController.getLeftTriggerAxis() >= 0.5;
     AutoIntakeSup = driveController::getXButton;
+    DrivetrainXPositionSup = () -> driveController.getAButton();
+
 
     //Shooter controls
     IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
-    ForceHoodDownSupplier = driveController::getBackButton;
+    ForceHoodDownSupplier = operatorController::getBackButton;
 
     HoodUpSupplier = () -> operatorController.getPOV() == 0;
     HoodDownSupplier = () -> operatorController.getRightTriggerAxis() > 0.5;
-    ShooterToggleSup = ()-> operatorController.getPOV() == 90;
+    ShooterOnSup = ()-> operatorController.getStartButton();
+    ShooterOffSup = ()-> operatorController.getBackButton();
     ManualHubShotSup = operatorController::getYButton;
     ManualTowerShotSup = operatorController::getAButton;
     ManualLeftTrenchShotSup = operatorController::getXButton;
@@ -192,7 +204,7 @@ public class RobotContainer {
     ManualRightCornerShotSup = operatorController::getRightBumperButton;
     //Shooting Command is Right Trigger on drive controller. 
     //Climber controls
-    AutoClimbSup = () -> driveController.getStartButton() && driveController.getBackButton();
+    AutoClimbSup = () -> false;
     ClimberUpSup = ()->operatorController.getPOV() == 0;
     ClimberDownSup = ()->operatorController.getPOV() == 180;
     ClimberDownSup = operatorController::getRightBumperButton;
@@ -213,9 +225,18 @@ public class RobotContainer {
     crossBumpTowardsAllianceSup = driveController::getYButton;
     ShootIfAimedSup = ()->false;
 
+    //QuestNav Controls
+    ResetQuestSup = driveController::getBackButton;
+
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
-      configureDriveTrain();
+      if (QUEST_EXISTS){
+        questInit();
+        configureDriveTrain(quest::setQuestNavPose);
+      }else{
+        configureDriveTrain(drivetrain::resetOdometry);
+      }
+      
     }
 
     if(HOPPER_EXISTS) {
@@ -268,17 +289,20 @@ public class RobotContainer {
     new Trigger(crossBumpTowardsAllianceSup).whileTrue(new OverBump(drivetrain, 3));
     new Trigger(TrenchAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, true, false));
     new Trigger(BumpAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, false, true));
+    new Trigger(DrivetrainXPositionSup).whileTrue(drivetrain.run(()->drivetrain.pointWheelsInward()));
 
     SmartDashboard.putData("DriveConstant1", new DriveConstantSpeed(drivetrain, 1, 2));
     SmartDashboard.putData("DriveConstant2", new DriveConstantSpeed(drivetrain, 2, 2));
     SmartDashboard.putData("DriveConstant3", new DriveConstantSpeed(drivetrain, 3, 1.5));
   }
-
-  private void configureDriveTrain() {
+  private void questInit(){
+    quest = new Quest(drivetrain);
+  }
+  private void configureDriveTrain(Consumer<Pose2d> resetOdometryConsumer) {
     try {
       AutoBuilder.configure(
           drivetrain::getPose, // Pose2d supplier
-          drivetrain::resetOdometry, // Pose2d consumer, used to reset odometry at the beginning of auto
+          resetOdometryConsumer, // Pose2d consumer, used to reset odometry at the beginning of auto
           drivetrain::getChassisSpeeds,
           (speeds) -> drivetrain.drive(speeds),
           new PPHolonomicDriveController(
@@ -310,7 +334,8 @@ public class RobotContainer {
     shooter.setDefaultCommand(new AimHood(shooter));
     new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
     new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
-    new Trigger(ShooterToggleSup).onTrue(new InstantCommand(()->shooterOn = !shooterOn));
+    new Trigger(ShooterOnSup).onTrue(new InstantCommand(()->shooterOn = true));
+    new Trigger(ShooterOffSup).onTrue(new InstantCommand(()->shooterOn = false));
     new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
@@ -357,7 +382,6 @@ public class RobotContainer {
 
   private void autoInit() {
     if (DRIVE_TRAIN_EXISTS){
-      configureDriveTrain(); 
       autoChooser = AutoBuilder.buildAutoChooser();
       SmartDashboard.putData("Auto Chooser", autoChooser);
     }
@@ -391,7 +415,7 @@ public class RobotContainer {
     if (DRIVE_TRAIN_EXISTS) {
       SmartDashboard.putData("drivetrain", drivetrain);
       new Trigger(ZeroGyroSup).onTrue(new InstantCommand(drivetrain::zeroGyroscope));
-
+      new Trigger(ResetQuestSup).onTrue(new InstantCommand(()->quest.resetQuestPose()));
       InstantCommand setOffsets = new InstantCommand(drivetrain::setEncoderOffsets) {
         public boolean runsWhenDisabled() {
           return true;
