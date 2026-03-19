@@ -19,6 +19,7 @@ import static frc.robot.settings.Constants.SubsystemsEnabled.INTAKE_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIGHTS_EXIST;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIMELIGHTS_EXIST;
 import static frc.robot.settings.Constants.SubsystemsEnabled.QUEST_EXISTS;
+import static frc.robot.settings.Constants.SubsystemsEnabled.SAFE_MODE_IS_ON;
 import static frc.robot.settings.Constants.SubsystemsEnabled.SHOOTER_EXISTS;
 import static frc.robot.settings.Constants.XboxDriver.DRIVE_CONTROLLER_ID;
 import static frc.robot.settings.Constants.XboxDriver.OPERATOR_CONTROLLER_ID;
@@ -179,9 +180,10 @@ public class RobotContainer {
     eventMap = new HashMap<>();
 
     // Drive controls
-    ControllerSidewaysAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(X_AXIS), 0);
-    ControllerForwardAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
-    ControllerZAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
+    double speedMultiplier = SAFE_MODE_IS_ON ? 0.2 : 1.0;
+    ControllerSidewaysAxisSupplier = () -> speedMultiplier * modifyAxis(-driveController.getRawAxis(X_AXIS), 0);
+    ControllerForwardAxisSupplier = () -> speedMultiplier * modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
+    ControllerZAxisSupplier = () -> speedMultiplier * modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
     ZeroGyroSup = driveController::getStartButton;
     AutoAimSupplier = () -> driveController.getLeftTriggerAxis() >= 0.5;
     AutoIntakeSup = driveController::getXButton;

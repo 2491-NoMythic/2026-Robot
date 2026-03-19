@@ -65,11 +65,12 @@ public final class Constants {
     public static final boolean LIGHTS_EXIST = false;
     public static final boolean HOPPER_EXISTS = true;
     public static final boolean QUEST_EXISTS = true;
+    public static final boolean SAFE_MODE_IS_ON = false;
   }
 
   public static final class ShooterConstants{
     public static final float SHOOTING_SPEED_MPS = 7.3f;
-    public static final float SHOOTING_SPEED_RPS = 84f;
+    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 84f;
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
@@ -119,7 +120,7 @@ public final class Constants {
       .withSlot0(new Slot0Configs()
         .withKG(0).withKP(12).withKI(0).withKD(0).withGravityType(GravityTypeValue.Arm_Cosine))
       .withCurrentLimits(new CurrentLimitsConfigs()
-        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
+        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(SubsystemsEnabled.SAFE_MODE_IS_ON ? 5 : 50))
       .withSoftwareLimitSwitch(new SoftwareLimitSwitchConfigs()
         .withForwardSoftLimitEnable(true)
         .withForwardSoftLimitThreshold(-0.025))
