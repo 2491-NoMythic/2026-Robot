@@ -728,7 +728,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     var shooterOffset = MythicalMath.RotateShooterOffset(getGyroscopeRotation(), new Translation2d(ShooterConstants.SHOOTER_X_OFFSET, ShooterConstants.SHOOTER_Y_OFFSET));
 
-    double angularVelocity = Math.toRadians(inputs.angularVelocity) * ShooterConstants.SHOOTER_X_OFFSET;
+    double angularVelocity = 0;
+    if(Math.abs(inputs.angularVelocity) > 0.5 ) {
+      // angularVelocity = getAngularVelocity() * ShooterConstants.SHOOTER_X_OFFSET;
+    }
     var linearVelocityFromRotation = MythicalMath.RotateShooterOffset(getGyroscopeRotation(), new Translation2d(0, angularVelocity)); //Movement vector with linear velocity as magnitude perpendicular to the radius, rotated by the robot rotation
 
     Tuple2<Double> desiredRotation = MythicalMath.aimProjectileAtPoint(

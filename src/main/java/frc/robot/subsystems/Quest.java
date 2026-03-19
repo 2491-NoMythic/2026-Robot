@@ -37,7 +37,7 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 public class Quest extends SubsystemBase {
   QuestNav questNav = new QuestNav();
   //for the transform3D below, x is forward, either y or z is how far left of center the quest is. The other one is upwardsness, but that doesn't matter to us. The Rotation3d matters for some reason, even though we don't get pitch, roll, or yaw from the quest
-  Transform3d robotToQuest = new Transform3d(-0.370, -0.248, -0.248, new Rotation3d(0, 0, Math.toRadians(-165)));
+  Transform3d robotToQuest = new Transform3d(-0.342, -0.261, -0.261, new Rotation3d(0, 0, Math.toRadians(-155)));
   Matrix<N3, N1> questnavStandardDeviations = VecBuilder.fill(0.02, 0.02, 0.035); //The suggested Standerd Deviations for QuestNav
   DrivetrainSubsystem drivetrain;
   QuestInputsAutoLogged inputs;
@@ -95,7 +95,7 @@ public class Quest extends SubsystemBase {
           // Transform by the mount pose to get your robot pose
           Pose3d robotPose = questPose.transformBy(robotToQuest.inverse());
           // addVisionMeasurement not working but this is what it said in docs
-          drivetrain.updateOdometryWithVision(new Pair<>(new Pose2d(robotPose.getX(), robotPose.getZ(), robotPose.getRotation().toRotation2d()), timestamp));
+          drivetrain.updateOdometryWithVision(new Pair<>(new Pose2d(robotPose.getX(), robotPose.getY(), robotPose.getRotation().toRotation2d()), timestamp));
         }
       }
     }else{
