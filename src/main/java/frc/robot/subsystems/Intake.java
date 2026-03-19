@@ -4,9 +4,13 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.FeedbackConfigs;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXSConfiguration;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.TalonFXS;
 
@@ -24,11 +28,13 @@ public class Intake extends SubsystemBase {
   TalonFX deployer;
   TalonFXSConfiguration intakeConfig;
   IntakeInputsAutoLogged inputs;
+  CANcoder absoluteEncoder;
 
   /** Creates a new Intake. */
   public Intake() {
     wheels = new TalonFXS(INTAKE_WHEELS_ID, CANIVORE_DRIVETRAIN);
     deployer = new TalonFX(INTAKE_DEPLOYER_ID, CANIVORE_DRIVETRAIN);
+    absoluteEncoder = new CANcoder(INTAKE_ENCODER_ID, CANIVORE_DRIVETRAIN);
     wheels.getConfigurator().apply(INTAKE_WHEELS_CONFIG);
     deployer.getConfigurator().apply(INTAKE_DEPLOYER_CONFIG);
     inputs = new IntakeInputsAutoLogged();
@@ -71,23 +77,27 @@ public class Intake extends SubsystemBase {
   }
 
   public void deployIntake(){
-    deployer.setControl(new VoltageOut(4));
+    setIntakeAngle(INTAKE_DEPLOYED_POSITION);
   }
 
   public boolean getIsDeployed() {
-    return inputs.forwardLimitSwitch;
+    return inputs.deployerMotor.position > INTAKE_DEPLOYED_POSITION - 0.05;
   }
 
   public boolean getIsRetracted() {
-    return inputs.reverseLimitSwitch;
+    return inputs.deployerMotor.position < INTAKE_RETRACTED_POSITION + 0.05;
   }
 
   public void retractIntake(){
-    deployer.setControl(new VoltageOut(-3));
+    setIntakeAngle(INTAKE_RETRACTED_POSITION);
   }
 
   public void stopDeployer(){
     deployer.stopMotor();
+  }
+
+  public void setIntakeAngle(double rotations) {
+    deployer.setControl(new PositionVoltage(rotations));
   }
 
   @Override
