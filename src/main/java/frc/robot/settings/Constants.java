@@ -79,8 +79,8 @@ public final class Constants {
     public static final double HOOD_DOWN_POSITION = 0.2;
     public static final double HOOD_UP_POSITION = 0.8;
     public static TalonFXConfiguration SHOOTER_CONFIG = new TalonFXConfiguration()
-      .withSlot0(new Slot0Configs()
-        .withKV(0.17).withKP(0.8).withKI(0).withKD(0).withKS(0.675))
+      .withSlot0(new Slot0Configs() 
+        .withKV(0.125).withKP(0.4).withKI(0).withKD(0).withKS(0.36))
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
       .withMotorOutput(new MotorOutputConfigs()
