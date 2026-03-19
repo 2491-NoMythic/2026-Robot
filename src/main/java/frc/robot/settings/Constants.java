@@ -14,12 +14,14 @@ import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXSConfiguration;
 import com.ctre.phoenix6.configs.VoltageConfigs;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.ForwardLimitSourceValue;
 import com.ctre.phoenix6.signals.ForwardLimitTypeValue;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorArrangementValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -67,24 +69,33 @@ public final class Constants {
 
   public static final class ShooterConstants{
     public static final float SHOOTING_SPEED_MPS = 7.3f;
-    public static final float SHOOTING_SPEED_RPS = 25;
+    public static final float SHOOTING_SPEED_RPS = 84f;
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
     public static final int HOOD_RIGHT_ACTUATOR_ID = 3;
-    public static final double SHOOTER_HEIGHT = 1; //IN METERS
+    public static final double SHOOTER_HEIGHT = 0.552; //IN METERS
+    public static final double SHOOTER_X_OFFSET = 0.16; //Positive X is towards Blue when facing 0* (which is away from DS when on Blue)
+    public static final double SHOOTER_Y_OFFSET = 0;
     public static final double AUTO_AIM_ROBOT_kP = 0.125;
     public static final double AUTO_AIM_ROBOT_kI = 0;
     public static final double AUTO_AIM_ROBOT_kD = 0;
     public static final double HOOD_DOWN_POSITION = 0.2;
     public static final double HOOD_UP_POSITION = 0.8;
     public static TalonFXConfiguration SHOOTER_CONFIG = new TalonFXConfiguration()
-      .withSlot0(new Slot0Configs()
-        .withKV(0.17).withKP(0.8).withKI(0).withKD(0).withKS(0.675))
+      .withSlot0(new Slot0Configs() 
+        .withKV(0.125).withKP(0.4).withKI(0).withKD(0).withKS(0.36))
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
       .withMotorOutput(new MotorOutputConfigs()
         .withInverted(InvertedValue.Clockwise_Positive));
+  }
+
+  public static final class FuelConstants{
+    public static final double FUEL_WEIGHT = 0.215; //kg
+    public static final double FUEL_RADIUS = 0.075; //meters
+    public static final double AIR_DENSITY = 1.1839; //kg/m^3 at 25 degrees celsius
+    
   }
 
   public static final class ClimberConstants{
@@ -103,25 +114,25 @@ public final class Constants {
     public static final double INTAKE_SPEED_RPS = 90;
     public static final int INTAKE_WHEELS_ID = 14;
     public static final int INTAKE_DEPLOYER_ID = 13;
+    public static final int INTAKE_ENCODER_ID = 0;
     public static TalonFXConfiguration INTAKE_DEPLOYER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
-        .withKV(0).withKP(0).withKI(0).withKD(0))
+        .withKG(0).withKP(12).withKI(0).withKD(0).withGravityType(GravityTypeValue.Arm_Cosine))
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
-      .withHardwareLimitSwitch(new HardwareLimitSwitchConfigs()
-        .withForwardLimitEnable(false)//true
-        .withForwardLimitRemoteSensorID(FR_STEER_MOTOR_ID)
-        .withForwardLimitSource(ForwardLimitSourceValue.RemoteTalonFX)
-        .withForwardLimitType(ForwardLimitTypeValue.NormallyOpen)
-        .withReverseLimitEnable(false)//true
-        .withReverseLimitRemoteSensorID(FR_STEER_MOTOR_ID)
-        .withReverseLimitSource(ReverseLimitSourceValue.RemoteTalonFX)
-        .withReverseLimitType(ReverseLimitTypeValue.NormallyOpen));
+      .withSoftwareLimitSwitch(new SoftwareLimitSwitchConfigs()
+        .withForwardSoftLimitEnable(true)
+        .withForwardSoftLimitThreshold(-0.025))
+      .withFeedback(new FeedbackConfigs()
+        .withFeedbackSensorSource(FeedbackSensorSourceValue.RemoteCANcoder)
+        .withFeedbackRemoteSensorID(INTAKE_ENCODER_ID));
     public static TalonFXSConfiguration INTAKE_WHEELS_CONFIG = new TalonFXSConfiguration()
       .withCommutation(new CommutationConfigs()
         .withMotorArrangement(MotorArrangementValue.Minion_JST))
       .withSlot0(new Slot0Configs()
         .withKV(0.095).withKS(0.37).withKP(0.1).withKI(0).withKD(0));
+    public static final double INTAKE_RETRACTED_POSITION = -0.35;
+    public static final double INTAKE_DEPLOYED_POSITION = -0.01;
   }
 
   public static final class IndexerConstants{
