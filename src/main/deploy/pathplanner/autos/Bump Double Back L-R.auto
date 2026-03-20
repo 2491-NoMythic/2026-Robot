@@ -5,52 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "AcrossBumpAwayFromAlliance"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Expand"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "AG L OverBump to CollectBL"
           }
         },
         {
-          "type": "deadline",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Collect L-R"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShooterOn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AcrossBumpTowardsAlliance"
+            "pathName": "Collect L-R"
           }
         },
         {
@@ -107,6 +70,6 @@
     }
   },
   "resetOdom": false,
-  "folder": "Old Autos",
+  "folder": "Duluth Autos",
   "choreoAuto": false
 }

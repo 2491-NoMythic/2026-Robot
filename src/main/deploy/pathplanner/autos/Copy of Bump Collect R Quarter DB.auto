@@ -5,21 +5,46 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Expand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Bump to Collect BR"
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "Collect BR"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Collect BR"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Return BL"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "OverBump"
           }
         },
         {
@@ -61,15 +86,27 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate R Quarter DB"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "AutomaticClimb"
+            "name": "OverBump"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Return R Quarter DB Finish"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Duluth Autos",
+  "folder": null,
   "choreoAuto": false
 }

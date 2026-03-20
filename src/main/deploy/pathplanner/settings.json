@@ -3,27 +3,27 @@
   "robotLength": 0.7874,
   "holonomicMode": true,
   "pathFolders": [
+    "Auto Bump Paths",
     "Auto Paths",
-    "Bump",
     "Collect",
     "Misc",
+    "Auto Bump Paths w Zack",
     "Old Paths",
     "Return to Hub",
-    "Testing",
-    "To Collect"
+    "To Collect",
+    "To Collect Bump"
   ],
   "autoFolders": [
+    "Duluth Autos",
     "Finalized",
-    "Misc",
-    "Old Autos",
-    "WIP"
+    "Misc"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 2.5,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,
-  "robotMass": 74.088,
+  "robotMass": 90.7185,
   "robotMOI": 6.883,
   "robotTrackwidth": 0.546,
   "driveWheelRadius": 0.048,
@@ -46,7 +46,6 @@
     "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.51,\"y\":0.0},\"size\":{\"width\":0.914,\"length\":0.229},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}",
     "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.0,\"y\":0.5},\"size\":{\"width\":0.064,\"length\":0.787},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}",
     "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.0,\"y\":-0.5},\"size\":{\"width\":0.064,\"length\":0.787},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}",
-    "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":-0.43,\"y\":0.0},\"size\":{\"width\":0.914,\"length\":0.064},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}",
-    "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.44,\"y\":0.0},\"size\":{\"width\":0.914,\"length\":0.064},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}"
+    "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":-0.43,\"y\":0.0},\"size\":{\"width\":0.914,\"length\":0.064},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}"
   ]
 }

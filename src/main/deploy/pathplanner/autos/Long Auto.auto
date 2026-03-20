@@ -5,27 +5,40 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "AG R OverBump to CollectBR"
+            "name": "OverBump"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Collect R"
+            "pathName": "Steal Out"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ShooterOn"
+            "name": "OverBump"
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "Return R"
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
+                }
+              }
+            ]
           }
         },
         {
@@ -39,28 +52,9 @@
                 }
               },
               {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "RunOnlyIntake"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
                 "type": "named",
                 "data": {
-                  "name": "RunIndexer"
+                  "name": "ShooterOn"
                 }
               },
               {
@@ -71,17 +65,11 @@
               }
             ]
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutomaticClimb"
-          }
         }
       ]
     }
   },
-  "resetOdom": false,
-  "folder": "Duluth Autos",
+  "resetOdom": true,
+  "folder": null,
   "choreoAuto": false
 }

@@ -3,32 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 2.1723373493975906,
+        "y": 5.849000000000001
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 3.5139397590361447,
+        "y": 5.812626506024097
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.0,
-        "y": 7.0
+        "x": 7.98587951807229,
+        "y": 5.849000000000001
       },
       "prevControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 7.296569479564347,
+        "y": 5.884653967509034
+      },
+      "nextControl": {
+        "x": 8.619686746987952,
+        "y": 5.81621686746988
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.871024096385542,
+        "y": 5.138698795180724
+      },
+      "prevControl": {
+        "x": 8.914734939759036,
+        "y": 5.466530120481927
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,10 +63,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -88.45184230102221
   },
   "reversed": false,
-  "folder": "Testing",
+  "folder": "Auto Bump Paths w Zack",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

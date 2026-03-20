@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "AG R OverBump to CollectBR"
+            "pathName": "AG L OverBump to Collect"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Collect R"
+            "pathName": "Collect L"
           }
         },
         {
@@ -25,7 +25,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Return R"
+            "pathName": "Return L"
           }
         },
         {
