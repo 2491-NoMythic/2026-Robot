@@ -65,17 +65,12 @@ public final class Constants {
     public static final boolean LIGHTS_EXIST = false;
     public static final boolean HOPPER_EXISTS = true;
     public static final boolean QUEST_EXISTS = true;
-    public static final boolean SAFE_MODE_IS_ON = true;   // A Mode to turn on for mythical night with robotics and other events where we may not want the robot to go full speed
+    public static final boolean SAFE_MODE_IS_ON = false;   // A Mode to turn on for mythical night with robotics and other events where we may not want the robot to go full speed
   }
 
   public static final class ShooterConstants{
-<<<<<<< HEAD
     public static final float SHOOTING_SPEED_MPS = 7.3f;
-    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 84f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
-=======
-    public static final float SHOOTING_SPEED_MPS = 7.6f;
-    public static final float SHOOTING_SPEED_RPS = 70;
->>>>>>> 67d2210 (tuned shooter speed)
+    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 30f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
