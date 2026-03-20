@@ -5,46 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "Expand"
+            "waitTime": 2.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "FR R Trench to Collect"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Collect BR"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Return BL"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "OverBump"
+            "pathName": "Culley's Recipie"
           }
         },
         {
@@ -52,9 +21,34 @@
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
+                }
+              },
+              {
                 "type": "wait",
                 "data": {
-                  "waitTime": 2.0
+                  "waitTime": 0.5
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIndexer"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 5.0
                 }
               },
               {
@@ -67,34 +61,59 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Culley's Ingrediants"
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 8.0
+                  "name": "AimRobotMoving"
                 }
               },
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "RunIndexer"
+                  "waitTime": 0.5
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "race",
           "data": {
-            "name": "AutomaticClimb"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIndexer"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 5.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
+                }
+              }
+            ]
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Old Autos",
+  "folder": null,
   "choreoAuto": false
 }

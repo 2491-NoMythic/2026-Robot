@@ -7,44 +7,38 @@
         {
           "type": "named",
           "data": {
-            "name": "Expand"
+            "name": "OverBump"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Trench to Collect ML"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Collect L"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Return L"
+            "pathName": "Steal Out"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AcrossBumpTowardsAlliance"
+            "name": "OverBump"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
+                }
+              }
+            ]
           }
         },
         {
@@ -58,22 +52,9 @@
                 }
               },
               {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
                 "type": "named",
                 "data": {
-                  "name": "RunIndexer"
+                  "name": "ShooterOn"
                 }
               },
               {
@@ -84,17 +65,11 @@
               }
             ]
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutomaticClimb"
-          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Old Autos",
+  "folder": null,
   "choreoAuto": false
 }

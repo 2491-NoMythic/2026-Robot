@@ -5,9 +5,40 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Expand"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "AG L Half"
+            "pathName": "Bump to Collect BR"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Collect BR"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Return R Quarter DB"
           }
         },
         {
@@ -63,7 +94,7 @@
       ]
     }
   },
-  "resetOdom": false,
-  "folder": "WIP",
+  "resetOdom": true,
+  "folder": null,
   "choreoAuto": false
 }

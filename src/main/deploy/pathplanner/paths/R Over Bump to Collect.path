@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 3.3962409638554214,
+        "y": 2.4395542168674704
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 4.639386753970822,
+        "y": 2.5142938919553006
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "R Over Bump Start"
     },
     {
       "anchor": {
-        "x": 4.0,
-        "y": 7.0
+        "x": 5.854975903614458,
+        "y": 2.5816144578313254
       },
       "prevControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 5.087839737711641,
+        "y": 2.525947022474662
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Right Bump Start"
     }
   ],
   "rotationTargets": [],
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Testing",
+  "folder": "To Collect Bump",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

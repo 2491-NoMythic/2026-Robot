@@ -8,27 +8,48 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.520226575706053,
-        "y": 4.880179060803537
+        "x": 6.080287743954795,
+        "y": 4.622092572144318
       },
       "isLocked": false,
       "linkedName": "Return BL"
     },
     {
       "anchor": {
-        "x": 6.225691868758916,
-        "y": 5.2059486447931524
+        "x": 5.570855421686747,
+        "y": 5.597662650602409
       },
       "prevControl": {
-        "x": 7.2260955767470465,
-        "y": 4.717948338746467
+        "x": 6.413929011698541,
+        "y": 5.384547426455475
+      },
+      "nextControl": {
+        "x": 5.121223504527314,
+        "y": 5.711322250362506
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.1995421686746988,
+        "y": 5.597662650602409
+      },
+      "prevControl": {
+        "x": 3.463286568871383,
+        "y": 5.5690304800404125
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Return BL End"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,7 +68,7 @@
   "reversed": false,
   "folder": "Return to Hub",
   "idealStartingState": {
-    "velocity": 3.0,
+    "velocity": 1.0,
     "rotation": 90.0
   },
   "useDefaultConstraints": true
