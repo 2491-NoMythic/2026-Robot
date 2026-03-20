@@ -121,6 +121,7 @@ public class RobotContainer {
   private Quest quest;
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
+  private SendableChooser<Double> safeModeChooser; // creates a changable option on elastic for safemode
   private final XboxController driveController;
   private final XboxController operatorController;
   private Timer autoTimer;
@@ -180,10 +181,16 @@ public class RobotContainer {
     eventMap = new HashMap<>();
 
     // Drive controls
-    double speedMultiplier = SAFE_MODE_IS_ON ? 0.2 : 1.0;
-    ControllerSidewaysAxisSupplier = () -> speedMultiplier * modifyAxis(-driveController.getRawAxis(X_AXIS), 0);
-    ControllerForwardAxisSupplier = () -> speedMultiplier * modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
-    ControllerZAxisSupplier = () -> speedMultiplier * modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
+    if (SAFE_MODE_IS_ON) {   // this code will only run if the constant SAFE_MODE_IS_ON is set to true, 
+      safeModeChooser = new SendableChooser<>();                  // creates a new instance of SafeModeChooser which can be sent to elastic
+      safeModeChooser.addOption("Cheetah", 0.5);      // creates Cheetah mode in which speed is set to 0.5 of normal speed
+      safeModeChooser.addOption("Dog", 0.3);
+      safeModeChooser.addOption("Turtle", 0.2);
+      SmartDashboard.putData("Safe Mode", safeModeChooser);
+    }
+    ControllerSidewaysAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(X_AXIS), 0);
+    ControllerForwardAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
+    ControllerZAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
     ZeroGyroSup = driveController::getStartButton;
     AutoAimSupplier = () -> driveController.getLeftTriggerAxis() >= 0.5;
     AutoIntakeSup = driveController::getXButton;
@@ -274,6 +281,14 @@ public class RobotContainer {
     registerNamedCommands();
     autoInit();
     configureBindings();
+  }
+
+  private double getSpeedMultiplier() {  // if safe mode is off, this will always return 1.0 and the robot will drive normally, if safemode is on it will return the number of the mode that is selected
+    if (SAFE_MODE_IS_ON) {
+      return safeModeChooser.getSelected();
+    } else {
+      return 1.0;
+    }
   }
 
   private void driveTrainInit() {
