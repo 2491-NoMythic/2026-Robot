@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.614795180722891,
+        "x": 5.855,
         "y": 5.681878354203935
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.90472228995224,
+        "x": 7.144927109229349,
         "y": 5.73788244337129
       },
       "isLocked": true,
@@ -69,7 +69,7 @@
   "folder": "To Collect Bump",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

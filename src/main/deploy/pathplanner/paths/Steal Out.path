@@ -208,8 +208,14 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
+      "name": "ShooterOn",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
       "name": "Expand",
-      "waypointRelativePos": 0.6699751861042262,
+      "waypointRelativePos": 6.830519918973733,
       "endWaypointRelativePos": null,
       "command": null
     }

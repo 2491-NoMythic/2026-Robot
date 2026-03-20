@@ -52,12 +52,6 @@
                 }
               },
               {
-                "type": "named",
-                "data": {
-                  "name": "ShooterOn"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
                   "waitTime": 8.0
