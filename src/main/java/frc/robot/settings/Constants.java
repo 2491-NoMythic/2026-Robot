@@ -65,7 +65,7 @@ public final class Constants {
     public static final boolean LIGHTS_EXIST = false;
     public static final boolean HOPPER_EXISTS = true;
     public static final boolean QUEST_EXISTS = true;
-    public static final boolean SAFE_MODE_IS_ON = false;   // A Mode to turn on for mythical night with robotics and other events where we may not want the robot to go full speed
+    public static final boolean SAFE_MODE_IS_ON = true;   // A Mode to turn on for mythical night with robotics and other events where we may not want the robot to go full speed
   }
 
   public static final class ShooterConstants{

@@ -1,0 +1,122 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.534,
+        "y": 2.502
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.934552168580243,
+        "y": 2.3845230149187993
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.510342368045648,
+        "y": 2.501768901569187
+      },
+      "prevControl": {
+        "x": 5.873574015715138,
+        "y": 1.9830500934917294
+      },
+      "nextControl": {
+        "x": 7.120091169716662,
+        "y": 2.998477273572699
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.2774465049928665,
+        "y": 5.490599144079885
+      },
+      "prevControl": {
+        "x": 7.026103768893198,
+        "y": 4.991480371642147
+      },
+      "nextControl": {
+        "x": 6.069435717735392,
+        "y": 5.6292768725892826
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.5769900142653355,
+        "y": 5.089500713266761
+      },
+      "prevControl": {
+        "x": 2.971801703559376,
+        "y": 5.653548828288445
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Culley#1 End/Culley#2 Start"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5842217484008575,
+      "rotationDegrees": 90.0
+    },
+    {
+      "waypointRelativePos": 2.62,
+      "rotationDegrees": 90.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 2.1471978392977764,
+      "maxWaypointRelativePos": 2.5685347738014865,
+      "constraints": {
+        "maxVelocity": 2.5,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 0.6806212018906123,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "ShooterOn",
+      "waypointRelativePos": 2.2243176178660073,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -25.346175941946687
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 90.8255299269832
+  },
+  "useDefaultConstraints": false
+}
