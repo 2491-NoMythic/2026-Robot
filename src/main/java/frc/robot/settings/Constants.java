@@ -68,8 +68,8 @@ public final class Constants {
   }
 
   public static final class ShooterConstants{
-    public static final float SHOOTING_SPEED_MPS = 7.6f;
-    public static final float SHOOTING_SPEED_RPS = 70;
+    public static final float SHOOTING_SPEED_MPS = 7.6f; //tune this after the rps is a number we are happy with it, it adjusts where we aim the hood
+    public static final float SHOOTING_SPEED_RPS = 70; //tune this to be the shot speed where we like the speed of the shots
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
