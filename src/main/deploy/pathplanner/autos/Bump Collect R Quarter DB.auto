@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Trench to Collect ML"
+            "pathName": "Bump to Collect BR"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Collect L"
+                  "pathName": "Collect BR"
                 }
               },
               {
@@ -38,13 +38,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Return L"
+            "pathName": "Return R Quarter DB"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AcrossBumpTowardsAlliance"
+            "name": "OverBump"
           }
         },
         {
@@ -52,15 +52,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "AimRobotMoving"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
                   "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
                 }
               }
             ]
@@ -71,15 +71,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "RunIndexer"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
                   "waitTime": 8.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIndexer"
                 }
               }
             ]
@@ -95,6 +95,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Old Autos",
+  "folder": null,
   "choreoAuto": false
 }

@@ -3,35 +3,68 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.9423975903614465,
-        "y": 5.532096385542169
+        "x": 3.636650602409638,
+        "y": 5.521168674698795
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.9423975903614465,
-        "y": 7.378879518072289
+        "x": 4.742540772667256,
+        "y": 5.654970536946478
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "L Over Bump Start"
     },
     {
       "anchor": {
-        "x": 8.073301204819277,
+        "x": 5.855,
+        "y": 5.681878354203935
+      },
+      "prevControl": {
+        "x": 5.801386995348381,
+        "y": 5.294888090834646
+      },
+      "nextControl": {
+        "x": 5.920542168674699,
+        "y": 6.154975903614457
+      },
+      "isLocked": false,
+      "linkedName": "Left Bump Start"
+    },
+    {
+      "anchor": {
+        "x": 7.757,
         "y": 6.985481927710843
       },
       "prevControl": {
-        "x": 8.021807228915664,
-        "y": 7.812397590361446
+        "x": 6.95867469879518,
+        "y": 7.44444578313253
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Collect BL"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 0.9627791563275307,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 2.5,

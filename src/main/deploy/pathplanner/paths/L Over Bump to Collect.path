@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5164457831325304,
-        "y": 0.691120481927711
+        "x": 3.636650602409638,
+        "y": 5.521168674698795
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.01644578313253,
-        "y": 0.691120481927711
+        "x": 4.840028874022412,
+        "y": 5.598602629470024
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "L Over Bump Start"
     },
     {
       "anchor": {
-        "x": 7.526915662650602,
-        "y": 1.2702891566265067
+        "x": 5.855,
+        "y": 5.681878354203935
       },
       "prevControl": {
-        "x": 6.807575862311951,
-        "y": 0.5756307861675092
+        "x": 4.955854257881518,
+        "y": 5.620083143496469
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Bump Start"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Old Paths",
+  "folder": "To Collect Bump",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

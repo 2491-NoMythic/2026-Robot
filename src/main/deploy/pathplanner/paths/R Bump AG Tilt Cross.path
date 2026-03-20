@@ -3,87 +3,91 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.576433734939759,
-        "y": 7.51001204819277
+        "x": 3.5,
+        "y": 2.2974939759036137
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.242348186012234,
-        "y": 7.516085258084502
+        "x": 4.87629778542316,
+        "y": 2.4381102156381136
       },
       "isLocked": false,
-      "linkedName": "Left Trench Start"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.029819277108434,
-        "y": 7.51001204819277
+        "x": 6.401361445783133,
+        "y": 2.2974939759036137
       },
       "prevControl": {
-        "x": 5.556591589671637,
-        "y": 7.590817912465753
+        "x": 4.826001276764471,
+        "y": 2.3709091285725497
       },
       "nextControl": {
-        "x": 6.315214394095553,
-        "y": 7.4612794830879166
+        "x": 6.835999127256791,
+        "y": 2.2772389305060026
       },
       "isLocked": false,
-      "linkedName": "FR L Trench to Collect P1"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.757,
-        "y": 6.985481927710843
+        "x": 8.281,
+        "y": 3.0952168674698792
       },
       "prevControl": {
-        "x": 7.672827088370366,
-        "y": 7.631832072593167
+        "x": 8.241221775078401,
+        "y": 2.377626480652156
       },
       "nextControl": {
-        "x": 7.83289156626506,
-        "y": 6.402722891566264
+        "x": 8.313710843373494,
+        "y": 3.6853132530120476
       },
       "isLocked": false,
-      "linkedName": "Collect BL"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.757,
-        "y": 2.2865662650602405
+        "x": 8.281,
+        "y": 6.0
       },
       "prevControl": {
-        "x": 7.86567469879518,
-        "y": 2.756457831325301
+        "x": 8.45577108433735,
+        "y": 5.641373493975904
       },
       "nextControl": {
-        "x": 7.700667908729143,
-        "y": 2.0429955453645987
+        "x": 8.065312318899263,
+        "y": 6.442586482534436
       },
       "isLocked": false,
-      "linkedName": "FR L Return"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.290385164051354,
-        "y": 2.6052781740370903
+        "x": 6.549158345221112,
+        "y": 5.594108416547789
       },
       "prevControl": {
-        "x": 7.231867469879518,
-        "y": 1.8166746987951807
+        "x": 7.188156626506023,
+        "y": 6.220542168674699
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "FR R Return End"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 2.038926880589173,
-      "rotationDegrees": -90.0
+      "waypointRelativePos": 0.9518248175182433,
+      "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 2.9900052603892973,
-      "rotationDegrees": -90.0
+      "waypointRelativePos": 1.9503649635036453,
+      "rotationDegrees": 75.222
+    },
+    {
+      "waypointRelativePos": 3.0,
+      "rotationDegrees": 75.222
     }
   ],
   "constraintZones": [],
@@ -91,7 +95,7 @@
   "eventMarkers": [
     {
       "name": "Expand",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.7995431182181731,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -102,8 +106,8 @@
     },
     {
       "name": "Intake",
-      "waypointRelativePos": 2.1168658698539238,
-      "endWaypointRelativePos": 4.0,
+      "waypointRelativePos": 1.342672413793107,
+      "endWaypointRelativePos": 5.0,
       "command": {
         "type": "named",
         "data": {
@@ -114,7 +118,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 2.5,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -125,10 +129,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Auto Paths",
+  "folder": "Auto Bump Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

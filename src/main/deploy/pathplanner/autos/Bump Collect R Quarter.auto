@@ -5,46 +5,21 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Expand"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Bump to Collect BR"
           }
         },
         {
-          "type": "deadline",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Collect BR"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
+            "pathName": "Collect BR"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Return BL"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "OverBump"
           }
         },
         {
@@ -95,6 +70,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Old Autos",
+  "folder": "Duluth Autos",
   "choreoAuto": false
 }

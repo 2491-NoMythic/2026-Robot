@@ -3,87 +3,91 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.576433734939759,
-        "y": 7.51001204819277
+        "x": 3.5,
+        "y": 2.2974939759036137
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.242348186012234,
-        "y": 7.516085258084502
+        "x": 3.749492235671541,
+        "y": 2.3134195634788415
       },
       "isLocked": false,
-      "linkedName": "Left Trench Start"
+      "linkedName": "Right Bump Behind Start"
     },
     {
       "anchor": {
-        "x": 6.029819277108434,
-        "y": 7.51001204819277
+        "x": 6.292084337349398,
+        "y": 2.2974939759036137
       },
       "prevControl": {
-        "x": 5.556591589671637,
-        "y": 7.590817912465753
+        "x": 4.576675939747872,
+        "y": 3.03266900344712
       },
       "nextControl": {
-        "x": 6.315214394095553,
-        "y": 7.4612794830879166
+        "x": 6.980530120481928,
+        "y": 2.002445783132531
       },
       "isLocked": false,
-      "linkedName": "FR L Trench to Collect P1"
+      "linkedName": null
     },
     {
       "anchor": {
         "x": 7.757,
-        "y": 6.985481927710843
+        "y": 2.2974939759036137
       },
       "prevControl": {
-        "x": 7.672827088370366,
-        "y": 7.631832072593167
+        "x": 7.703340605533633,
+        "y": 1.8029995275810782
       },
       "nextControl": {
         "x": 7.83289156626506,
-        "y": 6.402722891566264
+        "y": 2.996867469879519
       },
       "isLocked": false,
-      "linkedName": "Collect BL"
+      "linkedName": null
     },
     {
       "anchor": {
         "x": 7.757,
-        "y": 2.2865662650602405
+        "y": 5.783433734939758
       },
       "prevControl": {
-        "x": 7.86567469879518,
-        "y": 2.756457831325301
+        "x": 7.811036144578313,
+        "y": 4.909216867469881
       },
       "nextControl": {
-        "x": 7.700667908729143,
-        "y": 2.0429955453645987
+        "x": 7.727891874986062,
+        "y": 6.2543558198921065
       },
       "isLocked": false,
-      "linkedName": "FR L Return"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.290385164051354,
-        "y": 2.6052781740370903
+        "x": 6.122,
+        "y": 5.491
       },
       "prevControl": {
-        "x": 7.231867469879518,
-        "y": 1.8166746987951807
+        "x": 6.8384698795180725,
+        "y": 6.756
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "FR R Return End"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
+      "waypointRelativePos": 0.8291970802919676,
+      "rotationDegrees": 0.0
+    },
+    {
       "waypointRelativePos": 2.038926880589173,
-      "rotationDegrees": -90.0
+      "rotationDegrees": 90.0
     },
     {
       "waypointRelativePos": 2.9900052603892973,
-      "rotationDegrees": -90.0
+      "rotationDegrees": 90.0
     }
   ],
   "constraintZones": [],
@@ -91,7 +95,7 @@
   "eventMarkers": [
     {
       "name": "Expand",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.8528784648187521,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -114,21 +118,21 @@
   ],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 2.5,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Auto Paths",
+  "folder": "Auto Bump Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

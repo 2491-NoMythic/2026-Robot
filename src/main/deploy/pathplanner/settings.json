@@ -3,27 +3,26 @@
   "robotLength": 0.7874,
   "holonomicMode": true,
   "pathFolders": [
+    "Auto Bump Paths",
     "Auto Paths",
-    "Bump",
+    "To Collect Bump",
     "Collect",
     "Misc",
     "Old Paths",
     "Return to Hub",
-    "Testing",
     "To Collect"
   ],
   "autoFolders": [
+    "Duluth Autos",
     "Finalized",
-    "Misc",
-    "Old Autos",
-    "WIP"
+    "Misc"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 2.5,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,
-  "robotMass": 74.088,
+  "robotMass": 90.7185,
   "robotMOI": 6.883,
   "robotTrackwidth": 0.546,
   "driveWheelRadius": 0.048,

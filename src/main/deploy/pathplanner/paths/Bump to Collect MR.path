@@ -3,13 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.854975903614458,
-        "y": 2.5816144578313254
+        "x": 3.3962409638554214,
+        "y": 2.4395542168674704
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.936819277108433,
-        "y": 0.38514457831325233
+        "x": 5.079108433734939,
+        "y": 2.4832650602409636
+      },
+      "isLocked": false,
+      "linkedName": "R Over Bump Start"
+    },
+    {
+      "anchor": {
+        "x": 5.854975903614458,
+        "y": 2.5816144578313254
+      },
+      "prevControl": {
+        "x": 5.612178130182376,
+        "y": 2.8605037921789878
+      },
+      "nextControl": {
+        "x": 6.663626506024096,
+        "y": 1.652759036144579
       },
       "isLocked": false,
       "linkedName": "Right Bump Start"
@@ -20,23 +36,35 @@
         "y": 1.0337111111111108
       },
       "prevControl": {
-        "x": 8.0,
-        "y": 0.37490085823529207
+        "x": 6.52156626506024,
+        "y": 0.5381325301204822
       },
       "nextControl": null,
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": "Collect MR"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.3,
+      "waypointRelativePos": 1,
       "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 0.9230769230769187,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 2.5,
@@ -50,7 +78,7 @@
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Bump",
+  "folder": "To Collect Bump",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0
