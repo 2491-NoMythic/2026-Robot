@@ -162,7 +162,7 @@
   "eventMarkers": [
     {
       "name": "Expand",
-      "waypointRelativePos": 1.0234541577825034,
+      "waypointRelativePos": 0.35651586765698895,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -170,6 +170,12 @@
           "name": "Expand"
         }
       }
+    },
+    {
+      "name": "Intake",
+      "waypointRelativePos": 1.2802160702228298,
+      "endWaypointRelativePos": null,
+      "command": null
     },
     {
       "name": "ShooterOn",
