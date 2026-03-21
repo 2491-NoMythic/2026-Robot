@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L Bump FR Cross"
+            "pathName": "L Bump FR Crossback"
           }
         },
         {
@@ -58,6 +58,6 @@
     }
   },
   "resetOdom": false,
-  "folder": null,
+  "folder": "One Path Bump Auto",
   "choreoAuto": false
 }

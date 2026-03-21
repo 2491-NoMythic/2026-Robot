@@ -131,7 +131,9 @@ public final class Constants {
       .withCommutation(new CommutationConfigs()
         .withMotorArrangement(MotorArrangementValue.Minion_JST))
       .withSlot0(new Slot0Configs()
-        .withKV(0.095).withKS(0.37).withKP(0.1).withKI(0).withKD(0));
+        .withKV(0.095).withKS(0.37).withKP(0.1).withKI(0).withKD(0))
+      .withMotorOutput(new MotorOutputConfigs()
+        .withInverted(InvertedValue.Clockwise_Positive));
     public static final double INTAKE_RETRACTED_POSITION = -0.35;
     public static final double INTAKE_DEPLOYED_POSITION = -0.01;
   }
