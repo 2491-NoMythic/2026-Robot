@@ -70,6 +70,10 @@ public class Shooter extends SubsystemBase {
     return shootMotor1.getVelocity().getValueAsDouble() > 22;
   }
 
+  public void shooterOn() {
+    setVelocity(SHOOTING_SPEED_RPS);
+  }
+  
   /**
    * sends a positionVoltage request to the hood motor
    * @param angle angle to set the hood to, in radians

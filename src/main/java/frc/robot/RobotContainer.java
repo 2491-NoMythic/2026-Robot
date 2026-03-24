@@ -156,7 +156,6 @@ public class RobotContainer {
   BooleanSupplier ShootIfAimedSup;
   BooleanSupplier ForceHoodDownSupplier;
   BooleanSupplier crossBumpTowardsAllianceSup;
-  boolean shooterOn = false;
   BooleanSupplier ManualHubShotSup;
   BooleanSupplier ManualTowerShotSup;
   BooleanSupplier ManualLeftTrenchShotSup;
@@ -354,9 +353,8 @@ public class RobotContainer {
     shooter.setDefaultCommand(new AimHood(shooter));
     new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
     new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
-    new Trigger(ShooterOnSup).onTrue(new InstantCommand(()->shooterOn = true));
-    new Trigger(ShooterOffSup).onTrue(new InstantCommand(()->shooterOn = false));
-    new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
+    new Trigger(ShooterOnSup).onTrue(new InstantCommand(()->shooter.shooterOn(), shooter));
+    new Trigger(ShooterOffSup).onTrue(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
     SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setHoodAngle(25, true), shooter));
@@ -490,12 +488,12 @@ public class RobotContainer {
   }
 
   public void autonomousInit() {
+    //THIS METHOD IS NEVER CALLED
+    
     autoTimer.reset();
     autoTimer.start();
 
     lights.blinkLights(LightsEnums.All, 255, 0, 0);
-
-    shooterOn = true;
   }
 
   public void autonomousPeriodic() {
