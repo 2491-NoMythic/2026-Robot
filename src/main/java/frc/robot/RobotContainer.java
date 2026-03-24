@@ -86,6 +86,7 @@ import frc.robot.Commands.AimAtLocation.Location;
 import frc.robot.settings.Constants.IndexerConstants;
 import frc.robot.settings.Constants.ShooterConstants;
 import frc.robot.settings.LightsEnums;
+import frc.robot.settings.OdometryUpdatingState;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hopper;
@@ -169,6 +170,14 @@ public class RobotContainer {
 
   public RobotContainer() {
 
+    if(QUEST_EXISTS) {
+      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest;
+    } else if(LIMELIGHTS_EXIST) {
+      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimlights;
+    } else {
+      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.onlyDrivetrain;
+    }
+    
     autoTimer = new Timer();
 
     /**
