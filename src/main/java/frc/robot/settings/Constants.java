@@ -81,8 +81,9 @@ public final class Constants {
     public static final double AUTO_AIM_ROBOT_kP = 0.125;
     public static final double AUTO_AIM_ROBOT_kI = 0;
     public static final double AUTO_AIM_ROBOT_kD = 0;
-    public static final double HOOD_DOWN_POSITION = 0.2;
-    public static final double HOOD_UP_POSITION = 0.8;
+    public static final double HOOD_DOWN_POSITION = 0;
+    public static final double HOOD_UP_POSITION = 40;
+    public static final int HOOD_MOTOR_ID = 2491;
     public static TalonFXConfiguration SHOOTER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs() 
         .withKV(0.125).withKP(0.4).withKI(0).withKD(0).withKS(0.36))
@@ -90,7 +91,13 @@ public final class Constants {
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
       .withMotorOutput(new MotorOutputConfigs()
         .withInverted(InvertedValue.Clockwise_Positive));
+  public static TalonFXSConfiguration HOOD_MOTOR_CONFIG = new TalonFXSConfiguration()
+      .withCommutation(new CommutationConfigs()
+        .withMotorArrangement(MotorArrangementValue.Minion_JST))
+      .withSlot0(new Slot0Configs()
+        .withKV(0.095).withKS(0.37).withKP(0.1).withKI(0).withKD(0));
   }
+  
 
   public static final class FuelConstants{
     public static final double FUEL_WEIGHT = 0.215; //kg

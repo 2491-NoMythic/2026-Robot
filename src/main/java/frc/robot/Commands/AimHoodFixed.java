@@ -7,6 +7,7 @@ package frc.robot.Commands;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.settings.Constants.ShooterConstants;
 import frc.robot.subsystems.Shooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -32,7 +33,7 @@ public class AimHoodFixed extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.setHoodAngle(angle, autoRetract);
+    shooter.setDesiredHoodAngle(angle, autoRetract);
     shooter.setVelocity(shooterSpeed);
   }
 
@@ -43,7 +44,7 @@ public class AimHoodFixed extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.setHoodAngleDown();
+    shooter.setDesiredHoodAngle(ShooterConstants.HOOD_DOWN_POSITION, false);
     shooter.setVelocity(SHOOTING_SPEED_RPS);
   }
 
