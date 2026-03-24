@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "R Bump FR Crossback"
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [
@@ -21,18 +27,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShooterOn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "WaitUntilShooterIsSpooled"
           }
         },
         {
@@ -59,17 +53,11 @@
               }
             ]
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutomaticClimb"
-          }
         }
       ]
     }
   },
   "resetOdom": false,
-  "folder": "One Path Trench Auto",
+  "folder": "One Path Bump Auto",
   "choreoAuto": false
 }

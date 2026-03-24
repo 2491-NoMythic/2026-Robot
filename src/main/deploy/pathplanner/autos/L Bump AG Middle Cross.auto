@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L Bump AG Half Zack"
+            "pathName": "L Bump AG Middle Cross"
           }
         },
         {
@@ -58,6 +58,6 @@
     }
   },
   "resetOdom": false,
-  "folder": "One Path Bump Auto",
+  "folder": "Untested",
   "choreoAuto": false
 }
