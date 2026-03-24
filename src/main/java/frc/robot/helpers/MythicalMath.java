@@ -9,7 +9,9 @@ import org.opencv.core.Mat.Tuple2;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import frc.robot.settings.Constants.FuelConstants;
 
 /** Add your docs here. */
 public class MythicalMath {
@@ -137,9 +139,10 @@ public class MythicalMath {
    * @param target the 3d coordinates of the target
    * @param initialVelocity the velocity that the gamepiece leaves the robot at
    * @param inheritedVelocity the velocity of the robot when the shot is fired.
+   * @param spin the angular velocity in radians per second
    * @return (pitch, yaw) where pitch is up and yaw is left/right in radians        //a 3d launch angle
    */
-  public static Tuple2<Double> aimProjectileAtPoint(Translation3d origin, Translation3d target, float initialVelocity, Translation3d inheritedVelocity)
+  public static Tuple2<Double> aimProjectileAtPoint(Translation3d origin, Translation3d target, float initialVelocity, Translation3d inheritedVelocity, double spin)
   {
     float radius = 0f;
     Translation3d velocity = inheritedVelocity; //inheritedVelocity;
@@ -158,7 +161,9 @@ public class MythicalMath {
       
       radius += initialVelocity * timeStep; //Calculate an expanding sphere to represent all possible shots simultaneously
 
-      velocity = velocity.plus(new Translation3d(0, 0, gravity * timeStep)); //Apply gravity and acceleration to velocity of the sphere
+      double lift = 4/3 * (4 * Math.PI * Math.PI * Math.pow(radius, 3) * spin * velocity.getDistance(Translation3d.kZero) * FuelConstants.AIR_DENSITY) / FuelConstants.FUEL_WEIGHT; //Calculate the lift on the sphere. Get rid of this as soon as there are problems https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/lift-of-a-baseball/
+
+      velocity = velocity.plus(new Translation3d(0, 0, gravity * timeStep + lift * timeStep)); //Apply gravity and acceleration to velocity of the sphere
       position = position.plus(velocity.times(timeStep)); //Apply velocity to position of the sphere
 
       Boolean targetInsideSphere = (position.getDistance(target) < radius); //Is the target point inside the sphere?
@@ -214,6 +219,10 @@ public class MythicalMath {
     //and then finding only the portion above horizontal.
 
     return extension;
+  }
+
+  public static Translation2d RotateShooterOffset(Rotation2d robotDirection, Translation2d shooterOffset){
+    return shooterOffset.rotateAround(new Translation2d(0, 0), robotDirection);
   }
 
   /**

@@ -13,4 +13,5 @@ public class IntakeInputs {
     public MotorLoggerInputsAutoLogged deployerMotor = new MotorLoggerInputsAutoLogged();
     public boolean forwardLimitSwitch;
     public boolean reverseLimitSwitch;
+    public double encoderPosition;
 }

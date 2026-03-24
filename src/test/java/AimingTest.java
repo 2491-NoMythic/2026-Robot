@@ -21,7 +21,7 @@ class AimingTest {
 
   @Test // marks this method as a test
   void TenTenXY() {
-    var Rot = MythicalMath.aimProjectileAtPoint(new Translation3d(0, 0, 0), new Translation3d(10, 10, 0), 20, new Translation3d(0, 0, 0));
+    var Rot = MythicalMath.aimProjectileAtPoint(new Translation3d(0, 0, 0), new Translation3d(10, 10, 0), 20, new Translation3d(0, 0, 0), 0);
     System.out.println(Rot.get_0());
     assertEquals(
         Math.toDegrees(1.425), Rot.get_0(), 2);
@@ -29,7 +29,7 @@ class AimingTest {
 
   @Test
   void FiveFiveFiveXYZ() {
-    var Rot = MythicalMath.aimProjectileAtPoint(new Translation3d(0, 0, 0), new Translation3d(5, 5, 5), 20, new Translation3d(0, 0, 0));
+    var Rot = MythicalMath.aimProjectileAtPoint(new Translation3d(0, 0, 0), new Translation3d(5, 5, 5), 20, new Translation3d(0, 0, 0), 0);
     System.out.println(Rot.get_0());
     System.out.println(Rot.get_1());
     assertEquals(

@@ -5,59 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "AcrossBumpAwayFromAlliance"
+            "pathName": "Bump to Collect MR"
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Bump to Collect MR"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Expand"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Collect R-L"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShooterOn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AcrossBumpTowardsAlliance"
+            "pathName": "Collect R-L"
           }
         },
         {
@@ -114,6 +70,6 @@
     }
   },
   "resetOdom": false,
-  "folder": "Old Autos",
+  "folder": "Duluth Autos",
   "choreoAuto": false
 }

@@ -1,0 +1,75 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.757,
+        "y": 4.799939759036144
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.436870789705503,
+        "y": 4.548866861344365
+      },
+      "isLocked": false,
+      "linkedName": "Return BL"
+    },
+    {
+      "anchor": {
+        "x": 5.691060240963855,
+        "y": 6.646722891566265
+      },
+      "prevControl": {
+        "x": 5.722257686813852,
+        "y": 6.311010565411026
+      },
+      "nextControl": {
+        "x": 5.664340044455647,
+        "y": 6.934256023869029
+      },
+      "isLocked": false,
+      "linkedName": "Return R Quarter DB End"
+    },
+    {
+      "anchor": {
+        "x": 5.691060240963855,
+        "y": 2.4941927710843377
+      },
+      "prevControl": {
+        "x": 5.82245879459486,
+        "y": 2.240643927207793
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.9344398340249022,
+      "rotationDegrees": -90.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -90.0
+  },
+  "reversed": false,
+  "folder": "Return to Hub",
+  "idealStartingState": {
+    "velocity": 3.0,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": true
+}

@@ -19,6 +19,8 @@ import static frc.robot.settings.Constants.SubsystemsEnabled.INDEXER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.INTAKE_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIGHTS_EXIST;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIMELIGHTS_EXIST;
+import static frc.robot.settings.Constants.SubsystemsEnabled.QUEST_EXISTS;
+import static frc.robot.settings.Constants.SubsystemsEnabled.SAFE_MODE_IS_ON;
 import static frc.robot.settings.Constants.SubsystemsEnabled.SHOOTER_EXISTS;
 import static frc.robot.settings.Constants.XboxDriver.DRIVE_CONTROLLER_ID;
 import static frc.robot.settings.Constants.XboxDriver.OPERATOR_CONTROLLER_ID;
@@ -30,6 +32,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -38,6 +41,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -90,8 +94,10 @@ import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Quest;
 import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
+import gg.questnav.questnav.QuestNav;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -113,8 +119,10 @@ public class RobotContainer {
   private Hopper hopper;
   private Limelight limelight;
   private Lights lights;
+  private Quest quest;
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
+  private SendableChooser<Double> safeModeChooser; // creates a changable option on elastic for safemode
   private final XboxController driveController;
   private final XboxController operatorController;
   private Timer autoTimer;
@@ -136,7 +144,8 @@ public class RobotContainer {
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier AutoIntakeSup;
   BooleanSupplier IntakeWheelSup;
-  BooleanSupplier ShooterToggleSup;
+  BooleanSupplier ShooterOnSup;
+  BooleanSupplier ShooterOffSup;
   BooleanSupplier HoodUpSupplier;
   BooleanSupplier HoodDownSupplier;
   BooleanSupplier HopperWheelsForwardSup;
@@ -151,8 +160,10 @@ public class RobotContainer {
   BooleanSupplier ManualTowerShotSup;
   BooleanSupplier ManualLeftTrenchShotSup;
   BooleanSupplier ManualRightTrenchShotSup;
+  BooleanSupplier ResetQuestSup;
   BooleanSupplier ManualRightCornerShotSup;
   BooleanSupplier ManualLeftCornerShotSup;
+  BooleanSupplier DrivetrainXPositionSup;
 
 
 
@@ -171,20 +182,30 @@ public class RobotContainer {
     eventMap = new HashMap<>();
 
     // Drive controls
-    ControllerSidewaysAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(X_AXIS), 0);
-    ControllerForwardAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
-    ControllerZAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
+    if (SAFE_MODE_IS_ON) {   // this code will only run if the constant SAFE_MODE_IS_ON is set to true, 
+      safeModeChooser = new SendableChooser<>();                  // creates a new instance of SafeModeChooser which can be sent to elastic
+      safeModeChooser.addOption("Cheetah", 0.5);      // creates Cheetah mode in which speed is set to 0.5 of normal speed
+      safeModeChooser.addOption("Dog", 0.3);
+      safeModeChooser.addOption("Turtle", 0.2);
+      SmartDashboard.putData("Safe Mode", safeModeChooser);
+    }
+    ControllerSidewaysAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(X_AXIS), 0);
+    ControllerForwardAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
+    ControllerZAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
     ZeroGyroSup = driveController::getStartButton;
     AutoAimSupplier = () -> driveController.getLeftTriggerAxis() >= 0.5;
     AutoIntakeSup = driveController::getXButton;
+    DrivetrainXPositionSup = () -> driveController.getAButton();
+
 
     //Shooter controls
     IndexerSup = ()-> driveController.getRightTriggerAxis() > 0.5;
-    ForceHoodDownSupplier = driveController::getBackButton;
+    ForceHoodDownSupplier = operatorController::getBackButton;
 
     HoodUpSupplier = () -> operatorController.getPOV() == 0;
     HoodDownSupplier = () -> operatorController.getRightTriggerAxis() > 0.5;
-    ShooterToggleSup = ()-> operatorController.getPOV() == 90;
+    ShooterOnSup = ()-> operatorController.getStartButton();
+    ShooterOffSup = ()-> operatorController.getBackButton();
     ManualHubShotSup = operatorController::getYButton;
     ManualTowerShotSup = operatorController::getAButton;
     ManualLeftTrenchShotSup = operatorController::getXButton;
@@ -193,7 +214,7 @@ public class RobotContainer {
     ManualRightCornerShotSup = operatorController::getRightBumperButton;
     //Shooting Command is Right Trigger on drive controller. 
     //Climber controls
-    AutoClimbSup = () -> driveController.getStartButton() && driveController.getBackButton();
+    AutoClimbSup = () -> false;
     ClimberUpSup = ()->operatorController.getPOV() == 0;
     ClimberDownSup = ()->operatorController.getPOV() == 180;
     ClimberDownSup = operatorController::getRightBumperButton;
@@ -214,9 +235,18 @@ public class RobotContainer {
     crossBumpTowardsAllianceSup = driveController::getYButton;
     ShootIfAimedSup = ()->false;
 
+    //QuestNav Controls
+    ResetQuestSup = driveController::getBackButton;
+
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
-      configureDriveTrain();
+      if (QUEST_EXISTS){
+        questInit();
+        configureDriveTrain(quest::setQuestNavPose);
+      }else{
+        configureDriveTrain(drivetrain::resetOdometry);
+      }
+      
     }
 
     if(HOPPER_EXISTS) {
@@ -254,6 +284,14 @@ public class RobotContainer {
     configureBindings();
   }
 
+  private double getSpeedMultiplier() {  // if safe mode is off, this will always return 1.0 and the robot will drive normally, if safemode is on it will return the number of the mode that is selected
+    if (SAFE_MODE_IS_ON) {
+      return safeModeChooser.getSelected();
+    } else {
+      return 1.0;
+    }
+  }
+
   private void driveTrainInit() {
     drivetrain = new DrivetrainSubsystem();
 
@@ -269,17 +307,20 @@ public class RobotContainer {
     new Trigger(crossBumpTowardsAllianceSup).whileTrue(new OverBump(drivetrain, 3));
     new Trigger(TrenchAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, true, false));
     new Trigger(BumpAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, false, true));
+    new Trigger(DrivetrainXPositionSup).whileTrue(drivetrain.run(()->drivetrain.pointWheelsInward()));
 
     SmartDashboard.putData("DriveConstant1", new DriveConstantSpeed(drivetrain, 1, 2));
     SmartDashboard.putData("DriveConstant2", new DriveConstantSpeed(drivetrain, 2, 2));
     SmartDashboard.putData("DriveConstant3", new DriveConstantSpeed(drivetrain, 3, 1.5));
   }
-
-  private void configureDriveTrain() {
+  private void questInit(){
+    quest = new Quest(drivetrain);
+  }
+  private void configureDriveTrain(Consumer<Pose2d> resetOdometryConsumer) {
     try {
       AutoBuilder.configure(
           drivetrain::getPose, // Pose2d supplier
-          drivetrain::resetOdometry, // Pose2d consumer, used to reset odometry at the beginning of auto
+          resetOdometryConsumer, // Pose2d consumer, used to reset odometry at the beginning of auto
           drivetrain::getChassisSpeeds,
           (speeds) -> drivetrain.drive(speeds),
           new PPHolonomicDriveController(
@@ -358,7 +399,6 @@ public class RobotContainer {
 
   private void autoInit() {
     if (DRIVE_TRAIN_EXISTS){
-      configureDriveTrain(); 
       autoChooser = AutoBuilder.buildAutoChooser();
       SmartDashboard.putData("Auto Chooser", autoChooser);
     }
@@ -392,7 +432,7 @@ public class RobotContainer {
     if (DRIVE_TRAIN_EXISTS) {
       SmartDashboard.putData("drivetrain", drivetrain);
       new Trigger(ZeroGyroSup).onTrue(new InstantCommand(drivetrain::zeroGyroscope));
-
+      new Trigger(ResetQuestSup).onTrue(new InstantCommand(()->quest.resetQuestPose()));
       InstantCommand setOffsets = new InstantCommand(drivetrain::setEncoderOffsets) {
         public boolean runsWhenDisabled() {
           return true;

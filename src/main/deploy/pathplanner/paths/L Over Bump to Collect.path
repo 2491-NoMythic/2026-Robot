@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.636650602409638,
+        "y": 5.521168674698795
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.840028874022412,
+        "y": 5.598602629470024
+      },
+      "isLocked": false,
+      "linkedName": "L Over Bump Start"
+    },
+    {
+      "anchor": {
+        "x": 3.5473894436519258,
+        "y": 5.4883855421686745
+      },
+      "prevControl": {
+        "x": 2.6482437015334437,
+        "y": 5.426590331461209
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Left Bump Start"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "To Collect Bump",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}

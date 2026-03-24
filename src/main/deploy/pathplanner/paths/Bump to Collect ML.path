@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.337477638640429,
-        "y": 5.681878354203935
+        "x": 3.5473894436519258,
+        "y": 5.4883855421686745
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.050582876619258,
-        "y": 5.721589815710093
+        "x": 5.260494681630755,
+        "y": 5.528097003674833
       },
       "isLocked": false,
       "linkedName": "Left Bump Start"
@@ -82,7 +82,7 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Bump",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0
