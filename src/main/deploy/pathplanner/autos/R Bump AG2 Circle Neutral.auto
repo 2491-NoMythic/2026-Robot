@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Steal Out"
+            "pathName": "Collect Steal"
           }
         },
         {
@@ -70,6 +70,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Untested",
   "choreoAuto": false
 }

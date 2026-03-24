@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.337477638640429,
-        "y": 5.682
+        "x": 3.5473894436519258,
+        "y": 5.681878354203935
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.614332234703428,
-        "y": 5.592534544241406
+        "x": 4.824244039714925,
+        "y": 5.592412898445341
       },
       "isLocked": false,
       "linkedName": "Left Bump Behind Start"
