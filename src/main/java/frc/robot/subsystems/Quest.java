@@ -56,11 +56,16 @@ public class Quest extends SubsystemBase {
     setQuestNavPose(new Pose3d(robotPose.getX(), robotPose.getY(), 0, new Rotation3d(0, 0, robotPose.getRotation().getRadians())));
   }
   public void resetQuestPose(){
-    drivetrain.zeroGyroscope();
+    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Blue) {
+      drivetrain.setGyroscope(180);
+    } else {
+      drivetrain.setGyroscope(0);
+    }
+
     if(DriverStation.getAlliance() != null && DriverStation.getAlliance().get() == Alliance.Blue){
-      setQuestNavPose(new Pose3d(new Translation3d(3.6,4.05,0),new Rotation3d(drivetrain.getOdometryRotation()))); 
-    }else {
-      setQuestNavPose(new Pose3d(new Translation3d(12.9,4.05,0),new Rotation3d(drivetrain.getOdometryRotation()))); 
+      setQuestNavPose(new Pose3d(new Translation3d(3.6,4.05,0), new Rotation3d(drivetrain.getOdometryRotation()))); 
+    } else {
+      setQuestNavPose(new Pose3d(new Translation3d(12.9,4.05,0), new Rotation3d(drivetrain.getOdometryRotation()))); 
     }
   }
 

@@ -69,8 +69,8 @@ public final class Constants {
   }
 
   public static final class ShooterConstants{
-    public static final float SHOOTING_SPEED_MPS = 7.3f;
-    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 38f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
+    public static final float SHOOTING_SPEED_MPS = 7.6f;
+    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 39f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
@@ -141,7 +141,7 @@ public final class Constants {
   public static final class IndexerConstants{
     public static final int INDEXER_MOTOR_1_ID= 11;//right motor (leader)
     public static final int INDEXER_MOTOR_2_ID= 12;//left motor (follower)
-    public static final double INDEXER_FEEDING_RPS = 60;
+    public static final double INDEXER_FEEDING_RPS = 70;
 
     public static TalonFXConfiguration INDEXER_RIGHT_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
@@ -176,8 +176,8 @@ public final class Constants {
   }
 
   public static final class Field{
-    public static final Translation3d BLUE_HUB_COORDINATE = new Translation3d(4.6, 4, 1.8);
-    public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.8);
+    public static final Translation3d BLUE_HUB_COORDINATE = new Translation3d(4.6, 4, 1.7);
+    public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.7);
   }
 
   public static final class AimAtLocationConstants {
@@ -191,7 +191,7 @@ public final class Constants {
     public static final int CORNER_HOOD_ANGLE = 35;
     public static final int TOWER_ROBOT_ANGLE = 0;
     public static final int TOWER_HOOD_ANGLE = 21;
-    public static final double CORNER_SHOOTING_SPEED = 26;
+    public static final double CORNER_SHOOTING_SPEED = 43;
   }
 
   public static final class DriveConstants {

@@ -120,14 +120,62 @@
     {
       "waypointRelativePos": 4,
       "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 4.503198294243065,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 4.886993603411495,
+      "rotationDegrees": 0.0
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.06482106684672609,
+      "maxWaypointRelativePos": 0.8912896691424663,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 5.007427413909491,
+      "maxWaypointRelativePos": 6.0,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 1.5232950708980404,
+      "maxWaypointRelativePos": 4.4726536124240255,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
       "name": "Expand",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.5833896016205538,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -137,13 +185,13 @@
       }
     },
     {
-      "name": "Intake",
-      "waypointRelativePos": 1.9,
-      "endWaypointRelativePos": 6.0,
+      "name": "ShooterOn",
+      "waypointRelativePos": 4.602295746117521,
+      "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "Intake"
+          "name": "ShooterOn"
         }
       }
     }
@@ -158,7 +206,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "Auto Bump Paths",

@@ -124,6 +124,10 @@
     {
       "waypointRelativePos": 3.7737226277372287,
       "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 5.30916844349675,
+      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [
@@ -132,7 +136,7 @@
       "minWaypointRelativePos": 0,
       "maxWaypointRelativePos": 0.63722084367248,
       "constraints": {
-        "maxVelocity": 3.0,
+        "maxVelocity": 2.0,
         "maxAcceleration": 2.7,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -145,8 +149,21 @@
       "minWaypointRelativePos": 5.461042183622797,
       "maxWaypointRelativePos": 6.0,
       "constraints": {
-        "maxVelocity": 3.0,
+        "maxVelocity": 1.5,
         "maxAcceleration": 2.7,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 1.2316002700877775,
+      "maxWaypointRelativePos": 1.9770425388251693,
+      "constraints": {
+        "maxVelocity": 1.0,
+        "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -189,7 +206,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "Auto Bump Paths",
