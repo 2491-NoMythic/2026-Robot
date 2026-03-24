@@ -32,7 +32,9 @@ import gg.questnav.questnav.QuestNav;
 import frc.robot.LogInputs.LimelightInputs;
 import frc.robot.LogInputs.QuestInputs;
 import frc.robot.LogInputs.QuestInputsAutoLogged;
+import frc.robot.settings.OdometryUpdatingState;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 public class Quest extends SubsystemBase {
   QuestNav questNav = new QuestNav();
@@ -48,6 +50,7 @@ public class Quest extends SubsystemBase {
     this.drivetrain = drivetrain;
     limelight = Limelight.getInstance();
     inputs = new QuestInputsAutoLogged();
+    questNav.onDisconnected(new Runnable(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimlights));
   }
   public void setQuestNavPose(Pose3d robotPose) {
     questNav.setPose(robotPose.transformBy(robotToQuest));

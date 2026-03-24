@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.settings.ClimberState;
 import frc.robot.settings.HopperState;
+import frc.robot.settings.OdometryUpdatingState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class RobotState {
   public boolean fullSwitchTriggered;
   public boolean feedingShooter;
   public boolean questIsConnected;
+  public OdometryUpdatingState odometryUpdatingState;
 
   public double aimingPitch;
   public double aimingYaw;
