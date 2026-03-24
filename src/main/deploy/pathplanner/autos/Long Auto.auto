@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "OverBump"
@@ -49,12 +55,6 @@
                 "type": "named",
                 "data": {
                   "name": "AimRobotMoving"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ShooterOn"
                 }
               },
               {

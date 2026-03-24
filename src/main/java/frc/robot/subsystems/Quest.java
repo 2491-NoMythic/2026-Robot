@@ -37,7 +37,7 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 public class Quest extends SubsystemBase {
   QuestNav questNav = new QuestNav();
   //for the transform3D below, x is forward, either y or z is how far left of center the quest is. The other one is upwardsness, but that doesn't matter to us. The Rotation3d matters for some reason, even though we don't get pitch, roll, or yaw from the quest
-  Transform3d robotToQuest = new Transform3d(-0.342, -0.261, -0.261, new Rotation3d(0, 0, Math.toRadians(-155)));
+  Transform3d robotToQuest = new Transform3d(-0.278, -0.165, -0.165, new Rotation3d(0, 0, Math.toRadians(-180)));
   Matrix<N3, N1> questnavStandardDeviations = VecBuilder.fill(0.02, 0.02, 0.035); //The suggested Standerd Deviations for QuestNav
   DrivetrainSubsystem drivetrain;
   QuestInputsAutoLogged inputs;
@@ -56,11 +56,16 @@ public class Quest extends SubsystemBase {
     setQuestNavPose(new Pose3d(robotPose.getX(), robotPose.getY(), 0, new Rotation3d(0, 0, robotPose.getRotation().getRadians())));
   }
   public void resetQuestPose(){
-    drivetrain.zeroGyroscope();
+    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Blue) {
+      drivetrain.setGyroscope(180);
+    } else {
+      drivetrain.setGyroscope(0);
+    }
+
     if(DriverStation.getAlliance() != null && DriverStation.getAlliance().get() == Alliance.Blue){
-      setQuestNavPose(new Pose3d(new Translation3d(3.6,4.05,0),new Rotation3d(drivetrain.getOdometryRotation()))); 
-    }else {
-      setQuestNavPose(new Pose3d(new Translation3d(12.9,4.05,0),new Rotation3d(drivetrain.getOdometryRotation()))); 
+      setQuestNavPose(new Pose3d(new Translation3d(3.6,4.05,0), new Rotation3d(drivetrain.getOdometryRotation()))); 
+    } else {
+      setQuestNavPose(new Pose3d(new Translation3d(12.9,4.05,0), new Rotation3d(drivetrain.getOdometryRotation()))); 
     }
   }
 
@@ -76,7 +81,7 @@ public class Quest extends SubsystemBase {
 
     RobotState.getInstance().questIsConnected = inputs.isConnected && inputs.isTracking && inputs.frameCount != lastFrameCount;
     lastFrameCount = inputs.frameCount;
-    SmartDashboard.getBoolean("Quest Connected", RobotState.getInstance().questIsConnected);
+    SmartDashboard.putBoolean("Quest Connected", RobotState.getInstance().questIsConnected);
     questNav.commandPeriodic();
     if(RobotState.getInstance().questIsConnected) {
       if (limelight.getTrustedPose()!= null) {

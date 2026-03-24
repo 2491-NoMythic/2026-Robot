@@ -65,11 +65,12 @@ public final class Constants {
     public static final boolean LIGHTS_EXIST = false;
     public static final boolean HOPPER_EXISTS = true;
     public static final boolean QUEST_EXISTS = true;
+    public static final boolean SAFE_MODE_IS_ON = false;   // A Mode to turn on for mythical night with robotics and other events where we may not want the robot to go full speed
   }
 
   public static final class ShooterConstants{
     public static final float SHOOTING_SPEED_MPS = 7.6f;
-    public static final float SHOOTING_SPEED_RPS = 70;
+    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 39f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
@@ -119,7 +120,7 @@ public final class Constants {
       .withSlot0(new Slot0Configs()
         .withKG(0).withKP(12).withKI(0).withKD(0).withGravityType(GravityTypeValue.Arm_Cosine))
       .withCurrentLimits(new CurrentLimitsConfigs()
-        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
+        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(SubsystemsEnabled.SAFE_MODE_IS_ON ? 5 : 50))  // if safe mode is on a supply current limit of 5 will be enabled
       .withSoftwareLimitSwitch(new SoftwareLimitSwitchConfigs()
         .withForwardSoftLimitEnable(true)
         .withForwardSoftLimitThreshold(-0.025))
@@ -130,7 +131,9 @@ public final class Constants {
       .withCommutation(new CommutationConfigs()
         .withMotorArrangement(MotorArrangementValue.Minion_JST))
       .withSlot0(new Slot0Configs()
-        .withKV(0.095).withKS(0.37).withKP(0.1).withKI(0).withKD(0));
+        .withKV(0.095).withKS(0.37).withKP(0.1).withKI(0).withKD(0))
+      .withMotorOutput(new MotorOutputConfigs()
+        .withInverted(InvertedValue.Clockwise_Positive));
     public static final double INTAKE_RETRACTED_POSITION = -0.35;
     public static final double INTAKE_DEPLOYED_POSITION = -0.01;
   }
@@ -138,7 +141,7 @@ public final class Constants {
   public static final class IndexerConstants{
     public static final int INDEXER_MOTOR_1_ID= 11;//right motor (leader)
     public static final int INDEXER_MOTOR_2_ID= 12;//left motor (follower)
-    public static final double INDEXER_FEEDING_RPS = 60;
+    public static final double INDEXER_FEEDING_RPS = 70;
 
     public static TalonFXConfiguration INDEXER_RIGHT_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
@@ -173,8 +176,8 @@ public final class Constants {
   }
 
   public static final class Field{
-    public static final Translation3d BLUE_HUB_COORDINATE = new Translation3d(4.6, 4, 1.8);
-    public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.8);
+    public static final Translation3d BLUE_HUB_COORDINATE = new Translation3d(4.6, 4, 1.7);
+    public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.7);
   }
 
   public static final class AimAtLocationConstants {
@@ -188,7 +191,7 @@ public final class Constants {
     public static final int CORNER_HOOD_ANGLE = 35;
     public static final int TOWER_ROBOT_ANGLE = 0;
     public static final int TOWER_HOOD_ANGLE = 21;
-    public static final double CORNER_SHOOTING_SPEED = 26;
+    public static final double CORNER_SHOOTING_SPEED = 43;
   }
 
   public static final class DriveConstants {

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.614795180722891,
-        "y": 5.681878354203935
+        "x": 3.5473894436519258,
+        "y": 5.4883855421686745
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.90472228995224,
-        "y": 5.73788244337129
+        "x": 4.8373165528812745,
+        "y": 5.5443896313360295
       },
       "isLocked": true,
       "linkedName": "Left Bump Start"
@@ -66,10 +66,10 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "To Collect Bump",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

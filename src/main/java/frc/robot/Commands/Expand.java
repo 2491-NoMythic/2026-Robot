@@ -34,7 +34,6 @@ public class Expand extends Command{
 
     @Override
   public void end(boolean interrupted) {
-    intake.stopDeployer();
     intake.feedHopper();
   }
 
