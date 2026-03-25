@@ -50,7 +50,10 @@ public class Quest extends SubsystemBase {
     this.drivetrain = drivetrain;
     limelight = Limelight.getInstance();
     inputs = new QuestInputsAutoLogged();
-    questNav.onDisconnected(new Runnable(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimlights));
+    questNav.onDisconnected(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimlights);
+    questNav.onConnected(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest);
+    questNav.onTrackingLost(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimlights);
+    questNav.onTrackingAcquired(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest);
   }
   public void setQuestNavPose(Pose3d robotPose) {
     questNav.setPose(robotPose.transformBy(robotToQuest));
@@ -79,6 +82,7 @@ public class Quest extends SubsystemBase {
     inputs.frameCount = questNav.getFrameCount().orElse(0);
     inputs.isConnected = questNav.isConnected();
     inputs.isTracking = questNav.isTracking();
+    inputs.batteryPercentage = questNav.getBatteryPercent().orElse(0);
 
     Logger.processInputs("Quest", inputs);
 
@@ -86,7 +90,9 @@ public class Quest extends SubsystemBase {
     lastFrameCount = inputs.frameCount;
     SmartDashboard.putBoolean("Quest Connected", RobotState.getInstance().questIsConnected);
     questNav.commandPeriodic();
-    if(RobotState.getInstance().questIsConnected) {
+
+    SmartDashboard.putString("OdometryUpdatingState", RobotState.getInstance().odometryUpdatingState.toString());
+    if(RobotState.getInstance().odometryUpdatingState == OdometryUpdatingState.Quest && RobotState.getInstance().questIsConnected) {
       if (limelight.getTrustedPose()!= null) {
         Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
         if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 10 && estimate.getSecond().tagCount != 0 && drivetrain.isFlat()) {

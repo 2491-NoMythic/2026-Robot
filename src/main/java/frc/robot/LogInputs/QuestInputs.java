@@ -18,4 +18,5 @@ public class QuestInputs {
     public boolean isConnected;
     public int frameCount;
     public boolean frameCountPresent;
+    public int batteryPercentage;
 }
