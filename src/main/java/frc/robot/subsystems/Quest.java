@@ -83,6 +83,7 @@ public class Quest extends SubsystemBase {
     inputs.isConnected = questNav.isConnected();
     inputs.isTracking = questNav.isTracking();
     inputs.batteryPercentage = questNav.getBatteryPercent().orElse(0);
+    inputs.odometryUpdatingState = RobotState.getInstance().odometryUpdatingState;
 
     Logger.processInputs("Quest", inputs);
 
