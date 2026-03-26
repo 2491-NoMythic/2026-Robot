@@ -77,8 +77,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setShooterToPassState() {
-    setVelocity(SmartDashboard.getNumber("PASS-TEST/shooterSpeed", 0));
-    setHoodAngle(SmartDashboard.getNumber("PASS-TEST/shooterAngle", 0), false);
+    setVelocity(65);
+    setHoodAngle(40, false);
     Logger.recordOutput("Pass Testing Shooter Speed", SmartDashboard.getNumber("PASS-TEST/shooterSpeed", 0));
     Logger.recordOutput("Pass Testing Shooter Angle", SmartDashboard.getNumber("PASS-TEST/shooterAngle", 0));
   }
