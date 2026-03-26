@@ -165,6 +165,7 @@ public class RobotContainer {
   BooleanSupplier ManualRightCornerShotSup;
   BooleanSupplier ManualLeftCornerShotSup;
   BooleanSupplier DrivetrainXPositionSup;
+  BooleanSupplier PassSup;
 
 
 
@@ -221,12 +222,9 @@ public class RobotContainer {
     ManualRightTrenchShotSup = operatorController::getBButton;
     ManualLeftCornerShotSup = operatorController::getLeftBumperButton;
     ManualRightCornerShotSup = operatorController::getRightBumperButton;
+
+    PassSup = ()-> operatorController.getLeftTriggerAxis() > 0.5;
     //Shooting Command is Right Trigger on drive controller. 
-    //Climber controls
-    AutoClimbSup = () -> false;
-    ClimberUpSup = ()->operatorController.getPOV() == 0;
-    ClimberDownSup = ()->operatorController.getPOV() == 180;
-    ClimberDownSup = operatorController::getRightBumperButton;
 
     //intake controls
     RetractIntakeSup = operatorController::getLeftStickButton;
@@ -366,6 +364,8 @@ public class RobotContainer {
     new Trigger(ShooterOffSup).onTrue(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
+    new Trigger(PassSup).whileTrue(shooter.run(()->shooter.setShooterToPassState()));
+
     SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setHoodAngle(25, true), shooter));
   }
 
@@ -454,8 +454,14 @@ public class RobotContainer {
           return true;
         };
       };
+      InstantCommand resetQuestPose = new InstantCommand(quest::resetQuestPose) {
+        public boolean runsWhenDisabled() {
+          return true;
+        };
+      };
 
       SmartDashboard.putData("zeroGyroscope", zeroGyroscope);
+      SmartDashboard.putData("resetQuestPose", resetQuestPose);
       SmartDashboard.putData("set offsets", setOffsets);
     }
     if(DRIVE_TRAIN_EXISTS && SHOOTER_EXISTS){
