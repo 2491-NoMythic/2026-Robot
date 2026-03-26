@@ -215,8 +215,8 @@ public class RobotContainer {
 
     HoodUpSupplier = () -> operatorController.getPOV() == 0;
     HoodDownSupplier = () -> operatorController.getRightTriggerAxis() > 0.5;
-    ShooterOnSup = ()-> operatorController.getStartButton();
-    ShooterOffSup = ()-> operatorController.getBackButton();
+    ShooterOnSup = ()-> operatorController.getPOV() == 90;
+    ShooterOffSup = ()-> operatorController.getPOV() == 270;
     ManualHubShotSup = operatorController::getYButton;
     ManualTowerShotSup = operatorController::getAButton;
     ManualLeftTrenchShotSup = operatorController::getXButton;
