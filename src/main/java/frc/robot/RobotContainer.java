@@ -11,6 +11,7 @@ import static frc.robot.settings.Constants.DriveConstants.k_XY_D;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
 import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED_RPS;
+import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.CLIMBER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.DRIVE_TRAIN_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.HOPPER_EXISTS;
@@ -361,7 +362,7 @@ public class RobotContainer {
     new Trigger(ShooterOffSup).onTrue(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
-    new Trigger(PassSup).whileTrue(shooter.run(()->shooter.setShooterToPassState()));
+    new Trigger(PassSup).whileTrue(shooter.run(()->shooter.setShooterToPassState())).onFalse(new InstantCommand(()->shooter.setVelocity(SHOOTING_SPEED_RPS)));
 
     SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setHoodAngle(25, true), shooter));
   }
