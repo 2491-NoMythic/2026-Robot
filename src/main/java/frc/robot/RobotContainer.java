@@ -75,6 +75,7 @@ import frc.robot.Commands.Expand;
 import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.OverBump;
+import frc.robot.Commands.PassCommand;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.FeedShooterAntiHopperStall;
 import frc.robot.Commands.LightsCommand;
@@ -362,7 +363,7 @@ public class RobotContainer {
     new Trigger(ShooterOffSup).onTrue(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
-    new Trigger(PassSup).whileTrue(shooter.run(()->shooter.setShooterToPassState())).onFalse(new InstantCommand(()->shooter.setVelocity(SHOOTING_SPEED_RPS)));
+    new Trigger(PassSup).whileTrue(new PassCommand(shooter));
 
     SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setHoodAngle(25, true), shooter));
   }
