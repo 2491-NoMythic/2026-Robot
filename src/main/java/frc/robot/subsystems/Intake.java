@@ -108,7 +108,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void setIntakeAngle(double rotations) {
-    deployer.setControl(new PositionVoltage(rotations).withSlot(0));
+    deployer.setControl(new PositionVoltage(rotations));
   }
 
   @Override
@@ -123,7 +123,7 @@ public class Intake extends SubsystemBase {
     } else {
       SmartDashboard.putString("IntakeCurrentCommand", "null");
     }
-    if(targetingDeployedPosition && deployer.getPosition().getValueAsDouble() < -0.007) {
+    if(targetingDeployedPosition && deployer.getPosition().getValueAsDouble() < INTAKE_DOWN_SOFT_LIMIT) {
       holdPosition();
     }
   }

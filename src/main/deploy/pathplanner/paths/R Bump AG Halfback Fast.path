@@ -87,25 +87,9 @@
         "x": 5.977142025570497,
         "y": 2.523775704599384
       },
-      "nextControl": {
-        "x": 5.255292439372324,
-        "y": 2.6570328102710414
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.992,
-        "y": 2.5925421686746986
-      },
-      "prevControl": {
-        "x": 3.357421080665707,
-        "y": 2.4701257035931445
-      },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "R Shooting"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -146,8 +130,8 @@
     },
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 5.250506414584698,
-      "maxWaypointRelativePos": 6.0,
+      "minWaypointRelativePos": 5,
+      "maxWaypointRelativePos": 5.5,
       "constraints": {
         "maxVelocity": 2.0,
         "maxAcceleration": 3.0,

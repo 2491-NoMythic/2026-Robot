@@ -175,7 +175,7 @@
   "eventMarkers": [
     {
       "name": "Expand",
-      "waypointRelativePos": 0.5833896016205538,
+      "waypointRelativePos": 0.34031060094531745,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",

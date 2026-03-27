@@ -5,6 +5,7 @@
 package frc.robot.settings;
 
 import static frc.robot.settings.Constants.DriveConstants.FR_STEER_MOTOR_ID;
+import static frc.robot.settings.Constants.IntakeConstants.INTAKE_DOWN_SOFT_LIMIT;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.CommutationConfigs;
@@ -117,6 +118,7 @@ public final class Constants {
     public static final int INTAKE_WHEELS_ID = 14;
     public static final int INTAKE_DEPLOYER_ID = 13;
     public static final int INTAKE_ENCODER_ID = 0;
+    public static final double INTAKE_DOWN_SOFT_LIMIT  = -0.007;
     public static TalonFXConfiguration INTAKE_DEPLOYER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
         .withKG(0).withKP(12).withKI(0).withKD(0).withGravityType(GravityTypeValue.Arm_Cosine))
@@ -124,7 +126,7 @@ public final class Constants {
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(SubsystemsEnabled.SAFE_MODE_IS_ON ? 5 : 50))  // if safe mode is on a supply current limit of 5 will be enabled
       .withSoftwareLimitSwitch(new SoftwareLimitSwitchConfigs()
         .withForwardSoftLimitEnable(true)
-        .withForwardSoftLimitThreshold(-0.007))
+        .withForwardSoftLimitThreshold(INTAKE_DOWN_SOFT_LIMIT))
       .withFeedback(new FeedbackConfigs()
         .withFeedbackSensorSource(FeedbackSensorSourceValue.RemoteCANcoder)
         .withFeedbackRemoteSensorID(INTAKE_ENCODER_ID));
@@ -183,7 +185,7 @@ public final class Constants {
 
   public static final class AimAtLocationConstants {
     public static final int HUB_ROBOT_ANGLE = 0;
-    public static final int HUB_HOOD_ANGLE = 10;
+    public static final int HUB_HOOD_ANGLE = 15;
     public static final int L_TRENCH_ROBOT_ANGLE = -80;
     public static final int R_TRENCH_ROBOT_ANGLE = 80;
     public static final int L_CORNER_ROBOT_ANGLE = -40;
