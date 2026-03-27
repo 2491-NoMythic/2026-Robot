@@ -183,7 +183,7 @@ public final class Constants {
 
   public static final class AimAtLocationConstants {
     public static final int HUB_ROBOT_ANGLE = 0;
-    public static final int HUB_HOOD_ANGLE = 5;
+    public static final int HUB_HOOD_ANGLE = 10;
     public static final int L_TRENCH_ROBOT_ANGLE = -80;
     public static final int R_TRENCH_ROBOT_ANGLE = 80;
     public static final int L_CORNER_ROBOT_ANGLE = -40;
@@ -193,6 +193,7 @@ public final class Constants {
     public static final int TOWER_ROBOT_ANGLE = 0;
     public static final int TOWER_HOOD_ANGLE = 21;
     public static final double CORNER_SHOOTING_SPEED = 43;
+    public static final double HUB_SHOOTING_SPEED = 30;
   }
 
   public static final class DriveConstants {
