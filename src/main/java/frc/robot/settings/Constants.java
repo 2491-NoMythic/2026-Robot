@@ -70,7 +70,7 @@ public final class Constants {
 
   public static final class ShooterConstants{
     public static final float SHOOTING_SPEED_MPS = 7.6f;
-    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 39f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
+    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 38.3f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;

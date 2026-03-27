@@ -163,7 +163,8 @@ public class RobotContainer {
   BooleanSupplier ManualTowerShotSup;
   BooleanSupplier ManualLeftTrenchShotSup;
   BooleanSupplier ManualRightTrenchShotSup;
-  BooleanSupplier ResetQuestSup;
+  BooleanSupplier ResetQuestIntakeInSup;
+  BooleanSupplier ResetQuestIntakeOutSup;
   BooleanSupplier ManualRightCornerShotSup;
   BooleanSupplier ManualLeftCornerShotSup;
   BooleanSupplier DrivetrainXPositionSup;
@@ -178,7 +179,7 @@ public class RobotContainer {
     if(QUEST_EXISTS) {
       RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest;
     } else if(LIMELIGHTS_EXIST) {
-      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimlights;
+      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights;
     } else {
       RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.onlyDrivetrain;
     }
@@ -246,7 +247,7 @@ public class RobotContainer {
     ShootIfAimedSup = ()->false;
 
     //QuestNav Controls
-    ResetQuestSup = driveController::getBackButton;
+    ResetQuestIntakeInSup = driveController::getBackButton;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -445,7 +446,7 @@ public class RobotContainer {
     if (DRIVE_TRAIN_EXISTS) {
       SmartDashboard.putData("drivetrain", drivetrain);
       new Trigger(ZeroGyroSup).onTrue(new InstantCommand(drivetrain::zeroGyroscope));
-      new Trigger(ResetQuestSup).onTrue(new InstantCommand(()->quest.resetQuestPose()));
+      new Trigger(ResetQuestIntakeInSup).onTrue(new InstantCommand(()->quest.resetQuestPose()));
       InstantCommand setOffsets = new InstantCommand(drivetrain::setEncoderOffsets) {
         public boolean runsWhenDisabled() {
           return true;
@@ -461,9 +462,21 @@ public class RobotContainer {
           return true;
         };
       };
+      InstantCommand resetQuestToAutoPoseLeft = new InstantCommand(()->quest.resetQuestToAutoStartPose(false)) {
+        public boolean runsWhenDisabled() {
+          return true;
+        };
+      };
+      InstantCommand resetQuestToAutoPoseRight = new InstantCommand(()->quest.resetQuestToAutoStartPose(true)) {
+        public boolean runsWhenDisabled() {
+          return true;
+        };
+      };
 
       SmartDashboard.putData("zeroGyroscope", zeroGyroscope);
       SmartDashboard.putData("resetQuestPose", resetQuestPose);
+      SmartDashboard.putData("resetQuestToAutoPoseLeft", resetQuestToAutoPoseLeft);
+      SmartDashboard.putData("resetQuestToAutoPoseRight", resetQuestToAutoPoseRight);
       SmartDashboard.putData("set offsets", setOffsets);
     }
     if(DRIVE_TRAIN_EXISTS && SHOOTER_EXISTS){
