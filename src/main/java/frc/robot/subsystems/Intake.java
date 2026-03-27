@@ -29,6 +29,8 @@ public class Intake extends SubsystemBase {
   TalonFXSConfiguration intakeConfig;
   IntakeInputsAutoLogged inputs;
   CANcoder absoluteEncoder;
+  double targetedPosition;
+  boolean targetingPosition;
 
   /** Creates a new Intake. */
   public Intake() {
@@ -78,6 +80,8 @@ public class Intake extends SubsystemBase {
 
   public void deployIntake(){
     setIntakeAngle(INTAKE_DEPLOYED_POSITION);
+    targetedPosition = INTAKE_DEPLOYED_POSITION;
+    targetingPosition = true;
   }
 
   public boolean getIsDeployed() {
@@ -90,14 +94,21 @@ public class Intake extends SubsystemBase {
 
   public void retractIntake(){
     setIntakeAngle(INTAKE_RETRACTED_POSITION);
+    targetedPosition = INTAKE_RETRACTED_POSITION;
+    targetingPosition = true;
   }
 
   public void stopDeployer(){
+    targetingPosition = false;
     deployer.stopMotor();
   }
 
+  public void holdPosition(){
+    deployer.setControl(new PositionVoltage(targetedPosition).withSlot(1));
+  }
+
   public void setIntakeAngle(double rotations) {
-    deployer.setControl(new PositionVoltage(rotations));
+    deployer.setControl(new PositionVoltage(rotations).withSlot(0));
   }
 
   @Override
@@ -111,6 +122,9 @@ public class Intake extends SubsystemBase {
     if(this.getCurrentCommand() != null) {
     } else {
       SmartDashboard.putString("IntakeCurrentCommand", "null");
+    }
+    if(targetingPosition && Math.abs(deployer.getPosition().getValueAsDouble() - targetedPosition) < 0.05) {
+      holdPosition();
     }
   }
 
