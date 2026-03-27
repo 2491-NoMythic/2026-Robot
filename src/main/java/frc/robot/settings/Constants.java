@@ -120,13 +120,11 @@ public final class Constants {
     public static TalonFXConfiguration INTAKE_DEPLOYER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
         .withKG(0).withKP(12).withKI(0).withKD(0).withGravityType(GravityTypeValue.Arm_Cosine))
-      .withSlot1(new Slot1Configs()
-        .withKP(0))
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(SubsystemsEnabled.SAFE_MODE_IS_ON ? 5 : 50))  // if safe mode is on a supply current limit of 5 will be enabled
       .withSoftwareLimitSwitch(new SoftwareLimitSwitchConfigs()
         .withForwardSoftLimitEnable(true)
-        .withForwardSoftLimitThreshold(-0.025))
+        .withForwardSoftLimitThreshold(-0.007))
       .withFeedback(new FeedbackConfigs()
         .withFeedbackSensorSource(FeedbackSensorSourceValue.RemoteCANcoder)
         .withFeedbackRemoteSensorID(INTAKE_ENCODER_ID));
