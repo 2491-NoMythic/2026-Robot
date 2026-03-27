@@ -30,7 +30,7 @@ public class Intake extends SubsystemBase {
   IntakeInputsAutoLogged inputs;
   CANcoder absoluteEncoder;
   double targetedPosition;
-  boolean targetingPosition;
+  boolean targetingDeployedPosition;
 
   /** Creates a new Intake. */
   public Intake() {
@@ -81,7 +81,7 @@ public class Intake extends SubsystemBase {
   public void deployIntake(){
     setIntakeAngle(INTAKE_DEPLOYED_POSITION);
     targetedPosition = INTAKE_DEPLOYED_POSITION;
-    targetingPosition = true;
+    targetingDeployedPosition = true;
   }
 
   public boolean getIsDeployed() {
@@ -95,16 +95,16 @@ public class Intake extends SubsystemBase {
   public void retractIntake(){
     setIntakeAngle(INTAKE_RETRACTED_POSITION);
     targetedPosition = INTAKE_RETRACTED_POSITION;
-    targetingPosition = true;
+    targetingDeployedPosition = false;
   }
 
   public void stopDeployer(){
-    targetingPosition = false;
+    targetingDeployedPosition = false;
     deployer.stopMotor();
   }
 
   public void holdPosition(){
-    deployer.setControl(new PositionVoltage(targetedPosition).withSlot(1));
+    deployer.setControl(new VoltageOut(2));
   }
 
   public void setIntakeAngle(double rotations) {
@@ -123,7 +123,7 @@ public class Intake extends SubsystemBase {
     } else {
       SmartDashboard.putString("IntakeCurrentCommand", "null");
     }
-    if(targetingPosition && Math.abs(deployer.getPosition().getValueAsDouble() - targetedPosition) < 0.05) {
+    if(targetingDeployedPosition && deployer.getPosition().getValueAsDouble() < -0.007) {
       holdPosition();
     }
   }
