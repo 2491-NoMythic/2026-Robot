@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.52151212553495,
-        "y": 5.488
+        "x": 3.5991440798858774,
+        "y": 5.529415121255349
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.891952124694555,
-        "y": 5.506672831693013
+        "x": 3.9695840790454824,
+        "y": 5.548087952948362
       },
       "isLocked": false,
       "linkedName": "Left Bump Behind Start"
@@ -205,7 +205,7 @@
   "folder": "Auto Bump Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 179.74979088570709
   },
   "useDefaultConstraints": true
 }
