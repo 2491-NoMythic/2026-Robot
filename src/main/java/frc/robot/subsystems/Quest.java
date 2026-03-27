@@ -4,21 +4,15 @@
 
 package frc.robot.subsystems;
 
-import java.util.List;
-
 import org.littletonrobotics.junction.Logger;
-
-import com.ctre.phoenix6.Utils;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
@@ -27,14 +21,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import gg.questnav.questnav.PoseFrame;
-import gg.questnav.questnav.QuestNav;
 import frc.robot.LogInputs.LimelightInputs;
-import frc.robot.LogInputs.QuestInputs;
 import frc.robot.LogInputs.QuestInputsAutoLogged;
 import frc.robot.settings.OdometryUpdatingState;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import gg.questnav.questnav.PoseFrame;
+import gg.questnav.questnav.QuestNav;
 
 public class Quest extends SubsystemBase {
   QuestNav questNav = new QuestNav();
@@ -50,9 +41,9 @@ public class Quest extends SubsystemBase {
     this.drivetrain = drivetrain;
     limelight = Limelight.getInstance();
     inputs = new QuestInputsAutoLogged();
-    questNav.onDisconnected(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimlights);
+    questNav.onDisconnected(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights);
     questNav.onConnected(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest);
-    questNav.onTrackingLost(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimlights);
+    questNav.onTrackingLost(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights);
     questNav.onTrackingAcquired(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest);
   }
   public void setQuestNavPose(Pose3d robotPose) {
@@ -61,17 +52,59 @@ public class Quest extends SubsystemBase {
   public void setQuestNavPose(Pose2d robotPose){
     setQuestNavPose(new Pose3d(robotPose.getX(), robotPose.getY(), 0, new Rotation3d(0, 0, robotPose.getRotation().getRadians())));
   }
-  public void resetQuestPose(){
-    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Blue) {
-      drivetrain.setGyroscope(180);
+
+  public void resetQuestToAutoStartPose(boolean rightSide) {
+    Pose3d resetPose;
+    if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red) {
+      if(rightSide) {
+        resetPose = new Pose3d(new Translation3d(12.91, 5.5, 0), new Rotation3d(Rotation2d.fromDegrees(180)));
+      } else {
+        resetPose = new Pose3d(new Translation3d(12.91, 2.4, 0), new Rotation3d(Rotation2d.fromDegrees(180)));
+      }
     } else {
-      drivetrain.setGyroscope(0);
+      if(rightSide) {
+        resetPose = new Pose3d(new Translation3d(3.6, 2.4, 0), new Rotation3d(Rotation2d.fromDegrees(0)));
+      } else {
+        resetPose = new Pose3d(new Translation3d(3.6, 5.5, 0), new Rotation3d(Rotation2d.fromDegrees(0)));
+      }
+    }
+    setQuestNavPose(resetPose);
+  }
+
+  public void resetQuestPose(){
+    boolean intakeOut = false;
+    boolean isBlue = DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Blue;
+    if(true) {//DriverStation.isDisabled()){
+      //initial setup so gyroscope needs to be intitialized
+    }else{
+      //in match so assume gyroscope is accurate
+      double gyroRotation = drivetrain.getGyroscopeRotation().getDegrees();
+      if(gyroRotation < 90 && gyroRotation > -90){
+        intakeOut = isBlue;
+      }else{
+        intakeOut = !isBlue;
+      }
     }
 
-    if(DriverStation.getAlliance() != null && DriverStation.getAlliance().get() == Alliance.Blue){
-      setQuestNavPose(new Pose3d(new Translation3d(3.6,4.05,0), new Rotation3d(drivetrain.getOdometryRotation()))); 
+    if (isBlue != intakeOut) {
+      drivetrain.setGyroscope(0);
     } else {
-      setQuestNavPose(new Pose3d(new Translation3d(12.9,4.05,0), new Rotation3d(drivetrain.getOdometryRotation()))); 
+      drivetrain.setGyroscope(180);
+    }
+    
+    
+    if(isBlue){
+      if(intakeOut){
+        setQuestNavPose(new Pose3d(new Translation3d(3.4,4.05,0), new Rotation3d(drivetrain.getOdometryRotation()))); 
+      }else{
+        setQuestNavPose(new Pose3d(new Translation3d(3.6,4.05,0), new Rotation3d(drivetrain.getOdometryRotation()))); 
+      }
+    } else {
+      if(intakeOut){
+        setQuestNavPose(new Pose3d(new Translation3d(13.19,4.05,0), new Rotation3d(drivetrain.getOdometryRotation()))); 
+      }else{
+        setQuestNavPose(new Pose3d(new Translation3d(12.9,4.05,0), new Rotation3d(drivetrain.getOdometryRotation()))); 
+      }
     }
   }
 
@@ -93,11 +126,13 @@ public class Quest extends SubsystemBase {
     questNav.commandPeriodic();
 
     SmartDashboard.putString("OdometryUpdatingState", RobotState.getInstance().odometryUpdatingState.toString());
+    boolean didUpdateQuestPose = false;
     if(RobotState.getInstance().odometryUpdatingState == OdometryUpdatingState.Quest && RobotState.getInstance().questIsConnected) {
       if (limelight.getTrustedPose()!= null) {
         Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
         if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 10 && estimate.getSecond().tagCount != 0 && drivetrain.isFlat()) {
           setQuestNavPose(estimate.getFirst());
+          didUpdateQuestPose = true;
         }
       }
       PoseFrame[] questFrames = inputs.questFrames;
@@ -118,6 +153,7 @@ public class Quest extends SubsystemBase {
         drivetrain.updateOdometryWithVision(new Pair<Pose2d,Double>(limelight.getTrustedPose().getFirst(), limelight.getTrustedPose().getSecond().timeStampSeconds));
       }
     }
+    Logger.recordOutput("Odometry/QuestUpdateFromLimelight", didUpdateQuestPose);
    }
  }
 

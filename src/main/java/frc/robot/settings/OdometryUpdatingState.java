@@ -7,6 +7,6 @@ package frc.robot.settings;
 /** Add your docs here. */
 public enum OdometryUpdatingState {
     onlyDrivetrain,
-    drivetrainAndLimlights,
+    drivetrainAndLimelights,
     Quest
 }
