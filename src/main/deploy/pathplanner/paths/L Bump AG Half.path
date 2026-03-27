@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.373635597457616,
-        "y": 5.687111775522012
+        "x": 2.4605420827389435,
+        "y": 5.619985734664765
       },
       "isLocked": false,
       "linkedName": "Left Bump Behind Start"
@@ -145,7 +145,7 @@
       "maxWaypointRelativePos": 0.63722084367248,
       "constraints": {
         "maxVelocity": 1.5,
-        "maxAcceleration": 2.7,
+        "maxAcceleration": 3.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
