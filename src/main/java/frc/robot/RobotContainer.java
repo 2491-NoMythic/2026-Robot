@@ -11,6 +11,7 @@ import static frc.robot.settings.Constants.DriveConstants.k_XY_D;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
 import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED_RPS;
+import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.CLIMBER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.DRIVE_TRAIN_EXISTS;
@@ -144,6 +145,7 @@ public class RobotContainer {
   BooleanSupplier ClimberDownSup;
   BooleanSupplier AutoClimbSup;
   BooleanSupplier RetractIntakeSup;
+  BooleanSupplier IntakeBackwardsSup;
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier AutoIntakeSup;
   BooleanSupplier IntakeWheelSup;
@@ -234,6 +236,7 @@ public class RobotContainer {
     DeployIntakeSup = operatorController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
     PulseIntakeSup = ()->operatorController.getPOV() == 180;
+    IntakeBackwardsSup = driveController::getRightBumperButton;
 
     //hopper controls
     HopperWheelsForwardSup = ()-> false;//operatorController.getPOV() == 270;
@@ -385,6 +388,7 @@ public class RobotContainer {
     new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake));
     new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake));
     new Trigger(PulseIntakeSup).whileTrue(new PulseIntake(intake));
+    new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     
     if(HOPPER_EXISTS) {
       new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunIntake(intake, hopper));
