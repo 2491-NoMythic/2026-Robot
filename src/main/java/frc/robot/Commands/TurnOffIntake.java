@@ -10,11 +10,10 @@ import frc.robot.subsystems.Intake;
 public class TurnOffIntake extends Command {
     Intake intake;
 
-
-    @Override
+    
     public TurnOffIntake (Intake intake){
         this.intake = intake;
-        addRequirements(intake, hopper);
+        addRequirements(intake);
     }
 
     @Override
@@ -22,7 +21,7 @@ public class TurnOffIntake extends Command {
 
     @Override 
     public void execute() {
-        intake.stopWheels;
+        intake.stopWheels();
     }
 
     @Override
