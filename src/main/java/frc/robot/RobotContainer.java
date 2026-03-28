@@ -236,6 +236,7 @@ public class RobotContainer {
     DeployIntakeSup = operatorController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
     IntakeBackwardsSup = driveController::getRightBumperButton;
+    PulseIntakeSup = ()->operatorController.getPOV() == 180;
 
     //hopper controls
     HopperWheelsForwardSup = ()-> false;//operatorController.getPOV() == 270;
