@@ -3,16 +3,16 @@ package frc.robot.Commands;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.commandbase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 import frc.robot.LogInputs.IntakeInputs;
 import frc.robot.LogInputs.IntakeInputsAutoLogged;
 
-public class PulseIntake extends CommandBase {
+public class PulseIntake extends Command {
     TalonFX deployer;
     Intake intake;
     Timer timer;
-}
+
 
  public PulseIntake(Intake intake) {
     this.intake = intake;
@@ -26,17 +26,18 @@ public class PulseIntake extends CommandBase {
   }
 
   public void execute() {
-    if (timer.get() > 2) {
+    if (timer.get() > 1) {
         timer.reset();
-    }
-    if (timer.get() < 1) {
-        intake.retractIntake;
+    } 
+    if (timer.get() < 0.75) {
+        intake.retractIntake();
     } else {
-        intake.deployIntake;
+        intake.deployIntake();
     }
-}
+  }
   public boolean isFinished() {
     return false;
   }
+}
  
   
