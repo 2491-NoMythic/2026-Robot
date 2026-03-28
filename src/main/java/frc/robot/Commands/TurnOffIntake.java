@@ -10,7 +10,7 @@ import frc.robot.subsystems.Intake;
 public class TurnOffIntake extends Command {
     Intake intake;
 
-    
+
     public TurnOffIntake (Intake intake){
         this.intake = intake;
         addRequirements(intake);
@@ -28,7 +28,4 @@ public class TurnOffIntake extends Command {
     public boolean isFinished() {
         return false;
     }
-
-
-
 }
