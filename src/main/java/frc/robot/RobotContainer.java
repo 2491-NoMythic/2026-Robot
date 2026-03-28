@@ -238,6 +238,7 @@ public class RobotContainer {
     IntakeWheelSup = driveController::getLeftBumperButton;
     IntakeBackwardsSup = driveController::getRightBumperButton;
     PulseIntakeSup = ()->operatorController.getPOV() == 180;
+    IntakeBackwardsSup = driveController::getRightBumperButton;
 
     //hopper controls
     HopperWheelsForwardSup = ()-> false;//operatorController.getPOV() == 270;
@@ -390,6 +391,7 @@ public class RobotContainer {
     new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake));
     new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     new Trigger(PulseIntakeSup).whileTrue(new PulseIntake(intake));
+    new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     
     if(HOPPER_EXISTS) {
       new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunIntake(intake, hopper));
