@@ -20,11 +20,13 @@ public class PulseIntake extends Command {
     addRequirements(intake);
   }
   
+  @Override
   public void initialize() {
     timer.reset ();
     timer.start ();
   }
 
+  @Override
   public void execute() {
     if (timer.get() > 1) {
         timer.reset();
@@ -35,6 +37,14 @@ public class PulseIntake extends Command {
         intake.deployIntake();
     }
   }
+
+  @Override
+  public void end(boolean interrupted) {
+    intake.deployIntake();
+    
+  }
+
+  @Override
   public boolean isFinished() {
     return false;
   }
