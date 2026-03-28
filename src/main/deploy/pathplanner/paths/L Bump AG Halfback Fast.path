@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.166759036144578,
-        "y": 5.10243937232525
+        "x": 3.115188888888889,
+        "y": 5.488
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.168001044630085,
-        "y": 5.34503393441791
+        "x": 4.116430897374396,
+        "y": 5.73059456209266
       },
       "isLocked": false,
       "linkedName": "L Shooting"
@@ -118,9 +118,9 @@
     {
       "name": "Constraints Zone",
       "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 0.63722084367248,
+      "maxWaypointRelativePos": 0.6752194463200518,
       "constraints": {
-        "maxVelocity": 2.7,
+        "maxVelocity": 2.0,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -130,12 +130,12 @@
     },
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 5,
-      "maxWaypointRelativePos": 5.5,
+      "minWaypointRelativePos": 0.7562457798785811,
+      "maxWaypointRelativePos": 5.0,
       "constraints": {
-        "maxVelocity": 2.0,
+        "maxVelocity": 1.5,
         "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
+        "maxAngularVelocity": 300.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
         "unlimited": false

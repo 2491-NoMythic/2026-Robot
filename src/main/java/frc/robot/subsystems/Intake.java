@@ -14,6 +14,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.TalonFXS;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.IntakeInputsAutoLogged;
@@ -123,7 +124,7 @@ public class Intake extends SubsystemBase {
     } else {
       SmartDashboard.putString("IntakeCurrentCommand", "null");
     }
-    if(targetingDeployedPosition && deployer.getPosition().getValueAsDouble() < INTAKE_DOWN_SOFT_LIMIT) {
+    if(targetingDeployedPosition && deployer.getPosition().getValueAsDouble() < INTAKE_DOWN_SOFT_LIMIT && DriverStation.isTeleop()) {
       holdPosition();
     }
   }
