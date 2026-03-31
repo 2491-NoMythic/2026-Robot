@@ -9,7 +9,8 @@ import org.littletonrobotics.junction.AutoLog;
 @AutoLog
 /** Add your docs here. */
 public class IntakeInputs {
-    public MotorLoggerInputsAutoLogged wheelsMotor = new MotorLoggerInputsAutoLogged();
+    public MotorLoggerInputsAutoLogged wheelsMotorLead = new MotorLoggerInputsAutoLogged();
+    public MotorLoggerInputsAutoLogged wheelsMotorFollow = new MotorLoggerInputsAutoLogged();
     public MotorLoggerInputsAutoLogged deployerMotor = new MotorLoggerInputsAutoLogged();
     public boolean forwardLimitSwitch;
     public boolean reverseLimitSwitch;
