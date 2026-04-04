@@ -743,7 +743,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     if(desiredRotation != null){
       RobotState.getInstance().aimingPitch = 90 - desiredRotation.get_0(); //subtracting pitch from 90 degrees becuase math believes 90 degrees is straight up, but servo believes 90 degrees is forward
-      RobotState.getInstance().aimingYaw = 90 - desiredRotation.get_1();
+      RobotState.getInstance().aimingYaw = 90 - desiredRotation.get_1() + 180; //add 180 degrees so because shooter is now reversed
     } else {
       // System.out.println("desiredRotation calculations failed - most likely no solutions. Aiming angles were not updated.");
     }

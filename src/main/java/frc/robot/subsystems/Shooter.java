@@ -8,6 +8,7 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.hardware.TalonFXS;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.wpilibj.Servo;
@@ -25,8 +26,7 @@ import org.littletonrobotics.junction.Logger;
 public class Shooter extends SubsystemBase {
   TalonFX shootMotor1;
   TalonFX shootMotor2;
-  Servo leftHoodActuator;
-  Servo rightHoodActuator;
+  TalonFXS hoodMotor;
   ShooterInputsAutoLogged inputs;
   double desiredPosition;
   boolean autoRetractOn;
@@ -37,8 +37,8 @@ public class Shooter extends SubsystemBase {
     shootMotor2 = new TalonFX(SHOOTER_RIGHT_MOTOR_ID, CANIVORE_DRIVETRAIN);
     shootMotor2.setControl(new Follower(SHOOTER_LEFT_MOTOR_ID, MotorAlignmentValue.Opposed));
     shootMotor2.getConfigurator().apply(SHOOTER_CONFIG);
-    leftHoodActuator = new Servo(HOOD_LEFT_ACTUATOR_ID);
-    rightHoodActuator = new Servo(HOOD_RIGHT_ACTUATOR_ID);
+    hoodMotor = new TalonFXS(HOOD_MOTOR_ID, CANIVORE_DRIVETRAIN);
+    hoodMotor.getConfigurator().apply(HOOD_MOTOR_CONFIG);
     inputs = new ShooterInputsAutoLogged();
     SmartDashboard.putNumber("PASS-TEST/shooterAngle", 30);
     SmartDashboard.putNumber("PASS-TEST/shooterSpeed", 30);
@@ -78,19 +78,19 @@ public class Shooter extends SubsystemBase {
 
   public void setShooterToFullPassState() {
     setVelocity(65);
-    setHoodAngle(40, false);
+    setDesiredHoodAngle(0, false);
   }
   
   public void setShooterToHalfPassState() {
     setVelocity(65);
-    setHoodAngle(40, false);
+    setDesiredHoodAngle(0, false);
   }
   
   /**
    * sends a positionVoltage request to the hood motor
    * @param angle angle to set the hood to, in radians
    */
-  public void setHoodAngle(double angle, boolean autoRetract){
+  public void setDesiredHoodAngle(double angle, boolean autoRetract){
     desiredPosition = InchPositionToActuatorConstrainedPercent(
       MythicalMath.ServoExtensionToReachHoodAngle(angle, 6.610, 8.134, 4.914, 54.328)
     );
@@ -98,19 +98,13 @@ public class Shooter extends SubsystemBase {
     autoRetractOn = autoRetract;
   }
 
-  public void setHoodAngleUp(){
-    desiredPosition = HOOD_UP_POSITION;
-    autoRetractOn = false;
+  private void setHoodMotor(double angle){
+    PositionVoltage target = new PositionVoltage(hoodAngleToMotorRotations(angle));
+    hoodMotor.setControl(target);
   }
 
-  public void setHoodAngleDown(){
-    desiredPosition = HOOD_DOWN_POSITION;
-    autoRetractOn = false;
-  }
-
-  private void setHoodActuators(double position){
-    leftHoodActuator.set(position);
-    rightHoodActuator.set(position);
+  private double hoodAngleToMotorRotations(double hoodAngle) {
+    return 0;
   }
 
   public double InchPositionToActuatorConstrainedPercent(double inches){
@@ -123,6 +117,7 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
     inputs.shootMotorLead.log(shootMotor1);
     inputs.shootMotorFollow.log(shootMotor2);
+    inputs.hoodMotor.log(hoodMotor);
     Logger.processInputs("Shooter", inputs);
     SmartDashboard.putBoolean("SHOOTER/isAtSpeed", isAtSpeed());
     if(this.getCurrentCommand() != null) {
@@ -145,14 +140,14 @@ public class Shooter extends SubsystemBase {
       }
       //if we are in position control, and in one of those squares around trenches, hood all the way down
       if(inBadxZone && inBadyZone) {
-        setHoodActuators(HOOD_DOWN_POSITION);
+        setHoodMotor(HOOD_DOWN_POSITION);
         SmartDashboard.putBoolean("Shooter/automaticallyRetraced", true);
       } else {
-        setHoodActuators(desiredPosition);
+        setHoodMotor(desiredPosition);
         SmartDashboard.putBoolean("Shooter/automaticallyRetraced", false);
       }
     } else {
-      setHoodActuators(desiredPosition);
+      setHoodMotor(desiredPosition);
       SmartDashboard.putBoolean("Shooter/automaticallyRetraced", false);
     }
 

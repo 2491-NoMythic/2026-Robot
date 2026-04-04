@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.settings.ClimberState;
+import frc.robot.settings.Constants.ShooterConstants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.RobotState;
@@ -25,7 +26,7 @@ public class AutomaticClimb extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new InstantCommand(()->climber.climberUp(), climber),
-      new InstantCommand(()->shooter.setHoodAngleDown(), shooter),
+      new InstantCommand(()->shooter.setDesiredHoodAngle(ShooterConstants.HOOD_DOWN_POSITION, false), shooter),
       new MoveToClimbingPose(drivetrain),
       // new WaitUntilCommand(()->RobotState.getInstance().climberState == ClimberState.Up),
       new InstantCommand(()->drivetrain.drive(new ChassisSpeeds(0, -0.5, 0))),
