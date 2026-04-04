@@ -11,6 +11,8 @@ import static frc.robot.settings.Constants.DriveConstants.k_XY_D;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
 import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED_RPS;
+import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
+import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.CLIMBER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.DRIVE_TRAIN_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.HOPPER_EXISTS;
@@ -74,6 +76,7 @@ import frc.robot.Commands.Expand;
 import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.OverBump;
+import frc.robot.Commands.PassCommand;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.FeedShooterAntiHopperStall;
 import frc.robot.Commands.LightsCommand;
@@ -86,6 +89,7 @@ import frc.robot.Commands.AimAtLocation.Location;
 import frc.robot.settings.Constants.IndexerConstants;
 import frc.robot.settings.Constants.ShooterConstants;
 import frc.robot.settings.LightsEnums;
+import frc.robot.settings.OdometryUpdatingState;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hopper;
@@ -140,6 +144,7 @@ public class RobotContainer {
   BooleanSupplier ClimberDownSup;
   BooleanSupplier AutoClimbSup;
   BooleanSupplier RetractIntakeSup;
+  BooleanSupplier IntakeBackwardsSup;
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier AutoIntakeSup;
   BooleanSupplier IntakeWheelSup;
@@ -158,10 +163,12 @@ public class RobotContainer {
   BooleanSupplier ManualTowerShotSup;
   BooleanSupplier ManualLeftTrenchShotSup;
   BooleanSupplier ManualRightTrenchShotSup;
-  BooleanSupplier ResetQuestSup;
+  BooleanSupplier ResetQuestIntakeInSup;
+  BooleanSupplier ResetQuestIntakeOutSup;
   BooleanSupplier ManualRightCornerShotSup;
   BooleanSupplier ManualLeftCornerShotSup;
   BooleanSupplier DrivetrainXPositionSup;
+  BooleanSupplier PassSup;
 
 
 
@@ -169,6 +176,14 @@ public class RobotContainer {
 
   public RobotContainer() {
 
+    if(QUEST_EXISTS) {
+      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest;
+    } else if(LIMELIGHTS_EXIST) {
+      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights;
+    } else {
+      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.onlyDrivetrain;
+    }
+    
     autoTimer = new Timer();
 
     /**
@@ -202,25 +217,23 @@ public class RobotContainer {
 
     HoodUpSupplier = () -> operatorController.getPOV() == 0;
     HoodDownSupplier = () -> operatorController.getRightTriggerAxis() > 0.5;
-    ShooterOnSup = ()-> operatorController.getStartButton();
-    ShooterOffSup = ()-> operatorController.getBackButton();
+    ShooterOnSup = ()-> operatorController.getPOV() == 90;
+    ShooterOffSup = ()-> operatorController.getPOV() == 270;
     ManualHubShotSup = operatorController::getYButton;
     ManualTowerShotSup = operatorController::getAButton;
     ManualLeftTrenchShotSup = operatorController::getXButton;
     ManualRightTrenchShotSup = operatorController::getBButton;
     ManualLeftCornerShotSup = operatorController::getLeftBumperButton;
     ManualRightCornerShotSup = operatorController::getRightBumperButton;
+
+    PassSup = ()-> operatorController.getLeftTriggerAxis() > 0.5;
     //Shooting Command is Right Trigger on drive controller. 
-    //Climber controls
-    AutoClimbSup = () -> false;
-    ClimberUpSup = ()->operatorController.getPOV() == 0;
-    ClimberDownSup = ()->operatorController.getPOV() == 180;
-    ClimberDownSup = operatorController::getRightBumperButton;
 
     //intake controls
     RetractIntakeSup = operatorController::getLeftStickButton;
     DeployIntakeSup = operatorController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
+    IntakeBackwardsSup = driveController::getRightBumperButton;
 
     //hopper controls
     HopperWheelsForwardSup = ()-> false;//operatorController.getPOV() == 270;
@@ -234,7 +247,7 @@ public class RobotContainer {
     ShootIfAimedSup = ()->false;
 
     //QuestNav Controls
-    ResetQuestSup = driveController::getBackButton;
+    ResetQuestIntakeInSup = driveController::getBackButton;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -354,6 +367,8 @@ public class RobotContainer {
     new Trigger(ShooterOffSup).onTrue(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
+    new Trigger(PassSup).whileTrue(new PassCommand(shooter));
+
     SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setHoodAngle(25, true), shooter));
   }
 
@@ -367,8 +382,9 @@ public class RobotContainer {
   private void intakeInit() {
     intake = new Intake();
     
-    new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
-    new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
+    new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake));
+    new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake));
+    new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     
     if(HOPPER_EXISTS) {
       new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunIntake(intake, hopper));
@@ -430,7 +446,7 @@ public class RobotContainer {
     if (DRIVE_TRAIN_EXISTS) {
       SmartDashboard.putData("drivetrain", drivetrain);
       new Trigger(ZeroGyroSup).onTrue(new InstantCommand(drivetrain::zeroGyroscope));
-      new Trigger(ResetQuestSup).onTrue(new InstantCommand(()->quest.resetQuestPose()));
+      new Trigger(ResetQuestIntakeInSup).onTrue(new InstantCommand(()->quest.resetQuestPose()));
       InstantCommand setOffsets = new InstantCommand(drivetrain::setEncoderOffsets) {
         public boolean runsWhenDisabled() {
           return true;
@@ -441,8 +457,26 @@ public class RobotContainer {
           return true;
         };
       };
+      InstantCommand resetQuestPose = new InstantCommand(quest::resetQuestPose) {
+        public boolean runsWhenDisabled() {
+          return true;
+        };
+      };
+      InstantCommand resetQuestToAutoPoseLeft = new InstantCommand(()->quest.resetQuestToAutoStartPose(false)) {
+        public boolean runsWhenDisabled() {
+          return true;
+        };
+      };
+      InstantCommand resetQuestToAutoPoseRight = new InstantCommand(()->quest.resetQuestToAutoStartPose(true)) {
+        public boolean runsWhenDisabled() {
+          return true;
+        };
+      };
 
       SmartDashboard.putData("zeroGyroscope", zeroGyroscope);
+      SmartDashboard.putData("resetQuestPose", resetQuestPose);
+      SmartDashboard.putData("resetQuestToAutoPoseLeft", resetQuestToAutoPoseLeft);
+      SmartDashboard.putData("resetQuestToAutoPoseRight", resetQuestToAutoPoseRight);
       SmartDashboard.putData("set offsets", setOffsets);
     }
     if(DRIVE_TRAIN_EXISTS && SHOOTER_EXISTS){

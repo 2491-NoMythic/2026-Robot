@@ -72,6 +72,9 @@ public class AimAtLocation extends ParallelCommandGroup {
     if(location == Location.LeftCorner || location == Location.RightCorner) {
       shootSpeed = AimAtLocationConstants.CORNER_SHOOTING_SPEED;
     }
+    if(location == Location.Hub) {
+      shootSpeed = AimAtLocationConstants.HUB_SHOOTING_SPEED;
+    }
     addCommands(
       new AimHoodFixed(shooter, hoodAngle, false, shootSpeed),
       new AimRobot(drivetrain, joystickXSupplier, joystickYSupplier, ()-> getTargetRobotAngle(location)));

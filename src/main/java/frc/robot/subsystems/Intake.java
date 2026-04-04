@@ -14,6 +14,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.TalonFXS;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.IntakeInputsAutoLogged;
@@ -29,6 +30,8 @@ public class Intake extends SubsystemBase {
   TalonFXSConfiguration intakeConfig;
   IntakeInputsAutoLogged inputs;
   CANcoder absoluteEncoder;
+  double targetedPosition;
+  boolean targetingDeployedPosition;
 
   /** Creates a new Intake. */
   public Intake() {
@@ -78,6 +81,8 @@ public class Intake extends SubsystemBase {
 
   public void deployIntake(){
     setIntakeAngle(INTAKE_DEPLOYED_POSITION);
+    targetedPosition = INTAKE_DEPLOYED_POSITION;
+    targetingDeployedPosition = true;
   }
 
   public boolean getIsDeployed() {
@@ -90,10 +95,17 @@ public class Intake extends SubsystemBase {
 
   public void retractIntake(){
     setIntakeAngle(INTAKE_RETRACTED_POSITION);
+    targetedPosition = INTAKE_RETRACTED_POSITION;
+    targetingDeployedPosition = false;
   }
 
   public void stopDeployer(){
+    targetingDeployedPosition = false;
     deployer.stopMotor();
+  }
+
+  public void holdPosition(){
+    deployer.setControl(new VoltageOut(2));
   }
 
   public void setIntakeAngle(double rotations) {
@@ -111,6 +123,9 @@ public class Intake extends SubsystemBase {
     if(this.getCurrentCommand() != null) {
     } else {
       SmartDashboard.putString("IntakeCurrentCommand", "null");
+    }
+    if(targetingDeployedPosition && deployer.getPosition().getValueAsDouble() < INTAKE_DOWN_SOFT_LIMIT && DriverStation.isTeleop()) {
+      holdPosition();
     }
   }
 

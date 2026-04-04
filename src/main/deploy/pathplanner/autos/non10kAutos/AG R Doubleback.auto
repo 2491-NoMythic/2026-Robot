@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Over bump to collect safe L"
+            "pathName": "AG R Doubleback"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Safe Collect L-R"
+            "name": "OverBump"
           }
         },
         {
@@ -21,40 +21,34 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "AimRobotMoving"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
                   "waitTime": 2.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "RunOnlyIntake"
-          }
-        },
-        {
           "type": "race",
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "RunIndexer"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
                   "waitTime": 8.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIndexer"
                 }
               }
             ]
@@ -69,7 +63,7 @@
       ]
     }
   },
-  "resetOdom": false,
-  "folder": "Duluth Autos",
+  "resetOdom": true,
+  "folder": "One Path Trench Auto",
   "choreoAuto": false
 }

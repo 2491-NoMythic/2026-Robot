@@ -40,6 +40,8 @@ public class Shooter extends SubsystemBase {
     leftHoodActuator = new Servo(HOOD_LEFT_ACTUATOR_ID);
     rightHoodActuator = new Servo(HOOD_RIGHT_ACTUATOR_ID);
     inputs = new ShooterInputsAutoLogged();
+    SmartDashboard.putNumber("PASS-TEST/shooterAngle", 30);
+    SmartDashboard.putNumber("PASS-TEST/shooterSpeed", 30);
     //SmartDashboard.putNumber("hoodPosition", 0);
   }
 
@@ -72,6 +74,16 @@ public class Shooter extends SubsystemBase {
 
   public void shooterOn() {
     setVelocity(SHOOTING_SPEED_RPS);
+  }
+
+  public void setShooterToFullPassState() {
+    setVelocity(65);
+    setHoodAngle(40, false);
+  }
+  
+  public void setShooterToHalfPassState() {
+    setVelocity(65);
+    setHoodAngle(40, false);
   }
   
   /**
