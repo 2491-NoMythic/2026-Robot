@@ -14,9 +14,10 @@
   ],
   "autoFolders": [
     "Duluth Autos",
-    "Finalized",
+    "One Path Trench Auto",
     "Misc",
-    "One Path Bump Auto"
+    "One Path Bump Auto",
+    "Untested"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 2.5,

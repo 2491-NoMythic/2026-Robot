@@ -5,9 +5,40 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Expand"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "AG L Steal Cross"
+            "pathName": "Bump to Collect BR"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Collect BR"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Return BL"
           }
         },
         {
@@ -55,15 +86,27 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Rotate R Quarter DB"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "AutomaticClimb"
+            "name": "OverBump"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Return R Quarter DB Finish"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Finalized",
+  "folder": "Untested",
   "choreoAuto": false
 }

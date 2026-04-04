@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "FR R Cross"
+            "pathName": "AG L Doubleback"
           }
         },
         {
@@ -64,6 +64,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Finalized",
+  "folder": "One Path Trench Auto",
   "choreoAuto": false
 }

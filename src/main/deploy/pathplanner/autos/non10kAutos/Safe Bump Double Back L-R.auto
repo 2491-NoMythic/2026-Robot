@@ -5,6 +5,18 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "AG L OverBump to CollectBL"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Safe Collect L-R"
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [
@@ -21,18 +33,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShooterOn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "WaitUntilShooterIsSpooled"
           }
         },
         {
@@ -70,6 +70,6 @@
     }
   },
   "resetOdom": false,
-  "folder": "Finalized",
+  "folder": "Duluth Autos",
   "choreoAuto": false
 }

@@ -40,6 +40,8 @@ public class Shooter extends SubsystemBase {
     hoodMotor = new TalonFXS(HOOD_MOTOR_ID, CANIVORE_DRIVETRAIN);
     hoodMotor.getConfigurator().apply(HOOD_MOTOR_CONFIG);
     inputs = new ShooterInputsAutoLogged();
+    SmartDashboard.putNumber("PASS-TEST/shooterAngle", 30);
+    SmartDashboard.putNumber("PASS-TEST/shooterSpeed", 30);
     //SmartDashboard.putNumber("hoodPosition", 0);
   }
 
@@ -70,6 +72,20 @@ public class Shooter extends SubsystemBase {
     return shootMotor1.getVelocity().getValueAsDouble() > 22;
   }
 
+  public void shooterOn() {
+    setVelocity(SHOOTING_SPEED_RPS);
+  }
+
+  public void setShooterToFullPassState() {
+    setVelocity(65);
+    setHoodAngle(40, false);
+  }
+  
+  public void setShooterToHalfPassState() {
+    setVelocity(65);
+    setHoodAngle(40, false);
+  }
+  
   /**
    * sends a positionVoltage request to the hood motor
    * @param angle angle to set the hood to, in radians

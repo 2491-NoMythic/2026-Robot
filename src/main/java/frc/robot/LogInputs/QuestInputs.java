@@ -8,6 +8,7 @@ import java.util.OptionalInt;
 
 import org.littletonrobotics.junction.AutoLog;
 
+import frc.robot.settings.OdometryUpdatingState;
 import gg.questnav.questnav.PoseFrame;
 
 /** Add your docs here. */
@@ -18,4 +19,6 @@ public class QuestInputs {
     public boolean isConnected;
     public int frameCount;
     public boolean frameCountPresent;
+    public int batteryPercentage;
+    public OdometryUpdatingState odometryUpdatingState;
 }

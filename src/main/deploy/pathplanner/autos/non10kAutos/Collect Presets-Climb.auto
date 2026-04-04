@@ -5,53 +5,52 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "Expand"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "AG R Tilt Cross"
+            "pathName": "collect preset path"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "collect presets and shoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "OverBump"
+            "name": "AimRobotMoving"
           }
         },
         {
-          "type": "race",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AimRobotMoving"
-                }
-              }
-            ]
+            "name": "RunIndexer"
           }
         },
         {
-          "type": "race",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 8.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "RunIndexer"
-                }
-              }
-            ]
+            "pathName": "collect preset climb"
           }
         },
         {
@@ -64,6 +63,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Finalized",
+  "folder": "One Path Trench Auto",
   "choreoAuto": false
 }
