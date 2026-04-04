@@ -78,7 +78,7 @@ public final class Constants {
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
     public static final int HOOD_RIGHT_ACTUATOR_ID = 3;
     public static final double SHOOTER_HEIGHT = 0.552; //IN METERS
-    public static final double SHOOTER_X_OFFSET = 0.16; //Positive X is towards Blue when facing 0* (which is away from DS when on Blue)
+    public static final double SHOOTER_X_OFFSET = -0.16; //Positive X is towards Blue when facing 0* (which is away from DS when on Blue), sign is flipped because shooter is
     public static final double SHOOTER_Y_OFFSET = 0;
     public static final double AUTO_AIM_ROBOT_kP = 0.125;
     public static final double AUTO_AIM_ROBOT_kI = 0;
@@ -192,15 +192,15 @@ public final class Constants {
   }
 
   public static final class AimAtLocationConstants {
-    public static final int HUB_ROBOT_ANGLE = 0;
+    public static final int HUB_ROBOT_ANGLE = 0 + 180;
     public static final int HUB_HOOD_ANGLE = 15;
-    public static final int L_TRENCH_ROBOT_ANGLE = -80;
-    public static final int R_TRENCH_ROBOT_ANGLE = 80;
-    public static final int L_CORNER_ROBOT_ANGLE = -40;
-    public static final int R_CORNER_ROBOT_ANGLE = 40;
+    public static final int L_TRENCH_ROBOT_ANGLE = -80 + 180;
+    public static final int R_TRENCH_ROBOT_ANGLE = 80 + 180;
+    public static final int L_CORNER_ROBOT_ANGLE = -40 + 180;
+    public static final int R_CORNER_ROBOT_ANGLE = 40 + 180;
     public static final int TRENCH_HOOD_ANGLE = 2491;
     public static final int CORNER_HOOD_ANGLE = 35;
-    public static final int TOWER_ROBOT_ANGLE = 180;
+    public static final int TOWER_ROBOT_ANGLE = 180 + 180;
     public static final int TOWER_HOOD_ANGLE = 21;
     public static final double CORNER_SHOOTING_SPEED = 43;
     public static final double HUB_SHOOTING_SPEED = 30;
