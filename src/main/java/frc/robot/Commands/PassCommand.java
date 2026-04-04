@@ -26,10 +26,10 @@ public class PassCommand extends Command {
     boolean isInNeutralZone = x > 5 && x < 11;
     if (isInNeutralZone) {
       shooter.setVelocity(51);
-      shooter.setHoodAngle(35, false);
+      shooter.setDesiredHoodAngle(35, false);
     } else {
       shooter.setVelocity(65);
-      shooter.setHoodAngle(40, false);
+      shooter.setDesiredHoodAngle(40, false);
     }
   }
 

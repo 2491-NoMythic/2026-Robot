@@ -78,12 +78,12 @@ public class Shooter extends SubsystemBase {
 
   public void setShooterToFullPassState() {
     setVelocity(65);
-    setHoodAngle(40, false);
+    setDesiredHoodAngle(0, false);
   }
   
   public void setShooterToHalfPassState() {
     setVelocity(65);
-    setHoodAngle(40, false);
+    setDesiredHoodAngle(0, false);
   }
   
   /**
