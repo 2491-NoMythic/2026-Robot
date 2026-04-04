@@ -461,20 +461,6 @@ public class RobotContainer {
       new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper));  
       new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, hopper));
     }
-    if (SHOOTER_EXISTS) {
-    // InstantCommand setServoAngleUp = new InstantCommand(shooter::setHoodAngleUp) {
-    //   public boolean runsWhenDisabled() {
-    //     return true;
-    //   };
-    // };
-    //  InstantCommand setServoAngleDown = new InstantCommand(shooter::setHoodAngleDown) {
-    //   public boolean runsWhenDisabled() {
-    //     return true;
-    //   };
-    // };
-    // SmartDashboard.putData("set hood angle up", setServoAngleUp);
-    // SmartDashboard.putData("set hood angle down", setServoAngleDown);
-  }
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
