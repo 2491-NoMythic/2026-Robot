@@ -28,11 +28,12 @@ public class PulseIntake extends Command {
 
   @Override
   public void execute() {
+    intake.feedHopper();
     if (timer.get() > 1) {
         timer.reset();
     } 
     if (timer.get() < 0.75) {
-        intake.retractIntake();
+        intake.setIntakeAngle(-0.28);
     } else {
         intake.deployIntake();
     }
