@@ -110,6 +110,7 @@ public class Intake extends SubsystemBase {
 
   public void setIntakeAngle(double rotations) {
     deployer.setControl(new PositionVoltage(rotations));
+    targetedPosition = rotations;
   }
 
   @Override

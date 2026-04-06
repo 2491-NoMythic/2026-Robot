@@ -235,7 +235,7 @@ public class RobotContainer {
     RetractIntakeSup = operatorController::getLeftStickButton;
     DeployIntakeSup = operatorController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
-    PulseIntakeSup = ()->operatorController.getPOV() == 180;
+    PulseIntakeSup = ()->operatorController.getPOV() > 134 && operatorController.getPOV() < 226;
     IntakeBackwardsSup = driveController::getRightBumperButton;
 
     //hopper controls
