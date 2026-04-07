@@ -16,32 +16,32 @@
     },
     {
       "anchor": {
-        "x": 7.571312410841653,
-        "y": 5.076562054208274
+        "x": 5.8892867332382295,
+        "y": 5.488
       },
       "prevControl": {
-        "x": 7.323242941663236,
-        "y": 5.107570737855577
+        "x": 5.6409472852478775,
+        "y": 5.459233377468907
       },
       "nextControl": {
-        "x": 8.472314286726832,
-        "y": 4.963936819722626
+        "x": 6.137626181228583,
+        "y": 5.516766622531095
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.096305278174036,
-        "y": 5.488
+        "x": 6.445649072753208,
+        "y": 2.501768901569187
       },
       "prevControl": {
-        "x": 7.1391498006300305,
-        "y": 5.444071732625518
+        "x": 6.3938944365192585,
+        "y": 2.100670470756063
       },
       "nextControl": {
-        "x": 5.053460755718041,
-        "y": 5.531928267374483
+        "x": 6.957442373805573,
+        "y": 6.468166984725136
       },
       "isLocked": false,
       "linkedName": null
@@ -62,11 +62,15 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 2.05,
-      "rotationDegrees": -14.999999999999998
+      "waypointRelativePos": 0.6332622601279346,
+      "rotationDegrees": -40.0
     },
     {
-      "waypointRelativePos": 2.15,
+      "waypointRelativePos": 1.304904051172708,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 2.4115138592750336,
       "rotationDegrees": -40.0
     }
   ],
@@ -102,7 +106,7 @@
       "minWaypointRelativePos": 0.5671843349088491,
       "maxWaypointRelativePos": 1.55,
       "constraints": {
-        "maxVelocity": 1.0,
+        "maxVelocity": 2.0,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -115,7 +119,7 @@
   "eventMarkers": [
     {
       "name": "Expand",
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 0.21066846725187288,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",

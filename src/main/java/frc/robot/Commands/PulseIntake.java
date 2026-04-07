@@ -42,6 +42,7 @@ public class PulseIntake extends Command {
   @Override
   public void end(boolean interrupted) {
     intake.deployIntake();
+    intake.stopWheels();
     
   }
 
