@@ -84,12 +84,12 @@
         "y": 2.7455301204819285
       },
       "prevControl": {
-        "x": 6.665130933152662,
-        "y": 3.3069087841528306
+        "x": 7.018976700732169,
+        "y": 3.0717240204052763
       },
       "nextControl": {
-        "x": 5.941041369472182,
-        "y": 2.42413694721826
+        "x": 5.384090909090909,
+        "y": 2.4168295454545454
       },
       "isLocked": false,
       "linkedName": null
@@ -100,8 +100,8 @@
         "y": 2.5925421686746986
       },
       "prevControl": {
-        "x": 4.2358,
-        "y": 2.4661444444444443
+        "x": 4.580159090909091,
+        "y": 2.7260340909090917
       },
       "nextControl": null,
       "isLocked": false,
@@ -135,7 +135,7 @@
     },
     {
       "waypointRelativePos": 5.193360995850618,
-      "rotationDegrees": 0.0
+      "rotationDegrees": 180.0
     }
   ],
   "constraintZones": [
@@ -214,7 +214,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Auto Bump Paths",

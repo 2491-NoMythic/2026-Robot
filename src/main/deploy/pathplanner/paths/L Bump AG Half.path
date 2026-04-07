@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.2987552905118385,
-        "y": 5.464425033608307
+        "x": 3.7762272727272723,
+        "y": 5.508875000000001
       },
       "isLocked": false,
       "linkedName": "Left Bump Behind Start"
@@ -36,7 +36,7 @@
         "y": 6.3963052781740375
       },
       "prevControl": {
-        "x": 6.8520978061326865,
+        "x": 6.852097806132686,
         "y": 6.327987343853155
       },
       "nextControl": {
@@ -84,12 +84,12 @@
         "y": 5.280759036144579
       },
       "prevControl": {
-        "x": 6.761515304273219,
-        "y": 5.203766587759899
+        "x": 6.919806818181818,
+        "y": 5.189363636363637
       },
       "nextControl": {
-        "x": 5.458284838995823,
-        "y": 5.621934148089869
+        "x": 5.433183527167535,
+        "y": 5.530540668539038
       },
       "isLocked": false,
       "linkedName": null
@@ -128,10 +128,6 @@
     {
       "waypointRelativePos": 3.927505330490388,
       "rotationDegrees": 180.0
-    },
-    {
-      "waypointRelativePos": 5.30916844349675,
-      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [
@@ -210,7 +206,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Auto Bump Paths",
