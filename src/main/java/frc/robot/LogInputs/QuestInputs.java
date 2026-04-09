@@ -8,6 +8,7 @@ import java.util.OptionalInt;
 
 import org.littletonrobotics.junction.AutoLog;
 
+import edu.wpi.first.networktables.DoubleSubscriber;
 import frc.robot.settings.OdometryUpdatingState;
 import gg.questnav.questnav.PoseFrame;
 
@@ -21,4 +22,5 @@ public class QuestInputs {
     public boolean frameCountPresent;
     public int batteryPercentage;
     public OdometryUpdatingState odometryUpdatingState;
+    public DoubleSubscriber batteryPercentageFromNetworkTables;
 }

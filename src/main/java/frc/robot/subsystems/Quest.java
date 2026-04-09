@@ -17,6 +17,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -41,6 +42,7 @@ public class Quest extends SubsystemBase {
     this.drivetrain = drivetrain;
     limelight = Limelight.getInstance();
     inputs = new QuestInputsAutoLogged();
+    inputs.batteryPercentageFromNetworkTables = NetworkTableInstance.getDefault().getTable("questnav").getDoubleTopic("batteryPercent").subscribe(0.0f);
     questNav.onDisconnected(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights);
     questNav.onConnected(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest);
     questNav.onTrackingLost(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights);
