@@ -37,6 +37,8 @@ public class Quest extends SubsystemBase {
   QuestInputsAutoLogged inputs;
   Limelight limelight;
   double lastFrameCount = 0;
+  int robotFramesSinceLastQuestFrame;
+  int lastFrameNum;
   /** Creates a new Quest. */
   public Quest(DrivetrainSubsystem drivetrain) {
     this.drivetrain = drivetrain;
@@ -112,6 +114,11 @@ public class Quest extends SubsystemBase {
 
   @Override
   public void periodic() {
+    int newFrameCount = questNav.getFrameCount().getAsInt();
+    if (newFrameCount != lastFrameNum) {
+        lastFrameNum = newFrameCount;
+        robotFramesSinceLastQuestFrame = 0;
+    } else robotFramesSinceLastQuestFrame++;
     inputs.questFrames = questNav.getAllUnreadPoseFrames();
     inputs.frameCountPresent = questNav.getFrameCount().isPresent();
     inputs.frameCount = questNav.getFrameCount().orElse(0);
@@ -119,6 +126,9 @@ public class Quest extends SubsystemBase {
     inputs.isTracking = questNav.isTracking();
     inputs.batteryPercentage = questNav.getBatteryPercent().orElse(0);
     inputs.odometryUpdatingState = RobotState.getInstance().odometryUpdatingState;
+
+    SmartDashboard.putNumber("Battery from network tables", inputs.batteryPercentageFromNetworkTables.get());
+    SmartDashboard.putNumber("Frames since quest update", robotFramesSinceLastQuestFrame);
 
     Logger.processInputs("Quest", inputs);
 
