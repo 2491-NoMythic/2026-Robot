@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.Matrix;
@@ -39,12 +41,13 @@ public class Quest extends SubsystemBase {
   double lastFrameCount = 0;
   int robotFramesSinceLastQuestFrame;
   int lastFrameNum;
+  DoubleSupplier batteryPercentageFromNetworkTables;
   /** Creates a new Quest. */
   public Quest(DrivetrainSubsystem drivetrain) {
     this.drivetrain = drivetrain;
     limelight = Limelight.getInstance();
     inputs = new QuestInputsAutoLogged();
-    inputs.batteryPercentageFromNetworkTables = NetworkTableInstance.getDefault().getTable("questnav").getDoubleTopic("batteryPercent").subscribe(0.0f);
+    batteryPercentageFromNetworkTables = NetworkTableInstance.getDefault().getTable("questnav").getDoubleTopic("batteryPercent").subscribe(0.0f);
     questNav.onDisconnected(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights);
     questNav.onConnected(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest);
     questNav.onTrackingLost(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights);
@@ -119,6 +122,7 @@ public class Quest extends SubsystemBase {
         lastFrameNum = newFrameCount;
         robotFramesSinceLastQuestFrame = 0;
     } else robotFramesSinceLastQuestFrame++;
+    inputs.batteryPercentageFromNetworkTables = batteryPercentageFromNetworkTables.get();
     inputs.questFrames = questNav.getAllUnreadPoseFrames();
     inputs.frameCountPresent = questNav.getFrameCount().isPresent();
     inputs.frameCount = questNav.getFrameCount().orElse(0);
@@ -127,7 +131,7 @@ public class Quest extends SubsystemBase {
     inputs.batteryPercentage = questNav.getBatteryPercent().orElse(0);
     inputs.odometryUpdatingState = RobotState.getInstance().odometryUpdatingState;
 
-    SmartDashboard.putNumber("Battery from network tables", inputs.batteryPercentageFromNetworkTables.get());
+    SmartDashboard.putNumber("Battery from network tables", inputs.batteryPercentageFromNetworkTables);
     SmartDashboard.putNumber("Frames since quest update", robotFramesSinceLastQuestFrame);
 
     Logger.processInputs("Quest", inputs);
