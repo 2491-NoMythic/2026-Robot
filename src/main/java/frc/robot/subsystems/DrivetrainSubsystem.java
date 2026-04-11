@@ -27,6 +27,7 @@ import static frc.robot.settings.Constants.DriveConstants.FR_STEER_ENCODER_ID;
 import static frc.robot.settings.Constants.DriveConstants.FR_STEER_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.MAX_VELOCITY_METERS_PER_SECOND;
 import static frc.robot.settings.Constants.DriveConstants.ROBOT_ANGLE_TOLERANCE;
+import static frc.robot.settings.Constants.ShooterConstants.PASSING_SPEED_MPS;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTER_HEIGHT;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_MPS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIMELIGHTS_EXIST;
@@ -691,7 +692,33 @@ public class DrivetrainSubsystem extends SubsystemBase {
     RobotState.getInstance().robotPosition = getPose();
     logDrivetrainData();
 
-    this.updateDesiredRobotAngle();
+    boolean passingMode = false;
+    var goal = new Translation3d();
+    Optional<Alliance> alliance = DriverStation.getAlliance();
+    boolean isRed = alliance.isPresent() && alliance.get() == Alliance.Red;
+    if(isRed && getPose().getX() < 12.5){
+      passingMode = true;
+      if (getPose().getY() < 4) {
+        goal = Field.RED_LEFT_PASS_COORDINATE;
+      } else {
+        goal = Field.RED_RIGHT_PASS_COORDINATE;
+      }      
+    } else if (!isRed && getPose().getX() > 4) {
+      passingMode = true;
+      if (getPose().getY() > 4) {
+        goal = Field.BLUE_LEFT_PASS_COORDINATE;
+      } else {
+        goal = Field.BLUE_RIGHT_PASS_COORDINATE;
+      }
+    } else {
+      if (isRed) {
+        goal = Field.RED_HUB_COORDINATE;
+      } else {
+        goal = Field.BLUE_HUB_COORDINATE;
+      }
+    }
+
+    this.updateDesiredRobotAngle(goal, passingMode);
     Logger.recordOutput("autoaim/pitchDegrees", RobotState.getInstance().aimingPitch);
     Logger.recordOutput("autoaim/yaw", RobotState.getInstance().aimingYaw);
     Logger.recordOutput("autoaim/target", BLUE_HUB_COORDINATE);
@@ -714,16 +741,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
   /**
    * @return the desired angle of the robot to be aimed at the hub, assuming 0 degrees = away from blue alliance
    */
-  public void updateDesiredRobotAngle() {
-    var hubPosition = new Translation3d();
+  public void updateDesiredRobotAngle(Translation3d goal, boolean passingMode){
     
-    Optional<Alliance> alliance = DriverStation.getAlliance();
-    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-		  hubPosition = Field.RED_HUB_COORDINATE;
-	  } else {
-      hubPosition = Field.BLUE_HUB_COORDINATE;
-	  }
-
+    float shooterSpeed = SHOOTING_SPEED_MPS;
+    if(passingMode) {
+      shooterSpeed = PASSING_SPEED_MPS;
+    }
+    
     var fieldChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
 
     var shooterOffset = MythicalMath.RotateShooterOffset(getGyroscopeRotation(), new Translation2d(ShooterConstants.SHOOTER_X_OFFSET, ShooterConstants.SHOOTER_Y_OFFSET));
@@ -736,8 +760,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     Tuple2<Double> desiredRotation = MythicalMath.aimProjectileAtPoint(
       new Translation3d(getPose().getX() + shooterOffset.getX(), getPose().getY() + shooterOffset.getY(), SHOOTER_HEIGHT), 
-      hubPosition, 
-      SHOOTING_SPEED_MPS, 
+      goal, 
+      shooterSpeed, 
       new Translation3d(fieldChassisSpeeds.vxMetersPerSecond + linearVelocityFromRotation.getX(), fieldChassisSpeeds.vyMetersPerSecond + linearVelocityFromRotation.getY(), 0), 
       0);
 

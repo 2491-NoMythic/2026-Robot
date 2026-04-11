@@ -73,6 +73,8 @@ public final class Constants {
   public static final class ShooterConstants{
     public static final float SHOOTING_SPEED_MPS = 7.6f;
     public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 38.3f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
+    public static final float PASSING_SPEED_MPS = 12.192f;
+    public static final float PASSING_SPEED_RPS = 97f;
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
@@ -189,6 +191,10 @@ public final class Constants {
   public static final class Field{
     public static final Translation3d BLUE_HUB_COORDINATE = new Translation3d(4.6, 4, 1.7);
     public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.7);
+    public static final Translation3d BLUE_LEFT_PASS_COORDINATE = new Translation3d(2, 6,0);
+    public static final Translation3d BLUE_RIGHT_PASS_COORDINATE = new Translation3d(2, 2, 0);
+    public static final Translation3d RED_LEFT_PASS_COORDINATE = new Translation3d(14.5, 2, 0);
+    public static final Translation3d RED_RIGHT_PASS_COORDINATE = new Translation3d(14.5, 6, 0);
   }
 
   public static final class AimAtLocationConstants {
