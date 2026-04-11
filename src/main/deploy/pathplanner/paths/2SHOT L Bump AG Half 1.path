@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.2765358634035895,
-        "y": 5.354890513609615
+        "x": 4.404925746460805,
+        "y": 5.613213671185169
       },
       "isLocked": false,
       "linkedName": "Left Bump Behind Start"
@@ -20,12 +20,12 @@
         "y": 5.488
       },
       "prevControl": {
-        "x": 5.877125981740966,
-        "y": 5.395149287894918
+        "x": 5.569977461907367,
+        "y": 5.364265336931242
       },
       "nextControl": {
-        "x": 6.859686162624821,
-        "y": 5.788188302425108
+        "x": 7.798647694037214,
+        "y": 5.875633598972165
       },
       "isLocked": false,
       "linkedName": null
@@ -36,28 +36,28 @@
         "y": 6.059900142653353
       },
       "prevControl": {
-        "x": 7.441925820256776,
-        "y": 6.3963052781740375
+        "x": 7.595387495125504,
+        "y": 6.300894633474846
       },
       "nextControl": {
-        "x": 8.293374259442125,
-        "y": 5.0940900182435085
+        "x": 7.728378553376636,
+        "y": 5.81890565183186
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.0796433666191145,
-        "y": 4.753095577746078
+        "x": 7.66188302425107,
+        "y": 4.853533333333332
       },
       "prevControl": {
-        "x": 8.040544587998975,
-        "y": 4.793133128636906
+        "x": 8.201859554581135,
+        "y": 5.328431905315445
       },
       "nextControl": {
-        "x": 6.769115549215405,
-        "y": 4.74015691868759
+        "x": 7.016854326961296,
+        "y": 4.286243479007343
       },
       "isLocked": false,
       "linkedName": null
@@ -68,12 +68,12 @@
         "y": 5.374151212553495
       },
       "prevControl": {
-        "x": 6.201021205456776,
-        "y": 5.1990331685044096
+        "x": 6.403893548165494,
+        "y": 5.158828742794955
       },
       "nextControl": {
-        "x": 5.551674942902711,
-        "y": 5.549269256602581
+        "x": 5.564010811847256,
+        "y": 5.501634498904026
       },
       "isLocked": false,
       "linkedName": null
@@ -84,12 +84,12 @@
         "y": 5.488
       },
       "prevControl": {
-        "x": 4.774015197781127,
-        "y": 5.257645174084609
+        "x": 4.531925587613021,
+        "y": 5.474989223442546
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "L Shooting"
+      "linkedName": "EVE L Shooting"
     }
   ],
   "rotationTargets": [
@@ -98,12 +98,12 @@
       "rotationDegrees": -29.999999999999996
     },
     {
-      "waypointRelativePos": 2.484008528784627,
-      "rotationDegrees": -70.0
+      "waypointRelativePos": 3.12448132780077,
+      "rotationDegrees": -131.06081773002393
     },
     {
       "waypointRelativePos": 4.008528784648165,
-      "rotationDegrees": -40.0
+      "rotationDegrees": 180.0
     }
   ],
   "constraintZones": [
@@ -182,7 +182,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -40.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Auto Bump Paths",

@@ -12,20 +12,20 @@
         "y": 5.6070470756062765
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "L Shooting"
     },
     {
       "anchor": {
-        "x": 6.048266666660831,
-        "y": 5.165355555556968
+        "x": 5.8892867332382295,
+        "y": 5.488
       },
       "prevControl": {
-        "x": 5.97416686294474,
-        "y": 5.404121589760405
+        "x": 5.6409472852478775,
+        "y": 5.459233377468907
       },
       "nextControl": {
-        "x": 6.135966666657,
-        "y": 4.882766666671974
+        "x": 6.137626181228583,
+        "y": 5.516766622531095
       },
       "isLocked": false,
       "linkedName": null
@@ -36,12 +36,12 @@
         "y": 2.501768901569187
       },
       "prevControl": {
-        "x": 6.3106787517406815,
-        "y": 2.120532090625863
+        "x": 6.3938944365192585,
+        "y": 2.100670470756063
       },
       "nextControl": {
-        "x": 7.685333333337164,
-        "y": 6.003377777773883
+        "x": 6.957442373805573,
+        "y": 6.468166984725136
       },
       "isLocked": false,
       "linkedName": null
@@ -52,34 +52,26 @@
         "y": 5.488
       },
       "prevControl": {
-        "x": 3.0278327298602616,
-        "y": 5.726288424341217
+        "x": 4.626522951339355,
+        "y": 5.490599144079885
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EVE L Shooting"
+      "linkedName": "L Shooting"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.0672199170124598,
-      "rotationDegrees": -124.53200000000001
+      "waypointRelativePos": 0.6332622601279346,
+      "rotationDegrees": -40.0
     },
     {
-      "waypointRelativePos": 0.6946058091286301,
-      "rotationDegrees": -124.53200000000001
-    },
-    {
-      "waypointRelativePos": 1.2970954356846482,
-      "rotationDegrees": -80.0
-    },
-    {
-      "waypointRelativePos": 1.5311203319501894,
+      "waypointRelativePos": 1.304904051172708,
       "rotationDegrees": -90.0
     },
     {
-      "waypointRelativePos": 2.5269709543568375,
-      "rotationDegrees": 135.0
+      "waypointRelativePos": 2.4115138592750336,
+      "rotationDegrees": -40.0
     }
   ],
   "constraintZones": [
@@ -158,13 +150,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 180.0
+    "rotation": -40.0
   },
   "reversed": false,
   "folder": "Auto Bump Paths",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": 180.0
+    "rotation": -40.0
   },
   "useDefaultConstraints": true
 }
