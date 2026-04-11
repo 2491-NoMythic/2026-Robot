@@ -99,11 +99,11 @@
     },
     {
       "waypointRelativePos": 2.484008528784627,
-      "rotationDegrees": -90.26727386129788
+      "rotationDegrees": -90.26700000000001
     },
     {
-      "waypointRelativePos": 4.008528784648165,
-      "rotationDegrees": -40.0
+      "waypointRelativePos": 4.096509240246403,
+      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [
@@ -135,10 +135,10 @@
     },
     {
       "name": "CollectFuel",
-      "minWaypointRelativePos": 1.45,
-      "maxWaypointRelativePos": 2.55,
+      "minWaypointRelativePos": 1.5465686274509751,
+      "maxWaypointRelativePos": 2.8406862745097943,
       "constraints": {
-        "maxVelocity": 2.0,
+        "maxVelocity": 1.5,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
