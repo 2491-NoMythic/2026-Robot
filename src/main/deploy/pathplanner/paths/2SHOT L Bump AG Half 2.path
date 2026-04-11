@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.604636233951496,
+        "x": 5.6046362339514975,
         "y": 5.6070470756062765
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "EVE L Shooting"
     },
     {
       "anchor": {
@@ -20,28 +20,28 @@
         "y": 5.165355555556968
       },
       "prevControl": {
-        "x": 5.97416686294474,
-        "y": 5.404121589760405
+        "x": 5.600022222222221,
+        "y": 5.584366666666666
       },
       "nextControl": {
-        "x": 6.135966666657,
-        "y": 4.882766666671974
+        "x": 6.264418428753139,
+        "y": 4.963300647512211
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.445649072753208,
-        "y": 2.501768901569187
+        "x": 6.399066666666666,
+        "y": 2.5830777777777767
       },
       "prevControl": {
-        "x": 6.3106787517406815,
-        "y": 2.120532090625863
+        "x": 6.215462813439726,
+        "y": 2.1454466755656183
       },
       "nextControl": {
-        "x": 7.685333333337164,
-        "y": 6.003377777773883
+        "x": 7.821755555555557,
+        "y": 5.974144444444444
       },
       "isLocked": false,
       "linkedName": null
@@ -52,8 +52,8 @@
         "y": 5.488
       },
       "prevControl": {
-        "x": 3.0278327298602616,
-        "y": 5.726288424341217
+        "x": 3.4854777777777777,
+        "y": 5.662322222222222
       },
       "nextControl": null,
       "isLocked": false,
@@ -62,12 +62,12 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.0672199170124598,
-      "rotationDegrees": -124.53200000000001
+      "waypointRelativePos": 0.1568464730290409,
+      "rotationDegrees": 180.0
     },
     {
-      "waypointRelativePos": 0.6946058091286301,
-      "rotationDegrees": -124.53200000000001
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 180.0
     },
     {
       "waypointRelativePos": 1.2970954356846482,
@@ -78,8 +78,12 @@
       "rotationDegrees": -90.0
     },
     {
-      "waypointRelativePos": 2.5269709543568375,
+      "waypointRelativePos": 2.248132780082997,
       "rotationDegrees": 135.0
+    },
+    {
+      "waypointRelativePos": 2.4721991701244495,
+      "rotationDegrees": 180.0
     }
   ],
   "constraintZones": [
