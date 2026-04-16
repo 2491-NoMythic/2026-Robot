@@ -22,5 +22,4 @@ public class QuestInputs {
     public boolean frameCountPresent;
     public int batteryPercentage;
     public OdometryUpdatingState odometryUpdatingState;
-    public double batteryPercentageFromNetworkTables;
 }
