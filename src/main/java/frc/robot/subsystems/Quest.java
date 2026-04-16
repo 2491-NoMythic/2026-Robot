@@ -117,12 +117,6 @@ public class Quest extends SubsystemBase {
 
   @Override
   public void periodic() {
-    int newFrameCount = questNav.getFrameCount().getAsInt();
-    if (newFrameCount != lastFrameNum) {
-        lastFrameNum = newFrameCount;
-        robotFramesSinceLastQuestFrame = 0;
-    } else robotFramesSinceLastQuestFrame++;
-    inputs.batteryPercentageFromNetworkTables = batteryPercentageFromNetworkTables.get();
     inputs.questFrames = questNav.getAllUnreadPoseFrames();
     inputs.frameCountPresent = questNav.getFrameCount().isPresent();
     inputs.frameCount = questNav.getFrameCount().orElse(0);
@@ -131,10 +125,15 @@ public class Quest extends SubsystemBase {
     inputs.batteryPercentage = questNav.getBatteryPercent().orElse(0);
     inputs.odometryUpdatingState = RobotState.getInstance().odometryUpdatingState;
 
-    SmartDashboard.putNumber("Battery from network tables", inputs.batteryPercentageFromNetworkTables);
-    SmartDashboard.putNumber("Frames since quest update", robotFramesSinceLastQuestFrame);
-
     Logger.processInputs("Quest", inputs);
+    
+    if (inputs.frameCount != lastFrameNum) {
+      lastFrameNum = inputs.frameCount;
+      robotFramesSinceLastQuestFrame = 0;
+    } else robotFramesSinceLastQuestFrame++;
+
+    SmartDashboard.putNumber("Quest Battery", inputs.batteryPercentage);
+    SmartDashboard.putNumber("Frames since quest update", robotFramesSinceLastQuestFrame);
 
     RobotState.getInstance().questIsConnected = inputs.isConnected && inputs.isTracking && inputs.frameCount != lastFrameCount;
     lastFrameCount = inputs.frameCount;
