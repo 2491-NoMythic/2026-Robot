@@ -197,9 +197,9 @@ public class RobotContainer {
     // Drive controls
     if (SAFE_MODE_IS_ON) {   // this code will only run if the constant SAFE_MODE_IS_ON is set to true, 
       safeModeChooser = new SendableChooser<>();                  // creates a new instance of SafeModeChooser which can be sent to elastic
-      safeModeChooser.addOption("Cheetah", 0.5);      // creates Cheetah mode in which speed is set to 0.5 of normal speed
-      safeModeChooser.addOption("Dog", 0.3);
-      safeModeChooser.addOption("Turtle", 0.2);
+      safeModeChooser.addOption("Cheetah", 0.35);      // creates Cheetah mode in which speed is set to 0.5 of normal speed
+      safeModeChooser.addOption("Dog", 0.2);
+      safeModeChooser.addOption("Turtle", 0.1);
       SmartDashboard.putData("Safe Mode", safeModeChooser);
     }
     ControllerSidewaysAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(X_AXIS), 0);
