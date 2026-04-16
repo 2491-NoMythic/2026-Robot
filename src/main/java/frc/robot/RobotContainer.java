@@ -14,7 +14,6 @@ import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED_R
 import static frc.robot.settings.Constants.ShooterConstants.HOOD_UP_POSITION;
 import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
-import static frc.robot.settings.Constants.SubsystemsEnabled.CLIMBER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.DRIVE_TRAIN_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.HOPPER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.INDEXER_EXISTS;
@@ -66,22 +65,16 @@ import frc.robot.Commands.AimAtLocation;
 import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobot;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
-import frc.robot.Commands.AutomaticClimb;
-import frc.robot.Commands.Climb;
-import frc.robot.Commands.ClimberArmDown;
-import frc.robot.Commands.ClimberArmUp;
 import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.Drive;
 import frc.robot.Commands.DriveConstantSpeed;
 import frc.robot.Commands.Expand;
-import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.OverBump;
 import frc.robot.Commands.PassCommand;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.FeedShooterAntiHopperStall;
 import frc.robot.Commands.LightsCommand;
-import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.LockYAxisForCrossing;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.RunIntake;
@@ -91,7 +84,6 @@ import frc.robot.settings.Constants.IndexerConstants;
 import frc.robot.settings.Constants.ShooterConstants;
 import frc.robot.settings.LightsEnums;
 import frc.robot.settings.OdometryUpdatingState;
-import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Indexer;
@@ -117,7 +109,6 @@ public class RobotContainer {
 
   private DrivetrainSubsystem drivetrain;
   private Shooter shooter;
-  private Climber climber;
   private Intake intake;
   private Indexer indexer;
   private Hopper hopper;
@@ -141,9 +132,6 @@ public class RobotContainer {
   BooleanSupplier AimRobotMovingSup;
   BooleanSupplier TrenchAllignSup;
   BooleanSupplier BumpAllignSup;
-  BooleanSupplier ClimberUpSup;
-  BooleanSupplier ClimberDownSup;
-  BooleanSupplier AutoClimbSup;
   BooleanSupplier RetractIntakeSup;
   BooleanSupplier IntakeBackwardsSup;
   BooleanSupplier DeployIntakeSup;
@@ -273,10 +261,6 @@ public class RobotContainer {
       shooterInit();
     }
 
-    if (CLIMBER_EXISTS) {
-      climberInit();
-    }
-
     if (INDEXER_EXISTS) {
       indexerInit();
     }
@@ -391,14 +375,6 @@ public class RobotContainer {
       new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunCommand(()->intake.feedHopper(), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     }
     new Trigger(()->IntakeWheelSup.getAsBoolean() && RobotState.getInstance().feedingShooter).whileTrue(new RunCommand(()->intake.feedHopper(), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
-  }
-
-  private void climberInit() {
-    climber = new Climber();
-
-    new Trigger(ClimberDownSup).whileTrue(new InstantCommand(()->climber.climberDown(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
-    new Trigger(ClimberUpSup).whileTrue(new InstantCommand(()->climber.climberUp(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
-    new Trigger(AutoClimbSup).whileTrue(new Climb(climber, drivetrain));
   }
   
   private void indexerInit() {
@@ -571,21 +547,11 @@ public class RobotContainer {
       ()->DriverStation.getAlliance().get() == Alliance.Blue);
     NamedCommands.registerCommand("AcrossBumpAwayFromAlliance", AcrossBumpAwayFromAlliance);
     NamedCommands.registerCommand("AcrossBumpTowardsAlliance", AcrossBumpTowardsAlliance);
-    NamedCommands.registerCommand("MoveToClimbingPose", new MoveToClimbingPose(drivetrain));
     NamedCommands.registerCommand("AimRobotMoving", new ParallelRaceGroup(
       new AimRobot(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, () -> RobotState.getInstance().aimingYaw)
         .withDeadline(new WaitUntilCommand((()->RobotState.getInstance().Aimed))),
       new AimHood(shooter)));
     NamedCommands.registerCommand("OverBump", AcrossBumpTowardsAlliance);
-    if(CLIMBER_EXISTS) {
-      NamedCommands.registerCommand("ClimberArmUp", new ClimberArmUp(climber));
-      NamedCommands.registerCommand("ClimberArmDown", new ClimberArmDown(climber));
-      NamedCommands.registerCommand("AutomaticClimb", new AutomaticClimb(drivetrain, climber, shooter));
-    } else {
-      NamedCommands.registerCommand("ClimberArmUp", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
-      NamedCommands.registerCommand("ClimberArmDown", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
-      NamedCommands.registerCommand("AutomaticClimb", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
-    }
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
       NamedCommands.registerCommand("RunIndexer", new ParallelCommandGroup(
         new AimRobot(drivetrain, ControllerZAxisSupplier, ControllerSidewaysAxisSupplier, ()->RobotState.getInstance().aimingYaw),
