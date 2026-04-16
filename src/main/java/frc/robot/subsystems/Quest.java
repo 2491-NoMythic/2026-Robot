@@ -41,13 +41,11 @@ public class Quest extends SubsystemBase {
   double lastFrameCount = 0;
   int robotFramesSinceLastQuestFrame;
   int lastFrameNum;
-  DoubleSupplier batteryPercentageFromNetworkTables;
   /** Creates a new Quest. */
   public Quest(DrivetrainSubsystem drivetrain) {
     this.drivetrain = drivetrain;
     limelight = Limelight.getInstance();
     inputs = new QuestInputsAutoLogged();
-    batteryPercentageFromNetworkTables = NetworkTableInstance.getDefault().getTable("questnav").getDoubleTopic("batteryPercent").subscribe(0.0f);
     questNav.onDisconnected(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights);
     questNav.onConnected(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest);
     questNav.onTrackingLost(()->RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights);
