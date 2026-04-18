@@ -20,7 +20,7 @@
         "y": 5.488
       },
       "prevControl": {
-        "x": 5.6409472852478775,
+        "x": 5.640947285247876,
         "y": 5.459233377468907
       },
       "nextControl": {
@@ -150,13 +150,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -40.0
+    "rotation": 140.0
   },
   "reversed": false,
   "folder": "Auto Bump Paths",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": -40.0
+    "rotation": 140.0
   },
   "useDefaultConstraints": true
 }
