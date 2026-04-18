@@ -119,12 +119,13 @@ public class Quest extends SubsystemBase {
     inputs.odometryUpdatingState = RobotState.getInstance().odometryUpdatingState;
 
     Logger.processInputs("Quest", inputs);
-
+    RobotState.getInstance().questIsInPassthrough = lastFrameCount == inputs.frameCount && inputs.isTracking;
     RobotState.getInstance().questIsConnected = inputs.isConnected && inputs.isTracking && inputs.frameCount != lastFrameCount;
     lastFrameCount = inputs.frameCount;
-    RobotState.getInstance().questIsInPassthrough = lastFrameCount == inputs.frameCount && inputs.isTracking;
-    SmartDashboard.putBoolean("Quest Connected", RobotState.getInstance().questIsConnected);
-    SmartDashboard.putBoolean("Quest In Passthrough", RobotState.getInstance().questIsInPassthrough);
+   
+     SmartDashboard.putBoolean("Quest In Passthrough", RobotState.getInstance().questIsInPassthrough);
+     SmartDashboard.putBoolean("Quest Connected", RobotState.getInstance().questIsConnected);
+   
     questNav.commandPeriodic();
 
     SmartDashboard.putString("OdometryUpdatingState", RobotState.getInstance().odometryUpdatingState.toString());
