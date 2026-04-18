@@ -14,17 +14,15 @@ import frc.robot.subsystems.Shooter;
 public class AimHoodFixed extends Command {
   Shooter shooter;
   double angle;
-  boolean autoRetract;
   double shooterSpeed;
   /** Creates a new AimHoodFixed. */
-  public AimHoodFixed(Shooter shooter, double angle, boolean autoRetract) {
-    this(shooter, angle, autoRetract, SHOOTING_SPEED_RPS);
+  public AimHoodFixed(Shooter shooter, double angle) {
+    this(shooter, angle, SHOOTING_SPEED_RPS);
   }
 
-  public AimHoodFixed(Shooter shooter, double angle, boolean autoRetract, double speed) {
+  public AimHoodFixed(Shooter shooter, double angle, double speed) {
     this.shooter = shooter;
     this.angle = angle;
-    this.autoRetract = autoRetract;
     this.shooterSpeed = speed;
     addRequirements(shooter);
   }
@@ -33,7 +31,7 @@ public class AimHoodFixed extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.setDesiredHoodAngle(angle, autoRetract);
+    shooter.setDesiredHoodAngle(angle);
     shooter.setVelocity(shooterSpeed);
   }
 
@@ -44,7 +42,7 @@ public class AimHoodFixed extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.setDesiredHoodAngle(ShooterConstants.HOOD_DOWN_POSITION, false);
+    shooter.setDesiredHoodAngle(ShooterConstants.HOOD_DOWN_POSITION);
     shooter.setVelocity(SHOOTING_SPEED_RPS);
   }
 
