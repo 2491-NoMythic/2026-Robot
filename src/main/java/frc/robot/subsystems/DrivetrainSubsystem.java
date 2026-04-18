@@ -763,6 +763,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
       RobotState.getInstance().desiredShooterSpeed = desiredSpeed;
     }
 
+    SmartDashboard.putNumber("desiredShooterSpeed", RobotState.getInstance().desiredShooterSpeed);
+    SmartDashboard.putBoolean("overrideShooterSpeed", RobotState.getInstance().overrideShooterSpeed);
+
+
     var fieldChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
 
     var shooterOffset = MythicalMath.RotateShooterOffset(getGyroscopeRotation(), new Translation2d(ShooterConstants.SHOOTER_X_OFFSET, ShooterConstants.SHOOTER_Y_OFFSET));
