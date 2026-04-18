@@ -783,7 +783,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
       desiredSpeed * RPS_TO_MPS, 
       new Translation3d(fieldChassisSpeeds.vxMetersPerSecond + linearVelocityFromRotation.getX(), fieldChassisSpeeds.vyMetersPerSecond + linearVelocityFromRotation.getY(), 0), 
       0);
-
+      
+    SmartDashboard.putBoolean("shootingAnglesFound", desiredRotation != null);
+    
     if(desiredRotation != null){
       RobotState.getInstance().aimingPitch = 90 - desiredRotation.get_0(); //subtracting pitch from 90 degrees becuase math believes 90 degrees is straight up, but servo believes 90 degrees is forward
       RobotState.getInstance().aimingYaw = 90 - desiredRotation.get_1() + 180; //add 180 degrees so because shooter is now reversed
