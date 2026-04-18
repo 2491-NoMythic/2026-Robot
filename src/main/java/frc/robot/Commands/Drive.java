@@ -3,6 +3,7 @@ package frc.robot.Commands;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.settings.Constants.DriveConstants;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -64,13 +65,15 @@ public class Drive extends Command {
     // The only difference is that one is relative to the field, and the other to
     // the robot.
     double xSpeed = translationXSupplier.getAsDouble(); //over bump speed assist
-    if (xSpeed > 0.4 && xSpeed < 0.7 && drivetrain.nearBumps()) {
-      xSpeed = 0.1;
+  
+    final double bumpCrossingSpeed = 0.33;
+    if (xSpeed > bumpCrossingSpeed && xSpeed < 0.8 && drivetrain.nearBumps()) {
+      xSpeed = bumpCrossingSpeed; 
     }
-    if ( xSpeed < -0.4 && xSpeed > -0.7 && drivetrain.nearBumps()) {
-      xSpeed = -0.1;
+    if ( xSpeed < -bumpCrossingSpeed && xSpeed > -0.8 && drivetrain.nearBumps()) {
+      xSpeed = -bumpCrossingSpeed;
     }
-
+    SmartDashboard.putNumber("bumpXSpeed", xSpeed);
     if (robotCentricMode.getAsBoolean()) {
       drivetrain.drive(
           new ChassisSpeeds(
