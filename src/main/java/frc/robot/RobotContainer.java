@@ -189,6 +189,7 @@ public class RobotContainer {
       safeModeChooser.addOption("Cheetah", 0.35);      // creates Cheetah mode in which speed is set to 0.5 of normal speed
       safeModeChooser.addOption("Dog", 0.2);
       safeModeChooser.addOption("Turtle", 0.1);
+      safeModeChooser.addOption("Full", 1.0);
       SmartDashboard.putData("Safe Mode", safeModeChooser);
     }
     ControllerSidewaysAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(X_AXIS), 0);

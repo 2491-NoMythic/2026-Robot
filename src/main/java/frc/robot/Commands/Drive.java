@@ -63,6 +63,14 @@ public class Drive extends Command {
     // and multiplying them by maximum velocties and inversions
     // The only difference is that one is relative to the field, and the other to
     // the robot.
+    double xSpeed = translationXSupplier.getAsDouble(); //over bump speed assist
+    if (xSpeed > 0.4 && xSpeed < 0.7 && drivetrain.nearBumps()) {
+      xSpeed = 0.1;
+    }
+    if ( xSpeed < -0.4 && xSpeed > -0.7 && drivetrain.nearBumps()) {
+      xSpeed = -0.1;
+    }
+
     if (robotCentricMode.getAsBoolean()) {
       drivetrain.drive(
           new ChassisSpeeds(
@@ -77,7 +85,7 @@ public class Drive extends Command {
     } else {
       drivetrain.drive(
           ChassisSpeeds.fromFieldRelativeSpeeds(
-              translationXSupplier.getAsDouble()
+              xSpeed
                   * (DriveConstants.MAX_VELOCITY_METERS_PER_SECOND)
                   * invert,
               translationYSupplier.getAsDouble()
