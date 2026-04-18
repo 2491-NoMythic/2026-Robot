@@ -763,8 +763,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
       RobotState.getInstance().desiredShooterSpeed = desiredSpeed;
     }
 
-    SmartDashboard.putNumber("desiredShooterSpeed", RobotState.getInstance().desiredShooterSpeed);
-    SmartDashboard.putBoolean("overrideShooterSpeed", RobotState.getInstance().overrideShooterSpeed);
+    SmartDashboard.putNumber("autoaim/desiredShooterSpeed", RobotState.getInstance().desiredShooterSpeed);
+    SmartDashboard.putBoolean("autoaim/overrideShooterSpeed", RobotState.getInstance().overrideShooterSpeed);
 
 
     var fieldChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
