@@ -73,7 +73,7 @@ public final class Constants {
 
   public static final class ShooterConstants{
     //public static final float SHOOTING_SPEED_MPS = 7.6f;
-    public static final double RPS_TO_MPS = 0.26f; //TUNE THIS!!!!!!!!!!!!!!!!!!!!!!
+    public static final double RPS_TO_MPS = 0.198f; //TUNE THIS!!!!!!!!!!!!!!!!!!!!!!
     public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 38.3f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
     public static final float PASSING_SPEED_RPS_MAX = 79;
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
@@ -143,7 +143,7 @@ public final class Constants {
       .withMotorOutput(new MotorOutputConfigs()
         .withInverted(InvertedValue.Clockwise_Positive));
     public static final double INTAKE_RETRACTED_POSITION = -0.39;
-    public static final double INTAKE_DEPLOYED_POSITION = -0.04;
+    public static final double INTAKE_DEPLOYED_POSITION = -0.018;
   }
 
   public static final class IndexerConstants{
