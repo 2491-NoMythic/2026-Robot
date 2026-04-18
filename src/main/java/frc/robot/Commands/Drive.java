@@ -48,7 +48,6 @@ public class Drive extends Command {
     this.translationYSupplier = translationYSupplier;
     this.rotationSupplier = rotationSupplier;
     addRequirements(drivetrainSubsystem);
-    SmartDashboard.putBoolean("Force0.8Speed", false);
   }
 
   @Override
