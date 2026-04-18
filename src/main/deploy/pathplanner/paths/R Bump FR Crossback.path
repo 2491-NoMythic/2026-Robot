@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.192117514546038,
-        "y": 2.530008712418361
+        "x": 4.547622222222222,
+        "y": 2.4563999999999986
       },
       "isLocked": false,
       "linkedName": "Right Bump Behind Start"
@@ -96,16 +96,16 @@
     },
     {
       "anchor": {
-        "x": 2.959132530120482,
-        "y": 2.734602409638553
+        "x": 2.992,
+        "y": 2.5925421686746986
       },
       "prevControl": {
-        "x": 4.350871690992214,
-        "y": 2.554741601217416
+        "x": 4.383739160871732,
+        "y": 2.4126813602535613
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "R Shooting"
     }
   ],
   "rotationTargets": [
@@ -135,7 +135,11 @@
     },
     {
       "waypointRelativePos": 5.104477611940306,
-      "rotationDegrees": 0.0
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 5.601659751037274,
+      "rotationDegrees": 180.0
     }
   ],
   "constraintZones": [
@@ -144,7 +148,7 @@
       "minWaypointRelativePos": 5.331532748143122,
       "maxWaypointRelativePos": 5.9,
       "constraints": {
-        "maxVelocity": 2.0,
+        "maxVelocity": 1.5,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 180.0,
         "maxAngularAcceleration": 720.0,
@@ -214,7 +218,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 0.0
+    "rotation": -140.0
   },
   "reversed": false,
   "folder": "Auto Bump Paths",

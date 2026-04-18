@@ -134,8 +134,12 @@
       "rotationDegrees": 180.0
     },
     {
-      "waypointRelativePos": 5.193360995850618,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 5.273029045643131,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 5.75103734439832,
+      "rotationDegrees": 180.0
     }
   ],
   "constraintZones": [
@@ -214,7 +218,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -140.0
   },
   "reversed": false,
   "folder": "Auto Bump Paths",

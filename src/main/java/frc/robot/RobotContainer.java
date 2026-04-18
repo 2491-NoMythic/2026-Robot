@@ -72,6 +72,8 @@ import frc.robot.Commands.Expand;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.OverBump;
 import frc.robot.Commands.PassCommand;
+import frc.robot.Commands.PulseIntake;
+import frc.robot.Commands.PassCommand;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.FeedShooterAntiHopperStall;
 import frc.robot.Commands.LightsCommand;
@@ -137,6 +139,7 @@ public class RobotContainer {
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier AutoIntakeSup;
   BooleanSupplier IntakeWheelSup;
+  BooleanSupplier PulseIntakeSup;
   BooleanSupplier ShooterOnSup;
   BooleanSupplier ShooterOffSup;
   BooleanSupplier HoodUpSupplier;
@@ -222,6 +225,8 @@ public class RobotContainer {
     RetractIntakeSup = operatorController::getLeftStickButton;
     DeployIntakeSup = operatorController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
+    IntakeBackwardsSup = driveController::getRightBumperButton;
+    PulseIntakeSup = ()->operatorController.getPOV() > 134 && operatorController.getPOV() < 226;
     IntakeBackwardsSup = driveController::getRightBumperButton;
 
     //hopper controls
@@ -367,6 +372,8 @@ public class RobotContainer {
     
     new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake));
     new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake));
+    new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
+    new Trigger(PulseIntakeSup).whileTrue(new PulseIntake(intake));
     new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     
     if(HOPPER_EXISTS) {
@@ -555,7 +562,8 @@ public class RobotContainer {
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
       NamedCommands.registerCommand("RunIndexer", new ParallelCommandGroup(
         new AimRobot(drivetrain, ControllerZAxisSupplier, ControllerSidewaysAxisSupplier, ()->RobotState.getInstance().aimingYaw),
-        new FeedShooter(indexer, hopper)));
+        new FeedShooter(indexer, hopper),
+        new PulseIntake(intake)));
       NamedCommands.registerCommand("FeedShooterAntiStall", new FeedShooterAntiHopperStall(hopper, indexer));
     } else {
       NamedCommands.registerCommand("RunIndexer", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));

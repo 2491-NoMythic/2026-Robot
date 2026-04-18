@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "R Bump FR Crossback"
+            "pathName": "WALLE 2SHOT L Bump AG Half 1"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 2.0
+                  "waitTime": 0.5
                 }
               }
             ]
@@ -53,11 +53,55 @@
               }
             ]
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "WALLE 2SHOT L Bump AG Half 2"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AimRobotMoving"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RunIndexer"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 6.0
+                }
+              }
+            ]
+          }
         }
       ]
     }
   },
   "resetOdom": false,
-  "folder": "Bump Autos",
+  "folder": "Untested",
   "choreoAuto": false
 }

@@ -1,0 +1,174 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.9522111269614832,
+        "y": 5.488
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.6046362339514975,
+        "y": 5.6070470756062765
+      },
+      "isLocked": false,
+      "linkedName": "EVE L Shooting"
+    },
+    {
+      "anchor": {
+        "x": 6.048266666660831,
+        "y": 5.165355555556968
+      },
+      "prevControl": {
+        "x": 5.600022222222221,
+        "y": 5.584366666666666
+      },
+      "nextControl": {
+        "x": 6.264418428753139,
+        "y": 4.963300647512211
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.399066666666666,
+        "y": 2.5830777777777767
+      },
+      "prevControl": {
+        "x": 6.215462813439726,
+        "y": 2.1454466755656183
+      },
+      "nextControl": {
+        "x": 7.821755555555557,
+        "y": 5.974144444444444
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.9522111269614832,
+        "y": 5.488
+      },
+      "prevControl": {
+        "x": 3.4854777777777777,
+        "y": 5.662322222222222
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "EVE L Shooting"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.1568464730290409,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 1.2970954356846482,
+      "rotationDegrees": -80.0
+    },
+    {
+      "waypointRelativePos": 1.5311203319501894,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 2.248132780082997,
+      "rotationDegrees": 135.0
+    },
+    {
+      "waypointRelativePos": 2.4721991701244495,
+      "rotationDegrees": 180.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "OverBumpOut",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.63722084367248,
+      "constraints": {
+        "maxVelocity": 2.7,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "OverBumpIn",
+      "minWaypointRelativePos": 2.35,
+      "maxWaypointRelativePos": 3.0,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "CollectFuel",
+      "minWaypointRelativePos": 0.5671843349088491,
+      "maxWaypointRelativePos": 1.55,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 0.21066846725187288,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    },
+    {
+      "name": "ShooterOn",
+      "waypointRelativePos": 2.1,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ShooterOn"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 180.0
+  },
+  "reversed": false,
+  "folder": "Auto Bump Paths",
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}

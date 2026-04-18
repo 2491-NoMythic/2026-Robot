@@ -132,8 +132,8 @@ public final class Constants {
         .withKV(0.12).withKS(0.37).withKP(0.1).withKI(0).withKD(0))
       .withMotorOutput(new MotorOutputConfigs()
         .withInverted(InvertedValue.Clockwise_Positive));
-    public static final double INTAKE_RETRACTED_POSITION = -0.35;
-    public static final double INTAKE_DEPLOYED_POSITION = -0.01;
+    public static final double INTAKE_RETRACTED_POSITION = -0.39;
+    public static final double INTAKE_DEPLOYED_POSITION = -0.04;
   }
 
   public static final class IndexerConstants{
