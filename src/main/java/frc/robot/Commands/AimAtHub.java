@@ -8,6 +8,7 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.Robot;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
@@ -22,6 +23,7 @@ public class AimAtHub extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
     new AimRobot(drivetrain, joystickXSupplier, joystickYSupplier, ()-> RobotState.getInstance().aimingYaw),
+    new RunShooterForPassing(shooter),
     new AimHood(shooter));
   }
 }

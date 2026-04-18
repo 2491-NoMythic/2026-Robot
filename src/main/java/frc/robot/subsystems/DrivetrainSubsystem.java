@@ -756,8 +756,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
       } else {
         targetPosition = Field.BLUE_HUB_COORDINATE;
       }
-    desiredSpeed = SHOOTING_SPEED_RPS;
+      desiredSpeed = SHOOTING_SPEED_RPS;
     }
+
+    if(!RobotState.getInstance().overrideShooterSpeed){
+      RobotState.getInstance().desiredShooterSpeed = desiredSpeed;
+    }
+
     var fieldChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
 
     var shooterOffset = MythicalMath.RotateShooterOffset(getGyroscopeRotation(), new Translation2d(ShooterConstants.SHOOTER_X_OFFSET, ShooterConstants.SHOOTER_Y_OFFSET));

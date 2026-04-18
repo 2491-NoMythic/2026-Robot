@@ -30,6 +30,7 @@ public class Shooter extends SubsystemBase {
   ShooterInputsAutoLogged inputs;
   double desiredPosition;
   boolean autoRetractOn;
+  public boolean isOn;
   /** Creates a new Shooter. */
   public Shooter() {
     shootMotor1 = new TalonFX(SHOOTER_LEFT_MOTOR_ID, CANIVORE_DRIVETRAIN);
@@ -57,7 +58,8 @@ public class Shooter extends SubsystemBase {
    * Sets motor power to zero
    */
   public void stop(){
-    shootMotor1.set(0);
+    //shootMotor1.set(0);
+    isOn = false;
   }
 
   /**
@@ -73,9 +75,10 @@ public class Shooter extends SubsystemBase {
   }
 
   public void shooterOn() {
-    setVelocity(SHOOTING_SPEED_RPS);
+    //setVelocity(SHOOTING_SPEED_RPS);
+    isOn = true;
   }
-
+/* 
   public void setShooterToFullPassState() {
     setVelocity(65);
     setDesiredHoodAngle(0, false);
@@ -84,7 +87,7 @@ public class Shooter extends SubsystemBase {
   public void setShooterToHalfPassState() {
     setVelocity(65);
     setDesiredHoodAngle(0, false);
-  }
+  } */
   
   /**
    * sends a positionVoltage request to the hood motor
@@ -124,6 +127,12 @@ public class Shooter extends SubsystemBase {
       SmartDashboard.putString("ShooterCurrentCommand", this.getCurrentCommand().toString());
     } else {
       SmartDashboard.putString("ShooterCurrentCommand", "null");
+    }
+
+    if(isOn) {
+      setVelocity(RobotState.getInstance().desiredShooterSpeed);
+    } else {
+      setVelocity(0);
     }
 
     if (false)/**used to be autorectracton*/ {
