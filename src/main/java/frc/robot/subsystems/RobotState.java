@@ -37,6 +37,7 @@ public class RobotState {
   public boolean fullSwitchTriggered;
   public boolean feedingShooter;
   public boolean questIsConnected;
+  public boolean questIsInPassthrough;
   public OdometryUpdatingState odometryUpdatingState;
 
   public double aimingPitch;
