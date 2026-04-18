@@ -36,13 +36,14 @@ public class FeedShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotState.can
-    if(timer.get() < 0.4) {
-      indexer.set(-0.5);
-      hopper.setHopperRoller(-0.4);
-    } else {
-      indexer.feedShooter();
-      hopper.feedIndexer();
+    if (RobotState.getInstance().canPassOrShoot) {
+      if(timer.get() < 0.4) {
+        indexer.set(-0.5);
+        hopper.setHopperRoller(-0.4);
+      } else {
+        indexer.feedShooter();
+        hopper.feedIndexer();
+      }
     }
   }
 
