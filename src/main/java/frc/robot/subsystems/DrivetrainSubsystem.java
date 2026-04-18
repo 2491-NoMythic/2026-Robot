@@ -698,6 +698,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("LimelightsUpdatedState", RobotState.getInstance().LimelightsUpdated);
   }
 
+  public boolean nearBumps() {
+    Boolean isNearTopBlueBump = getPose().getX() > 3.5 && getPose().getX() < 5.76 && getPose().getY() < 6.13 && getPose().getY() > 4.94;
+    Boolean isNearBottomBlueBump = getPose().getX() > 3.5 && getPose().getX() < 5.76 && getPose().getY() < 3.032 && getPose().getY() > 2.023;
+    Boolean isNearTopRedBump = getPose().getX() > 10.76 && getPose().getX() < 13 && getPose().getY() < 6.13 && getPose().getY() > 4.94;
+    Boolean isNearBottomRedBump = getPose().getX() > 10.76 && getPose().getX() < 13 && getPose().getY() < 3.032 && getPose().getY() > 2.023;
+    return isNearBottomBlueBump || isNearBottomRedBump || isNearTopBlueBump || isNearTopRedBump;
+  }
+
   private void updateInputs() {
     for (int i = 0; i < 4; i++) {
       inputs.swerveModuleStates[i] = modules[i].getState();
