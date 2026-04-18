@@ -3,44 +3,34 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.Commands;
-
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
-
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.RobotState;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class PassCommand extends Command {
+public class RunShooterForPassing extends Command {
   Shooter shooter;
-  /** Creates a new PassCommand. */
-  public PassCommand(Shooter shooter) {
+  float shooterVelocity;
+  /** Creates a new RunIndexer. */
+  public RunShooterForPassing(Shooter shooter) {
     this.shooter = shooter;
     addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    double x = RobotState.getInstance().robotPosition.getX();
-    boolean isInNeutralZone = x > 5 && x < 11;
-    if (isInNeutralZone) {
-      shooter.setVelocity(51);
-      shooter.setDesiredHoodAngle(35);
-    } else {
-      shooter.setVelocity(65);
-      shooter.setDesiredHoodAngle(40);
-    }
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    shooter.setVelocity(RobotState.getInstance().desiredShooterSpeed);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.setVelocity(SHOOTING_SPEED_RPS);
+
   }
 
   // Returns true when the command should end.

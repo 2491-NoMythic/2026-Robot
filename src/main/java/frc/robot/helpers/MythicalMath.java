@@ -142,7 +142,7 @@ public class MythicalMath {
    * @param spin the angular velocity in radians per second
    * @return (pitch, yaw) where pitch is up and yaw is left/right in radians        //a 3d launch angle
    */
-  public static Tuple2<Double> aimProjectileAtPoint(Translation3d origin, Translation3d target, float initialVelocity, Translation3d inheritedVelocity, double spin)
+  public static Tuple2<Double> aimProjectileAtPoint(Translation3d origin, Translation3d target, double initialVelocity, Translation3d inheritedVelocity, double spin)
   {
     float radius = 0f;
     Translation3d velocity = inheritedVelocity; //inheritedVelocity;

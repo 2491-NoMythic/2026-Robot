@@ -29,6 +29,7 @@ public class Shooter extends SubsystemBase {
   TalonFXS hoodMotor;
   ShooterInputsAutoLogged inputs;
   double desiredPosition;
+  public boolean isOn;
   /** Creates a new Shooter. */
   public Shooter() {
     shootMotor1 = new TalonFX(SHOOTER_LEFT_MOTOR_ID, CANIVORE_DRIVETRAIN);
@@ -56,7 +57,8 @@ public class Shooter extends SubsystemBase {
    * Sets motor power to zero
    */
   public void stop(){
-    shootMotor1.set(0);
+    //shootMotor1.set(0);
+    isOn = false;
   }
 
   /**
@@ -72,14 +74,14 @@ public class Shooter extends SubsystemBase {
   }
 
   public void shooterOn() {
-    setVelocity(SHOOTING_SPEED_RPS);
+    //setVelocity(SHOOTING_SPEED_RPS);
+    isOn = true;
   }
 
   public void setShooterToPassState() {
     setVelocity(65);
     setDesiredHoodAngle(0);
   }
-
   /**
    * sends a positionVoltage request to the hood motor
    * @param angle angle to set the hood to, in radians
@@ -107,6 +109,12 @@ public class Shooter extends SubsystemBase {
       SmartDashboard.putString("ShooterCurrentCommand", this.getCurrentCommand().toString());
     } else {
       SmartDashboard.putString("ShooterCurrentCommand", "null");
+    }
+
+    if(isOn) {
+      setVelocity(RobotState.getInstance().desiredShooterSpeed);
+    } else {
+      setVelocity(0);
     }
   }
 }

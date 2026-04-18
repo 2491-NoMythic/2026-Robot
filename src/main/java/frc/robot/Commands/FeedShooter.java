@@ -5,6 +5,7 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
@@ -24,6 +25,7 @@ public class FeedShooter extends Command {
     this.hopper = hopper;
     timer = new Timer();
     addRequirements(hopper, indexer);
+    SmartDashboard.putBoolean("shooterOverride", false);
   }
 
   // Called when the command is initially scheduled.
@@ -36,12 +38,14 @@ public class FeedShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(timer.get() < 0.4) {
-      indexer.set(-0.5);
-      hopper.setHopperRoller(-0.4);
-    } else {
-      indexer.feedShooter();
-      hopper.feedIndexer();
+    if (RobotState.getInstance().canPassOrShoot || SmartDashboard.getBoolean("shooterOverride", true)) {
+      if(timer.get() < 0.4) {
+        indexer.set(-0.5);
+        hopper.setHopperRoller(-0.4);
+      } else {
+        indexer.feedShooter();
+        hopper.feedIndexer();
+      }
     }
   }
 
