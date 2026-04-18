@@ -133,7 +133,7 @@ public class Quest extends SubsystemBase {
     SmartDashboard.putNumber("Quest Battery", inputs.batteryPercentage);
     SmartDashboard.putNumber("Frames since quest update", robotFramesSinceLastQuestFrame);
 
-    RobotState.getInstance().questIsConnected = inputs.isConnected && inputs.isTracking && inputs.frameCount != lastFrameCount;
+    RobotState.getInstance().questIsConnected = inputs.isConnected && inputs.isTracking && robotFramesSinceLastQuestFrame < 5;
     lastFrameCount = inputs.frameCount;
     SmartDashboard.putBoolean("Quest Connected", RobotState.getInstance().questIsConnected);
     questNav.commandPeriodic();
