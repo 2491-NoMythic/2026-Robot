@@ -67,17 +67,19 @@ public final class Constants {
     public static final boolean LIGHTS_EXIST = false;
     public static final boolean HOPPER_EXISTS = true;
     public static final boolean QUEST_EXISTS = true;
-    public static final boolean SAFE_MODE_IS_ON = false;   // A Mode to turn on for mythical night with robotics and other events where we may not want the robot to go full speed
+    public static final boolean SAFE_MODE_IS_ON = false;   // A Mode to turn on for mythical night with robots and other events where we may not want the robot to go full speed
   }
 
   public static final class ShooterConstants{
-    public static final float SHOOTING_SPEED_MPS = 7.6f;
+    //public static final float SHOOTING_SPEED_MPS = 7.6f;
+    public static final double RPS_TO_MPS = 0.133f; //TUNE THIS!!!!!!!!!!!!!!!!!!!!!!
     public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 38.3f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
+    public static final float PASSING_SPEED_RPS_MAX = 79;
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
     public static final int HOOD_RIGHT_ACTUATOR_ID = 3;
-    public static final double SHOOTER_HEIGHT = 0.552; //IN METERS
+    public static final double SHOOTER_HEIGHT = 0.552; //In meters
     public static final double SHOOTER_X_OFFSET = 0.16; //Positive X is towards Blue when facing 0* (which is away from DS when on Blue)
     public static final double SHOOTER_Y_OFFSET = 0;
     public static final double AUTO_AIM_ROBOT_kP = 0.125;
@@ -189,6 +191,14 @@ public final class Constants {
   public static final class Field{
     public static final Translation3d BLUE_HUB_COORDINATE = new Translation3d(4.6, 4, 1.7);
     public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.7);
+    public static final Translation3d BLUE_LEFT_PASS_COORDINATE = new Translation3d(2, 6, 0);
+    public static final Translation3d BLUE_RIGHT_PASS_COORDINATE = new Translation3d(2, 2, 0);
+    public static final Translation3d RED_LEFT_PASS_COORDINATE = new Translation3d(14.5, 2, 0);
+    public static final Translation3d RED_RIGHT_PASS_COORDINATE = new Translation3d(14.5, 6, 0);
+    public static final double BLUE_NEUTRAL_ZONE_X = 5;
+    public static final double RED_NEUTRAL_ZONE_X = 11.5;
+    public static final double FIELD_CENTER_Y = 4;
+    public static final double FIELD_LENGTH_X = 16;
   }
 
   public static final class AimAtLocationConstants {

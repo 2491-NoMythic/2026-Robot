@@ -11,10 +11,10 @@ import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class PassCommand extends Command {
+public class PassCommandDeprecated extends Command {
   Shooter shooter;
   /** Creates a new PassCommand. */
-  public PassCommand(Shooter shooter) {
+  public PassCommandDeprecated(Shooter shooter) {
     this.shooter = shooter;
     addRequirements(shooter);
   }

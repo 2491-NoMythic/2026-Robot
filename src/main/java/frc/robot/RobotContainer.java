@@ -77,7 +77,7 @@ import frc.robot.Commands.Expand;
 import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.OverBump;
-import frc.robot.Commands.PassCommand;
+import frc.robot.Commands.PassCommandDeprecated;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.FeedShooterAntiHopperStall;
 import frc.robot.Commands.LightsCommand;
