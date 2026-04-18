@@ -27,7 +27,7 @@ public class SetpointTesting extends Command {
   @Override
   public void initialize() {
     shooter.setVelocity(SmartDashboard.getNumber("SetpointTesting/ShooterSpeed", 0));
-    shooter.setDesiredHoodAngle(SmartDashboard.getNumber("SetpointTesting/ShooterAngle", 0), false);
+    shooter.setDesiredHoodAngle(SmartDashboard.getNumber("SetpointTesting/ShooterAngle", 0));
   }
 
   // Called every time the scheduler runs while the command is scheduled.

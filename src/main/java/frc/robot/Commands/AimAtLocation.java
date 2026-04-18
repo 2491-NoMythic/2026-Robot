@@ -76,7 +76,7 @@ public class AimAtLocation extends ParallelCommandGroup {
       shootSpeed = AimAtLocationConstants.HUB_SHOOTING_SPEED;
     }
     addCommands(
-      new AimHoodFixed(shooter, hoodAngle, false, shootSpeed),
+      new AimHoodFixed(shooter, hoodAngle,shootSpeed),
       new AimRobot(drivetrain, joystickXSupplier, joystickYSupplier, ()-> getTargetRobotAngle(location)));
   }
 }

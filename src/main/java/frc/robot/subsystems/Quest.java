@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.Matrix;
@@ -17,6 +19,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,6 +39,8 @@ public class Quest extends SubsystemBase {
   QuestInputsAutoLogged inputs;
   Limelight limelight;
   double lastFrameCount = 0;
+  int robotFramesSinceLastQuestFrame;
+  int lastFrameNum;
   /** Creates a new Quest. */
   public Quest(DrivetrainSubsystem drivetrain) {
     this.drivetrain = drivetrain;
@@ -119,8 +124,16 @@ public class Quest extends SubsystemBase {
     inputs.odometryUpdatingState = RobotState.getInstance().odometryUpdatingState;
 
     Logger.processInputs("Quest", inputs);
+    
+    if (inputs.frameCount != lastFrameNum) {
+      lastFrameNum = inputs.frameCount;
+      robotFramesSinceLastQuestFrame = 0;
+    } else robotFramesSinceLastQuestFrame++;
 
-    RobotState.getInstance().questIsConnected = inputs.isConnected && inputs.isTracking && inputs.frameCount != lastFrameCount;
+    SmartDashboard.putNumber("Quest Battery", inputs.batteryPercentage);
+    SmartDashboard.putNumber("Frames since quest update", robotFramesSinceLastQuestFrame);
+
+    RobotState.getInstance().questIsConnected = inputs.isConnected && inputs.isTracking && robotFramesSinceLastQuestFrame < 5;
     lastFrameCount = inputs.frameCount;
     SmartDashboard.putBoolean("Quest Connected", RobotState.getInstance().questIsConnected);
     questNav.commandPeriodic();

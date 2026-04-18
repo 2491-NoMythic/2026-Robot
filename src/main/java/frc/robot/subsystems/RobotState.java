@@ -8,7 +8,6 @@ import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.settings.ClimberState;
 import frc.robot.settings.HopperState;
 import frc.robot.settings.OdometryUpdatingState;
 
@@ -33,7 +32,6 @@ public class RobotState {
   public boolean shooting;
   public boolean hopperExpandedVertically;
   public boolean hopperExpandedHorizontally;
-  public ClimberState climberState;
   public HopperState hopperState;
   public boolean halfFullSwitchTriggered;
   public boolean fullSwitchTriggered;

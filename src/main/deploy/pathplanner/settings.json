@@ -4,19 +4,10 @@
   "holonomicMode": true,
   "pathFolders": [
     "Auto Bump Paths",
-    "Auto Paths",
-    "To Collect Bump",
-    "Collect",
-    "Misc",
-    "Old Paths",
-    "Return to Hub",
-    "To Collect"
+    "Collect"
   ],
   "autoFolders": [
-    "Duluth Autos",
-    "One Path Trench Auto",
-    "Misc",
-    "One Path Bump Auto",
+    "Bump Autos",
     "Untested"
   ],
   "defaultMaxVel": 3.0,
