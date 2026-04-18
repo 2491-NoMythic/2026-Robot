@@ -66,14 +66,12 @@ public class Drive extends Command {
     // The only difference is that one is relative to the field, and the other to
     // the robot.
     double xSpeed = translationXSupplier.getAsDouble(); //over bump speed assist
-    if(SmartDashboard.getBoolean("Force0.8Speed", false)) {
-      xSpeed = -0.8;
-    }
+  
     final double bumpCrossingSpeed = 0.33;
-    if (xSpeed > bumpCrossingSpeed - 0.2 && xSpeed < bumpCrossingSpeed + 0.7 && drivetrain.nearBumps()) {
+    if (xSpeed > bumpCrossingSpeed && xSpeed < 0.8 && drivetrain.nearBumps()) {
       xSpeed = bumpCrossingSpeed; 
     }
-    if ( xSpeed < -(bumpCrossingSpeed - 0.2) && xSpeed > -(bumpCrossingSpeed + 0.7) && drivetrain.nearBumps()) {
+    if ( xSpeed < -bumpCrossingSpeed && xSpeed > -0.8 && drivetrain.nearBumps()) {
       xSpeed = -bumpCrossingSpeed;
     }
     SmartDashboard.putNumber("bumpXSpeed", xSpeed);
