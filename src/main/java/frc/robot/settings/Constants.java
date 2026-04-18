@@ -10,6 +10,7 @@ import static frc.robot.settings.Constants.IntakeConstants.INTAKE_DOWN_SOFT_LIMI
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.CommutationConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.ExternalFeedbackConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -20,6 +21,7 @@ import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXSConfiguration;
 import com.ctre.phoenix6.configs.VoltageConfigs;
+import com.ctre.phoenix6.signals.ExternalFeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.ForwardLimitSourceValue;
 import com.ctre.phoenix6.signals.ForwardLimitTypeValue;
@@ -85,6 +87,8 @@ public final class Constants {
     public static final double HOOD_DOWN_POSITION = 0;
     public static final double HOOD_UP_POSITION = 40;
     public static final int HOOD_MOTOR_ID = 2491;
+    public static final int HOOD_ENCODER_ID = 2491;
+    public static final double ENCODER_TO_DEGREES = 0.0177777777; //this is the number of sensor rotations for 1 degree of hood movement
     public static TalonFXConfiguration SHOOTER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs() 
         .withKV(0.125).withKP(0.4).withKI(0).withKD(0).withKS(0.36))
@@ -96,7 +100,11 @@ public final class Constants {
       .withCommutation(new CommutationConfigs()
         .withMotorArrangement(MotorArrangementValue.Minion_JST))
       .withSlot0(new Slot0Configs()
-        .withKV(0.095).withKS(0.37).withKP(0.1).withKI(0).withKD(0));
+        .withKV(0).withKS(0).withKP(0).withKI(0).withKD(0))
+      .withExternalFeedback(new ExternalFeedbackConfigs()
+        .withExternalFeedbackSensorSource(ExternalFeedbackSensorSourceValue.RemoteCANcoder)
+        .withFeedbackRemoteSensorID(HOOD_ENCODER_ID)
+        .withSensorToMechanismRatio(ENCODER_TO_DEGREES));
   }
   
 

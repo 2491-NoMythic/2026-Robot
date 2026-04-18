@@ -351,13 +351,13 @@ public class RobotContainer {
   private void shooterInit() {
     shooter = new Shooter();
     shooter.setDefaultCommand(new AimHood(shooter));
-    new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setDesiredHoodAngle(HOOD_UP_POSITION,false), shooter));
-    new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setDesiredHoodAngle(ShooterConstants.HOOD_DOWN_POSITION, false), shooter));
+    new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setDesiredHoodAngle(HOOD_UP_POSITION), shooter));
+    new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setDesiredHoodAngle(ShooterConstants.HOOD_DOWN_POSITION), shooter));
     new Trigger(ShooterOnSup).onTrue(new InstantCommand(()->shooter.shooterOn(), shooter));
     new Trigger(ShooterOffSup).onTrue(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
-    SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setDesiredHoodAngle(25, true), shooter));
+    SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setDesiredHoodAngle(25), shooter));
   }
 
   private void hopperInit() {
