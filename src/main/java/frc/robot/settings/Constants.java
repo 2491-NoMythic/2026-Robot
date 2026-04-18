@@ -404,7 +404,7 @@ public final class Constants {
 
     public static final double AUTO_AIM_ROBOT_kP = 0.125;
     public static final double AUTO_AIM_ROBOT_kI = 0.00;
-    public static final double AUTO_AIM_ROBOT_kD = 0.00;
+    public static final double AUTO_AIM_ROBOT_kD = 0.006;
 
     public static final double ROBOT_ANGLE_TOLERANCE = 0.5;
 
