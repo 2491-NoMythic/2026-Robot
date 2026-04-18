@@ -110,5 +110,11 @@ public class Shooter extends SubsystemBase {
     } else {
       SmartDashboard.putString("ShooterCurrentCommand", "null");
     }
+
+    if(isOn) {
+      setVelocity(RobotState.getInstance().desiredShooterSpeed);
+    } else {
+      setVelocity(0);
+    }
   }
 }
