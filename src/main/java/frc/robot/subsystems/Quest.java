@@ -117,9 +117,10 @@ public class Quest extends SubsystemBase {
     inputs.isTracking = questNav.isTracking();
     inputs.batteryPercentage = questNav.getBatteryPercent().orElse(0);
     inputs.odometryUpdatingState = RobotState.getInstance().odometryUpdatingState;
+    inputs.questIsInPassthrough = lastFrameCount == inputs.frameCount && inputs.isTracking;
 
     Logger.processInputs("Quest", inputs);
-    RobotState.getInstance().questIsInPassthrough = lastFrameCount == inputs.frameCount && inputs.isTracking;
+    RobotState.getInstance().questIsInPassthrough =inputs.questIsInPassthrough;
     RobotState.getInstance().questIsConnected = inputs.isConnected && inputs.isTracking && inputs.frameCount != lastFrameCount;
     lastFrameCount = inputs.frameCount;
    

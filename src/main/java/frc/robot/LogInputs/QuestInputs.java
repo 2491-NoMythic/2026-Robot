@@ -18,6 +18,7 @@ public class QuestInputs {
     public PoseFrame[] questFrames;
     public boolean isTracking;
     public boolean isConnected;
+    public boolean questIsInPassthrough;
     public int frameCount;
     public boolean frameCountPresent;
     public int batteryPercentage;
