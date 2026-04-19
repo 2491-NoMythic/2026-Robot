@@ -75,7 +75,10 @@ public final class Constants {
   public static final class ShooterConstants{
     //public static final float SHOOTING_SPEED_MPS = 7.6f;
     public static final double RPS_TO_MPS = 0.13; //TUNE THIS!!!!!!!!!!!!!!!!!!!!!!
-    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 63f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
+    public static final float SHOOTING_SPEED_CLOSE_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 63f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
+    public static final float SHOOTING_SPEED_FAR_RPS = 80f;
+    public static final double SHOOTING_CLOSE_DISTANCE_TO_HUB = 2.5;
+    public static final double SHOOTING_FAR_DISTANCE_TO_HUB = 5.1;
     public static final float PASSING_SPEED_RPS_MAX = 79;
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
