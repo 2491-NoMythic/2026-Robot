@@ -472,8 +472,8 @@ public class RobotContainer {
     }
 
     if(INTAKE_EXISTS && INDEXER_EXISTS && HOPPER_EXISTS) {
-      new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper));  
-      new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, hopper));
+      new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper, intake));  
+      new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, hopper, intake));
       new Trigger(IndexerSup).whileTrue(new InstantCommand(()->System.out.println("IndexerSupPressed")));
     }
   }
@@ -563,8 +563,7 @@ public class RobotContainer {
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
       NamedCommands.registerCommand("RunIndexer", new ParallelCommandGroup(
         new AimRobot(drivetrain, ControllerZAxisSupplier, ControllerSidewaysAxisSupplier, ()->RobotState.getInstance().aimingYaw),
-        new FeedShooter(indexer, hopper),
-        new PulseIntake(intake)));
+        new FeedShooter(indexer, hopper, intake)));
       NamedCommands.registerCommand("FeedShooterAntiStall", new FeedShooterAntiHopperStall(hopper, indexer));
     } else {
       NamedCommands.registerCommand("RunIndexer", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));

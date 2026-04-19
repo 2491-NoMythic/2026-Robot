@@ -88,6 +88,10 @@ public class Intake extends SubsystemBase {
     targetingDeployedPosition = true;
   }
 
+  public void setDeployerVoltage(double volts) {
+    deployer.setControl(new VoltageOut(volts));
+  }
+
   public boolean getIsDeployed() {
     return inputs.deployerMotor.position > INTAKE_DEPLOYED_POSITION - 0.05;
   }
