@@ -114,7 +114,9 @@ public class Shooter extends SubsystemBase {
     if(isOn) {
       setVelocity(RobotState.getInstance().desiredShooterSpeed);
     } else {
-      setVelocity(0);
+      //shootMotor1.disable();
+      shootMotor1.stopMotor();
+      //setVelocity(0);
     }
   }
 }

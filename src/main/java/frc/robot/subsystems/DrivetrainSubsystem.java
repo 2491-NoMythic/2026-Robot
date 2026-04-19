@@ -36,13 +36,13 @@ import static frc.robot.settings.Constants.DriveConstants.FR_STEER_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.MAX_VELOCITY_METERS_PER_SECOND;
 import static frc.robot.settings.Constants.DriveConstants.ROBOT_ANGLE_TOLERANCE;
 import static frc.robot.settings.Constants.ShooterConstants.PASSING_SPEED_RPS_MAX;
-import static frc.robot.settings.Constants.ShooterConstants.RPS_TO_MPS;
+import static frc.robot.settings.Constants.ShooterConstants.RPS_TO_MPS_CLOSE;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTER_HEIGHT;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_CLOSE_DISTANCE_TO_HUB;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_FAR_DISTANCE_TO_HUB;
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_CLOSE_RPS;
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_FAR_RPS;
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_CLOSE_RPS;
+import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
+import static frc.robot.settings.Constants.ShooterConstants.RPS_TO_MPS_FAR;
+import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIMELIGHTS_EXIST;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTA_NAME;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTB_NAME;
@@ -131,6 +131,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   PIDController rotationSpeedController;
 
   public DrivetrainSubsystem() {
+    SmartDashboard.putNumber("RPS_TO_MPS", 0.13);
     inputs = new DrivetrainInputsAutoLogged();
     rotationSpeedController = new PIDController(AUTO_AIM_ROBOT_kP, AUTO_AIM_ROBOT_kI, AUTO_AIM_ROBOT_kD);
     rotationSpeedController.setTolerance(ROBOT_ANGLE_TOLERANCE);
@@ -741,7 +742,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
   public void updateDesiredRobotAngle() {
     var targetPosition = new Translation3d();
-    double desiredSpeed = SHOOTING_SPEED_CLOSE_RPS;
+    double desiredSpeed = SHOOTING_SPEED_RPS;
+    double rpsToMps = RPS_TO_MPS_CLOSE;
     
     Optional<Alliance> alliance = DriverStation.getAlliance();
     boolean isRed = alliance.isPresent() && alliance.get() == Alliance.Red;
@@ -753,7 +755,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       }
                                                                                                                     //NEEDS TO BE BLUE! this is alliance-agnostic
       double squishedPositionBetweenAllianceZoneAndEnd = (RED_NEUTRAL_ZONE_X - getPose().getX()) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value. 
-      desiredSpeed = SHOOTING_SPEED_CLOSE_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_CLOSE_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
+      desiredSpeed = SHOOTING_SPEED_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
     } else if (!isRed && getPose().getX() > BLUE_NEUTRAL_ZONE_X) {
       if (getPose().getY() > FIELD_CENTER_Y) {
         targetPosition = BLUE_LEFT_PASS_COORDINATE;
@@ -762,7 +764,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       }
 
       double squishedPositionBetweenAllianceZoneAndEnd = (getPose().getX() - BLUE_NEUTRAL_ZONE_X) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value
-      desiredSpeed = SHOOTING_SPEED_CLOSE_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_CLOSE_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
+      desiredSpeed = SHOOTING_SPEED_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
     } else {
       if (isRed) {
         targetPosition = Field.RED_HUB_COORDINATE;
@@ -770,11 +772,21 @@ public class DrivetrainSubsystem extends SubsystemBase {
         targetPosition = Field.BLUE_HUB_COORDINATE;
       }
 
-      //desiredSpeed = SHOOTING_SPEED_CLOSE_RPS;
+      double a = -1.750e-02;
+      double b = 1.815e-01;
+      double c = -6.181e-01;
+      double d = 8.169e-01;
+
+
+      //Lerping between two shot RPS-To-MPS fudge factors for accuracy
       double distanceToHub = new Translation2d(targetPosition.getX(), targetPosition.getY()).getDistance(getPose().getTranslation());
+      SmartDashboard.putNumber("DistanceToHub", distanceToHub);
       distanceToHub = Math.max(distanceToHub, SHOOTING_CLOSE_DISTANCE_TO_HUB); //between the hub to the close shot pos, use the close shot
-      double normalizedDistanceToHub = (SHOOTING_FAR_DISTANCE_TO_HUB - distanceToHub);
-      desiredSpeed = SHOOTING_SPEED_CLOSE_RPS + (SHOOTING_SPEED_FAR_RPS - SHOOTING_SPEED_CLOSE_RPS) * normalizedDistanceToHub;
+      double normalizedDistanceToHub = (distanceToHub - SHOOTING_CLOSE_DISTANCE_TO_HUB)/(SHOOTING_FAR_DISTANCE_TO_HUB - SHOOTING_CLOSE_DISTANCE_TO_HUB);
+      SmartDashboard.putNumber("NormalizedDistanceToHub", normalizedDistanceToHub);
+      //rpsToMps = RPS_TO_MPS_CLOSE + (RPS_TO_MPS_FAR - RPS_TO_MPS_CLOSE) * normalizedDistanceToHub;//SmartDashboard.getNumber("RPS_TO_MPS", 0.15);//
+      rpsToMps = (a * distanceToHub * distanceToHub * distanceToHub) + (b * distanceToHub * distanceToHub) + (c * distanceToHub) + d;
+      SmartDashboard.putNumber("RPSToMPS", rpsToMps);
     }
 
     if(!RobotState.getInstance().overrideShooterSpeed){
@@ -798,7 +810,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     Tuple2<Double> desiredRotation = MythicalMath.aimProjectileAtPoint(
       new Translation3d(getPose().getX() + shooterOffset.getX(), getPose().getY() + shooterOffset.getY(), SHOOTER_HEIGHT), 
       targetPosition, 
-      desiredSpeed * RPS_TO_MPS, 
+      desiredSpeed * rpsToMps, 
       new Translation3d(fieldChassisSpeeds.vxMetersPerSecond + linearVelocityFromRotation.getX(), fieldChassisSpeeds.vyMetersPerSecond + linearVelocityFromRotation.getY(), 0), 
       0);
       

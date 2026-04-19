@@ -92,9 +92,9 @@ public class Quest extends SubsystemBase {
     }
 
     if (isBlue != intakeOut) {
-      drivetrain.setGyroscope(0);
-    } else {
       drivetrain.setGyroscope(180);
+    } else {
+      drivetrain.setGyroscope(0);
     }
     
     
