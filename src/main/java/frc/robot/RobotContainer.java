@@ -474,6 +474,7 @@ public class RobotContainer {
     if(INTAKE_EXISTS && INDEXER_EXISTS && HOPPER_EXISTS) {
       new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper));  
       new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, hopper));
+      new Trigger(IndexerSup).whileTrue(new InstantCommand(()->System.out.println("IndexerSupPressed")));
     }
   }
   /**

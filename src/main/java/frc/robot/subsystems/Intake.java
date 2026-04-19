@@ -36,8 +36,8 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
   public Intake() {
-    rollerOne = new TalonFXS(INTAKE_ROLLER_ONE_ID, CANIVORE_DRIVETRAIN);
-    rollerTwo = new TalonFXS(INTAKE_ROLLER_TWO_ID, CANIVORE_DRIVETRAIN);
+    rollerOne = new TalonFXS(INTAKE_ROLLER_ONE_ID);
+    rollerTwo = new TalonFXS(INTAKE_ROLLER_TWO_ID);
     deployer = new TalonFX(INTAKE_DEPLOYER_ID, CANIVORE_DRIVETRAIN);
     absoluteEncoder = new CANcoder(INTAKE_ENCODER_ID, CANIVORE_DRIVETRAIN);
     rollerOne.getConfigurator().apply(INTAKE_ROLLER_ONE_CONFIG);

@@ -33,6 +33,7 @@ public class FeedShooter extends Command {
   public void initialize() {
     RobotState.getInstance().feedingShooter = true;
     timer.start();
+    System.out.println("FeedShooterRunning");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -57,6 +58,7 @@ public class FeedShooter extends Command {
     hopper.setHopperRoller(0);
     timer.stop();
     timer.reset();
+    System.out.println("FeedShooterStopped");
   }
 
   // Returns true when the command should end.
