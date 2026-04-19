@@ -1,0 +1,198 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.522,
+        "y": 5.488
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.405413620925854,
+        "y": 5.613213671185169
+      },
+      "isLocked": false,
+      "linkedName": "Left Bump Behind Start"
+    },
+    {
+      "anchor": {
+        "x": 6.109243937232525,
+        "y": 5.488
+      },
+      "prevControl": {
+        "x": 5.758802429206241,
+        "y": 5.059853590804951
+      },
+      "nextControl": {
+        "x": 6.4672777777777775,
+        "y": 5.925422222222221
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.66188302425107,
+        "y": 6.539
+      },
+      "prevControl": {
+        "x": 7.427476586241078,
+        "y": 6.628927242358456
+      },
+      "nextControl": {
+        "x": 8.016644444444445,
+        "y": 6.4029
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.66188302425107,
+        "y": 4.853533333333332
+      },
+      "prevControl": {
+        "x": 8.244017457641705,
+        "y": 5.191697489100215
+      },
+      "nextControl": {
+        "x": 7.276066666666667,
+        "y": 4.62941111111111
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.876348074179743,
+        "y": 5.374151212553495
+      },
+      "prevControl": {
+        "x": 6.403893548165494,
+        "y": 5.158828742794955
+      },
+      "nextControl": {
+        "x": 5.564010811847256,
+        "y": 5.501634498904026
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.9522111269614832,
+        "y": 5.488
+      },
+      "prevControl": {
+        "x": 4.531925587613021,
+        "y": 5.474989223442546
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "EVE L Shooting"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1.5,
+      "rotationDegrees": -29.999999999999996
+    },
+    {
+      "waypointRelativePos": 3.12448132780077,
+      "rotationDegrees": -131.06081773002393
+    },
+    {
+      "waypointRelativePos": 4.112033195020742,
+      "rotationDegrees": 180.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "OverBumpOut",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 1.25,
+      "constraints": {
+        "maxVelocity": 2.7,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "OverBumpIn",
+      "minWaypointRelativePos": 3.7,
+      "maxWaypointRelativePos": 5.0,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "CollectFuel",
+      "minWaypointRelativePos": 1.45,
+      "maxWaypointRelativePos": 2.55,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 0.65,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    },
+    {
+      "name": "ShooterOn",
+      "waypointRelativePos": 3.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ShooterOn"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 180.0
+  },
+  "reversed": false,
+  "folder": "Auto Bump Paths",
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}

@@ -29,7 +29,7 @@ public class AimHood extends Command {
   @Override
   public void execute() {
     double angle = RobotState.getInstance().aimingPitch; //this is in degrees
-    shooter.setHoodAngle(angle, true);
+    shooter.setDesiredHoodAngle(angle);
   }
 
   // Called once the command ends or is interrupted.

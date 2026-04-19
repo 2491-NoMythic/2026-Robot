@@ -11,7 +11,9 @@ import static frc.robot.settings.Constants.DriveConstants.k_XY_D;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
 import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED_RPS;
-import static frc.robot.settings.Constants.SubsystemsEnabled.CLIMBER_EXISTS;
+import static frc.robot.settings.Constants.ShooterConstants.HOOD_UP_POSITION;
+import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
+import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.DRIVE_TRAIN_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.HOPPER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.INDEXER_EXISTS;
@@ -63,21 +65,17 @@ import frc.robot.Commands.AimAtLocation;
 import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobot;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
-import frc.robot.Commands.AutomaticClimb;
-import frc.robot.Commands.Climb;
-import frc.robot.Commands.ClimberArmDown;
-import frc.robot.Commands.ClimberArmUp;
 import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.Drive;
 import frc.robot.Commands.DriveConstantSpeed;
 import frc.robot.Commands.Expand;
-import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.OverBump;
+import frc.robot.Commands.PassCommandDeprecated;
 import frc.robot.Commands.FeedShooter;
+import frc.robot.Commands.PulseIntake;
 import frc.robot.Commands.FeedShooterAntiHopperStall;
 import frc.robot.Commands.LightsCommand;
-import frc.robot.Commands.MoveToClimbingPose;
 import frc.robot.Commands.LockYAxisForCrossing;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.RunIntake;
@@ -86,7 +84,7 @@ import frc.robot.Commands.AimAtLocation.Location;
 import frc.robot.settings.Constants.IndexerConstants;
 import frc.robot.settings.Constants.ShooterConstants;
 import frc.robot.settings.LightsEnums;
-import frc.robot.subsystems.Climber;
+import frc.robot.settings.OdometryUpdatingState;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Indexer;
@@ -112,7 +110,6 @@ public class RobotContainer {
 
   private DrivetrainSubsystem drivetrain;
   private Shooter shooter;
-  private Climber climber;
   private Intake intake;
   private Indexer indexer;
   private Hopper hopper;
@@ -136,13 +133,12 @@ public class RobotContainer {
   BooleanSupplier AimRobotMovingSup;
   BooleanSupplier TrenchAllignSup;
   BooleanSupplier BumpAllignSup;
-  BooleanSupplier ClimberUpSup;
-  BooleanSupplier ClimberDownSup;
-  BooleanSupplier AutoClimbSup;
   BooleanSupplier RetractIntakeSup;
+  BooleanSupplier IntakeBackwardsSup;
   BooleanSupplier DeployIntakeSup;
   BooleanSupplier AutoIntakeSup;
   BooleanSupplier IntakeWheelSup;
+  BooleanSupplier PulseIntakeSup;
   BooleanSupplier ShooterOnSup;
   BooleanSupplier ShooterOffSup;
   BooleanSupplier HoodUpSupplier;
@@ -154,15 +150,16 @@ public class RobotContainer {
   BooleanSupplier ShootIfAimedSup;
   BooleanSupplier ForceHoodDownSupplier;
   BooleanSupplier crossBumpTowardsAllianceSup;
-  boolean shooterOn = false;
   BooleanSupplier ManualHubShotSup;
   BooleanSupplier ManualTowerShotSup;
   BooleanSupplier ManualLeftTrenchShotSup;
   BooleanSupplier ManualRightTrenchShotSup;
-  BooleanSupplier ResetQuestSup;
+  BooleanSupplier ResetQuestIntakeInSup;
+  BooleanSupplier ResetQuestIntakeOutSup;
   BooleanSupplier ManualRightCornerShotSup;
   BooleanSupplier ManualLeftCornerShotSup;
   BooleanSupplier DrivetrainXPositionSup;
+  BooleanSupplier PassSup;
 
 
 
@@ -170,6 +167,14 @@ public class RobotContainer {
 
   public RobotContainer() {
 
+    if(QUEST_EXISTS) {
+      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest;
+    } else if(LIMELIGHTS_EXIST) {
+      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights;
+    } else {
+      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.onlyDrivetrain;
+    }
+    
     autoTimer = new Timer();
 
     /**
@@ -183,9 +188,10 @@ public class RobotContainer {
     // Drive controls
     if (SAFE_MODE_IS_ON) {   // this code will only run if the constant SAFE_MODE_IS_ON is set to true, 
       safeModeChooser = new SendableChooser<>();                  // creates a new instance of SafeModeChooser which can be sent to elastic
-      safeModeChooser.addOption("Cheetah", 0.5);      // creates Cheetah mode in which speed is set to 0.5 of normal speed
-      safeModeChooser.addOption("Dog", 0.3);
-      safeModeChooser.addOption("Turtle", 0.2);
+      safeModeChooser.addOption("Cheetah", 0.35);      // creates Cheetah mode in which speed is set to 0.5 of normal speed
+      safeModeChooser.addOption("Dog", 0.2);
+      safeModeChooser.addOption("Turtle", 0.1);
+      safeModeChooser.addOption("Full", 1.0);
       SmartDashboard.putData("Safe Mode", safeModeChooser);
     }
     ControllerSidewaysAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(X_AXIS), 0);
@@ -203,25 +209,25 @@ public class RobotContainer {
 
     HoodUpSupplier = () -> operatorController.getPOV() == 0;
     HoodDownSupplier = () -> operatorController.getRightTriggerAxis() > 0.5;
-    ShooterOnSup = ()-> operatorController.getStartButton();
-    ShooterOffSup = ()-> operatorController.getBackButton();
+    ShooterOnSup = ()-> operatorController.getPOV() == 90;
+    ShooterOffSup = ()-> operatorController.getPOV() == 270;
     ManualHubShotSup = operatorController::getYButton;
     ManualTowerShotSup = operatorController::getAButton;
     ManualLeftTrenchShotSup = operatorController::getXButton;
     ManualRightTrenchShotSup = operatorController::getBButton;
     ManualLeftCornerShotSup = operatorController::getLeftBumperButton;
     ManualRightCornerShotSup = operatorController::getRightBumperButton;
+
+    PassSup = ()-> operatorController.getLeftTriggerAxis() > 0.5;
     //Shooting Command is Right Trigger on drive controller. 
-    //Climber controls
-    AutoClimbSup = () -> false;
-    ClimberUpSup = ()->operatorController.getPOV() == 0;
-    ClimberDownSup = ()->operatorController.getPOV() == 180;
-    ClimberDownSup = operatorController::getRightBumperButton;
 
     //intake controls
     RetractIntakeSup = operatorController::getLeftStickButton;
     DeployIntakeSup = operatorController::getRightStickButton;
     IntakeWheelSup = driveController::getLeftBumperButton;
+    IntakeBackwardsSup = driveController::getRightBumperButton;
+    PulseIntakeSup = ()->operatorController.getPOV() > 134 && operatorController.getPOV() < 226;
+    IntakeBackwardsSup = driveController::getRightBumperButton;
 
     //hopper controls
     HopperWheelsForwardSup = ()-> false;//operatorController.getPOV() == 270;
@@ -235,7 +241,7 @@ public class RobotContainer {
     ShootIfAimedSup = ()->false;
 
     //QuestNav Controls
-    ResetQuestSup = driveController::getBackButton;
+    ResetQuestIntakeInSup = driveController::getBackButton;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -258,10 +264,6 @@ public class RobotContainer {
 
     if (SHOOTER_EXISTS) {
       shooterInit();
-    }
-
-    if (CLIMBER_EXISTS) {
-      climberInit();
     }
 
     if (INDEXER_EXISTS) {
@@ -349,14 +351,13 @@ public class RobotContainer {
   private void shooterInit() {
     shooter = new Shooter();
     shooter.setDefaultCommand(new AimHood(shooter));
-    new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setHoodAngleUp(), shooter));
-    new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setHoodAngleDown(), shooter));
-    new Trigger(ShooterOnSup).onTrue(new InstantCommand(()->shooterOn = true));
-    new Trigger(ShooterOffSup).onTrue(new InstantCommand(()->shooterOn = false));
-    new Trigger(()->shooterOn).onTrue(new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter)).onFalse(new InstantCommand(()->shooter.stop(), shooter));
+    new Trigger(HoodUpSupplier).whileTrue(new RunCommand(()->shooter.setDesiredHoodAngle(HOOD_UP_POSITION), shooter));
+    new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setDesiredHoodAngle(ShooterConstants.HOOD_DOWN_POSITION), shooter));
+    new Trigger(ShooterOnSup).onTrue(new InstantCommand(()->shooter.shooterOn(), shooter));
+    new Trigger(ShooterOffSup).onTrue(new InstantCommand(()->shooter.stop(), shooter));
     new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
-    SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setHoodAngle(25, true), shooter));
+    SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setDesiredHoodAngle(25), shooter));
   }
 
   private void hopperInit() {
@@ -369,8 +370,11 @@ public class RobotContainer {
   private void intakeInit() {
     intake = new Intake();
     
-    new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
-    new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake)).onFalse(new InstantCommand(()->intake.stopDeployer(), intake));
+    new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake));
+    new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake));
+    new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
+    new Trigger(PulseIntakeSup).whileTrue(new PulseIntake(intake));
+    new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     
     if(HOPPER_EXISTS) {
       new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunIntake(intake, hopper));
@@ -378,14 +382,6 @@ public class RobotContainer {
       new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunCommand(()->intake.feedHopper(), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     }
     new Trigger(()->IntakeWheelSup.getAsBoolean() && RobotState.getInstance().feedingShooter).whileTrue(new RunCommand(()->intake.feedHopper(), intake)).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
-  }
-
-  private void climberInit() {
-    climber = new Climber();
-
-    new Trigger(ClimberDownSup).whileTrue(new InstantCommand(()->climber.climberDown(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
-    new Trigger(ClimberUpSup).whileTrue(new InstantCommand(()->climber.climberUp(), climber)).onFalse(new InstantCommand(()->climber.stop(), climber));
-    new Trigger(AutoClimbSup).whileTrue(new Climb(climber, drivetrain));
   }
   
   private void indexerInit() {
@@ -432,7 +428,7 @@ public class RobotContainer {
     if (DRIVE_TRAIN_EXISTS) {
       SmartDashboard.putData("drivetrain", drivetrain);
       new Trigger(ZeroGyroSup).onTrue(new InstantCommand(drivetrain::zeroGyroscope));
-      new Trigger(ResetQuestSup).onTrue(new InstantCommand(()->quest.resetQuestPose()));
+      new Trigger(ResetQuestIntakeInSup).onTrue(new InstantCommand(()->quest.resetQuestPose()));
       InstantCommand setOffsets = new InstantCommand(drivetrain::setEncoderOffsets) {
         public boolean runsWhenDisabled() {
           return true;
@@ -443,8 +439,26 @@ public class RobotContainer {
           return true;
         };
       };
+      InstantCommand resetQuestPose = new InstantCommand(quest::resetQuestPose) {
+        public boolean runsWhenDisabled() {
+          return true;
+        };
+      };
+      InstantCommand resetQuestToAutoPoseLeft = new InstantCommand(()->quest.resetQuestToAutoStartPose(false)) {
+        public boolean runsWhenDisabled() {
+          return true;
+        };
+      };
+      InstantCommand resetQuestToAutoPoseRight = new InstantCommand(()->quest.resetQuestToAutoStartPose(true)) {
+        public boolean runsWhenDisabled() {
+          return true;
+        };
+      };
 
       SmartDashboard.putData("zeroGyroscope", zeroGyroscope);
+      SmartDashboard.putData("resetQuestPose", resetQuestPose);
+      SmartDashboard.putData("resetQuestToAutoPoseLeft", resetQuestToAutoPoseLeft);
+      SmartDashboard.putData("resetQuestToAutoPoseRight", resetQuestToAutoPoseRight);
       SmartDashboard.putData("set offsets", setOffsets);
     }
     if(DRIVE_TRAIN_EXISTS && SHOOTER_EXISTS){
@@ -458,23 +472,10 @@ public class RobotContainer {
     }
 
     if(INTAKE_EXISTS && INDEXER_EXISTS && HOPPER_EXISTS) {
-      new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper));  
-      new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, hopper));
+      new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper, intake));  
+      new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, hopper, intake));
+      new Trigger(IndexerSup).whileTrue(new InstantCommand(()->System.out.println("IndexerSupPressed")));
     }
-    if (SHOOTER_EXISTS) {
-    InstantCommand setServoAngleUp = new InstantCommand(shooter::setHoodAngleUp) {
-      public boolean runsWhenDisabled() {
-        return true;
-      };
-    };
-     InstantCommand setServoAngleDown = new InstantCommand(shooter::setHoodAngleDown) {
-      public boolean runsWhenDisabled() {
-        return true;
-      };
-    };
-    SmartDashboard.putData("set hood angle up", setServoAngleUp);
-    SmartDashboard.putData("set hood angle down", setServoAngleDown);
-  }
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -486,12 +487,12 @@ public class RobotContainer {
   }
 
   public void autonomousInit() {
+    //THIS METHOD IS NEVER CALLED
+    
     autoTimer.reset();
     autoTimer.start();
 
     lights.blinkLights(LightsEnums.All, 255, 0, 0);
-
-    shooterOn = true;
   }
 
   public void autonomousPeriodic() {
@@ -554,25 +555,15 @@ public class RobotContainer {
       ()->DriverStation.getAlliance().get() == Alliance.Blue);
     NamedCommands.registerCommand("AcrossBumpAwayFromAlliance", AcrossBumpAwayFromAlliance);
     NamedCommands.registerCommand("AcrossBumpTowardsAlliance", AcrossBumpTowardsAlliance);
-    NamedCommands.registerCommand("MoveToClimbingPose", new MoveToClimbingPose(drivetrain));
     NamedCommands.registerCommand("AimRobotMoving", new ParallelRaceGroup(
       new AimRobot(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, () -> RobotState.getInstance().aimingYaw)
         .withDeadline(new WaitUntilCommand((()->RobotState.getInstance().Aimed))),
       new AimHood(shooter)));
     NamedCommands.registerCommand("OverBump", AcrossBumpTowardsAlliance);
-    if(CLIMBER_EXISTS) {
-      NamedCommands.registerCommand("ClimberArmUp", new ClimberArmUp(climber));
-      NamedCommands.registerCommand("ClimberArmDown", new ClimberArmDown(climber));
-      NamedCommands.registerCommand("AutomaticClimb", new AutomaticClimb(drivetrain, climber, shooter));
-    } else {
-      NamedCommands.registerCommand("ClimberArmUp", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
-      NamedCommands.registerCommand("ClimberArmDown", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
-      NamedCommands.registerCommand("AutomaticClimb", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
-    }
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
       NamedCommands.registerCommand("RunIndexer", new ParallelCommandGroup(
         new AimRobot(drivetrain, ControllerZAxisSupplier, ControllerSidewaysAxisSupplier, ()->RobotState.getInstance().aimingYaw),
-        new FeedShooter(indexer, hopper)));
+        new FeedShooter(indexer, hopper, intake)));
       NamedCommands.registerCommand("FeedShooterAntiStall", new FeedShooterAntiHopperStall(hopper, indexer));
     } else {
       NamedCommands.registerCommand("RunIndexer", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));

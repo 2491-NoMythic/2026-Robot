@@ -15,6 +15,14 @@ import static frc.robot.settings.Constants.DriveConstants.BR_STEER_ENCODER_ID;
 import static frc.robot.settings.Constants.DriveConstants.BR_STEER_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.CANIVORE_DRIVETRAIN;
 import static frc.robot.settings.Constants.Field.BLUE_HUB_COORDINATE;
+import static frc.robot.settings.Constants.Field.BLUE_LEFT_PASS_COORDINATE;
+import static frc.robot.settings.Constants.Field.BLUE_NEUTRAL_ZONE_X;
+import static frc.robot.settings.Constants.Field.BLUE_RIGHT_PASS_COORDINATE;
+import static frc.robot.settings.Constants.Field.FIELD_CENTER_Y;
+import static frc.robot.settings.Constants.Field.FIELD_LENGTH_X;
+import static frc.robot.settings.Constants.Field.RED_LEFT_PASS_COORDINATE;
+import static frc.robot.settings.Constants.Field.RED_NEUTRAL_ZONE_X;
+import static frc.robot.settings.Constants.Field.RED_RIGHT_PASS_COORDINATE;
 import static frc.robot.settings.Constants.DriveConstants.DRIVETRAIN_PIGEON_ID;
 import static frc.robot.settings.Constants.DriveConstants.DRIVE_ODOMETRY_ORIGIN;
 import static frc.robot.settings.Constants.DriveConstants.DRIVE_TO_POSE_X_CONTROLLER;
@@ -27,8 +35,14 @@ import static frc.robot.settings.Constants.DriveConstants.FR_STEER_ENCODER_ID;
 import static frc.robot.settings.Constants.DriveConstants.FR_STEER_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.MAX_VELOCITY_METERS_PER_SECOND;
 import static frc.robot.settings.Constants.DriveConstants.ROBOT_ANGLE_TOLERANCE;
+import static frc.robot.settings.Constants.ShooterConstants.PASSING_SPEED_RPS_MAX;
+import static frc.robot.settings.Constants.ShooterConstants.RPS_TO_MPS_CLOSE;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTER_HEIGHT;
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_MPS;
+import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_CLOSE_DISTANCE_TO_HUB;
+import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_FAR_DISTANCE_TO_HUB;
+import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
+import static frc.robot.settings.Constants.ShooterConstants.RPS_TO_MPS_FAR;
+import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIMELIGHTS_EXIST;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTA_NAME;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTB_NAME;
@@ -38,6 +52,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
 
+import javax.lang.model.util.ElementScanner14;
 import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 
 // import java.util.logging.Logger;
@@ -61,6 +76,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -71,6 +87,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
+import frc.robot.Robot;
 import frc.robot.LogInputs.DrivetrainInputsAutoLogged;
 import frc.robot.LogInputs.LimelightInputs;
 import frc.robot.helpers.MotorLogger;
@@ -114,6 +131,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   PIDController rotationSpeedController;
 
   public DrivetrainSubsystem() {
+    SmartDashboard.putNumber("RPS_TO_MPS", 0.13);
     inputs = new DrivetrainInputsAutoLogged();
     rotationSpeedController = new PIDController(AUTO_AIM_ROBOT_kP, AUTO_AIM_ROBOT_kI, AUTO_AIM_ROBOT_kD);
     rotationSpeedController.setTolerance(ROBOT_ANGLE_TOLERANCE);
@@ -698,6 +716,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("LimelightsUpdatedState", RobotState.getInstance().LimelightsUpdated);
   }
 
+  public boolean nearBumps() {
+    Boolean isNearTopBlueBump = getPose().getX() > 2.97 && getPose().getX() < 6.3 && getPose().getY() < 6.13 && getPose().getY() > 4.94;
+    Boolean isNearBottomBlueBump = getPose().getX() > 2.97 && getPose().getX() < 6.3 && getPose().getY() < 3.032 && getPose().getY() > 2.023;
+    Boolean isNearTopRedBump = getPose().getX() > 10.2 && getPose().getX() < 13.74 && getPose().getY() < 6.13 && getPose().getY() > 4.94;
+    Boolean isNearBottomRedBump = getPose().getX() > 10.2 && getPose().getX() < 13.74 && getPose().getY() < 3.032 && getPose().getY() > 2.023;
+    return isNearBottomBlueBump || isNearBottomRedBump || isNearTopBlueBump || isNearTopRedBump;
+  }
+
   private void updateInputs() {
     for (int i = 0; i < 4; i++) {
       inputs.swerveModuleStates[i] = modules[i].getState();
@@ -715,14 +741,61 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * @return the desired angle of the robot to be aimed at the hub, assuming 0 degrees = away from blue alliance
    */
   public void updateDesiredRobotAngle() {
-    var hubPosition = new Translation3d();
+    var targetPosition = new Translation3d();
+    double desiredSpeed = SHOOTING_SPEED_RPS;
+    double rpsToMps = RPS_TO_MPS_CLOSE;
     
     Optional<Alliance> alliance = DriverStation.getAlliance();
-    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-		  hubPosition = Field.RED_HUB_COORDINATE;
-	  } else {
-      hubPosition = Field.BLUE_HUB_COORDINATE;
-	  }
+    boolean isRed = alliance.isPresent() && alliance.get() == Alliance.Red;
+    if (isRed && getPose().getX() < RED_NEUTRAL_ZONE_X) {
+      if (getPose().getY() < FIELD_CENTER_Y) {
+        targetPosition = RED_LEFT_PASS_COORDINATE;
+      } else {
+        targetPosition = RED_RIGHT_PASS_COORDINATE;
+      }
+                                                                                                                    //NEEDS TO BE BLUE! this is alliance-agnostic
+      double squishedPositionBetweenAllianceZoneAndEnd = (RED_NEUTRAL_ZONE_X - getPose().getX()) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value. 
+      desiredSpeed = SHOOTING_SPEED_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
+    } else if (!isRed && getPose().getX() > BLUE_NEUTRAL_ZONE_X) {
+      if (getPose().getY() > FIELD_CENTER_Y) {
+        targetPosition = BLUE_LEFT_PASS_COORDINATE;
+      } else {
+        targetPosition = BLUE_RIGHT_PASS_COORDINATE;
+      }
+
+      double squishedPositionBetweenAllianceZoneAndEnd = (getPose().getX() - BLUE_NEUTRAL_ZONE_X) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value
+      desiredSpeed = SHOOTING_SPEED_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
+    } else {
+      if (isRed) {
+        targetPosition = Field.RED_HUB_COORDINATE;
+      } else {
+        targetPosition = Field.BLUE_HUB_COORDINATE;
+      }
+
+      double a = -1.750e-02;
+      double b = 1.815e-01;
+      double c = -6.181e-01;
+      double d = 8.169e-01;
+
+
+      //Lerping between two shot RPS-To-MPS fudge factors for accuracy
+      double distanceToHub = new Translation2d(targetPosition.getX(), targetPosition.getY()).getDistance(getPose().getTranslation());
+      SmartDashboard.putNumber("DistanceToHub", distanceToHub);
+      distanceToHub = Math.max(distanceToHub, SHOOTING_CLOSE_DISTANCE_TO_HUB); //between the hub to the close shot pos, use the close shot
+      double normalizedDistanceToHub = (distanceToHub - SHOOTING_CLOSE_DISTANCE_TO_HUB)/(SHOOTING_FAR_DISTANCE_TO_HUB - SHOOTING_CLOSE_DISTANCE_TO_HUB);
+      SmartDashboard.putNumber("NormalizedDistanceToHub", normalizedDistanceToHub);
+      //rpsToMps = RPS_TO_MPS_CLOSE + (RPS_TO_MPS_FAR - RPS_TO_MPS_CLOSE) * normalizedDistanceToHub;//SmartDashboard.getNumber("RPS_TO_MPS", 0.15);//
+      rpsToMps = (a * distanceToHub * distanceToHub * distanceToHub) + (b * distanceToHub * distanceToHub) + (c * distanceToHub) + d;
+      SmartDashboard.putNumber("RPSToMPS", rpsToMps);
+    }
+
+    if(!RobotState.getInstance().overrideShooterSpeed){
+      RobotState.getInstance().desiredShooterSpeed = desiredSpeed;
+    }
+
+    SmartDashboard.putNumber("autoaim/desiredShooterSpeed", RobotState.getInstance().desiredShooterSpeed);
+    SmartDashboard.putBoolean("autoaim/overrideShooterSpeed", RobotState.getInstance().overrideShooterSpeed);
+
 
     var fieldChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
 
@@ -736,17 +809,34 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     Tuple2<Double> desiredRotation = MythicalMath.aimProjectileAtPoint(
       new Translation3d(getPose().getX() + shooterOffset.getX(), getPose().getY() + shooterOffset.getY(), SHOOTER_HEIGHT), 
-      hubPosition, 
-      SHOOTING_SPEED_MPS, 
+      targetPosition, 
+      desiredSpeed * rpsToMps, 
       new Translation3d(fieldChassisSpeeds.vxMetersPerSecond + linearVelocityFromRotation.getX(), fieldChassisSpeeds.vyMetersPerSecond + linearVelocityFromRotation.getY(), 0), 
       0);
-
+      
+    SmartDashboard.putBoolean("shootingAnglesFound", desiredRotation != null);
+    
     if(desiredRotation != null){
       RobotState.getInstance().aimingPitch = 90 - desiredRotation.get_0(); //subtracting pitch from 90 degrees becuase math believes 90 degrees is straight up, but servo believes 90 degrees is forward
-      RobotState.getInstance().aimingYaw = 90 - desiredRotation.get_1();
+      RobotState.getInstance().aimingYaw = 90 - desiredRotation.get_1() + 180; //add 180 degrees so because shooter is now reversed
     } else {
       // System.out.println("desiredRotation calculations failed - most likely no solutions. Aiming angles were not updated.");
     }
+
+    RobotState.getInstance().canPassOrShoot = canPassOrShoot();
+  }
+
+  public boolean canPassOrShoot(){
+    Optional<Alliance> alliance = DriverStation.getAlliance();
+    boolean isRed = alliance.isPresent() && alliance.get() == Alliance.Red;
+
+    if (getPose().getY() > 4.5 && getPose().getY() < 3.5) {
+      if (isRed && getPose().getX() < RED_NEUTRAL_ZONE_X || !isRed && getPose().getX() > BLUE_NEUTRAL_ZONE_X) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public static double getDistanceToHub() {

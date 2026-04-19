@@ -1,0 +1,230 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.63,
+        "y": 2.4
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.547622222222222,
+        "y": 2.4563999999999986
+      },
+      "isLocked": false,
+      "linkedName": "Right Bump Behind Start"
+    },
+    {
+      "anchor": {
+        "x": 5.953,
+        "y": 2.297
+      },
+      "prevControl": {
+        "x": 5.10530664734392,
+        "y": 2.6029838981266247
+      },
+      "nextControl": {
+        "x": 6.188149779432249,
+        "y": 2.2121201953762553
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.757,
+        "y": 2.734602409638553
+      },
+      "prevControl": {
+        "x": 7.035081099632513,
+        "y": 1.696405493395802
+      },
+      "nextControl": {
+        "x": 8.316095484395165,
+        "y": 3.5386417657058793
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.757,
+        "y": 5.783433734939758
+      },
+      "prevControl": {
+        "x": 7.707910818387548,
+        "y": 5.343418348769745
+      },
+      "nextControl": {
+        "x": 7.881867739468076,
+        "y": 6.902697181537657
+      },
+      "isLocked": false,
+      "linkedName": "FR R Return Start"
+    },
+    {
+      "anchor": {
+        "x": 5.691060240963855,
+        "y": 5.237048192771084
+      },
+      "prevControl": {
+        "x": 5.748375025923998,
+        "y": 5.544500793696098
+      },
+      "nextControl": {
+        "x": 5.548683634582575,
+        "y": 4.473300095779322
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.691060240963855,
+        "y": 2.843879518072289
+      },
+      "prevControl": {
+        "x": 6.15772805978607,
+        "y": 3.335692977979217
+      },
+      "nextControl": {
+        "x": 5.36000215897369,
+        "y": 2.494982906463929
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.992,
+        "y": 2.5925421686746986
+      },
+      "prevControl": {
+        "x": 4.383739160871732,
+        "y": 2.4126813602535613
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "R Shooting"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.3294605809128437,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1.9767634854771847,
+      "rotationDegrees": 90.0
+    },
+    {
+      "waypointRelativePos": 2.9900052603892973,
+      "rotationDegrees": 90.0
+    },
+    {
+      "waypointRelativePos": 3.431535269709567,
+      "rotationDegrees": -135.027822266716
+    },
+    {
+      "waypointRelativePos": 3.871369294605822,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 4.824896265560146,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 5.104477611940306,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 5.601659751037274,
+      "rotationDegrees": 180.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 5.331532748143122,
+      "maxWaypointRelativePos": 5.9,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 180.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0.7616475354490273,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 1.8282878411910426,
+      "maxWaypointRelativePos": 3.1980148883374797,
+      "constraints": {
+        "maxVelocity": 2.9,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 0.4823821339950386,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    },
+    {
+      "name": "ShooterOn",
+      "waypointRelativePos": 5.18568534773801,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ShooterOn"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": -140.0
+  },
+  "reversed": false,
+  "folder": "Auto Bump Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}
