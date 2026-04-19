@@ -229,10 +229,10 @@ public final class Constants {
     public static final int L_CORNER_ROBOT_ANGLE = -40 + 180;
     public static final int R_CORNER_ROBOT_ANGLE = 40 + 180;
     public static final int TRENCH_HOOD_ANGLE = 2491;
-    public static final int CORNER_HOOD_ANGLE = 21;
+    public static final int CORNER_HOOD_ANGLE = 29;
     public static final int TOWER_ROBOT_ANGLE = 0 + 180;
     public static final int TOWER_HOOD_ANGLE = 15;
-    public static final double CORNER_SHOOTING_SPEED = 71;
+    public static final double CORNER_SHOOTING_SPEED = 73;
     public static final double HUB_SHOOTING_SPEED = 55;
   }
 
