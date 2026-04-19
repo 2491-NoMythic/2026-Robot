@@ -778,12 +778,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
       double d = 8.169e-01;
 
 
-      //Lerping between two shot RPS-To-MPS fudge factors for accuracy
+      //Cubic fit between tuned points using https://curve.fit/ (https://curve.fit/JGcMjfBx/single/20260419160701)
       double distanceToHub = new Translation2d(targetPosition.getX(), targetPosition.getY()).getDistance(getPose().getTranslation());
       SmartDashboard.putNumber("DistanceToHub", distanceToHub);
       distanceToHub = Math.max(distanceToHub, SHOOTING_CLOSE_DISTANCE_TO_HUB); //between the hub to the close shot pos, use the close shot
-      double normalizedDistanceToHub = (distanceToHub - SHOOTING_CLOSE_DISTANCE_TO_HUB)/(SHOOTING_FAR_DISTANCE_TO_HUB - SHOOTING_CLOSE_DISTANCE_TO_HUB);
-      SmartDashboard.putNumber("NormalizedDistanceToHub", normalizedDistanceToHub);
+      SmartDashboard.putNumber("ClampedDistanceToHub", distanceToHub);
+      //double normalizedDistanceToHub = (distanceToHub - SHOOTING_CLOSE_DISTANCE_TO_HUB)/(SHOOTING_FAR_DISTANCE_TO_HUB - SHOOTING_CLOSE_DISTANCE_TO_HUB);
+      //SmartDashboard.putNumber("NormalizedDistanceToHub", normalizedDistanceToHub);
       //rpsToMps = RPS_TO_MPS_CLOSE + (RPS_TO_MPS_FAR - RPS_TO_MPS_CLOSE) * normalizedDistanceToHub;//SmartDashboard.getNumber("RPS_TO_MPS", 0.15);//
       rpsToMps = (a * distanceToHub * distanceToHub * distanceToHub) + (b * distanceToHub * distanceToHub) + (c * distanceToHub) + d;
       SmartDashboard.putNumber("RPSToMPS", rpsToMps);
