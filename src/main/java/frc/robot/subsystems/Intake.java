@@ -38,8 +38,8 @@ public class Intake extends SubsystemBase {
   public Intake() {
     rollerOne = new TalonFXS(INTAKE_ROLLER_ONE_ID);
     rollerTwo = new TalonFXS(INTAKE_ROLLER_TWO_ID);
-    deployer = new TalonFX(INTAKE_DEPLOYER_ID, CANIVORE_DRIVETRAIN);
-    absoluteEncoder = new CANcoder(INTAKE_ENCODER_ID, CANIVORE_DRIVETRAIN);
+    deployer = new TalonFX(INTAKE_DEPLOYER_ID);
+    absoluteEncoder = new CANcoder(INTAKE_ENCODER_ID);
     rollerOne.getConfigurator().apply(INTAKE_ROLLER_ONE_CONFIG);
     rollerTwo.setControl(new Follower(INTAKE_ROLLER_ONE_ID, MotorAlignmentValue.Opposed));
     deployer.getConfigurator().apply(INTAKE_DEPLOYER_CONFIG);
