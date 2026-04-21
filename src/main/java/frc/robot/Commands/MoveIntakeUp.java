@@ -9,18 +9,15 @@ import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.RobotState;
 import frc.robot.settings.Constants.IntakeConstants;
-import frc.robot.subsystems.Hopper;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class MoveIntakeUp extends Command {
   Intake intake;
   Timer timer;
-  
-  /** Creates a new RunIndexer. */
+ 
   public MoveIntakeUp(Intake intake) {
     this.intake = intake;
     timer = new Timer();

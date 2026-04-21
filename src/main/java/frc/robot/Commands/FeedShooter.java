@@ -21,6 +21,7 @@ public class FeedShooter extends Command {
   Hopper hopper;
   Intake intake;
   Timer timer;
+  boolean intakeCommandRunning;
   
   /** Creates a new RunIndexer. */
   public FeedShooter(Indexer indexer, Hopper hopper, Intake intake) {
@@ -28,7 +29,7 @@ public class FeedShooter extends Command {
     this.hopper = hopper;
     this.intake = intake;
     timer = new Timer();
-    addRequirements(hopper, indexer, intake);
+    addRequirements(hopper, indexer); //addRequirements(hopper, indexer, intake);
     SmartDashboard.putBoolean("shooterOverride", false);
   }
 
@@ -50,10 +51,13 @@ public class FeedShooter extends Command {
       indexer.feedShooter();
       hopper.feedIndexer();
     } else if(timer.get() < 3.2) {
-      intake.feedHopper();
-      intake.setIntakeAngle(-0.13);
+      //intake.feedHopper();
+      //intake.setIntakeAngle(-0.13);
     } else {
-      intake.setIntakeAngle(-0.3);
+      //intake.setIntakeAngle(-0.3);
+    }
+    if(timer.get() > 2.2 && !intakeCommandRunning){
+      new MoveIntakeUp(intake);
     }
   }
 

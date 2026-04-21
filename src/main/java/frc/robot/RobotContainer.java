@@ -378,7 +378,7 @@ public class RobotContainer {
     new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     new Trigger(PulseIntakeSup).whileTrue(new PulseIntake(intake));
     new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
-    new Trigger(IntakeUpSup).whileTrue(new MoveIntakeUp(intake)).onFalse(new InstantCommand(()->intake.deployIntake(),intake));
+    new Trigger(IntakeUpSup).whileTrue(new MoveIntakeUp(intake));
     
     if(HOPPER_EXISTS) {
       new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunIntake(intake, hopper));
