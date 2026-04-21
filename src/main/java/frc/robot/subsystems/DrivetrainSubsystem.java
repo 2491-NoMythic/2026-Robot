@@ -823,21 +823,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     } else {
       // System.out.println("desiredRotation calculations failed - most likely no solutions. Aiming angles were not updated.");
     }
-
-    RobotState.getInstance().canPassOrShoot = canPassOrShoot();
-  }
-
-  public boolean canPassOrShoot(){
-    Optional<Alliance> alliance = DriverStation.getAlliance();
-    boolean isRed = alliance.isPresent() && alliance.get() == Alliance.Red;
-
-    if (getPose().getY() > 4.5 && getPose().getY() < 3.5) {
-      if (isRed && getPose().getX() < RED_NEUTRAL_ZONE_X || !isRed && getPose().getX() > BLUE_NEUTRAL_ZONE_X) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   public static double getDistanceToHub() {

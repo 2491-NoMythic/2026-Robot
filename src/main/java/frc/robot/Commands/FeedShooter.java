@@ -43,21 +43,20 @@ public class FeedShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotState.getInstance().canPassOrShoot || SmartDashboard.getBoolean("shooterOverride", true)) {
-      if(timer.get() < 0.4) {
-        indexer.set(-0.5);
-        hopper.setHopperRoller(-0.4);
-      } else if(timer.get() < 2.5){
-        indexer.feedShooter();
-        hopper.feedIndexer();
-      } else if(timer.get() < 3.5) {
-        intake.feedHopper();
-        intake.setIntakeAngle(-0.13);
-      } else {
-        intake.setIntakeAngle(-0.3);
-      }
+    if(timer.get() < 0.4) {
+      indexer.set(-0.5);
+      hopper.setHopperRoller(-0.4);
+    } else if(timer.get() < 2.5){
+      indexer.feedShooter();
+      hopper.feedIndexer();
+    } else if(timer.get() < 3.5) {
+      intake.feedHopper();
+      intake.setIntakeAngle(-0.13);
+    } else {
+      intake.setIntakeAngle(-0.3);
     }
   }
+
 
   // Called once the command ends or is interrupted.
   @Override
