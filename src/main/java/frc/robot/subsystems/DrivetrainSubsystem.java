@@ -741,6 +741,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * @return the desired angle of the robot to be aimed at the hub, assuming 0 degrees = away from blue alliance
    */
   public void updateDesiredRobotAngle() {
+    boolean passing = false;
     var targetPosition = new Translation3d();
     double desiredSpeed = SHOOTING_SPEED_RPS;
     double rpsToMps = RPS_TO_MPS_CLOSE;
@@ -748,6 +749,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     Optional<Alliance> alliance = DriverStation.getAlliance();
     boolean isRed = alliance.isPresent() && alliance.get() == Alliance.Red;
     if (isRed && getPose().getX() < RED_NEUTRAL_ZONE_X) {
+      passing = true;
       if (getPose().getY() < FIELD_CENTER_Y) {
         targetPosition = RED_LEFT_PASS_COORDINATE;
       } else {
@@ -823,6 +825,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     } else {
       // System.out.println("desiredRotation calculations failed - most likely no solutions. Aiming angles were not updated.");
     }
+    if(passing) {
+      RobotState.getInstance().aimingPitch = 35;
+    }
+    
   }
 
   public static double getDistanceToHub() {

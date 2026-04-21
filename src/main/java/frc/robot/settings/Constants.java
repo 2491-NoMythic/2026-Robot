@@ -83,7 +83,7 @@ public final class Constants {
     public static final double SHOOTING_MID_DISTANCE_TO_HUB = 2.77; //1.44;
     public static final double SHOOTING_FAR_DISTANCE_TO_HUB = 3.87;
     //public static final double SHOOTING_CORNER_THRESHOLD = 4;
-    public static final float PASSING_SPEED_RPS_MAX = 79;
+    public static final float PASSING_SPEED_RPS_MAX = 90;
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
@@ -211,10 +211,10 @@ public final class Constants {
   public static final class Field{
     public static final Translation3d BLUE_HUB_COORDINATE = new Translation3d(4.6, 4, 1.7);
     public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.7);
-    public static final Translation3d BLUE_LEFT_PASS_COORDINATE = new Translation3d(2, 6, 0);
-    public static final Translation3d BLUE_RIGHT_PASS_COORDINATE = new Translation3d(2, 2, 0);
-    public static final Translation3d RED_LEFT_PASS_COORDINATE = new Translation3d(14.5, 2, 0);
-    public static final Translation3d RED_RIGHT_PASS_COORDINATE = new Translation3d(14.5, 6, 0);
+    public static final Translation3d BLUE_LEFT_PASS_COORDINATE = new Translation3d(0.727, 6, 0);
+    public static final Translation3d BLUE_RIGHT_PASS_COORDINATE = new Translation3d(0.727, 2, 0);
+    public static final Translation3d RED_LEFT_PASS_COORDINATE = new Translation3d(15.85, 2, 0);
+    public static final Translation3d RED_RIGHT_PASS_COORDINATE = new Translation3d(15.85, 6, 0);
     public static final double BLUE_NEUTRAL_ZONE_X = 5;
     public static final double RED_NEUTRAL_ZONE_X = 11.5;
     public static final double FIELD_CENTER_Y = 4;

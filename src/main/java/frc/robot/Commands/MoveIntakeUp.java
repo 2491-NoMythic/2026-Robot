@@ -16,40 +16,28 @@ import frc.robot.settings.Constants.IntakeConstants;
 import frc.robot.subsystems.Hopper;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class FeedShooter extends Command {
-  Indexer indexer;
-  Hopper hopper;
+public class MoveIntakeUp extends Command {
   Intake intake;
   Timer timer;
   
   /** Creates a new RunIndexer. */
-  public FeedShooter(Indexer indexer, Hopper hopper, Intake intake) {
-    this.indexer = indexer;
-    this.hopper = hopper;
+  public MoveIntakeUp(Intake intake) {
     this.intake = intake;
     timer = new Timer();
-    addRequirements(hopper, indexer, intake);
-    SmartDashboard.putBoolean("shooterOverride", false);
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotState.getInstance().feedingShooter = true;
     timer.start();
-    System.out.println("FeedShooterRunning");
+    System.out.println("MoveIntakeUpRunning");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(timer.get() < 0.1) {
-      indexer.set(-0.5);
-      hopper.setHopperRoller(-0.4);
-    } else if(timer.get() < 2.2){
-      indexer.feedShooter();
-      hopper.feedIndexer();
-    } else if(timer.get() < 3.2) {
+    if(timer.get() < 1) {
       intake.feedHopper();
       intake.setIntakeAngle(-0.13);
     } else {
@@ -62,13 +50,11 @@ public class FeedShooter extends Command {
   @Override
   public void end(boolean interrupted) {
     RobotState.getInstance().feedingShooter = true;
-    indexer.stop();
-    hopper.setHopperRoller(0);
     intake.deployIntake();
     intake.stopWheels();
     timer.stop();
     timer.reset();
-    System.out.println("FeedShooterStopped");
+    System.out.println("MoveIntakeUpStopped");
   }
 
   // Returns true when the command should end.
