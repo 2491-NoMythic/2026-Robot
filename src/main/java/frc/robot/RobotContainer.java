@@ -77,6 +77,7 @@ import frc.robot.Commands.PulseIntake;
 import frc.robot.Commands.FeedShooterAntiHopperStall;
 import frc.robot.Commands.LightsCommand;
 import frc.robot.Commands.LockYAxisForCrossing;
+import frc.robot.Commands.MoveIntakeUp;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.RunIntake;
 import frc.robot.Commands.RunShooterVelocity;
@@ -160,6 +161,7 @@ public class RobotContainer {
   BooleanSupplier ManualLeftCornerShotSup;
   BooleanSupplier DrivetrainXPositionSup;
   BooleanSupplier PassSup;
+  BooleanSupplier IntakeUpSup;
 
 
 
@@ -228,6 +230,7 @@ public class RobotContainer {
     IntakeBackwardsSup = driveController::getRightBumperButton;
     PulseIntakeSup = ()->operatorController.getPOV() > 134 && operatorController.getPOV() < 226;
     IntakeBackwardsSup = driveController::getRightBumperButton;
+    IntakeUpSup = ()->operatorController.getPOV() == 270;
 
     //hopper controls
     HopperWheelsForwardSup = ()-> false;//operatorController.getPOV() == 270;
@@ -375,6 +378,7 @@ public class RobotContainer {
     new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     new Trigger(PulseIntakeSup).whileTrue(new PulseIntake(intake));
     new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
+    new Trigger(IntakeUpSup).whileTrue(new MoveIntakeUp(intake)).onFalse(new InstantCommand(()->intake.deployIntake(),intake));
     
     if(HOPPER_EXISTS) {
       new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunIntake(intake, hopper));
