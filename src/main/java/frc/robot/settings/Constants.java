@@ -83,7 +83,7 @@ public final class Constants {
     public static final double SHOOTING_MID_DISTANCE_TO_HUB = 2.77; //1.44;
     public static final double SHOOTING_FAR_DISTANCE_TO_HUB = 3.87;
     //public static final double SHOOTING_CORNER_THRESHOLD = 4;
-    public static final float PASSING_SPEED_RPS_MAX = 90;
+    public static final float PASSING_SPEED_RPS_MAX = 100;
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
