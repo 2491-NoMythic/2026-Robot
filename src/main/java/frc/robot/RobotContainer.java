@@ -160,8 +160,7 @@ public class RobotContainer {
   BooleanSupplier ManualRightCornerShotSup;
   BooleanSupplier ManualLeftCornerShotSup;
   BooleanSupplier DrivetrainXPositionSup;
-  BooleanSupplier PassSup;
-  BooleanSupplier IntakeUpSup;
+  BooleanSupplier AgitateFuelSup;
 
 
 
@@ -220,7 +219,6 @@ public class RobotContainer {
     ManualLeftCornerShotSup = operatorController::getLeftBumperButton;
     ManualRightCornerShotSup = operatorController::getRightBumperButton;
 
-    PassSup = ()-> operatorController.getLeftTriggerAxis() > 0.5;
     //Shooting Command is Right Trigger on drive controller. 
 
     //intake controls
@@ -230,7 +228,7 @@ public class RobotContainer {
     IntakeBackwardsSup = driveController::getRightBumperButton;
     PulseIntakeSup = ()->operatorController.getPOV() > 134 && operatorController.getPOV() < 226;
     IntakeBackwardsSup = driveController::getRightBumperButton;
-    IntakeUpSup = ()->operatorController.getPOV() == 270;
+    AgitateFuelSup = ()->operatorController.getLeftTriggerAxis() > 0.5;
 
     //hopper controls
     HopperWheelsForwardSup = ()-> false;//operatorController.getPOV() == 270;
@@ -378,7 +376,7 @@ public class RobotContainer {
     new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     new Trigger(PulseIntakeSup).whileTrue(new PulseIntake(intake));
     new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
-    new Trigger(IntakeUpSup).whileTrue(new MoveIntakeUp(intake));
+    new Trigger(AgitateFuelSup).whileTrue(new MoveIntakeUp(intake));
     
     if(HOPPER_EXISTS) {
       new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunIntake(intake, hopper));
