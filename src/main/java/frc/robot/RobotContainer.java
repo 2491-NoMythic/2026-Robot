@@ -574,7 +574,7 @@ public class RobotContainer {
       NamedCommands.registerCommand("FeedShooterAntiStall", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(SHOOTER_EXISTS) {
-      NamedCommands.registerCommand("ShooterOn", new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter));
+      NamedCommands.registerCommand("ShooterOn", new InstantCommand(()->shooter.shooterOn(), shooter));
       NamedCommands.registerCommand("WaitUntilShooterIsSpooled", new WaitUntilCommand(()->shooter.isAtSpeed()));
     } else {
       NamedCommands.registerCommand("ShooterOn", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));

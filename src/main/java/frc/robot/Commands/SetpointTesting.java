@@ -7,6 +7,7 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -26,7 +27,8 @@ public class SetpointTesting extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.setVelocity(SmartDashboard.getNumber("SetpointTesting/ShooterSpeed", 0));
+    RobotState.getInstance().desiredShooterSpeed = SmartDashboard.getNumber("SetpointTesting/ShooterSpeed", 0);
+    shooter.shooterOn();
     shooter.setDesiredHoodAngle(SmartDashboard.getNumber("SetpointTesting/ShooterAngle", 0));
   }
 

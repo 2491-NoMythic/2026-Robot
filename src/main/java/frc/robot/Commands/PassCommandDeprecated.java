@@ -25,10 +25,10 @@ public class PassCommandDeprecated extends Command {
     double x = RobotState.getInstance().robotPosition.getX();
     boolean isInNeutralZone = x > 5 && x < 11;
     if (isInNeutralZone) {
-      shooter.setVelocity(51);
+      // shooter.setVelocity(51);
       shooter.setDesiredHoodAngle(45);
     } else {
-      shooter.setVelocity(65);
+      // shooter.setVelocity(65);
       shooter.setDesiredHoodAngle(40);
     }
   }
@@ -40,7 +40,7 @@ public class PassCommandDeprecated extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.setVelocity(SHOOTING_SPEED_RPS);
+    shooter.shooterOn();
   }
 
   // Returns true when the command should end.

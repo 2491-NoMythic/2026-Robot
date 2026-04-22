@@ -65,7 +65,7 @@ public class Shooter extends SubsystemBase {
    * Sets velocity target for shoot motor
    * @param speed RPS
    */
-  public void setVelocity(double speed){
+  private void setVelocity(double speed){
     shootMotor1.setControl(new VelocityVoltage(speed));
   }
 
