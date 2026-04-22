@@ -6,9 +6,11 @@ package frc.robot.Commands;
 
 import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.RobotState;
@@ -21,7 +23,7 @@ public class FeedShooter extends Command {
   Hopper hopper;
   Intake intake;
   Timer timer;
-  boolean intakeCommandRunning;
+  Command moveIntakeUp;
   
   /** Creates a new RunIndexer. */
   public FeedShooter(Indexer indexer, Hopper hopper, Intake intake) {
@@ -31,6 +33,7 @@ public class FeedShooter extends Command {
     timer = new Timer();
     addRequirements(hopper, indexer); //addRequirements(hopper, indexer, intake);
     SmartDashboard.putBoolean("shooterOverride", false);
+    moveIntakeUp = new MoveIntakeUp(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -56,8 +59,8 @@ public class FeedShooter extends Command {
     } else {
       //intake.setIntakeAngle(-0.3);
     }
-    if(timer.get() > 2.2 && !intakeCommandRunning){
-      new MoveIntakeUp(intake);
+    if(timer.get() > 3.1 && (intake.getCurrentCommand() == null || DriverStation.isAutonomous())){
+      CommandScheduler.getInstance().schedule(moveIntakeUp);
     }
   }
 
@@ -66,6 +69,7 @@ public class FeedShooter extends Command {
   @Override
   public void end(boolean interrupted) {
     RobotState.getInstance().feedingShooter = true;
+    CommandScheduler.getInstance().cancel(moveIntakeUp);
     indexer.stop();
     hopper.setHopperRoller(0);
     intake.deployIntake();
