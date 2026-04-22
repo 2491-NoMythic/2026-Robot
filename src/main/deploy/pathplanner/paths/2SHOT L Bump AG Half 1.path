@@ -99,7 +99,7 @@
     },
     {
       "waypointRelativePos": 1.6737739872068258,
-      "rotationDegrees": -65.62961451664091
+      "rotationDegrees": -65.62961451664093
     },
     {
       "waypointRelativePos": 2.931769722814515,
@@ -107,6 +107,10 @@
     },
     {
       "waypointRelativePos": 4.112033195020742,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 4.7867803837952385,
       "rotationDegrees": 180.0
     }
   ],
@@ -140,9 +144,9 @@
     {
       "name": "CollectFuel",
       "minWaypointRelativePos": 1.45,
-      "maxWaypointRelativePos": 2.55,
+      "maxWaypointRelativePos": 2.8899392302498055,
       "constraints": {
-        "maxVelocity": 2.0,
+        "maxVelocity": 1.5,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -186,7 +190,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 180.0
+    "rotation": 140.0
   },
   "reversed": false,
   "folder": "Auto Bump Paths",
