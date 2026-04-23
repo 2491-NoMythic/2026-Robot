@@ -111,6 +111,7 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void disabledPeriodic() { // need to add stuff
+    robotContainer.disabledPeriodic();
   }
 
   /**

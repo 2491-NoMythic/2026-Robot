@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.settings.LightConstants;
+import frc.robot.settings.Constants.LightConstants;
 import frc.robot.Robot;
 import frc.robot.settings.Constants;
 import frc.robot.settings.EffectEnums;
@@ -77,11 +77,13 @@ public class Lights extends SubsystemBase {
         lightColors[i] = new RGBWColor(255, 255, 255);
     }
 
-    SmartDashboard.putNumber("shooterMult", 0);
+    SmartDashboard.putNumber("shooterMult", 0.1);
   }
 
   public void setOneLightRGB(int index, int R, int G, int B) {
-    LEDBuffer.setRGB(index, R, G, B);
+    //try {
+      LEDBuffer.setRGB(index, R, G, B);
+    //} catch(Exception e) {}
     //candle.setControl(new SolidColor(index, index).withColor(new RGBWColor(R, G, B)));
   }
 

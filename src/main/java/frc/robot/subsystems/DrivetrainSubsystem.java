@@ -795,6 +795,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
       //rpsToMps = RPS_TO_MPS_CLOSE + (RPS_TO_MPS_FAR - RPS_TO_MPS_CLOSE) * normalizedDistanceToHub;//SmartDashboard.getNumber("RPS_TO_MPS", 0.15);//
       rpsToMps = (a * distanceToHub * distanceToHub * distanceToHub) + (b * distanceToHub * distanceToHub) + (c * distanceToHub) + d;
       SmartDashboard.putNumber("RPSToMPS", rpsToMps);
+
+      RobotState.getInstance().lightsShooterOutOfRange = (distanceToHub >= SHOOTING_FAR_DISTANCE_TO_HUB);
     }
 
     if(!RobotState.getInstance().overrideShooterSpeed){

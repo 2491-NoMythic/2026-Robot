@@ -66,7 +66,7 @@ public final class Constants {
     public static final boolean INDEXER_EXISTS = true;
     public static final boolean DRIVE_TRAIN_EXISTS = true;
     public static final boolean LIMELIGHTS_EXIST = true;
-    public static final boolean LIGHTS_EXIST = false;
+    public static final boolean LIGHTS_EXIST = true; // :D
     public static final boolean HOPPER_EXISTS = true;
     public static final boolean QUEST_EXISTS = true;
     public static final boolean SAFE_MODE_IS_ON = false;   // A Mode to turn on for mythical night with robots and other events where we may not want the robot to go full speed

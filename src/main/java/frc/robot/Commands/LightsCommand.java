@@ -56,7 +56,7 @@ public class LightsCommand extends Command {
     } else if (RobotState.getInstance().Aimed) {
       lights.setSystemLights(LightsEnums.All, 0, 0, 255);
     } else if (RobotState.getInstance().shooting) {
-      lights.blinkLights(LightsEnums.All, 255, 0, 255);
+      //lights.blinkLights(LightsEnums.All, 255, 0, 255);
     } else {
       lights.breathingLights(LightsEnums.All, 255, 0, 255);
     }

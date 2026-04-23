@@ -47,6 +47,8 @@ public class FeedShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotState.getInstance().indexerRunning = true;
+    RobotState.getInstance().lightsIndexing = true;
     if(timer.get() < 0.1) {
       indexer.set(-0.5);
       hopper.setHopperRoller(-0.4);
@@ -77,6 +79,9 @@ public class FeedShooter extends Command {
     timer.stop();
     timer.reset();
     System.out.println("FeedShooterStopped");
+
+    RobotState.getInstance().indexerRunning = false;
+    RobotState.getInstance().lightsIndexing = false;
   }
 
   // Returns true when the command should end.
