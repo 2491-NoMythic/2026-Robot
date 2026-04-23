@@ -168,13 +168,7 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    if(QUEST_EXISTS) {
-      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest;
-    } else if(LIMELIGHTS_EXIST) {
-      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights;
-    } else {
-      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.onlyDrivetrain;
-    }
+    RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights;
     
     autoTimer = new Timer();
 

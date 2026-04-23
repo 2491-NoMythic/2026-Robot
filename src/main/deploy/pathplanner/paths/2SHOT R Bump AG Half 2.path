@@ -1,0 +1,185 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.992,
+        "y": 2.5925421686746986
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.64090733273347,
+        "y": 1.9320953936876057
+      },
+      "isLocked": false,
+      "linkedName": "R Shooting"
+    },
+    {
+      "anchor": {
+        "x": 5.811654778887304,
+        "y": 2.942
+      },
+      "prevControl": {
+        "x": 5.671159024663514,
+        "y": 2.38676618539502
+      },
+      "nextControl": {
+        "x": 6.00939639852296,
+        "y": 3.7234672719688593
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.447788888888889,
+        "y": 4.259
+      },
+      "prevControl": {
+        "x": 5.833979045499007,
+        "y": 4.386113907737917
+      },
+      "nextControl": {
+        "x": 7.268646560428861,
+        "y": 4.0890085483317735
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.811654778887304,
+        "y": 2.582
+      },
+      "prevControl": {
+        "x": 6.315631669630205,
+        "y": 2.811675501293217
+      },
+      "nextControl": {
+        "x": 4.939355352574186,
+        "y": 2.1844702487431005
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.992,
+        "y": 2.5925421686746986
+      },
+      "prevControl": {
+        "x": 3.871519147449499,
+        "y": 2.8303431676713715
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "R Shooting"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.05,
+      "rotationDegrees": -70.0
+    },
+    {
+      "waypointRelativePos": 0.1023454157782458,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1.2970954356846482,
+      "rotationDegrees": 59.99999999999999
+    },
+    {
+      "waypointRelativePos": 1.5311203319501894,
+      "rotationDegrees": 59.99999999999999
+    },
+    {
+      "waypointRelativePos": 2.5,
+      "rotationDegrees": -119.99999999999999
+    },
+    {
+      "waypointRelativePos": 2.95,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 3.718550106609756,
+      "rotationDegrees": 180.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "OverBumpOut",
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 0.6914247130317389,
+      "constraints": {
+        "maxVelocity": 2.7,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "OverBumpIn",
+      "minWaypointRelativePos": 2.7,
+      "maxWaypointRelativePos": 4.0,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Expand",
+      "waypointRelativePos": 0.21066846725187288,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Expand"
+        }
+      }
+    },
+    {
+      "name": "ShooterOn",
+      "waypointRelativePos": 2.2,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ShooterOn"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": -140.0
+  },
+  "reversed": false,
+  "folder": "Auto Bump Paths",
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": -140.0
+  },
+  "useDefaultConstraints": true
+}
