@@ -20,28 +20,28 @@
         "y": 5.128316690442225
       },
       "prevControl": {
-        "x": 5.604015227903269,
-        "y": 5.662085800360414
+        "x": 5.671235410439827,
+        "y": 5.683569828029507
       },
       "nextControl": {
-        "x": 6.084422863455797,
-        "y": 4.427124759404926
+        "x": 6.0092888888888885,
+        "y": 4.346822222222222
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.3938944365192585,
-        "y": 3.8473894436519256
+        "x": 6.447788888888889,
+        "y": 3.810877777777778
       },
       "prevControl": {
-        "x": 6.2600089301796755,
-        "y": 4.058516588264346
+        "x": 5.83388888888889,
+        "y": 3.6842000000000006
       },
       "nextControl": {
-        "x": 6.730299572039942,
-        "y": 3.316904422253923
+        "x": 7.268767128298295,
+        "y": 3.980285985909877
       },
       "isLocked": false,
       "linkedName": null
@@ -98,12 +98,8 @@
       "rotationDegrees": -59.99999999999999
     },
     {
-      "waypointRelativePos": 2.1,
-      "rotationDegrees": -59.99999999999999
-    },
-    {
       "waypointRelativePos": 2.5,
-      "rotationDegrees": -119.99999999999999
+      "rotationDegrees": 119.99999999999999
     },
     {
       "waypointRelativePos": 2.95,
@@ -132,19 +128,6 @@
       "name": "OverBumpIn",
       "minWaypointRelativePos": 2.7,
       "maxWaypointRelativePos": 4.0,
-      "constraints": {
-        "maxVelocity": 2.0,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
-    },
-    {
-      "name": "CollectFuel",
-      "minWaypointRelativePos": 0.5671843349088491,
-      "maxWaypointRelativePos": 1.55,
       "constraints": {
         "maxVelocity": 2.0,
         "maxAcceleration": 3.0,

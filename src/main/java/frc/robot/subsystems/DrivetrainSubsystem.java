@@ -759,6 +759,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       double squishedPositionBetweenAllianceZoneAndEnd = (RED_NEUTRAL_ZONE_X - getPose().getX()) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value. 
       desiredSpeed = SHOOTING_SPEED_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
     } else if (!isRed && getPose().getX() > BLUE_NEUTRAL_ZONE_X) {
+      passing = true;
       if (getPose().getY() > FIELD_CENTER_Y) {
         targetPosition = BLUE_LEFT_PASS_COORDINATE;
       } else {

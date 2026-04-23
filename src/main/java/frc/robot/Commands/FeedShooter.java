@@ -59,7 +59,7 @@ public class FeedShooter extends Command {
     } else {
       //intake.setIntakeAngle(-0.3);
     }
-    if(timer.get() > 3.1 && (intake.getCurrentCommand() == null || DriverStation.isAutonomous())){
+    if(timer.get() > 2.2 && intake.getCurrentCommand() == null){
       CommandScheduler.getInstance().schedule(moveIntakeUp);
     }
   }
