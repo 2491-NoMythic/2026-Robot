@@ -123,10 +123,9 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    inputs.wheelsMotor.log(rollerOne);
+    inputs.wheelsMotor1.log(rollerOne);
+    inputs.wheelsMotor2.log(rollerTwo);
     inputs.deployerMotor.log(deployer);
-    inputs.forwardLimitSwitch = deployer.getForwardLimit().getValueAsDouble() > 0.5;
-    inputs.reverseLimitSwitch = deployer.getReverseLimit().getValueAsDouble() > 0.5;
     Logger.processInputs("Intake", inputs);
     if(this.getCurrentCommand() != null) {
     } else {
