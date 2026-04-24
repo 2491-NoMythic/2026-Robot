@@ -77,6 +77,7 @@ import frc.robot.Commands.PulseIntake;
 import frc.robot.Commands.FeedShooterAntiHopperStall;
 import frc.robot.Commands.LightsCommand;
 import frc.robot.Commands.LockYAxisForCrossing;
+import frc.robot.Commands.MoveIntakeUp;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.RunIntake;
 import frc.robot.Commands.RunShooterVelocity;
@@ -159,7 +160,7 @@ public class RobotContainer {
   BooleanSupplier ManualRightCornerShotSup;
   BooleanSupplier ManualLeftCornerShotSup;
   BooleanSupplier DrivetrainXPositionSup;
-  BooleanSupplier PassSup;
+  BooleanSupplier AgitateFuelSup;
 
 
 
@@ -167,13 +168,7 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    if(QUEST_EXISTS) {
-      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.Quest;
-    } else if(LIMELIGHTS_EXIST) {
-      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights;
-    } else {
-      RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.onlyDrivetrain;
-    }
+    RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights;
     
     autoTimer = new Timer();
 
@@ -218,7 +213,6 @@ public class RobotContainer {
     ManualLeftCornerShotSup = operatorController::getLeftBumperButton;
     ManualRightCornerShotSup = operatorController::getRightBumperButton;
 
-    PassSup = ()-> operatorController.getLeftTriggerAxis() > 0.5;
     //Shooting Command is Right Trigger on drive controller. 
 
     //intake controls
@@ -228,6 +222,7 @@ public class RobotContainer {
     IntakeBackwardsSup = driveController::getRightBumperButton;
     PulseIntakeSup = ()->operatorController.getPOV() > 134 && operatorController.getPOV() < 226;
     IntakeBackwardsSup = driveController::getRightBumperButton;
+    AgitateFuelSup = ()->operatorController.getLeftTriggerAxis() > 0.5;
 
     //hopper controls
     HopperWheelsForwardSup = ()-> false;//operatorController.getPOV() == 270;
@@ -375,6 +370,7 @@ public class RobotContainer {
     new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     new Trigger(PulseIntakeSup).whileTrue(new PulseIntake(intake));
     new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
+    new Trigger(AgitateFuelSup).whileTrue(new MoveIntakeUp(intake));
     
     if(HOPPER_EXISTS) {
       new Trigger(()->IntakeWheelSup.getAsBoolean() && !RobotState.getInstance().feedingShooter).whileTrue(new RunIntake(intake, hopper));
@@ -472,8 +468,9 @@ public class RobotContainer {
     }
 
     if(INTAKE_EXISTS && INDEXER_EXISTS && HOPPER_EXISTS) {
-      new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper));  
-      new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, hopper));
+      new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper, intake));  
+      new Trigger(IndexerSup).whileTrue(new FeedShooter(indexer, hopper, intake));
+      new Trigger(IndexerSup).whileTrue(new InstantCommand(()->System.out.println("IndexerSupPressed")));
     }
   }
   /**
@@ -562,15 +559,14 @@ public class RobotContainer {
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
       NamedCommands.registerCommand("RunIndexer", new ParallelCommandGroup(
         new AimRobot(drivetrain, ControllerZAxisSupplier, ControllerSidewaysAxisSupplier, ()->RobotState.getInstance().aimingYaw),
-        new FeedShooter(indexer, hopper),
-        new PulseIntake(intake)));
+        new FeedShooter(indexer, hopper, intake)));
       NamedCommands.registerCommand("FeedShooterAntiStall", new FeedShooterAntiHopperStall(hopper, indexer));
     } else {
       NamedCommands.registerCommand("RunIndexer", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("FeedShooterAntiStall", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
     }
     if(SHOOTER_EXISTS) {
-      NamedCommands.registerCommand("ShooterOn", new InstantCommand(()->shooter.setVelocity(ShooterConstants.SHOOTING_SPEED_RPS), shooter));
+      NamedCommands.registerCommand("ShooterOn", new InstantCommand(()->shooter.shooterOn(), shooter));
       NamedCommands.registerCommand("WaitUntilShooterIsSpooled", new WaitUntilCommand(()->shooter.isAtSpeed()));
     } else {
       NamedCommands.registerCommand("ShooterOn", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
@@ -580,11 +576,14 @@ public class RobotContainer {
       NamedCommands.registerCommand("Outtake", new Outtake(intake));
       NamedCommands.registerCommand("Expand", new Expand(intake).withDeadline(new WaitCommand(1)));
       NamedCommands.registerCommand("RunOnlyIntake", new InstantCommand(()->intake.feedHopper(), intake));
+      NamedCommands.registerCommand("AgitateFuel", new MoveIntakeUp(intake));
+
       if(HOPPER_EXISTS) {
         NamedCommands.registerCommand("Intake", new RunIntake(intake, hopper));
       }
     } else {
       NamedCommands.registerCommand("Intake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
+      NamedCommands.registerCommand("AgitateFuel", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("RunOnlyIntake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("Outtake", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));
       NamedCommands.registerCommand("Expand", new InstantCommand(()->System.out.println("tried to run named command, but subsystem did not exist")));

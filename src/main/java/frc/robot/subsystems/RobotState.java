@@ -41,7 +41,6 @@ public class RobotState {
 
   public double aimingPitch;
   public double aimingYaw;
-  public boolean canPassOrShoot;
   public double desiredShooterSpeed;
   public boolean overrideShooterSpeed;
 

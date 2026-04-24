@@ -36,10 +36,10 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
   public Intake() {
-    rollerOne = new TalonFXS(INTAKE_ROLLER_ONE_ID, CANIVORE_DRIVETRAIN);
-    rollerTwo = new TalonFXS(INTAKE_ROLLER_TWO_ID, CANIVORE_DRIVETRAIN);
-    deployer = new TalonFX(INTAKE_DEPLOYER_ID, CANIVORE_DRIVETRAIN);
-    absoluteEncoder = new CANcoder(INTAKE_ENCODER_ID, CANIVORE_DRIVETRAIN);
+    rollerOne = new TalonFXS(INTAKE_ROLLER_ONE_ID);
+    rollerTwo = new TalonFXS(INTAKE_ROLLER_TWO_ID);
+    deployer = new TalonFX(INTAKE_DEPLOYER_ID);
+    absoluteEncoder = new CANcoder(INTAKE_ENCODER_ID);
     rollerOne.getConfigurator().apply(INTAKE_ROLLER_ONE_CONFIG);
     rollerTwo.setControl(new Follower(INTAKE_ROLLER_ONE_ID, MotorAlignmentValue.Opposed));
     deployer.getConfigurator().apply(INTAKE_DEPLOYER_CONFIG);
@@ -88,6 +88,10 @@ public class Intake extends SubsystemBase {
     targetingDeployedPosition = true;
   }
 
+  public void setDeployerVoltage(double volts) {
+    deployer.setControl(new VoltageOut(volts));
+  }
+
   public boolean getIsDeployed() {
     return inputs.deployerMotor.position > INTAKE_DEPLOYED_POSITION - 0.05;
   }
@@ -119,10 +123,9 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    inputs.wheelsMotor.log(rollerOne);
+    inputs.wheelsMotor1.log(rollerOne);
+    inputs.wheelsMotor2.log(rollerTwo);
     inputs.deployerMotor.log(deployer);
-    inputs.forwardLimitSwitch = deployer.getForwardLimit().getValueAsDouble() > 0.5;
-    inputs.reverseLimitSwitch = deployer.getReverseLimit().getValueAsDouble() > 0.5;
     Logger.processInputs("Intake", inputs);
     if(this.getCurrentCommand() != null) {
     } else {

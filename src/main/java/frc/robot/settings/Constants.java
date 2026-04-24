@@ -13,6 +13,7 @@ import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.ExternalFeedbackConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
+import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.configs.Slot0Configs;
@@ -73,9 +74,16 @@ public final class Constants {
 
   public static final class ShooterConstants{
     //public static final float SHOOTING_SPEED_MPS = 7.6f;
-    public static final double RPS_TO_MPS = 0.198f; //TUNE THIS!!!!!!!!!!!!!!!!!!!!!!
-    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 38.3f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
-    public static final float PASSING_SPEED_RPS_MAX = 79;
+    public static final double RPS_TO_MPS_CLOSE = 0.2;//0.27; //TUNE THIS!!!!!!!!!!!!!!!!!!!!!!
+    public static final double RPS_TO_MPS_MID = 0.125;
+    public static final double RPS_TO_MPS_FAR = 0.128;
+    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 63f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
+    //public static final float SHOOTING_SPEED_RPS_CORNER = 80f;
+    public static final double SHOOTING_CLOSE_DISTANCE_TO_HUB = 1.73; //1.44;
+    public static final double SHOOTING_MID_DISTANCE_TO_HUB = 2.77; //1.44;
+    public static final double SHOOTING_FAR_DISTANCE_TO_HUB = 3.87;
+    //public static final double SHOOTING_CORNER_THRESHOLD = 4;
+    public static final float PASSING_SPEED_RPS_MAX = 100;
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;
@@ -86,27 +94,42 @@ public final class Constants {
     public static final double AUTO_AIM_ROBOT_kP = 0.125;
     public static final double AUTO_AIM_ROBOT_kI = 0;
     public static final double AUTO_AIM_ROBOT_kD = 0;
-    public static final double HOOD_DOWN_POSITION = 0;
-    public static final double HOOD_UP_POSITION = 40;
-    public static final int HOOD_MOTOR_ID = 2491;
-    public static final int HOOD_ENCODER_ID = 2491;
+    public static final double HOOD_DOWN_POSITION = 0.013;
+    public static final double HOOD_UP_POSITION = 47.4;
+    public static final int HOOD_MOTOR_ID = 16;
+    public static final int HOOD_ENCODER_ID = 30;
     public static final double ENCODER_TO_DEGREES = 0.0177777777; //this is the number of sensor rotations for 1 degree of hood movement
     public static TalonFXConfiguration SHOOTER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs() 
-        .withKV(0.125).withKP(0.4).withKI(0).withKD(0).withKS(0.36))
+        .withKV(0.114).withKP(0.1).withKI(0).withKD(0).withKS(0.24))
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(50))
       .withMotorOutput(new MotorOutputConfigs()
-        .withInverted(InvertedValue.Clockwise_Positive));
-  public static TalonFXSConfiguration HOOD_MOTOR_CONFIG = new TalonFXSConfiguration()
+        .withInverted(InvertedValue.Clockwise_Positive)
+        .withNeutralMode(NeutralModeValue.Coast));
+    public static TalonFXSConfiguration HOOD_MOTOR_CONFIG = new TalonFXSConfiguration()
+      .withMotorOutput(new MotorOutputConfigs()
+        .withInverted(InvertedValue.Clockwise_Positive)
+        .withNeutralMode(NeutralModeValue.Brake))    
       .withCommutation(new CommutationConfigs()
         .withMotorArrangement(MotorArrangementValue.Minion_JST))
       .withSlot0(new Slot0Configs()
-        .withKV(0).withKS(0).withKP(0).withKI(0).withKD(0))
+        .withKV(0.007).withKA(0.0002).withKS(0.1075).withKP(0.16).withKG(0.2855).withKI(0).withKD(0).withGravityType(GravityTypeValue.Elevator_Static))
       .withExternalFeedback(new ExternalFeedbackConfigs()
         .withExternalFeedbackSensorSource(ExternalFeedbackSensorSourceValue.RemoteCANcoder)
         .withFeedbackRemoteSensorID(HOOD_ENCODER_ID)
-        .withSensorToMechanismRatio(ENCODER_TO_DEGREES));
+        .withSensorToMechanismRatio(ENCODER_TO_DEGREES))
+      .withSoftwareLimitSwitch(new SoftwareLimitSwitchConfigs()
+        .withForwardSoftLimitEnable(true)
+        .withReverseSoftLimitEnable(true)
+        .withForwardSoftLimitThreshold(HOOD_UP_POSITION-0.5)
+        .withReverseSoftLimitThreshold(HOOD_DOWN_POSITION+0.5))
+      .withMotionMagic(new MotionMagicConfigs()
+        .withMotionMagicCruiseVelocity(250)
+        .withMotionMagicAcceleration(2500))
+      .withVoltage(new VoltageConfigs()
+        .withPeakForwardVoltage(8)
+        .withPeakReverseVoltage(-8));
   }
   
 
@@ -118,15 +141,17 @@ public final class Constants {
   }
 
   public static final class IntakeConstants{
-    public static final double INTAKE_SPEED_RPS = 90;
+    public static final double INTAKE_SPEED_RPS = 120;
     public static final int INTAKE_ROLLER_ONE_ID = 14;
-    public static final int INTAKE_ROLLER_TWO_ID = 2491;
+    public static final int INTAKE_ROLLER_TWO_ID = 17;
     public static final int INTAKE_DEPLOYER_ID = 13;
-    public static final int INTAKE_ENCODER_ID = 0;
+    public static final int INTAKE_ENCODER_ID = 31;
     public static final double INTAKE_DOWN_SOFT_LIMIT  = -0.007;
     public static TalonFXConfiguration INTAKE_DEPLOYER_CONFIG = new TalonFXConfiguration()
+      .withMotorOutput(new MotorOutputConfigs()
+        .withInverted(InvertedValue.Clockwise_Positive))
       .withSlot0(new Slot0Configs()
-        .withKG(0).withKP(12).withKI(0).withKD(0).withGravityType(GravityTypeValue.Arm_Cosine))
+        .withKG(0).withKP(15).withKI(0).withKD(0).withGravityType(GravityTypeValue.Arm_Cosine))
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(SubsystemsEnabled.SAFE_MODE_IS_ON ? 5 : 50))  // if safe mode is on a supply current limit of 5 will be enabled
       .withSoftwareLimitSwitch(new SoftwareLimitSwitchConfigs()
@@ -139,25 +164,25 @@ public final class Constants {
       .withCommutation(new CommutationConfigs()
         .withMotorArrangement(MotorArrangementValue.Minion_JST))
       .withSlot0(new Slot0Configs()
-        .withKV(0.12).withKS(0.37).withKP(0.1).withKI(0).withKD(0))
+        .withKV(0.105).withKS(0.348).withKP(0.1).withKI(0).withKD(0))
       .withMotorOutput(new MotorOutputConfigs()
         .withInverted(InvertedValue.Clockwise_Positive));
-    public static final double INTAKE_RETRACTED_POSITION = -0.39;
+    public static final double INTAKE_RETRACTED_POSITION = -0.54;
     public static final double INTAKE_DEPLOYED_POSITION = -0.018;
   }
 
   public static final class IndexerConstants{
-    public static final int INDEXER_MOTOR_1_ID= 11;//right motor (leader)
-    public static final int INDEXER_MOTOR_2_ID= 12;//left motor (follower)
-    public static final double INDEXER_FEEDING_RPS = 70;
+    public static final int INDEXER_MOTOR_1_ID= 11;//left motor (leader)
+    public static final int INDEXER_MOTOR_2_ID= 12;//right motor (follower)
+    public static final double INDEXER_FEEDING_RPS = 90;
 
-    public static TalonFXConfiguration INDEXER_RIGHT_CONFIG = new TalonFXConfiguration()
+    public static TalonFXConfiguration INDEXER_LEFT_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
-        .withKV(0.091).withKP(0.4).withKI(0).withKD(0).withKS(0.5))
+        .withKV(0.0957).withKP(0.1).withKI(0).withKD(0).withKS(0.316))
       .withMotorOutput(new MotorOutputConfigs()
-        .withInverted(InvertedValue.Clockwise_Positive));
+        .withInverted(InvertedValue.CounterClockwise_Positive));
     
-      public static TalonFXConfiguration INDEXER_LEFT_CONFIG = new TalonFXConfiguration()
+      public static TalonFXConfiguration INDEXER_RIGHT_CONFIG = new TalonFXConfiguration()
         .withMotorOutput(new MotorOutputConfigs()
           .withInverted(InvertedValue.CounterClockwise_Positive));
 
@@ -175,7 +200,7 @@ public final class Constants {
 
     public static TalonFXConfiguration HOPPER_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
-        .withKV(0.115).withKP(0.1).withKI(0).withKD(0).withKS(0.65))
+        .withKV(0.097).withKP(0.2).withKI(0).withKD(0).withKS(0.494))
       .withMotorOutput(new MotorOutputConfigs()
         .withInverted(InvertedValue.Clockwise_Positive))
       .withVoltage(new VoltageConfigs()
@@ -186,10 +211,10 @@ public final class Constants {
   public static final class Field{
     public static final Translation3d BLUE_HUB_COORDINATE = new Translation3d(4.6, 4, 1.7);
     public static final Translation3d RED_HUB_COORDINATE = new Translation3d(11.9, 4, 1.7);
-    public static final Translation3d BLUE_LEFT_PASS_COORDINATE = new Translation3d(2, 6, 0);
-    public static final Translation3d BLUE_RIGHT_PASS_COORDINATE = new Translation3d(2, 2, 0);
-    public static final Translation3d RED_LEFT_PASS_COORDINATE = new Translation3d(14.5, 2, 0);
-    public static final Translation3d RED_RIGHT_PASS_COORDINATE = new Translation3d(14.5, 6, 0);
+    public static final Translation3d BLUE_LEFT_PASS_COORDINATE = new Translation3d(0.727, 6, 0);
+    public static final Translation3d BLUE_RIGHT_PASS_COORDINATE = new Translation3d(0.727, 2, 0);
+    public static final Translation3d RED_LEFT_PASS_COORDINATE = new Translation3d(15.85, 2, 0);
+    public static final Translation3d RED_RIGHT_PASS_COORDINATE = new Translation3d(15.85, 6, 0);
     public static final double BLUE_NEUTRAL_ZONE_X = 5;
     public static final double RED_NEUTRAL_ZONE_X = 11.5;
     public static final double FIELD_CENTER_Y = 4;
@@ -198,17 +223,17 @@ public final class Constants {
 
   public static final class AimAtLocationConstants {
     public static final int HUB_ROBOT_ANGLE = 0 + 180;
-    public static final int HUB_HOOD_ANGLE = 15;
+    public static final int HUB_HOOD_ANGLE = 2;
     public static final int L_TRENCH_ROBOT_ANGLE = -80 + 180;
     public static final int R_TRENCH_ROBOT_ANGLE = 80 + 180;
     public static final int L_CORNER_ROBOT_ANGLE = -40 + 180;
     public static final int R_CORNER_ROBOT_ANGLE = 40 + 180;
     public static final int TRENCH_HOOD_ANGLE = 2491;
-    public static final int CORNER_HOOD_ANGLE = 35;
-    public static final int TOWER_ROBOT_ANGLE = 180 + 180;
-    public static final int TOWER_HOOD_ANGLE = 21;
-    public static final double CORNER_SHOOTING_SPEED = 43;
-    public static final double HUB_SHOOTING_SPEED = 30;
+    public static final int CORNER_HOOD_ANGLE = 29;
+    public static final int TOWER_ROBOT_ANGLE = 0 + 180;
+    public static final int TOWER_HOOD_ANGLE = 15;
+    public static final double CORNER_SHOOTING_SPEED = 73;
+    public static final double HUB_SHOOTING_SPEED = 55;
   }
 
   public static final class DriveConstants {
@@ -340,22 +365,22 @@ public final class Constants {
 
     public static final int FL_DRIVE_MOTOR_ID = 1;
     public static final int FL_STEER_MOTOR_ID = 2;
-    public static final int FL_STEER_ENCODER_ID = 1;
+    public static final int FL_STEER_ENCODER_ID = 25;
     public static final Rotation2d FL_STEER_OFFSET = Rotation2d.fromRotations(0.272217);
 
     public static final int FR_DRIVE_MOTOR_ID = 3;
     public static final int FR_STEER_MOTOR_ID = 4;
-    public static final int FR_STEER_ENCODER_ID = 2;
+    public static final int FR_STEER_ENCODER_ID = 26;
     public static final Rotation2d FR_STEER_OFFSET = Rotation2d.fromRotations(0.41333);
 
     public static final int BL_DRIVE_MOTOR_ID = 5;
     public static final int BL_STEER_MOTOR_ID = 6;
-    public static final int BL_STEER_ENCODER_ID = 3;
+    public static final int BL_STEER_ENCODER_ID = 27;
     public static final Rotation2d BL_STEER_OFFSET = Rotation2d.fromRotations(-0.11792);
 
     public static final int BR_DRIVE_MOTOR_ID = 7;
     public static final int BR_STEER_MOTOR_ID = 8;
-    public static final int BR_STEER_ENCODER_ID = 4;
+    public static final int BR_STEER_ENCODER_ID = 28;
     public static final Rotation2d BR_STEER_OFFSET = Rotation2d.fromRotations(0.403809);
 
     // Drive Motor

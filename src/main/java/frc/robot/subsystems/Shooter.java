@@ -65,7 +65,7 @@ public class Shooter extends SubsystemBase {
    * Sets velocity target for shoot motor
    * @param speed RPS
    */
-  public void setVelocity(double speed){
+  private void setVelocity(double speed){
     shootMotor1.setControl(new VelocityVoltage(speed));
   }
 
@@ -114,7 +114,9 @@ public class Shooter extends SubsystemBase {
     if(isOn) {
       setVelocity(RobotState.getInstance().desiredShooterSpeed);
     } else {
-      setVelocity(0);
+      //shootMotor1.disable();
+      shootMotor1.stopMotor();
+      //setVelocity(0);
     }
   }
 }

@@ -8,40 +8,56 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.6046362339514975,
-        "y": 5.6070470756062765
+        "x": 5.599258899675046,
+        "y": 6.1558608305419344
       },
       "isLocked": false,
       "linkedName": "EVE L Shooting"
     },
     {
       "anchor": {
-        "x": 6.048266666660831,
-        "y": 5.165355555556968
+        "x": 5.811654778887304,
+        "y": 5.128316690442225
       },
       "prevControl": {
-        "x": 5.600022222222221,
-        "y": 5.584366666666666
+        "x": 5.671235410439827,
+        "y": 5.683569828029507
       },
       "nextControl": {
-        "x": 6.264418428753139,
-        "y": 4.963300647512211
+        "x": 6.0092888888888885,
+        "y": 4.346822222222222
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.399066666666666,
-        "y": 2.5830777777777767
+        "x": 6.447788888888889,
+        "y": 3.810877777777778
       },
       "prevControl": {
-        "x": 6.215462813439726,
-        "y": 2.1454466755656183
+        "x": 5.83388888888889,
+        "y": 3.6842000000000006
       },
       "nextControl": {
-        "x": 7.821755555555557,
-        "y": 5.974144444444444
+        "x": 7.268767128298295,
+        "y": 3.980285985909877
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.811654778887304,
+        "y": 5.488
+      },
+      "prevControl": {
+        "x": 6.315481035195145,
+        "y": 5.257994248437134
+      },
+      "nextControl": {
+        "x": 4.939616075503551,
+        "y": 5.88610135905489
       },
       "isLocked": false,
       "linkedName": null
@@ -52,45 +68,53 @@
         "y": 5.488
       },
       "prevControl": {
-        "x": 3.4854777777777777,
-        "y": 5.662322222222222
+        "x": 3.8317302744109822,
+        "y": 5.725800998996673
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "EVE L Shooting"
+      "linkedName": "L Shooting"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.1568464730290409,
-      "rotationDegrees": 180.0
+      "waypointRelativePos": 0.05,
+      "rotationDegrees": 70.0
+    },
+    {
+      "waypointRelativePos": 0.1023454157782458,
+      "rotationDegrees": 0.0
     },
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": 180.0
+      "rotationDegrees": 0.0
     },
     {
       "waypointRelativePos": 1.2970954356846482,
-      "rotationDegrees": -80.0
+      "rotationDegrees": -59.99999999999999
     },
     {
       "waypointRelativePos": 1.5311203319501894,
-      "rotationDegrees": -90.0
+      "rotationDegrees": -59.99999999999999
     },
     {
-      "waypointRelativePos": 2.248132780082997,
-      "rotationDegrees": 135.0
+      "waypointRelativePos": 2.5,
+      "rotationDegrees": 119.99999999999999
     },
     {
-      "waypointRelativePos": 2.4721991701244495,
+      "waypointRelativePos": 2.95,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 3.718550106609756,
       "rotationDegrees": 180.0
     }
   ],
   "constraintZones": [
     {
       "name": "OverBumpOut",
-      "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 0.63722084367248,
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 0.6914247130317389,
       "constraints": {
         "maxVelocity": 2.7,
         "maxAcceleration": 3.0,
@@ -102,21 +126,8 @@
     },
     {
       "name": "OverBumpIn",
-      "minWaypointRelativePos": 2.35,
-      "maxWaypointRelativePos": 3.0,
-      "constraints": {
-        "maxVelocity": 2.0,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
-    },
-    {
-      "name": "CollectFuel",
-      "minWaypointRelativePos": 0.5671843349088491,
-      "maxWaypointRelativePos": 1.55,
+      "minWaypointRelativePos": 2.7,
+      "maxWaypointRelativePos": 4.0,
       "constraints": {
         "maxVelocity": 2.0,
         "maxAcceleration": 3.0,
@@ -142,7 +153,7 @@
     },
     {
       "name": "ShooterOn",
-      "waypointRelativePos": 2.1,
+      "waypointRelativePos": 2.2,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -162,13 +173,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 180.0
+    "rotation": 140.0
   },
   "reversed": false,
   "folder": "Auto Bump Paths",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": 180.0
+    "rotation": 140.0
   },
   "useDefaultConstraints": true
 }

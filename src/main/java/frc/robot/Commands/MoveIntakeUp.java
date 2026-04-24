@@ -4,43 +4,54 @@
 
 package frc.robot.Commands;
 
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
+import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.RobotState;
-import frc.robot.subsystems.Shooter;
+import frc.robot.settings.Constants.IntakeConstants;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class PassCommandDeprecated extends Command {
-  Shooter shooter;
-  /** Creates a new PassCommand. */
-  public PassCommandDeprecated(Shooter shooter) {
-    this.shooter = shooter;
-    addRequirements(shooter);
+public class MoveIntakeUp extends Command {
+  Intake intake;
+  Timer timer;
+ 
+  public MoveIntakeUp(Intake intake) {
+    this.intake = intake;
+    timer = new Timer();
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    double x = RobotState.getInstance().robotPosition.getX();
-    boolean isInNeutralZone = x > 5 && x < 11;
-    if (isInNeutralZone) {
-      // shooter.setVelocity(51);
-      shooter.setDesiredHoodAngle(45);
-    } else {
-      // shooter.setVelocity(65);
-      shooter.setDesiredHoodAngle(40);
-    }
+    timer.start();
+    System.out.println("MoveIntakeUpRunning");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if(timer.get() < 1) {
+      intake.feedHopper();
+      intake.setIntakeAngle(-0.13);
+    } else {
+      intake.setIntakeAngle(-0.3);
+    }
+  }
+
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.shooterOn();
+    RobotState.getInstance().feedingShooter = true;
+    intake.deployIntake();
+    intake.stopWheels();
+    timer.stop();
+    timer.reset();
+    System.out.println("MoveIntakeUpStopped");
   }
 
   // Returns true when the command should end.
