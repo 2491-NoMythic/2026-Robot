@@ -5,6 +5,7 @@
 package frc.robot.settings;
 
 import static frc.robot.settings.Constants.DriveConstants.FR_STEER_MOTOR_ID;
+import static frc.robot.settings.Constants.IntakeConstants.INTAKE_DEPLOYED_POSITION;
 import static frc.robot.settings.Constants.IntakeConstants.INTAKE_DOWN_SOFT_LIMIT;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
@@ -146,12 +147,14 @@ public final class Constants {
     public static final int INTAKE_ROLLER_TWO_ID = 17;
     public static final int INTAKE_DEPLOYER_ID = 13;
     public static final int INTAKE_ENCODER_ID = 31;
-    public static final double INTAKE_DOWN_SOFT_LIMIT  = -0.007;
+    public static final double INTAKE_RETRACTED_POSITION = -0.65;
+    public static final double INTAKE_DEPLOYED_POSITION = -0.07;
+    public static final double INTAKE_DOWN_SOFT_LIMIT  = INTAKE_DEPLOYED_POSITION-0.007;
     public static TalonFXConfiguration INTAKE_DEPLOYER_CONFIG = new TalonFXConfiguration()
       .withMotorOutput(new MotorOutputConfigs()
         .withInverted(InvertedValue.Clockwise_Positive))
       .withSlot0(new Slot0Configs()
-        .withKG(0).withKP(15).withKI(0).withKD(0).withGravityType(GravityTypeValue.Arm_Cosine))
+        .withKG(0).withKP(20).withKI(0).withKD(0).withGravityType(GravityTypeValue.Arm_Cosine))
       .withCurrentLimits(new CurrentLimitsConfigs()
         .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(SubsystemsEnabled.SAFE_MODE_IS_ON ? 5 : 50))  // if safe mode is on a supply current limit of 5 will be enabled
       .withSoftwareLimitSwitch(new SoftwareLimitSwitchConfigs()
@@ -160,15 +163,11 @@ public final class Constants {
       .withFeedback(new FeedbackConfigs()
         .withFeedbackSensorSource(FeedbackSensorSourceValue.RemoteCANcoder)
         .withFeedbackRemoteSensorID(INTAKE_ENCODER_ID));
-    public static TalonFXSConfiguration INTAKE_ROLLER_ONE_CONFIG = new TalonFXSConfiguration()
-      .withCommutation(new CommutationConfigs()
-        .withMotorArrangement(MotorArrangementValue.Minion_JST))
+    public static TalonFXConfiguration INTAKE_ROLLER_ONE_CONFIG = new TalonFXConfiguration()
       .withSlot0(new Slot0Configs()
         .withKV(0.105).withKS(0.348).withKP(0.1).withKI(0).withKD(0))
       .withMotorOutput(new MotorOutputConfigs()
         .withInverted(InvertedValue.Clockwise_Positive));
-    public static final double INTAKE_RETRACTED_POSITION = -0.54;
-    public static final double INTAKE_DEPLOYED_POSITION = -0.018;
   }
 
   public static final class IndexerConstants{
@@ -218,7 +217,7 @@ public final class Constants {
     public static final double BLUE_NEUTRAL_ZONE_X = 5;
     public static final double RED_NEUTRAL_ZONE_X = 11.5;
     public static final double FIELD_CENTER_Y = 4;
-    public static final double FIELD_LENGTH_X = 16;
+    public static final double FIELD_LENGTH_X = 11; //16; this is artificially lowered
   }
 
   public static final class AimAtLocationConstants {
@@ -228,11 +227,12 @@ public final class Constants {
     public static final int R_TRENCH_ROBOT_ANGLE = 80 + 180;
     public static final int L_CORNER_ROBOT_ANGLE = -40 + 180;
     public static final int R_CORNER_ROBOT_ANGLE = 40 + 180;
-    public static final int TRENCH_HOOD_ANGLE = 2491;
+    public static final int TRENCH_HOOD_ANGLE = 20;
     public static final int CORNER_HOOD_ANGLE = 29;
     public static final int TOWER_ROBOT_ANGLE = 0 + 180;
     public static final int TOWER_HOOD_ANGLE = 15;
     public static final double CORNER_SHOOTING_SPEED = 73;
+    public static final double TRENCH_SHOOTING_SPEED = 63;
     public static final double HUB_SHOOTING_SPEED = 55;
   }
 

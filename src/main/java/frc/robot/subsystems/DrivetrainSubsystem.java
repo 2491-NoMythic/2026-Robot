@@ -757,6 +757,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       }
                                                                                                                     //NEEDS TO BE BLUE! this is alliance-agnostic
       double squishedPositionBetweenAllianceZoneAndEnd = (RED_NEUTRAL_ZONE_X - getPose().getX()) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value. 
+      squishedPositionBetweenAllianceZoneAndEnd = Math.min(squishedPositionBetweenAllianceZoneAndEnd, 1);
       desiredSpeed = SHOOTING_SPEED_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
     } else if (!isRed && getPose().getX() > BLUE_NEUTRAL_ZONE_X) {
       passing = true;
@@ -767,6 +768,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       }
 
       double squishedPositionBetweenAllianceZoneAndEnd = (getPose().getX() - BLUE_NEUTRAL_ZONE_X) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value
+      squishedPositionBetweenAllianceZoneAndEnd = Math.min(squishedPositionBetweenAllianceZoneAndEnd, 1);
       desiredSpeed = SHOOTING_SPEED_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
     } else {
       if (isRed) {

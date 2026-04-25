@@ -365,7 +365,7 @@ public class RobotContainer {
   private void intakeInit() {
     intake = new Intake();
     
-    new Trigger(DeployIntakeSup).whileTrue(new InstantCommand(()->intake.deployIntake(), intake));
+    new Trigger(DeployIntakeSup).whileTrue(new Expand(intake));
     new Trigger(RetractIntakeSup).whileTrue(new InstantCommand(()->intake.retractIntake(), intake));
     new Trigger(IntakeBackwardsSup).whileTrue(intake.run(()->intake.setVelocity(-45))).onFalse(new InstantCommand(()->intake.stopWheels(), intake));
     new Trigger(PulseIntakeSup).whileTrue(new PulseIntake(intake));
