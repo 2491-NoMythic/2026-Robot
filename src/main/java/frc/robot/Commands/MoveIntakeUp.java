@@ -36,7 +36,7 @@ public class MoveIntakeUp extends Command {
   public void execute() {
     if(timer.get() < 1) {
       intake.feedHopper();
-      intake.setIntakeAngle(-0.13);
+      intake.setIntakeAngle(-0.17);
     } else {
       intake.setIntakeAngle(-0.3);
     }
