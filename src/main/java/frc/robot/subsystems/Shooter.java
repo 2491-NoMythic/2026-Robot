@@ -70,7 +70,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean isAtSpeed() {
-    return shootMotor1.getVelocity().getValueAsDouble() > 22;
+    return shootMotor1.getClosedLoopError().getValueAsDouble() < 10;
   }
 
   public void shooterOn() {

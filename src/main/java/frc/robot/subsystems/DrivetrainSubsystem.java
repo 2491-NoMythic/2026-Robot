@@ -803,6 +803,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
 
     SmartDashboard.putNumber("autoaim/desiredShooterSpeed", RobotState.getInstance().desiredShooterSpeed);
+    Logger.recordOutput("Shooter/desiredShooterSpeed", RobotState.getInstance().desiredShooterSpeed);
     SmartDashboard.putBoolean("autoaim/overrideShooterSpeed", RobotState.getInstance().overrideShooterSpeed);
 
 
