@@ -9,13 +9,15 @@ import com.revrobotics.spark.SparkMax;
 public class MotorLoggerInputs {
     public double voltage;
     public double velocity;
-    public double current;
+    public double outputCurrent;
+    public double supplyCurrent;
     public double position;
     public double temperature;
 
     public void log(SparkMax motor) {
         voltage = motor.getAppliedOutput() * motor.getBusVoltage();
-        current = motor.getOutputCurrent();
+        outputCurrent = motor.getOutputCurrent();
+        supplyCurrent = motor.getOutputCurrent();
         velocity = motor.getEncoder().getVelocity() / 60; // divide by 60 to convert from RPM to RPS
         position = motor.getEncoder().getPosition();
         temperature = motor.getMotorTemperature();
@@ -29,7 +31,8 @@ public class MotorLoggerInputs {
      */
     public void log(CommonTalon motor) {
         voltage = motor.getMotorVoltage().getValueAsDouble();
-        current = motor.getStatorCurrent().getValueAsDouble();
+        outputCurrent = motor.getStatorCurrent().getValueAsDouble();
+        supplyCurrent = motor.getSupplyCurrent().getValueAsDouble();
         velocity = motor.getVelocity().getValueAsDouble();
         position = motor.getPosition().getValueAsDouble();
         temperature = motor.getDeviceTemp().getValueAsDouble();

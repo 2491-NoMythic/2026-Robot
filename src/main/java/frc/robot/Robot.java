@@ -61,7 +61,6 @@ public class Robot extends LoggedRobot {
         Logger.addDataReceiver(new WPILOGWriter("/home/lvuser/logs"));
       }
       Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
-      new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
     } else {
       setUseTiming(false); // Run as fast as possible
       String logPath =
