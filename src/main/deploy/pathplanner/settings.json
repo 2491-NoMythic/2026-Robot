@@ -7,8 +7,8 @@
     "Collect"
   ],
   "autoFolders": [
-    "Bump Autos",
-    "Untested"
+    "Non-Double Backs",
+    "Double-Backs"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 2.5,

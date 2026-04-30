@@ -76,7 +76,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2SHOT R-L Bump AG Half 2"
+            "pathName": "2SHOT R Bump AG Half 2"
           }
         },
         {
@@ -140,6 +140,6 @@
     }
   },
   "resetOdom": false,
-  "folder": "Untested",
+  "folder": "Double-Backs",
   "choreoAuto": false
 }
