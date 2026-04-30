@@ -728,6 +728,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     for (int i = 0; i < 4; i++) {
       inputs.swerveModuleStates[i] = modules[i].getState();
       inputs.swerveModulePositions[i] = modules[i].getPosition();
+      Logger.processInputs("Drivetrain/Motors/Module " + i, modules[i].getUpdatedInputsFile());
     }
     inputs.gyroScopeRotation = pigeon.getRotation2d();
     inputs.pitch = pigeon.getPitch().getValueAsDouble();

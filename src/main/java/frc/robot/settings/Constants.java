@@ -147,8 +147,8 @@ public final class Constants {
     public static final int INTAKE_ROLLER_TWO_ID = 17;
     public static final int INTAKE_DEPLOYER_ID = 13;
     public static final int INTAKE_ENCODER_ID = 31;
-    public static final double INTAKE_RETRACTED_POSITION = -0.65;
-    public static final double INTAKE_DEPLOYED_POSITION = -0.07;
+    public static final double INTAKE_RETRACTED_POSITION = -0.55;
+    public static final double INTAKE_DEPLOYED_POSITION = 0;
     public static final double INTAKE_DOWN_SOFT_LIMIT  = INTAKE_DEPLOYED_POSITION-0.007;
     public static TalonFXConfiguration INTAKE_DEPLOYER_CONFIG = new TalonFXConfiguration()
       .withMotorOutput(new MotorOutputConfigs()
