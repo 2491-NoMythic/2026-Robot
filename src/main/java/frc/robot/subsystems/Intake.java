@@ -47,6 +47,7 @@ public class Intake extends SubsystemBase {
     rollerTwo.setControl(new Follower(INTAKE_ROLLER_ONE_ID, MotorAlignmentValue.Opposed));
     deployer.getConfigurator().apply(INTAKE_DEPLOYER_CONFIG);
     inputs = new IntakeInputsAutoLogged();
+    SmartDashboard.putBoolean("IntakeHoldPosition", false);
   }
 
   /**
@@ -143,8 +144,10 @@ public class Intake extends SubsystemBase {
     if(targetedPosition != INTAKE_DEPLOYED_POSITION) {
       holdPosition = false;
     }
-    if(holdPosition && deployer.getPosition().getValueAsDouble() < INTAKE_DOWN_SOFT_LIMIT && DriverStation.isTeleop()) {
-      holdPosition();
+    if(SmartDashboard.getBoolean("IntakeHoldPosition", false)) {
+      if(holdPosition && deployer.getPosition().getValueAsDouble() < INTAKE_DOWN_SOFT_LIMIT && DriverStation.isTeleop()) {
+        holdPosition();
+      }
     }
   }
 

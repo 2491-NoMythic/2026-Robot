@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2SHOT R Bump AG Half 1"
+            "pathName": "1SHOT L Bump AG Half Tower"
           }
         },
         {
@@ -48,7 +48,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 4.0
+                  "waitTime": 7.0
                 }
               },
               {
@@ -58,70 +58,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.7
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AgitateFuel"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "reworked 2SHOT R Bump AG Half 2"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AimRobotMoving"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.1
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "RunIndexer"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 6.0
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.0
+                        "waitTime": 3.0
                       }
                     },
                     {

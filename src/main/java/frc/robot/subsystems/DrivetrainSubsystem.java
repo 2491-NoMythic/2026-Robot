@@ -728,6 +728,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     for (int i = 0; i < 4; i++) {
       inputs.swerveModuleStates[i] = modules[i].getState();
       inputs.swerveModulePositions[i] = modules[i].getPosition();
+      Logger.processInputs("Drivetrain/Motors/Module " + i, modules[i].getUpdatedInputsFile());
     }
     inputs.gyroScopeRotation = pigeon.getRotation2d();
     inputs.pitch = pigeon.getPitch().getValueAsDouble();
@@ -802,6 +803,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
 
     SmartDashboard.putNumber("autoaim/desiredShooterSpeed", RobotState.getInstance().desiredShooterSpeed);
+    Logger.recordOutput("Shooter/desiredShooterSpeed", RobotState.getInstance().desiredShooterSpeed);
     SmartDashboard.putBoolean("autoaim/overrideShooterSpeed", RobotState.getInstance().overrideShooterSpeed);
 
 

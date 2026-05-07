@@ -17,9 +17,11 @@ import frc.robot.settings.Constants.IntakeConstants;
 public class MoveIntakeUp extends Command {
   Intake intake;
   Timer timer;
+  double timeAfterFirstRaise;
  
-  public MoveIntakeUp(Intake intake) {
+  public MoveIntakeUp(Intake intake, double timeAfterFirstRaise) {
     this.intake = intake;
+    this.timeAfterFirstRaise = timeAfterFirstRaise;
     timer = new Timer();
     addRequirements(intake);
   }
@@ -34,7 +36,7 @@ public class MoveIntakeUp extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(timer.get() < 1) {
+    if(timer.get() < timeAfterFirstRaise) {
       intake.feedHopper();
       intake.setIntakeAngle(-0.17);
     } else {
