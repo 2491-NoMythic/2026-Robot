@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "WALLE 2SHOT L Bump AG Half 1"
+            "pathName": "L Bump FR Quarter"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.5
+                  "waitTime": 0.1
                 }
               }
             ]
@@ -48,7 +48,26 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 5.0
+                  "waitTime": 4.0
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.7
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AgitateFuel"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -57,7 +76,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "WALLE 2SHOT L Bump AG Half 2"
+            "pathName": "2SHOT R-L Bump AG Half 2"
           }
         },
         {
@@ -73,7 +92,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.5
+                  "waitTime": 0.1
                 }
               }
             ]
@@ -94,6 +113,25 @@
                 "data": {
                   "waitTime": 6.0
                 }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AgitateFuel"
+                      }
+                    }
+                  ]
+                }
               }
             ]
           }
@@ -102,6 +140,6 @@
     }
   },
   "resetOdom": false,
-  "folder": "Untested",
+  "folder": "Double-Backs",
   "choreoAuto": false
 }
