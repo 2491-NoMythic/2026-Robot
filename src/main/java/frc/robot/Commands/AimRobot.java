@@ -82,9 +82,14 @@ public class AimRobot extends Command {
         joystickXSupplier.getAsDouble() * invert * MAX_VELOCITY_METERS_PER_SECOND,
         rotationSpeed,
         drivetrain.getOdometryRotation()));
-      }
+    }
     SmartDashboard.putNumber("angle targeting error", rotationController.getError());
-    RobotState.getInstance().Aimed = Math.abs(rotationController.getError()) < 2;
+    if(Math.abs(rotationController.getError()) < 2) {
+      RobotState.getInstance().Aimed = true;
+    }
+    if(Math.abs(rotationController.getError()) > 3) {
+      RobotState.getInstance().Aimed = false;
+    }
     SmartDashboard.putBoolean("AIMROBOTRUNNING", true);
   }
   

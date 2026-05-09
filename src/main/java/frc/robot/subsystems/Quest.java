@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.Matrix;
@@ -17,6 +19,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,12 +33,14 @@ import gg.questnav.questnav.QuestNav;
 public class Quest extends SubsystemBase {
   QuestNav questNav = new QuestNav();
   //for the transform3D below, x is forward, either y or z is how far left of center the quest is. The other one is upwardsness, but that doesn't matter to us. The Rotation3d matters for some reason, even though we don't get pitch, roll, or yaw from the quest
-  Transform3d robotToQuest = new Transform3d(-0.278, -0.165, -0.165, new Rotation3d(0, 0, Math.toRadians(-180)));
+  Transform3d robotToQuest = new Transform3d(-0.24, 0.063, 0.063, new Rotation3d(0, 0, Math.toRadians(-180)));
   Matrix<N3, N1> questnavStandardDeviations = VecBuilder.fill(0.02, 0.02, 0.035); //The suggested Standerd Deviations for QuestNav
   DrivetrainSubsystem drivetrain;
   QuestInputsAutoLogged inputs;
   Limelight limelight;
   double lastFrameCount = 0;
+  int robotFramesSinceLastQuestFrame;
+  int lastFrameNum;
   /** Creates a new Quest. */
   public Quest(DrivetrainSubsystem drivetrain) {
     this.drivetrain = drivetrain;
@@ -87,9 +92,9 @@ public class Quest extends SubsystemBase {
     }
 
     if (isBlue != intakeOut) {
-      drivetrain.setGyroscope(0);
-    } else {
       drivetrain.setGyroscope(180);
+    } else {
+      drivetrain.setGyroscope(0);
     }
     
     
@@ -119,8 +124,16 @@ public class Quest extends SubsystemBase {
     inputs.odometryUpdatingState = RobotState.getInstance().odometryUpdatingState;
 
     Logger.processInputs("Quest", inputs);
+    
+    if (inputs.frameCount != lastFrameNum) {
+      lastFrameNum = inputs.frameCount;
+      robotFramesSinceLastQuestFrame = 0;
+    } else robotFramesSinceLastQuestFrame++;
 
-    RobotState.getInstance().questIsConnected = inputs.isConnected && inputs.isTracking && inputs.frameCount != lastFrameCount;
+    SmartDashboard.putNumber("Quest Battery", inputs.batteryPercentage);
+    SmartDashboard.putNumber("Frames since quest update", robotFramesSinceLastQuestFrame);
+
+    RobotState.getInstance().questIsConnected = inputs.isConnected && inputs.isTracking && robotFramesSinceLastQuestFrame < 5;
     lastFrameCount = inputs.frameCount;
     SmartDashboard.putBoolean("Quest Connected", RobotState.getInstance().questIsConnected);
     questNav.commandPeriodic();
@@ -130,7 +143,7 @@ public class Quest extends SubsystemBase {
     if(RobotState.getInstance().odometryUpdatingState == OdometryUpdatingState.Quest && RobotState.getInstance().questIsConnected) {
       if (limelight.getTrustedPose()!= null) {
         Pair<Pose2d, LimelightInputs> estimate = limelight.getTrustedPose();
-        if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 10 && estimate.getSecond().tagCount != 0 && drivetrain.isFlat()) {
+        if (drivetrain.getDrivetrainVelocity() < 0.2 && Math.abs(drivetrain.getAngularVelocity()) < 10 && estimate.getSecond().tagCount != 0 && drivetrain.isFlat() && DriverStation.isEnabled()) {
           setQuestNavPose(estimate.getFirst());
           didUpdateQuestPose = true;
         }

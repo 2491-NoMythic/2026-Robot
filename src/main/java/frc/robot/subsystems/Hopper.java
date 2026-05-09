@@ -23,7 +23,7 @@ public class Hopper extends SubsystemBase {
 
   /** Creates a new Hopper. */
   public Hopper() {
-    hopperRollerMotor = new TalonFX(HOPPER_MOTOR_ID, CANIVORE_DRIVETRAIN);
+    hopperRollerMotor = new TalonFX(HOPPER_MOTOR_ID);
     hopperRollerMotor.getConfigurator().apply(HOPPER_CONFIG);
     inputs = new HopperInputsAutoLogged();
     SmartDashboard.putBoolean("Old intake speed activate", false);

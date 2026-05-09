@@ -29,8 +29,8 @@ public class Indexer extends SubsystemBase {
     motor_1 = new TalonFX(INDEXER_MOTOR_1_ID, CANIVORE_DRIVETRAIN);
     motor_2 = new TalonFX(INDEXER_MOTOR_2_ID, CANIVORE_DRIVETRAIN);
     motor_2.setControl(new Follower(INDEXER_MOTOR_1_ID, MotorAlignmentValue.Opposed));
-    motor_1.getConfigurator().apply(INDEXER_RIGHT_CONFIG);
-    motor_2.getConfigurator().apply(INDEXER_LEFT_CONFIG);
+    motor_1.getConfigurator().apply(INDEXER_LEFT_CONFIG);
+    motor_2.getConfigurator().apply(INDEXER_RIGHT_CONFIG);
     inputs = new IndexerInputsAutoLogged();
   }
 

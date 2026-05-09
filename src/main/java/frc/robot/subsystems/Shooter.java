@@ -29,7 +29,7 @@ public class Shooter extends SubsystemBase {
   TalonFXS hoodMotor;
   ShooterInputsAutoLogged inputs;
   double desiredPosition;
-  boolean autoRetractOn;
+  public boolean isOn;
   /** Creates a new Shooter. */
   public Shooter() {
     shootMotor1 = new TalonFX(SHOOTER_LEFT_MOTOR_ID, CANIVORE_DRIVETRAIN);
@@ -57,59 +57,44 @@ public class Shooter extends SubsystemBase {
    * Sets motor power to zero
    */
   public void stop(){
-    shootMotor1.set(0);
+    //shootMotor1.set(0);
+    isOn = false;
   }
 
   /**
    * Sets velocity target for shoot motor
    * @param speed RPS
    */
-  public void setVelocity(double speed){
+  private void setVelocity(double speed){
     shootMotor1.setControl(new VelocityVoltage(speed));
   }
 
   public boolean isAtSpeed() {
-    return shootMotor1.getVelocity().getValueAsDouble() > 22;
+    return shootMotor1.getClosedLoopError().getValueAsDouble() < 10;
   }
 
   public void shooterOn() {
-    setVelocity(SHOOTING_SPEED_RPS);
+    //setVelocity(SHOOTING_SPEED_RPS);
+    isOn = true;
   }
 
-  public void setShooterToFullPassState() {
+  public void setShooterToPassState() {
     setVelocity(65);
-    setDesiredHoodAngle(0, false);
+    setDesiredHoodAngle(0);
   }
-  
-  public void setShooterToHalfPassState() {
-    setVelocity(65);
-    setDesiredHoodAngle(0, false);
-  }
-  
   /**
    * sends a positionVoltage request to the hood motor
    * @param angle angle to set the hood to, in radians
    */
-  public void setDesiredHoodAngle(double angle, boolean autoRetract){
-    desiredPosition = InchPositionToActuatorConstrainedPercent(
-      MythicalMath.ServoExtensionToReachHoodAngle(angle, 6.610, 8.134, 4.914, 54.328)
-    );
-    
-    autoRetractOn = autoRetract;
-  }
-
-  private void setHoodMotor(double angle){
-    PositionVoltage target = new PositionVoltage(hoodAngleToMotorRotations(angle));
-    hoodMotor.setControl(target);
-  }
-
-  private double hoodAngleToMotorRotations(double hoodAngle) {
-    return 0;
-  }
-
-  public double InchPositionToActuatorConstrainedPercent(double inches){
-    double range = HOOD_UP_POSITION - HOOD_DOWN_POSITION;
-    return (inches / 3.93701) * range + HOOD_DOWN_POSITION; //Actuator "prefers" (demands) values from 0.2 to 0.8
+  public void setDesiredHoodAngle(double angle){
+    desiredPosition = angle;
+    if (desiredPosition < HOOD_DOWN_POSITION){
+      desiredPosition = HOOD_DOWN_POSITION;
+    }
+    if (desiredPosition > HOOD_UP_POSITION){
+      desiredPosition = HOOD_UP_POSITION;
+    }
+    hoodMotor.setControl(new PositionVoltage(desiredPosition));
   }
 
   @Override
@@ -126,33 +111,12 @@ public class Shooter extends SubsystemBase {
       SmartDashboard.putString("ShooterCurrentCommand", "null");
     }
 
-    if (false)/**used to be autorectracton*/ {
-      //logic below checks if robot is in one of four squares around the trenches
-      double x = RobotState.getInstance().robotPosition.getX();
-      double y = RobotState.getInstance().robotPosition.getY();
-      boolean inBadxZone = false;
-      boolean inBadyZone = false;
-      if((3.5 < x && x < 5.5) || (11 < x && x < 13)) {
-        inBadxZone = true;
-      }
-      if((0 < y && y < 1.75) || (6.5 < y && y < 8)) {
-        inBadyZone = true;
-      }
-      //if we are in position control, and in one of those squares around trenches, hood all the way down
-      if(inBadxZone && inBadyZone) {
-        setHoodMotor(HOOD_DOWN_POSITION);
-        SmartDashboard.putBoolean("Shooter/automaticallyRetraced", true);
-      } else {
-        setHoodMotor(desiredPosition);
-        SmartDashboard.putBoolean("Shooter/automaticallyRetraced", false);
-      }
+    if(isOn) {
+      setVelocity(RobotState.getInstance().desiredShooterSpeed);
     } else {
-      setHoodMotor(desiredPosition);
-      SmartDashboard.putBoolean("Shooter/automaticallyRetraced", false);
+      //shootMotor1.disable();
+      shootMotor1.stopMotor();
+      //setVelocity(0);
     }
-
-    //double smartActuatorValue = SmartDashboard.getNumber("hoodPosition", 0);
-    //leftHoodActuator.set(smartActuatorValue);
-    //System.out.print("Actuator should be at " + smartActuatorValue);
   }
 }
