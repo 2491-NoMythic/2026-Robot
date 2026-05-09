@@ -127,6 +127,7 @@ public class Intake extends SubsystemBase {
     inputs.wheelsMotor2.log(rollerTwo);
     inputs.deployerMotor.log(deployer);
     Logger.processInputs("Intake", inputs);
+    
     if(this.getCurrentCommand() != null) {
     } else {
       SmartDashboard.putString("IntakeCurrentCommand", "null");

@@ -105,6 +105,7 @@ public class Shooter extends SubsystemBase {
     inputs.hoodMotor.log(hoodMotor);
     Logger.processInputs("Shooter", inputs);
     SmartDashboard.putBoolean("SHOOTER/isAtSpeed", isAtSpeed());
+    
     if(this.getCurrentCommand() != null) {
       SmartDashboard.putString("ShooterCurrentCommand", this.getCurrentCommand().toString());
     } else {
