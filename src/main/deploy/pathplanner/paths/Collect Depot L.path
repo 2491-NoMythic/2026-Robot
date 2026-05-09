@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.115188888888889,
+        "x": 2.9522111269614832,
         "y": 5.488
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.9361180679785326,
+        "x": 0.7731403060511264,
         "y": 7.661377459749552
       },
       "isLocked": false,
-      "linkedName": "L Shooting"
+      "linkedName": "EVE L Shooting"
     },
     {
       "anchor": {
@@ -40,24 +40,24 @@
         "y": 5.699999999999999
       },
       "nextControl": {
-        "x": 0.4334936490538913,
-        "y": 5.2250000000000005
+        "x": 0.4334936490538902,
+        "y": 5.225
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.115188888888889,
+        "x": 2.9522111269614832,
         "y": 5.488
       },
       "prevControl": {
-        "x": 0.7414132379248657,
+        "x": 0.5784354759974599,
         "y": 4.708354203935598
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "L Shooting"
+      "linkedName": "EVE L Shooting"
     }
   ],
   "rotationTargets": [
@@ -83,13 +83,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 140.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 140.0
   },
   "useDefaultConstraints": true
 }

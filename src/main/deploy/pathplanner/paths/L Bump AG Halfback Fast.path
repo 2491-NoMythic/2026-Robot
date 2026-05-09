@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.9522111269614832,
+        "x": 3.115188888888889,
         "y": 5.488
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.113481404150221,
+        "x": 4.276459166077627,
         "y": 5.63556028019702
       },
       "isLocked": false,
@@ -183,7 +183,7 @@
   "folder": "Auto Bump Paths",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": 140.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

@@ -96,11 +96,11 @@
     },
     {
       "anchor": {
-        "x": 2.9522111269614832,
+        "x": 3.115188888888889,
         "y": 5.488
       },
       "prevControl": {
-        "x": 3.885,
+        "x": 4.047977761927406,
         "y": 5.486922222222222
       },
       "nextControl": null,
@@ -231,7 +231,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 140.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Auto Bump Paths",
