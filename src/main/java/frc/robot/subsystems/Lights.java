@@ -55,9 +55,9 @@ public class Lights extends SubsystemBase {
 
   /** Creates a new Lights. */
   public Lights() {
-    lights = new AddressableLED(0);
-    lights.setLength(30);
-    LEDBuffer = new AddressableLEDBuffer(30);
+    lights = new AddressableLED(9);
+    lights.setLength(82);
+    LEDBuffer = new AddressableLEDBuffer(82);
 
     lights.start();
 
@@ -146,7 +146,7 @@ public class Lights extends SubsystemBase {
       currentEffect = EffectEnums.IndexingFlow;
     }
 
-    currentEffect = EffectEnums.RangeFlash;
+    currentEffect = EffectEnums.IndexingFlow;
 
     double time = timer.get();
     deltaTime = time - lastTime;
