@@ -47,6 +47,7 @@ public class RobotState {
   public boolean lightsRobotDisabled;
   public boolean lightsShooterOutOfRange;
   public boolean lightsIndexing;
+  public double lightsRobotSpeed;
 
   public static List<TimerPhase> timerPhases;
   public static TimerPhase currentPhase;

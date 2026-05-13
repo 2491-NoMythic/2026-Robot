@@ -714,6 +714,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     Logger.recordOutput("autoaim/yaw", RobotState.getInstance().aimingYaw);
     Logger.recordOutput("autoaim/target", BLUE_HUB_COORDINATE);
     SmartDashboard.putBoolean("LimelightsUpdatedState", RobotState.getInstance().LimelightsUpdated);
+
+    RobotState.getInstance().lightsRobotSpeed = Math.hypot(getChassisSpeeds().vxMetersPerSecond, getChassisSpeeds().vyMetersPerSecond);
   }
 
   public boolean nearBumps() {

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants.LightConstants;
 import frc.robot.Robot;
@@ -31,6 +32,7 @@ import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.signals.Enable5VRailValue;
 import com.ctre.phoenix6.signals.RGBWColor;
 import com.ctre.phoenix6.signals.StripTypeValue;
+import java.awt.color.*;
 
 public class Lights extends SubsystemBase {
   private AddressableLED lights;
@@ -78,13 +80,15 @@ public class Lights extends SubsystemBase {
     }
 
     SmartDashboard.putNumber("shooterMult", 0.1);
-  }
+    SmartDashboard.putNumber("Lights/Brightness", 1);
+    SmartDashboard.putBoolean("Lights/Show Mode", false);
+}
 
   public void setOneLightRGB(int index, int R, int G, int B) {
-    //try {
-      LEDBuffer.setRGB(index, R, G, B);
+    double brightness = SmartDashboard.getNumber("Lights/Brightness", 1);
+    LEDBuffer.setRGB(index, (int)(R * brightness), (int)(G * brightness), (int)(B * brightness));
     //} catch(Exception e) {}
-    //candle.setControl(new SolidColor(index, index).withColor(new RGBWColor(R, G, B)));
+    candle.setControl(new SolidColor(index, index).withColor(new RGBWColor(R, G, B)));
   }
 
   public void setLights(int start, int end, int R, int G, int B) {
@@ -137,13 +141,25 @@ public class Lights extends SubsystemBase {
   public void periodic() {
     //updateBlinkedLights();
     // This method will be called once per scheduler run
+double velocity = 0;
 
     if(RobotState.getInstance().lightsRobotDisabled) {
-      currentEffect = EffectEnums.AllianceBreathe;
+      if(SmartDashboard.getBoolean("Lights/Show Mode", false)) { //show mode
+        currentEffect = EffectEnums.RGBPride;
+      } else if() { //match has been played
+        currentEffect = EffectEnums.ShutdownGreen;
+      } else {
+        currentEffect = EffectEnums.AllianceBreathe;
+      }
+    } else if(edu.wpi.first.wpilibj.RobotState.isAutonomous()) { //in autonomous
+      currentEffect = EffectEnums.RGBPride;
     } else if(RobotState.getInstance().lightsShooterOutOfRange) {
       currentEffect = EffectEnums.RangeFlash;
     } else if(RobotState.getInstance().lightsIndexing) {
       currentEffect = EffectEnums.IndexingFlow;
+    } else {
+      velocity = RobotState.getInstance().lightsRobotSpeed;
+      currentEffect = EffectEnums.SpeedGlow;
     }
 
     currentEffect = EffectEnums.IndexingFlow;
@@ -204,6 +220,32 @@ public class Lights extends SubsystemBase {
         lights.setData(LEDBuffer);
 
         break;
+
+        case ShutdownGreen:
+        brightness = (int) (Math.round((Math.sin(time * 4) + 1)/2)) * 120;
+        setSystemLights(LightsEnums.All, 0, 135 + brightness, 0);
+
+        break;
+
+        case SpeedGlow:
+        brightness = (int)(velocity / 6) * 255 * 2;
+        if(brightness > 255) { //when going extra fast the lights "overclock" into turning white
+          setSystemLights(LightsEnums.All, brightness, brightness - 255, brightness);
+        } else {
+          setSystemLights(LightsEnums.All, brightness, 0, brightness);
+        }
+
+        break;
+
+        case RGBPride:
+          for (int i = 0; i < LightConstants.ALL_LIGHT_END; i++) {
+            brightness = (int) ((Math.sin(time + i / 8) + 1) / 2);
+            java.awt.Color rgbValues = new java.awt.Color(java.awt.Color.HSBtoRGB(brightness, 1, 1));
+            LEDBuffer.setRGB(i, rgbValues.getRed(), rgbValues.getGreen(), rgbValues.getBlue());
+          }
+          lights.setData(LEDBuffer);
+
+          break;
     }
     
   }

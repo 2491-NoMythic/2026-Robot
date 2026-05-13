@@ -4,5 +4,8 @@ public enum EffectEnums {
     AllianceBreathe,
     ShootingSparkle,
     IndexingFlow,
-    RangeFlash
+    RangeFlash,
+    ShutdownGreen,
+    SpeedGlow,
+    RGBPride
 }
