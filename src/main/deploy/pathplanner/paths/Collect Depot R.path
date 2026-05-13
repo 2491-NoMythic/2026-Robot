@@ -8,7 +8,7 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.06455817526202,
+        "x": 2.0645581752620203,
         "y": 5.584323285481005
       },
       "isLocked": false,
@@ -20,7 +20,7 @@
         "y": 7.0123613595706615
       },
       "prevControl": {
-        "x": 1.5247998151311106,
+        "x": 1.5247998151311108,
         "y": 6.84208537395134
       },
       "nextControl": {
@@ -102,7 +102,7 @@
     "rotation": 140.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Second Passes",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -140.0

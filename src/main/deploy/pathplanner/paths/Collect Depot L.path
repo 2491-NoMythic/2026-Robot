@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 0.7731403060511264,
-        "y": 7.661377459749552
+        "y": 7.661377459749551
       },
       "isLocked": false,
       "linkedName": "EVE L Shooting"
@@ -86,7 +86,7 @@
     "rotation": 140.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Second Passes",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 140.0

@@ -8,72 +8,104 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.982593792911848,
-        "y": 6.133439528555755
+        "x": 4.960664273889511,
+        "y": 5.158320533401207
       },
       "isLocked": false,
       "linkedName": "EVE L Shooting"
     },
     {
       "anchor": {
-        "x": 5.811654778887304,
-        "y": 5.050684736091298
+        "x": 7.0950227272727275,
+        "y": 5.292431818181818
       },
       "prevControl": {
-        "x": 5.72296912517703,
-        "y": 5.284425735545782
+        "x": 6.256233398591168,
+        "y": 5.844180126958842
       },
       "nextControl": {
-        "x": 5.992459963384811,
-        "y": 4.57415236853314
+        "x": 7.53477818227916,
+        "y": 5.0031645131761
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.355078459343795,
-        "y": 3.82151212553495
+        "x": 7.6825113636363636,
+        "y": 4.756477272727272
       },
       "prevControl": {
-        "x": 6.343615593819343,
-        "y": 4.256597209928435
+        "x": 7.45743321857275,
+        "y": 5.025118929738682
       },
       "nextControl": {
-        "x": 6.36521636632647,
-        "y": 3.4367172323451767
+        "x": 8.32153409090909,
+        "y": 3.9937727272727273
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.682268188302425,
-        "y": 2.695848787446506
+        "x": 7.321772727272727,
+        "y": 3.0764659090909094
       },
       "prevControl": {
-        "x": 5.9208240575091295,
-        "y": 2.7706224276349674
+        "x": 7.952735343674732,
+        "y": 2.859080285102211
       },
       "nextControl": {
-        "x": 5.003786583864394,
-        "y": 2.4831835550485533
+        "x": 6.618893769661064,
+        "y": 3.3186288785236124
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.9522111269614832,
-        "y": 2.592339514978602
+        "x": 6.940420454545453,
+        "y": 4.591568181818182
       },
       "prevControl": {
-        "x": 4.427218259629101,
-        "y": 2.6570328102710414
+        "x": 7.039291560277794,
+        "y": 4.269680213031888
+      },
+      "nextControl": {
+        "x": 6.7580074821461835,
+        "y": 5.185437753023607
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.847897727272726,
+        "y": 5.5913295454545455
+      },
+      "prevControl": {
+        "x": 6.079451195201933,
+        "y": 5.4591636309797495
+      },
+      "nextControl": {
+        "x": 5.461480248866759,
+        "y": 5.811888623490826
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.115188888888889,
+        "y": 5.488
+      },
+      "prevControl": {
+        "x": 4.326671184270617,
+        "y": 5.417711367634958
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "R Shooting"
+      "linkedName": "L Shooting"
     }
   ],
   "rotationTargets": [
@@ -86,23 +118,27 @@
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 0.588486140724946,
+      "waypointRelativePos": 0.5,
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 1.2970954356846482,
+      "waypointRelativePos": 1.6,
       "rotationDegrees": -59.99999999999999
     },
     {
-      "waypointRelativePos": 1.5266524520255866,
-      "rotationDegrees": -75.0
+      "waypointRelativePos": 2.05,
+      "rotationDegrees": -59.99999999999999
     },
     {
-      "waypointRelativePos": 2.95,
+      "waypointRelativePos": 3.7452830188679354,
       "rotationDegrees": 180.0
     },
     {
-      "waypointRelativePos": 3.718550106609756,
+      "waypointRelativePos": 5.122641509433967,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 5.718550106609756,
       "rotationDegrees": 180.0
     }
   ],
@@ -122,8 +158,8 @@
     },
     {
       "name": "OverBumpIn",
-      "minWaypointRelativePos": 2.7,
-      "maxWaypointRelativePos": 4.0,
+      "minWaypointRelativePos": 4.4,
+      "maxWaypointRelativePos": 6.0,
       "constraints": {
         "maxVelocity": 2.0,
         "maxAcceleration": 3.0,
@@ -149,7 +185,7 @@
     },
     {
       "name": "ShooterOn",
-      "waypointRelativePos": 2.2,
+      "waypointRelativePos": 3.4,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -169,10 +205,10 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -140.0
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Auto Bump Paths",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0.0,
     "rotation": 140.0

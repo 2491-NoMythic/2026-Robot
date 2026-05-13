@@ -4,60 +4,60 @@
     {
       "anchor": {
         "x": 2.9522111269614832,
-        "y": 2.592339514978602
+        "y": 5.488
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.117416322339045,
-        "y": 2.921117693101267
+        "x": 4.982593792911848,
+        "y": 6.133439528555755
       },
       "isLocked": false,
-      "linkedName": "R Shooting"
+      "linkedName": "EVE L Shooting"
     },
     {
       "anchor": {
-        "x": 5.872866666666668,
-        "y": 2.8266888888888877
+        "x": 5.811654778887304,
+        "y": 5.050684736091298
       },
       "prevControl": {
-        "x": 5.265932917961454,
-        "y": 2.5814041590858454
+        "x": 5.72296912517703,
+        "y": 5.284425735545782
       },
       "nextControl": {
-        "x": 6.272912528847548,
-        "y": 2.988362451156919
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 6.447788888888889,
-        "y": 4.259
-      },
-      "prevControl": {
-        "x": 7.101548628713147,
-        "y": 4.179956583967304
-      },
-      "nextControl": {
-        "x": 5.882611111111112,
-        "y": 4.327333333333333
+        "x": 5.992459963384811,
+        "y": 4.57415236853314
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.872866666666668,
-        "y": 2.8266888888888877
+        "x": 6.355078459343795,
+        "y": 3.82151212553495
       },
       "prevControl": {
-        "x": 6.145711111111111,
-        "y": 3.0020888888888884
+        "x": 6.343615593819343,
+        "y": 4.256597209928435
       },
       "nextControl": {
-        "x": 4.9269311828067535,
-        "y": 2.2185875064075087
+        "x": 6.36521636632647,
+        "y": 3.4367172323451767
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.682268188302425,
+        "y": 2.695848787446506
+      },
+      "prevControl": {
+        "x": 5.9208240575091295,
+        "y": 2.7706224276349674
+      },
+      "nextControl": {
+        "x": 5.003786583864394,
+        "y": 2.4831835550485533
       },
       "isLocked": false,
       "linkedName": null
@@ -68,8 +68,8 @@
         "y": 2.592339514978602
       },
       "prevControl": {
-        "x": 4.263878666839332,
-        "y": 2.907266032396396
+        "x": 4.427218259629101,
+        "y": 2.6570328102710414
       },
       "nextControl": null,
       "isLocked": false,
@@ -79,34 +79,26 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.05,
-      "rotationDegrees": -70.0
+      "rotationDegrees": 70.0
     },
     {
       "waypointRelativePos": 0.1023454157782458,
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.588486140724946,
       "rotationDegrees": 0.0
     },
     {
       "waypointRelativePos": 1.2970954356846482,
-      "rotationDegrees": 59.99999999999999
+      "rotationDegrees": -59.99999999999999
     },
     {
-      "waypointRelativePos": 1.5311203319501894,
-      "rotationDegrees": 59.99999999999999
+      "waypointRelativePos": 1.5266524520255866,
+      "rotationDegrees": -75.0
     },
     {
-      "waypointRelativePos": 2.239014373716634,
-      "rotationDegrees": 180.0
-    },
-    {
-      "waypointRelativePos": 2.5,
-      "rotationDegrees": -119.99999999999999
-    },
-    {
-      "waypointRelativePos": 3.04722792607802,
+      "waypointRelativePos": 2.95,
       "rotationDegrees": 180.0
     },
     {
@@ -180,10 +172,10 @@
     "rotation": -140.0
   },
   "reversed": false,
-  "folder": "Auto Bump Paths",
+  "folder": "Second Passes",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": -140.0
+    "rotation": 140.0
   },
   "useDefaultConstraints": true
 }

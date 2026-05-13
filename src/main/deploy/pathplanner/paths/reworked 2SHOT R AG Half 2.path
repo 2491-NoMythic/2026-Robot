@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 2.9522111269614832,
-        "y": 5.488
+        "y": 2.592339514978602
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.990340097105724,
-        "y": 6.030651187903887
+        "x": 5.117416322339045,
+        "y": 2.921117693101267
       },
       "isLocked": false,
-      "linkedName": "EVE L Shooting"
+      "linkedName": "R Shooting"
     },
     {
       "anchor": {
-        "x": 6.09698888888889,
-        "y": 5.488
+        "x": 5.872866666666668,
+        "y": 2.8266888888888877
       },
       "prevControl": {
-        "x": 5.639483596595993,
-        "y": 5.908969981325659
+        "x": 5.265932917961454,
+        "y": 2.5814041590858454
       },
       "nextControl": {
-        "x": 6.323747317924648,
-        "y": 5.279349972897132
+        "x": 6.272912528847548,
+        "y": 2.988362451156919
       },
       "isLocked": false,
       "linkedName": null
@@ -33,53 +33,53 @@
     {
       "anchor": {
         "x": 6.447788888888889,
-        "y": 3.810877777777778
+        "y": 4.259
       },
       "prevControl": {
-        "x": 7.354095694901577,
-        "y": 3.7927516416575258
+        "x": 7.101548628713147,
+        "y": 4.179956583967304
       },
       "nextControl": {
-        "x": 5.960566666666666,
-        "y": 3.8206222222222213
+        "x": 5.882611111111112,
+        "y": 4.327333333333333
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.765677777777778,
-        "y": 5.488
+        "x": 5.872866666666668,
+        "y": 2.8266888888888877
       },
       "prevControl": {
-        "x": 6.301622222222222,
-        "y": 5.223822222222222
+        "x": 6.145711111111111,
+        "y": 3.0020888888888884
       },
       "nextControl": {
-        "x": 5.466129856308826,
-        "y": 5.6356531850491525
+        "x": 4.9269311828067535,
+        "y": 2.2185875064075087
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.115188888888889,
-        "y": 5.488
+        "x": 2.9522111269614832,
+        "y": 2.592339514978602
       },
       "prevControl": {
-        "x": 4.93777902662354,
-        "y": 5.349101389646182
+        "x": 4.263878666839332,
+        "y": 2.907266032396396
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "L Shooting"
+      "linkedName": "R Shooting"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 0.05,
-      "rotationDegrees": 70.0
+      "rotationDegrees": -70.0
     },
     {
       "waypointRelativePos": 0.1023454157782458,
@@ -91,22 +91,22 @@
     },
     {
       "waypointRelativePos": 1.2970954356846482,
-      "rotationDegrees": -59.99999999999999
+      "rotationDegrees": 59.99999999999999
     },
     {
       "waypointRelativePos": 1.5311203319501894,
-      "rotationDegrees": -59.99999999999999
+      "rotationDegrees": 59.99999999999999
     },
     {
-      "waypointRelativePos": 2.1338809034907555,
+      "waypointRelativePos": 2.239014373716634,
       "rotationDegrees": 180.0
     },
     {
       "waypointRelativePos": 2.5,
-      "rotationDegrees": 119.99999999999999
+      "rotationDegrees": -119.99999999999999
     },
     {
-      "waypointRelativePos": 2.95,
+      "waypointRelativePos": 3.04722792607802,
       "rotationDegrees": 180.0
     },
     {
@@ -177,13 +177,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 180.0
+    "rotation": -140.0
   },
   "reversed": false,
-  "folder": "Auto Bump Paths",
+  "folder": "Second Passes",
   "idealStartingState": {
     "velocity": 0.0,
-    "rotation": 140.0
+    "rotation": -140.0
   },
   "useDefaultConstraints": true
 }
