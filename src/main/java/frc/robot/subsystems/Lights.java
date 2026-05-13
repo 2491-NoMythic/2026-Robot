@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -54,6 +55,7 @@ public class Lights extends SubsystemBase {
   public double lastSparkle;
 
   public EffectEnums currentEffect;
+  SendableChooser<EffectEnums> effectChooser;
 
   /** Creates a new Lights. */
   public Lights() {
@@ -82,6 +84,15 @@ public class Lights extends SubsystemBase {
     SmartDashboard.putNumber("shooterMult", 0.1);
     SmartDashboard.putNumber("Lights/Brightness", 1);
     SmartDashboard.putBoolean("Lights/Show Mode", false);
+    effectChooser = new SendableChooser<EffectEnums>();
+    effectChooser.addOption("RGB", EffectEnums.RGBPride);
+    effectChooser.addOption("Flow", EffectEnums.IndexingFlow);
+    effectChooser.addOption("Green", EffectEnums.ShutdownGreen);
+    effectChooser.addOption("Breathe", EffectEnums.AllianceBreathe);
+    effectChooser.addOption("Flash", EffectEnums.RangeFlash);
+    effectChooser.addOption("None", null);
+    effectChooser.setDefaultOption("None", null);
+    SmartDashboard.putData("Lights/Effect Chooser", effectChooser);
 }
 
   public void setOneLightRGB(int index, int R, int G, int B) {
@@ -151,7 +162,7 @@ double velocity = 0;
       } else {
         currentEffect = EffectEnums.AllianceBreathe;
       }
-    } else if(edu.wpi.first.wpilibj.RobotState.isAutonomous()) { //in autonomous
+    } else if(DriverStation.isAutonomous()) { //in autonomous
       currentEffect = EffectEnums.RGBPride;
     } else if(RobotState.getInstance().lightsShooterOutOfRange) {
       currentEffect = EffectEnums.RangeFlash;
@@ -162,7 +173,10 @@ double velocity = 0;
       currentEffect = EffectEnums.SpeedGlow;
     }
 
-    currentEffect = EffectEnums.IndexingFlow;
+    if(effectChooser.getSelected() != null){
+      currentEffect = effectChooser.getSelected();
+    }
+    
 
     double time = timer.get();
     deltaTime = time - lastTime;
