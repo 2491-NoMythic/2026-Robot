@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2SHOT L Bump AG Half 1"
+            "pathName": "2SHOT R Bump AG Half 1"
           }
         },
         {
@@ -58,7 +58,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.2
+                        "waitTime": 1.7
                       }
                     },
                     {
@@ -76,7 +76,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2SHOT L Bump AG Half 2"
+            "pathName": "2SHOT R-L Bump AG Half 2"
           }
         },
         {
@@ -121,7 +121,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.8
+                        "waitTime": 0.0
                       }
                     },
                     {
@@ -140,6 +140,6 @@
     }
   },
   "resetOdom": false,
-  "folder": "Untested",
+  "folder": "Double-Backs",
   "choreoAuto": false
 }

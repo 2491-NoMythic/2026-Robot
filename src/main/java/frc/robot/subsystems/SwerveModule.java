@@ -18,6 +18,8 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import frc.robot.LogInputs.SwerveModuleInputs;
+import frc.robot.LogInputs.SwerveModuleInputsAutoLogged;
 import frc.robot.settings.Constants.CTREConfigs;
 import frc.robot.settings.Constants.DriveConstants;
 
@@ -30,6 +32,7 @@ public class SwerveModule {
   private TalonFXConfiguration drive_Configuration;
   private TalonFXConfiguration steer_Configuration;
   private CANcoderConfiguration enc_Configuration;
+  private SwerveModuleInputsAutoLogged moduleInputs;
   // Shuffleboard stuff
   ShuffleboardTab debugInfo;
   // Variables
@@ -80,6 +83,8 @@ public class SwerveModule {
     m_driveMotor.getConfigurator().apply(drive_Configuration);
     m_steerMotor.getConfigurator().apply(steer_Configuration);
     m_steerEncoder.getConfigurator().apply(enc_Configuration);
+    
+    moduleInputs = new SwerveModuleInputsAutoLogged();
   }
 
   // This section is the 'direct get' section. Everything that gets something
@@ -205,5 +210,12 @@ public class SwerveModule {
     }
     m_steerMotor.setControl(m_steerControl.withPosition(m_desiredSteerAngle));
 
+  }
+
+  public SwerveModuleInputsAutoLogged getUpdatedInputsFile() {
+    moduleInputs.steerMotorInputs.log(m_steerMotor);
+    moduleInputs.driveMotorInputs.log(m_driveMotor);
+    moduleInputs.position = m_steerEncoder.getPosition().getValueAsDouble();
+    return moduleInputs;
   }
 }

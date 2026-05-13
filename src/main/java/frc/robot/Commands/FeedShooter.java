@@ -33,7 +33,7 @@ public class FeedShooter extends Command {
     timer = new Timer();
     addRequirements(hopper, indexer); //addRequirements(hopper, indexer, intake);
     SmartDashboard.putBoolean("shooterOverride", false);
-    moveIntakeUp = new MoveIntakeUp(intake);
+    moveIntakeUp = new MoveIntakeUp(intake, 1);
   }
 
   // Called when the command is initially scheduled.

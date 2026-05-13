@@ -25,25 +25,29 @@ import static frc.robot.settings.Constants.IntakeConstants.*;
 import org.littletonrobotics.junction.Logger;
 
 public class Intake extends SubsystemBase {
-  TalonFXS rollerOne;
-  TalonFXS rollerTwo;
+  TalonFX rollerOne;
+  TalonFX rollerTwo;
   TalonFX deployer;
   TalonFXSConfiguration intakeConfig;
   IntakeInputsAutoLogged inputs;
   CANcoder absoluteEncoder;
   double targetedPosition;
   boolean targetingDeployedPosition;
+  boolean reachedDeployedPosition;
+  boolean holdPosition = false;
 
   /** Creates a new Intake. */
   public Intake() {
-    rollerOne = new TalonFXS(INTAKE_ROLLER_ONE_ID);
-    rollerTwo = new TalonFXS(INTAKE_ROLLER_TWO_ID);
+    rollerOne = new TalonFX(INTAKE_ROLLER_ONE_ID);
+    rollerTwo = new TalonFX(INTAKE_ROLLER_TWO_ID);
     deployer = new TalonFX(INTAKE_DEPLOYER_ID);
     absoluteEncoder = new CANcoder(INTAKE_ENCODER_ID);
     rollerOne.getConfigurator().apply(INTAKE_ROLLER_ONE_CONFIG);
+    rollerTwo.getConfigurator().apply(INTAKE_ROLLER_ONE_CONFIG);
     rollerTwo.setControl(new Follower(INTAKE_ROLLER_ONE_ID, MotorAlignmentValue.Opposed));
     deployer.getConfigurator().apply(INTAKE_DEPLOYER_CONFIG);
     inputs = new IntakeInputsAutoLogged();
+    SmartDashboard.putBoolean("IntakeHoldPosition", false);
   }
 
   /**
@@ -71,6 +75,10 @@ public class Intake extends SubsystemBase {
    */
   public void stopWheels() {
     rollerOne.set(0);
+  }
+
+  public void setHoldPosition(boolean holdIntake) {
+    this.holdPosition = holdIntake;
   }
 
   /**
@@ -104,15 +112,17 @@ public class Intake extends SubsystemBase {
     setIntakeAngle(INTAKE_RETRACTED_POSITION);
     targetedPosition = INTAKE_RETRACTED_POSITION;
     targetingDeployedPosition = false;
+    holdPosition = false;
   }
 
   public void stopDeployer(){
     targetingDeployedPosition = false;
+    holdPosition = false;
     deployer.stopMotor();
   }
 
   public void holdPosition(){
-    deployer.setControl(new VoltageOut(2));
+    deployer.setControl(new VoltageOut(1));
   }
 
   public void setIntakeAngle(double rotations) {
@@ -131,8 +141,13 @@ public class Intake extends SubsystemBase {
     } else {
       SmartDashboard.putString("IntakeCurrentCommand", "null");
     }
-    if(targetingDeployedPosition && deployer.getPosition().getValueAsDouble() < INTAKE_DOWN_SOFT_LIMIT && DriverStation.isTeleop()) {
-      holdPosition();
+    if(targetedPosition != INTAKE_DEPLOYED_POSITION) {
+      holdPosition = false;
+    }
+    if(SmartDashboard.getBoolean("IntakeHoldPosition", false)) {
+      if(holdPosition && deployer.getPosition().getValueAsDouble() < INTAKE_DOWN_SOFT_LIMIT && DriverStation.isTeleop()) {
+        holdPosition();
+      }
     }
   }
 

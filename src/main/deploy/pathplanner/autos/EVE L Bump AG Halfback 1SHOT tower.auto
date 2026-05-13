@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "WALLE 2SHOT L Bump AG Half 1"
+            "pathName": "1SHOT L Bump AG Half Tower"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.5
+                  "waitTime": 0.1
                 }
               }
             ]
@@ -48,51 +48,26 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 5.0
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "WALLE 2SHOT L Bump AG Half 2"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AimRobotMoving"
+                  "waitTime": 7.0
                 }
               },
               {
-                "type": "wait",
+                "type": "sequential",
                 "data": {
-                  "waitTime": 0.5
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "RunIndexer"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 6.0
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 3.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AgitateFuel"
+                      }
+                    }
+                  ]
                 }
               }
             ]

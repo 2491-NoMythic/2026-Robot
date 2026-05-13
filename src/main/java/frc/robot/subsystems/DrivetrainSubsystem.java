@@ -730,6 +730,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     for (int i = 0; i < 4; i++) {
       inputs.swerveModuleStates[i] = modules[i].getState();
       inputs.swerveModulePositions[i] = modules[i].getPosition();
+      Logger.processInputs("Drivetrain/Motors/Module " + i, modules[i].getUpdatedInputsFile());
     }
     inputs.gyroScopeRotation = pigeon.getRotation2d();
     inputs.pitch = pigeon.getPitch().getValueAsDouble();
@@ -761,6 +762,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       RobotState.getInstance().lightsShooterOutOfRange = false;
                                                                                                                     //NEEDS TO BE BLUE! this is alliance-agnostic
       double squishedPositionBetweenAllianceZoneAndEnd = (RED_NEUTRAL_ZONE_X - getPose().getX()) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value. 
+      squishedPositionBetweenAllianceZoneAndEnd = Math.min(squishedPositionBetweenAllianceZoneAndEnd, 1);
       desiredSpeed = SHOOTING_SPEED_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
     } else if (!isRed && getPose().getX() > BLUE_NEUTRAL_ZONE_X) {
       passing = true;
@@ -773,6 +775,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       RobotState.getInstance().lightsShooterOutOfRange = false;
 
       double squishedPositionBetweenAllianceZoneAndEnd = (getPose().getX() - BLUE_NEUTRAL_ZONE_X) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value
+      squishedPositionBetweenAllianceZoneAndEnd = Math.min(squishedPositionBetweenAllianceZoneAndEnd, 1);
       desiredSpeed = SHOOTING_SPEED_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
     } else {
       if (isRed) {
@@ -799,6 +802,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       SmartDashboard.putNumber("RPSToMPS", rpsToMps);
 
       RobotState.getInstance().lightsShooterOutOfRange = (distanceToHub >= SHOOTING_FAR_DISTANCE_TO_HUB);
+      SmartDashboard.putBoolean("autoaim/ShootingOutOfAccurateRange", distanceToHub >= SHOOTING_FAR_DISTANCE_TO_HUB);
     }
 
     if(!RobotState.getInstance().overrideShooterSpeed){
@@ -806,6 +810,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     }
 
     SmartDashboard.putNumber("autoaim/desiredShooterSpeed", RobotState.getInstance().desiredShooterSpeed);
+    Logger.recordOutput("Shooter/desiredShooterSpeed", RobotState.getInstance().desiredShooterSpeed);
     SmartDashboard.putBoolean("autoaim/overrideShooterSpeed", RobotState.getInstance().overrideShooterSpeed);
 
 
