@@ -146,7 +146,7 @@ double velocity = 0;
     if(RobotState.getInstance().lightsRobotDisabled) {
       if(SmartDashboard.getBoolean("Lights/Show Mode", false)) { //show mode
         currentEffect = EffectEnums.RGBPride;
-      } else if() { //match has been played
+      } else if(RobotState.matchTime <= 1) { //match has been played
         currentEffect = EffectEnums.ShutdownGreen;
       } else {
         currentEffect = EffectEnums.AllianceBreathe;
