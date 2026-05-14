@@ -3,17 +3,9 @@ package frc.robot.subsystems;
 import java.util.Optional;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.units.measure.Time;
-import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.settings.HopperState;
 import frc.robot.settings.OdometryUpdatingState;
-
-import java.util.ArrayList;
-import java.util.List;
-import frc.robot.helpers.TimerPhase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +24,6 @@ public class RobotState {
   public boolean shooting;
   public boolean hopperExpandedVertically;
   public boolean hopperExpandedHorizontally;
-  public HopperState hopperState;
   public boolean halfFullSwitchTriggered;
   public boolean fullSwitchTriggered;
   public boolean feedingShooter;

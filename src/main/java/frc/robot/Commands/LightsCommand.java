@@ -7,7 +7,6 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Robot;
 import frc.robot.settings.LightsEnums;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.RobotState;

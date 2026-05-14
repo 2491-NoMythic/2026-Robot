@@ -4,8 +4,6 @@
 
 package frc.robot.Commands;
 
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;

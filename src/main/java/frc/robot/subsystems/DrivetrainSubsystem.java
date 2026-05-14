@@ -41,9 +41,6 @@ import static frc.robot.settings.Constants.ShooterConstants.SHOOTER_HEIGHT;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_CLOSE_DISTANCE_TO_HUB;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_FAR_DISTANCE_TO_HUB;
 import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
-import static frc.robot.settings.Constants.ShooterConstants.RPS_TO_MPS_FAR;
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
-import static frc.robot.settings.Constants.SubsystemsEnabled.LIMELIGHTS_EXIST;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTA_NAME;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTB_NAME;
 import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTC_NAME;
@@ -51,9 +48,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
-
-import javax.lang.model.util.ElementScanner14;
-import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 
 // import java.util.logging.Logger;
 import org.littletonrobotics.junction.Logger;
@@ -67,16 +61,13 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -87,15 +78,12 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
-import frc.robot.Robot;
 import frc.robot.LogInputs.DrivetrainInputsAutoLogged;
-import frc.robot.LogInputs.LimelightInputs;
 import frc.robot.helpers.MotorLogger;
 import frc.robot.helpers.MythicalMath;
 import frc.robot.settings.Constants.DriveConstants;
 import frc.robot.settings.Constants.Field;
 import frc.robot.settings.Constants.ShooterConstants;
-import frc.robot.subsystems.Quest;
 
 public class DrivetrainSubsystem extends SubsystemBase {
   // These are our swerve drive kinematics and Pigeon (gyroscope)

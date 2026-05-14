@@ -12,8 +12,6 @@ import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
 import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED_RPS;
 import static frc.robot.settings.Constants.ShooterConstants.HOOD_UP_POSITION;
-import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.DRIVE_TRAIN_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.HOPPER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.INDEXER_EXISTS;
@@ -43,7 +41,6 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
@@ -64,25 +61,20 @@ import frc.robot.Commands.AimAtHub;
 import frc.robot.Commands.AimAtLocation;
 import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobot;
-import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.Drive;
 import frc.robot.Commands.DriveConstantSpeed;
 import frc.robot.Commands.Expand;
 import frc.robot.Commands.Outtake;
 import frc.robot.Commands.OverBump;
-import frc.robot.Commands.PassCommandDeprecated;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.PulseIntake;
 import frc.robot.Commands.FeedShooterAntiHopperStall;
 import frc.robot.Commands.LightsCommand;
 import frc.robot.Commands.LockYAxisForCrossing;
 import frc.robot.Commands.MoveIntakeUp;
-import frc.robot.Commands.Outtake;
 import frc.robot.Commands.RunIntake;
-import frc.robot.Commands.RunShooterVelocity;
 import frc.robot.Commands.AimAtLocation.Location;
-import frc.robot.settings.Constants.IndexerConstants;
 import frc.robot.settings.Constants.ShooterConstants;
 import frc.robot.settings.LightsEnums;
 import frc.robot.settings.OdometryUpdatingState;
@@ -95,7 +87,6 @@ import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Quest;
 import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
-import gg.questnav.questnav.QuestNav;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -114,7 +105,6 @@ public class RobotContainer {
   private Intake intake;
   private Indexer indexer;
   private Hopper hopper;
-  private Limelight limelight;
   private Lights lights;
   private Quest quest;
   private Drive defaultDriveCommand;
@@ -123,9 +113,6 @@ public class RobotContainer {
   private final XboxController driveController;
   private final XboxController operatorController;
   private Timer autoTimer;
-
-  private AimAtHub aimAtHub;
-  private AimHood aimHood;
 
   DoubleSupplier ControllerForwardAxisSupplier;
   DoubleSupplier ControllerSidewaysAxisSupplier;
@@ -340,7 +327,7 @@ public class RobotContainer {
   }
 
   private void limelightInit() {
-    limelight = Limelight.getInstance();
+    Limelight.getInstance();
   }
 
   private void shooterInit() {

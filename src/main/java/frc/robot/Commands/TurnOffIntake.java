@@ -1,10 +1,6 @@
 package frc.robot.Commands;
 
-import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
-
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Hopper;
-import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 
 public class TurnOffIntake extends Command {

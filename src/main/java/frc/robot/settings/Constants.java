@@ -4,39 +4,26 @@
 
 package frc.robot.settings;
 
-import static frc.robot.settings.Constants.DriveConstants.FR_STEER_MOTOR_ID;
-import static frc.robot.settings.Constants.IntakeConstants.INTAKE_DEPLOYED_POSITION;
-import static frc.robot.settings.Constants.IntakeConstants.INTAKE_DOWN_SOFT_LIMIT;
-
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.CommutationConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.ExternalFeedbackConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
-import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TalonFXSConfiguration;
 import com.ctre.phoenix6.configs.VoltageConfigs;
 import com.ctre.phoenix6.signals.ExternalFeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
-import com.ctre.phoenix6.signals.ForwardLimitSourceValue;
-import com.ctre.phoenix6.signals.ForwardLimitTypeValue;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.MotorArrangementValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.ctre.phoenix6.signals.ReverseLimitSourceValue;
-import com.ctre.phoenix6.signals.ReverseLimitTypeValue;
 import com.pathplanner.lib.path.PathConstraints;
-import gg.questnav.questnav.QuestNav;
-import frc.robot.subsystems.Quest;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -75,16 +62,16 @@ public final class Constants {
 
   public static final class ShooterConstants{
     //public static final float SHOOTING_SPEED_MPS = 7.6f;
-    public static final double RPS_TO_MPS_CLOSE = 0.2;//0.27; //TUNE THIS!!!!!!!!!!!!!!!!!!!!!!
+    public static final double RPS_TO_MPS_CLOSE = 0.2;//0.27
     public static final double RPS_TO_MPS_MID = 0.125;
     public static final double RPS_TO_MPS_FAR = 0.128;
-    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 63f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
+    public static final int SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20 : 63;  // if safe mode is on the shooting speed will go down to maintain safety of little children
     //public static final float SHOOTING_SPEED_RPS_CORNER = 80f;
     public static final double SHOOTING_CLOSE_DISTANCE_TO_HUB = 1.73; //1.44;
     public static final double SHOOTING_MID_DISTANCE_TO_HUB = 2.77; //1.44;
     public static final double SHOOTING_FAR_DISTANCE_TO_HUB = 3.87;
     //public static final double SHOOTING_CORNER_THRESHOLD = 4;
-    public static final float PASSING_SPEED_RPS_MAX = 100;
+    public static final int PASSING_SPEED_RPS_MAX = 100;
     public static final int SHOOTER_LEFT_MOTOR_ID = 9; 
     public static final int SHOOTER_RIGHT_MOTOR_ID = 10; 
     public static final int HOOD_LEFT_ACTUATOR_ID = 2;

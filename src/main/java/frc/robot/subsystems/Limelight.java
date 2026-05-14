@@ -9,7 +9,6 @@ import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.LimelightHelpers;
-import frc.robot.LogInputs.LimelightDetectorInputs;
 import frc.robot.LogInputs.LimelightDetectorInputsAutoLogged;
 import frc.robot.LogInputs.LimelightInputs;
 import frc.robot.helpers.MythicalMath;
