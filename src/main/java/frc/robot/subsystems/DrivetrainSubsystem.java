@@ -714,6 +714,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     Logger.recordOutput("autoaim/yaw", RobotState.getInstance().aimingYaw);
     Logger.recordOutput("autoaim/target", BLUE_HUB_COORDINATE);
     SmartDashboard.putBoolean("LimelightsUpdatedState", RobotState.getInstance().LimelightsUpdated);
+
+    RobotState.getInstance().lightsRobotSpeed = Math.hypot(getChassisSpeeds().vxMetersPerSecond, getChassisSpeeds().vyMetersPerSecond);
   }
 
   public boolean nearBumps() {
@@ -756,6 +758,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
       } else {
         targetPosition = RED_RIGHT_PASS_COORDINATE;
       }
+
+      RobotState.getInstance().lightsShooterOutOfRange = false;
                                                                                                                     //NEEDS TO BE BLUE! this is alliance-agnostic
       double squishedPositionBetweenAllianceZoneAndEnd = (RED_NEUTRAL_ZONE_X - getPose().getX()) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value. 
       squishedPositionBetweenAllianceZoneAndEnd = Math.min(squishedPositionBetweenAllianceZoneAndEnd, 1);
@@ -767,6 +771,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
       } else {
         targetPosition = BLUE_RIGHT_PASS_COORDINATE;
       }
+
+      RobotState.getInstance().lightsShooterOutOfRange = false;
 
       double squishedPositionBetweenAllianceZoneAndEnd = (getPose().getX() - BLUE_NEUTRAL_ZONE_X) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value
       squishedPositionBetweenAllianceZoneAndEnd = Math.min(squishedPositionBetweenAllianceZoneAndEnd, 1);
@@ -795,7 +801,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
       rpsToMps = (a * distanceToHub * distanceToHub * distanceToHub) + (b * distanceToHub * distanceToHub) + (c * distanceToHub) + d;
       SmartDashboard.putNumber("RPSToMPS", rpsToMps);
 
-      SmartDashboard.putBoolean("ShootingOutOfAccurateRange", distanceToHub > SHOOTING_FAR_DISTANCE_TO_HUB);
+      RobotState.getInstance().lightsShooterOutOfRange = (distanceToHub >= SHOOTING_FAR_DISTANCE_TO_HUB);
+      SmartDashboard.putBoolean("autoaim/ShootingOutOfAccurateRange", distanceToHub >= SHOOTING_FAR_DISTANCE_TO_HUB);
     }
 
     if(!RobotState.getInstance().overrideShooterSpeed){
