@@ -152,12 +152,18 @@ public class Lights extends SubsystemBase {
   public void periodic() {
     //updateBlinkedLights();
     // This method will be called once per scheduler run
-double velocity = 0;
+    double velocity = 0;
 
     if(RobotState.getInstance().lightsRobotDisabled) {
+      if(RobotState.matchTime == 2) {
+        RobotState.getInstance().lightsMatchPlayed = true;
+      } else if(RobotState.matchTime > 2) {
+        RobotState.getInstance().lightsMatchPlayed = false;
+      }
+      
       if(SmartDashboard.getBoolean("Lights/Show Mode", false)) { //show mode
         currentEffect = EffectEnums.RGBPride;
-      } else if(RobotState.matchTime <= 1) { //match has been played
+      } else if(RobotState.matchTime <= 1 && RobotState.getInstance().lightsMatchPlayed) { //match has been played
         currentEffect = EffectEnums.ShutdownGreen;
       } else {
         currentEffect = EffectEnums.AllianceBreathe;
@@ -242,7 +248,7 @@ double velocity = 0;
         break;
 
         case SpeedGlow:
-        brightness = (int)(velocity / 6) * 255 * 2;
+        brightness = (int)((velocity / 6) * 255 * 2);
         if(brightness > 255) { //when going extra fast the lights "overclock" into turning white
           setSystemLights(LightsEnums.All, brightness, brightness - 255, brightness);
         } else {
