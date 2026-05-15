@@ -386,7 +386,7 @@ public class RobotContainer {
 
   private void lightsInit() {
     lights = new Lights();
-    lights.setDefaultCommand(new LightsCommand(lights));
+    //lights.setDefaultCommand(new LightsCommand(lights));
   }
 
   private void autoInit() {
@@ -488,10 +488,11 @@ public class RobotContainer {
     autoTimer.reset();
     autoTimer.start();
 
-    lights.blinkLights(LightsEnums.All, 255, 0, 0);
+    //lights.blinkLights(LightsEnums.All, 255, 0, 0);
   }
 
   public void autonomousPeriodic() {
+    RobotState.getInstance().lightsRobotDisabled = false;
     //if (autoTimer.hasElapsed(3.0)) {
       //lights.setDefaultCommand(new LightsCommand(lights));
     //}
@@ -499,8 +500,13 @@ public class RobotContainer {
     displayTimerInfo();
   }
 
+  public void disabledPeriodic() {
+    RobotState.getInstance().lightsRobotDisabled = true;
+    //lights.breathingLights(LightsEnums.All, 255, 0, 255);
+  }
+
   public void runsWhenDisabled() {
-    lights.breathingLights(LightsEnums.All, 255, 0, 255);
+    
   }
 
   private double modifyAxis(double value, double deadband) {
@@ -527,6 +533,7 @@ public class RobotContainer {
     SmartDashboard.putNumber("GetPose", drivetrain.getPose().getRotation().getDegrees());
 
     displayTimerInfo();
+    RobotState.getInstance().lightsRobotDisabled = false;
   }
 
   public void displayTimerInfo(){
