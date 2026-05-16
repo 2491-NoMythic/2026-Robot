@@ -248,7 +248,8 @@ public class Lights extends SubsystemBase {
         break;
 
         case SpeedGlow:
-        brightness = (int)((velocity / 6) * 255 * 2);
+        brightness = (int)(((velocity / 4) * 255 * 2));
+        brightness = (int)(brightness * brightness / (255 * 2));
         if(brightness > 255) { //when going extra fast the lights "overclock" into turning white
           setSystemLights(LightsEnums.All, brightness, brightness - 255, brightness);
         } else {
