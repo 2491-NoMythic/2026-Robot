@@ -33,13 +33,14 @@ import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.signals.Enable5VRailValue;
 import com.ctre.phoenix6.signals.RGBWColor;
 import com.ctre.phoenix6.signals.StripTypeValue;
+
+import static frc.robot.settings.Constants.DriveConstants.CANIVORE_DRIVETRAIN;
+
 import java.awt.color.*;
 
 public class Lights extends SubsystemBase {
   private AddressableLED lights;
   private AddressableLEDBuffer LEDBuffer;
-  CANdle candle;
-  CANdleConfiguration CANdleConfig;
   LightsEnums lightsToBlink;
 
   int blinkedRed;
@@ -64,16 +65,6 @@ public class Lights extends SubsystemBase {
     LEDBuffer = new AddressableLEDBuffer(82);
 
     lights.start();
-
-    candle = new CANdle(LightConstants.CANDLE_ID);
-    CANdleConfig = new CANdleConfiguration();
-    CANdleConfig.CANdleFeatures.Enable5VRail = Enable5VRailValue.Enabled;
-    CANdleConfig.LED.BrightnessScalar = 0.3;
-    CANdleConfig.LED.StripType = StripTypeValue.RGB;
-    candle.getConfigurator().apply(CANdleConfig);
-
-    candle.clearAllAnimations();
-
     timer = new Timer();
     timer.start();
 
@@ -99,7 +90,6 @@ public class Lights extends SubsystemBase {
     double brightness = SmartDashboard.getNumber("Lights/Brightness", 1);
     LEDBuffer.setRGB(index, (int)(R * brightness), (int)(G * brightness), (int)(B * brightness));
     //} catch(Exception e) {}
-    candle.setControl(new SolidColor(index, index).withColor(new RGBWColor(R, G, B)));
   }
 
   public void setLights(int start, int end, int R, int G, int B) {
