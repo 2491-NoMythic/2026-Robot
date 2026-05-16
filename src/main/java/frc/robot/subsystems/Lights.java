@@ -260,8 +260,8 @@ public class Lights extends SubsystemBase {
 
         case RGBPride:
           for (int i = 0; i < LightConstants.ALL_LIGHT_END; i++) {
-            brightness = (int) ((Math.sin(time + i / 8) + 1) / 2);
-            java.awt.Color rgbValues = new java.awt.Color(java.awt.Color.HSBtoRGB(brightness, 1, 1));
+            float rgbHue = (float)(time + i / 80);
+            java.awt.Color rgbValues = new java.awt.Color(java.awt.Color.HSBtoRGB(rgbHue, 1, 1));
             LEDBuffer.setRGB(i, rgbValues.getRed(), rgbValues.getGreen(), rgbValues.getBlue());
           }
           lights.setData(LEDBuffer);
