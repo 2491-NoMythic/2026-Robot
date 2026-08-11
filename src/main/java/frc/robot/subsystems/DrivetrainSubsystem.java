@@ -828,7 +828,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
       new Translation3d(getPose().getX() + shooterOffset.getX(), getPose().getY() + shooterOffset.getY(), SHOOTER_HEIGHT), 
       targetPosition, 
       desiredSpeed * rpsToMps, 
-      new Translation3d(fieldChassisSpeeds.vxMetersPerSecond + linearVelocityFromRotation.getX(), fieldChassisSpeeds.vyMetersPerSecond + linearVelocityFromRotation.getY(), 0), 
+      new Translation3d(0, 0, 0), //new Translation3d(fieldChassisSpeeds.vxMetersPerSecond + linearVelocityFromRotation.getX(), fieldChassisSpeeds.vyMetersPerSecond + linearVelocityFromRotation.getY(), 0), 
       0);
       
     SmartDashboard.putBoolean("shootingAnglesFound", desiredRotation != null);
