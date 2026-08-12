@@ -39,12 +39,12 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public Intake() {
     rollerOne = new TalonFX(INTAKE_ROLLER_ONE_ID);
-    rollerTwo = new TalonFX(INTAKE_ROLLER_TWO_ID);
+    //rollerTwo = new TalonFX(INTAKE_ROLLER_TWO_ID);
     deployer = new TalonFX(INTAKE_DEPLOYER_ID);
     absoluteEncoder = new CANcoder(INTAKE_ENCODER_ID);
     rollerOne.getConfigurator().apply(INTAKE_ROLLER_ONE_CONFIG);
-    rollerTwo.getConfigurator().apply(INTAKE_ROLLER_ONE_CONFIG);
-    rollerTwo.setControl(new Follower(INTAKE_ROLLER_ONE_ID, MotorAlignmentValue.Opposed));
+    //rollerTwo.getConfigurator().apply(INTAKE_ROLLER_ONE_CONFIG);
+    //rollerTwo.setControl(new Follower(INTAKE_ROLLER_ONE_ID, MotorAlignmentValue.Opposed));
     deployer.getConfigurator().apply(INTAKE_DEPLOYER_CONFIG);
     inputs = new IntakeInputsAutoLogged();
     SmartDashboard.putBoolean("IntakeHoldPosition", false);
@@ -134,7 +134,7 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     inputs.wheelsMotor1.log(rollerOne);
-    inputs.wheelsMotor2.log(rollerTwo);
+    //inputs.wheelsMotor2.log(rollerTwo);
     inputs.deployerMotor.log(deployer);
     Logger.processInputs("Intake", inputs);
     if(this.getCurrentCommand() != null) {
