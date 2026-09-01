@@ -130,6 +130,9 @@ public class RobotContainer {
   DoubleSupplier ControllerForwardAxisSupplier;
   DoubleSupplier ControllerSidewaysAxisSupplier;
   DoubleSupplier ControllerZAxisSupplier;
+  DoubleSupplier SafeControllerForwardAxisSupplier;
+  DoubleSupplier SafeControllerSidewaysAxisSupplier;
+  DoubleSupplier SafeControllerZAxisSupplier;
   BooleanSupplier ZeroGyroSup;
   BooleanSupplier AimRobotMovingSup;
   BooleanSupplier TrenchAllignSup;
@@ -189,9 +192,14 @@ public class RobotContainer {
       safeModeChooser.addOption("Full", 1.0);
       SmartDashboard.putData("Safe Mode", safeModeChooser);
     }
-    ControllerSidewaysAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(X_AXIS), 0);
-    ControllerForwardAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
-    ControllerZAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
+    ControllerSidewaysAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(X_AXIS), 0);
+    ControllerForwardAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
+    ControllerZAxisSupplier = () -> modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
+    SafeControllerSidewaysAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(X_AXIS), 0);
+      //Makes a seperate supplier that slows driving speed
+    SafeControllerForwardAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(Y_AXIS), 0);
+      //Makes a seperate supplier that slows driving speed 
+    SafeControllerZAxisSupplier = () -> getSpeedMultiplier() * modifyAxis(-driveController.getRawAxis(Z_AXIS), 0);
     ZeroGyroSup = driveController::getStartButton;
     AutoAimSupplier = () -> driveController.getLeftTriggerAxis() >= 0.5;
     AutoIntakeSup = driveController::getXButton;
@@ -253,10 +261,6 @@ public class RobotContainer {
       hopperInit();
     }
 
-    if (LIMELIGHTS_EXIST) {
-      limelightInit();
-    }
-
     if (SHOOTER_EXISTS) {
       shooterInit();
     }
@@ -276,7 +280,6 @@ public class RobotContainer {
     SmartDashboard.putBoolean("use limelight", false);
     SmartDashboard.putBoolean("trust limelight", false);
     registerNamedCommands();
-    autoInit();
     configureBindings();
   }
 
@@ -294,15 +297,12 @@ public class RobotContainer {
     defaultDriveCommand = new Drive(
         drivetrain,
         () -> false,
-        ControllerForwardAxisSupplier,
-        ControllerSidewaysAxisSupplier,
-        ControllerZAxisSupplier);
+        SafeControllerForwardAxisSupplier,
+        SafeControllerSidewaysAxisSupplier,
+        SafeControllerZAxisSupplier);
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
     new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
-    new Trigger(crossBumpTowardsAllianceSup).whileTrue(new OverBump(drivetrain, 3));
-    new Trigger(TrenchAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, true, false));
-    new Trigger(BumpAllignSup).whileTrue(new LockYAxisForCrossing(drivetrain, ControllerForwardAxisSupplier, false, true));
     new Trigger(DrivetrainXPositionSup).whileTrue(drivetrain.run(()->drivetrain.pointWheelsInward()));
 
     SmartDashboard.putData("DriveConstant1", new DriveConstantSpeed(drivetrain, 1, 2));
@@ -337,10 +337,6 @@ public class RobotContainer {
     } catch (IOException b) {
       System.out.println("got IOException thrown trying to configure autobuilder " + b.getMessage());
     }
-  }
-
-  private void limelightInit() {
-    limelight = Limelight.getInstance();
   }
 
   private void shooterInit() {
@@ -386,24 +382,7 @@ public class RobotContainer {
 
   private void lightsInit() {
     lights = new Lights();
-    //lights.setDefaultCommand(new LightsCommand(lights));
   }
-
-  private void autoInit() {
-    if (DRIVE_TRAIN_EXISTS){
-      autoChooser = AutoBuilder.buildAutoChooser();
-      SmartDashboard.putData("Auto Chooser", autoChooser);
-    }
-   
-  }
-
-  /**
-   * Takes both axis of a joystick, returns an angle from -180 to 180 degrees, or
-   * {@link Constants.PS4Driver.NO_INPUT} (double = 404.0) if the joystick is at
-   * rest position
-   */
-
-  /** Takes both axis of a joystick, returns a double from 0-1 */
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
@@ -457,15 +436,6 @@ public class RobotContainer {
       SmartDashboard.putData("resetQuestToAutoPoseRight", resetQuestToAutoPoseRight);
       SmartDashboard.putData("set offsets", setOffsets);
     }
-    if(DRIVE_TRAIN_EXISTS && SHOOTER_EXISTS){
-      // new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
-      new Trigger(ManualHubShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Hub));
-      new Trigger(ManualTowerShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.Tower));
-      new Trigger(ManualLeftTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.LeftTrench));
-      new Trigger(ManualRightTrenchShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.RightTrench));
-      new Trigger(ManualLeftCornerShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.LeftCorner));
-      new Trigger(ManualRightCornerShotSup).whileTrue(new AimAtLocation(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, Location.RightCorner));
-    }
 
     if(INTAKE_EXISTS && INDEXER_EXISTS && HOPPER_EXISTS) {
       new Trigger(()->ShootIfAimedSup.getAsBoolean() && RobotState.getInstance().Aimed).whileTrue(new FeedShooter(indexer, hopper, intake));  
@@ -505,10 +475,6 @@ public class RobotContainer {
     //lights.breathingLights(LightsEnums.All, 255, 0, 255);
   }
 
-  public void runsWhenDisabled() {
-    
-  }
-
   private double modifyAxis(double value, double deadband) {
     // Deadband
     value = MathUtil.applyDeadband(value, deadband);
@@ -519,50 +485,16 @@ public class RobotContainer {
 
   public void robotInit() {
     drivetrain.zeroGyroscope();
-    SmartDashboard.putNumber("DisplayMatchTime", -1);
-    SmartDashboard.putNumber("DisplayPhaseTime", -1);
-    SmartDashboard.putString("CurrentPhase", "NO FMS DATA YET");
-    SmartDashboard.putBoolean("HubActive", false);
-  }
-
-  public void teleopInit() {
   }
 
   public void teleopPeriodic() {
     SmartDashboard.putNumber("RobotAngle", drivetrain.getOdometryRotation().getDegrees());
     SmartDashboard.putNumber("GetPose", drivetrain.getPose().getRotation().getDegrees());
 
-    displayTimerInfo();
     RobotState.getInstance().lightsRobotDisabled = false;
   }
 
-  public void displayTimerInfo(){
-    SmartDashboard.putNumber("DisplayMatchTime", RobotState.getMatchTime());
-    SmartDashboard.putNumber("DisplayPhaseTime", RobotState.getPhaseTimeLeft());
-    SmartDashboard.putString("CurrentPhase", RobotState.getPhase());
-    SmartDashboard.putBoolean("HubActive", RobotState.hubActive());
-  }
-
   private void registerNamedCommands(){
-    Command AcrossBumpAwayFromAlliance = new SelectCommand<>(
-      Map.ofEntries(
-        Map.entry(true, new OverBump(drivetrain, 3)),
-        Map.entry(false, new OverBump(drivetrain, -3))
-      ),
-      ()->DriverStation.getAlliance().get() == Alliance.Blue);
-    Command AcrossBumpTowardsAlliance = new SelectCommand<>(
-      Map.ofEntries(
-        Map.entry(true, new OverBump(drivetrain, -3)), 
-        Map.entry(false, new OverBump(drivetrain, 3))
-      ),
-      ()->DriverStation.getAlliance().get() == Alliance.Blue);
-    NamedCommands.registerCommand("AcrossBumpAwayFromAlliance", AcrossBumpAwayFromAlliance);
-    NamedCommands.registerCommand("AcrossBumpTowardsAlliance", AcrossBumpTowardsAlliance);
-    NamedCommands.registerCommand("AimRobotMoving", new ParallelRaceGroup(
-      new AimRobot(drivetrain, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier, () -> RobotState.getInstance().aimingYaw)
-        .withDeadline(new WaitUntilCommand((()->RobotState.getInstance().Aimed))),
-      new AimHood(shooter)));
-    NamedCommands.registerCommand("OverBump", AcrossBumpTowardsAlliance);
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
       NamedCommands.registerCommand("RunIndexer", new ParallelCommandGroup(
         new AimRobot(drivetrain, ControllerZAxisSupplier, ControllerSidewaysAxisSupplier, ()->RobotState.getInstance().aimingYaw),

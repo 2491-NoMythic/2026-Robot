@@ -11,13 +11,9 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.hardware.TalonFXS;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
 import frc.robot.LogInputs.ShooterInputsAutoLogged;
-import frc.robot.helpers.MythicalMath;
-
 import static frc.robot.settings.Constants.DriveConstants.CANIVORE_DRIVETRAIN;
 import static frc.robot.settings.Constants.ShooterConstants.*;
 
@@ -40,9 +36,6 @@ public class Shooter extends SubsystemBase {
     hoodMotor = new TalonFXS(HOOD_MOTOR_ID, CANIVORE_DRIVETRAIN);
     hoodMotor.getConfigurator().apply(HOOD_MOTOR_CONFIG);
     inputs = new ShooterInputsAutoLogged();
-    SmartDashboard.putNumber("PASS-TEST/shooterAngle", 30);
-    SmartDashboard.putNumber("PASS-TEST/shooterSpeed", 30);
-    //SmartDashboard.putNumber("hoodPosition", 0);
   }
 
   /**
@@ -57,7 +50,6 @@ public class Shooter extends SubsystemBase {
    * Sets motor power to zero
    */
   public void stop(){
-    //shootMotor1.set(0);
     isOn = false;
   }
 
@@ -74,7 +66,6 @@ public class Shooter extends SubsystemBase {
   }
 
   public void shooterOn() {
-    //setVelocity(SHOOTING_SPEED_RPS);
     isOn = true;
   }
 
