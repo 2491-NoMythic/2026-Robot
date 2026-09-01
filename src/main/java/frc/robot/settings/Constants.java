@@ -70,7 +70,7 @@ public final class Constants {
     public static final boolean LIGHTS_EXIST = true; // :D
     public static final boolean HOPPER_EXISTS = true;
     public static final boolean QUEST_EXISTS = true;
-    public static final boolean SAFE_MODE_IS_ON = false;   // A Mode to turn on for mythical night with robots and other events where we may not want the robot to go full speed
+    public static final boolean SAFE_MODE_IS_ON = true;   // A Mode to turn on for mythical night with robots and other events where we may not want the robot to go full speed
   }
 
   public static final class ShooterConstants{
@@ -78,7 +78,7 @@ public final class Constants {
     public static final double RPS_TO_MPS_CLOSE = 0.2;//0.27; //TUNE THIS!!!!!!!!!!!!!!!!!!!!!!
     public static final double RPS_TO_MPS_MID = 0.125;
     public static final double RPS_TO_MPS_FAR = 0.128;
-    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 20f : 63f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
+    public static final float SHOOTING_SPEED_RPS = SubsystemsEnabled.SAFE_MODE_IS_ON ? 63f : 63f;  // if safe mode is on the shooting speed will go down to maintain safety of little children
     //public static final float SHOOTING_SPEED_RPS_CORNER = 80f;
     public static final double SHOOTING_CLOSE_DISTANCE_TO_HUB = 1.73; //1.44;
     public static final double SHOOTING_MID_DISTANCE_TO_HUB = 2.77; //1.44;
@@ -156,7 +156,7 @@ public final class Constants {
       .withSlot0(new Slot0Configs()
         .withKG(0).withKP(20).withKI(0).withKD(0).withGravityType(GravityTypeValue.Arm_Cosine))
       .withCurrentLimits(new CurrentLimitsConfigs()
-        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(SubsystemsEnabled.SAFE_MODE_IS_ON ? 5 : 50))  // if safe mode is on a supply current limit of 5 will be enabled
+        .withSupplyCurrentLimitEnable(true).withSupplyCurrentLimit(SubsystemsEnabled.SAFE_MODE_IS_ON ? 50 : 50))  // if safe mode is on a supply current limit of 5 will be enabled
       .withSoftwareLimitSwitch(new SoftwareLimitSwitchConfigs()
         .withForwardSoftLimitEnable(true)
         .withForwardSoftLimitThreshold(INTAKE_DOWN_SOFT_LIMIT))
