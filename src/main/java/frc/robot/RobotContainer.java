@@ -65,7 +65,6 @@ import frc.robot.Commands.AimAtLocation;
 import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobot;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
-import frc.robot.Commands.CollectFuel;
 import frc.robot.Commands.Drive;
 import frc.robot.Commands.DriveConstantSpeed;
 import frc.robot.Commands.Expand;
@@ -91,8 +90,6 @@ import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lights;
-import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.Quest;
 import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
 import gg.questnav.questnav.QuestNav;
@@ -114,9 +111,7 @@ public class RobotContainer {
   private Intake intake;
   private Indexer indexer;
   private Hopper hopper;
-  private Limelight limelight;
   private Lights lights;
-  private Quest quest;
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
   private SendableChooser<Double> safeModeChooser; // creates a changable option on elastic for safemode
@@ -248,13 +243,7 @@ public class RobotContainer {
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
-      if (QUEST_EXISTS){
-        questInit();
-        configureDriveTrain(quest::setQuestNavPose);
-      }else{
-        configureDriveTrain(drivetrain::resetOdometry);
-      }
-      
+      configureDriveTrain(drivetrain::resetOdometry);
     }
 
     if(HOPPER_EXISTS) {
@@ -302,16 +291,13 @@ public class RobotContainer {
         SafeControllerZAxisSupplier);
     drivetrain.setDefaultCommand(defaultDriveCommand);
 
-    new Trigger(AutoIntakeSup).whileTrue(new CollectFuel(drivetrain));
     new Trigger(DrivetrainXPositionSup).whileTrue(drivetrain.run(()->drivetrain.pointWheelsInward()));
 
     SmartDashboard.putData("DriveConstant1", new DriveConstantSpeed(drivetrain, 1, 2));
     SmartDashboard.putData("DriveConstant2", new DriveConstantSpeed(drivetrain, 2, 2));
     SmartDashboard.putData("DriveConstant3", new DriveConstantSpeed(drivetrain, 3, 1.5));
   }
-  private void questInit(){
-    quest = new Quest(drivetrain);
-  }
+ 
   private void configureDriveTrain(Consumer<Pose2d> resetOdometryConsumer) {
     try {
       AutoBuilder.configure(
@@ -403,7 +389,6 @@ public class RobotContainer {
     if (DRIVE_TRAIN_EXISTS) {
       SmartDashboard.putData("drivetrain", drivetrain);
       new Trigger(ZeroGyroSup).onTrue(new InstantCommand(drivetrain::zeroGyroscope));
-      new Trigger(ResetQuestIntakeInSup).onTrue(new InstantCommand(()->quest.resetQuestPose()));
       InstantCommand setOffsets = new InstantCommand(drivetrain::setEncoderOffsets) {
         public boolean runsWhenDisabled() {
           return true;
@@ -414,26 +399,8 @@ public class RobotContainer {
           return true;
         };
       };
-      InstantCommand resetQuestPose = new InstantCommand(quest::resetQuestPose) {
-        public boolean runsWhenDisabled() {
-          return true;
-        };
-      };
-      InstantCommand resetQuestToAutoPoseLeft = new InstantCommand(()->quest.resetQuestToAutoStartPose(false)) {
-        public boolean runsWhenDisabled() {
-          return true;
-        };
-      };
-      InstantCommand resetQuestToAutoPoseRight = new InstantCommand(()->quest.resetQuestToAutoStartPose(true)) {
-        public boolean runsWhenDisabled() {
-          return true;
-        };
-      };
 
       SmartDashboard.putData("zeroGyroscope", zeroGyroscope);
-      SmartDashboard.putData("resetQuestPose", resetQuestPose);
-      SmartDashboard.putData("resetQuestToAutoPoseLeft", resetQuestToAutoPoseLeft);
-      SmartDashboard.putData("resetQuestToAutoPoseRight", resetQuestToAutoPoseRight);
       SmartDashboard.putData("set offsets", setOffsets);
     }
 
@@ -463,11 +430,6 @@ public class RobotContainer {
 
   public void autonomousPeriodic() {
     RobotState.getInstance().lightsRobotDisabled = false;
-    //if (autoTimer.hasElapsed(3.0)) {
-      //lights.setDefaultCommand(new LightsCommand(lights));
-    //}
-
-    displayTimerInfo();
   }
 
   public void disabledPeriodic() {
