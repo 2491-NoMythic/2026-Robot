@@ -11,14 +11,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.HopperInputsAutoLogged;
 
-import static frc.robot.settings.Constants.DriveConstants.CANIVORE_DRIVETRAIN;
 import static frc.robot.settings.Constants.HopperConstants.*;
 
 import org.littletonrobotics.junction.Logger;
 
 public class Hopper extends SubsystemBase {
   TalonFX hopperRollerMotor;
-  boolean hopperExpanded = false;
   HopperInputsAutoLogged inputs;
 
   /** Creates a new Hopper. */
@@ -26,25 +24,10 @@ public class Hopper extends SubsystemBase {
     hopperRollerMotor = new TalonFX(HOPPER_MOTOR_ID);
     hopperRollerMotor.getConfigurator().apply(HOPPER_CONFIG);
     inputs = new HopperInputsAutoLogged();
-    SmartDashboard.putBoolean("Old intake speed activate", false);
-  }
-
-  /**
-   * Sets motor speed
-   * @param speed Motor power from -1 to 1
-   * @param motor TalonFX 
-   * 
-   */
-  public void setMotor(double speed, TalonFX motor){
-    motor.set(speed);
   }
 
   public void setVelocity(double RPS){
     hopperRollerMotor.setControl(new VelocityVoltage(RPS));
-  }
-
-  public void stop() {
-    setHopperRoller(0);
   }
 
   /**
@@ -56,35 +39,26 @@ public class Hopper extends SubsystemBase {
     hopperRollerMotor.set(speed);
   }
 
+  public void stop() {
+    setHopperRoller(0);
+  }
+
   /**
    * sets the hopper rollers to the HOPPER_ROLLER_SPEED
    */
   public void feedIndexer() {
-    // if(SmartDashboard.getBoolean("Old intake speed activate", true)) {
-    // } else {
-    //   setVelocity(75);
-    // }
     setVelocity(HOPPER_ROLLER_SPEED_RPS);
   }
 
   /**
-   * checks if motor is stalled by checking if Voltage is applied but roller's aren't moving
+   * checks if motor is stalled by checking if Voltage is applied but rollers aren't moving
    * @return true if the motor is stalled
    */
   public boolean isStalled() {
     return hopperRollerMotor.getMotorVoltage().getValueAsDouble() > 1 && hopperRollerMotor.getVelocity().getValueAsDouble() < 1;
   }
-
-  /**
-   * up position will be gotten by limit switch, down will be gotten by current spike
-   * @return hopperExpanded (Boolean, true = expanded, false = retracted)
-   */
-  public boolean getHopperExpanded(){
-    return hopperExpanded;
-  }
  
   public void periodic() {
-    inputs.hopperExpandedInput = this.getHopperExpanded();
     inputs.tallMotorInput.log(hopperRollerMotor);
 
     Logger.processInputs("Hopper", inputs);

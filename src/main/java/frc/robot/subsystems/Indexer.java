@@ -9,7 +9,6 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
-import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LogInputs.IndexerInputsAutoLogged;
@@ -34,23 +33,15 @@ public class Indexer extends SubsystemBase {
     inputs = new IndexerInputsAutoLogged();
   }
 
-/**
-   * Sets motor speed using duty cycle out
-   * @param speed Motor power from -1 to 1
-   */
-  public void set(double speed){
-    motor_1.set(speed);
+  public void setVelocity(double RPS){
+    motor_1.setControl(new VelocityVoltage(RPS));
   }
-  
+
   /**
    * sets the RPS of the indexer to the
    */
   public void feedShooter() {
     setVelocity(INDEXER_FEEDING_RPS);
-  }
-
-  public void setVelocity(double RPS){
-    motor_1.setControl(new VelocityVoltage(RPS));
   }
 
   /**
