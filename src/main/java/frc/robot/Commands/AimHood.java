@@ -4,10 +4,7 @@
 
 package frc.robot.Commands;
 
-import static edu.wpi.first.units.Units.Inches;
-
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.helpers.MythicalMath;
 import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
 
