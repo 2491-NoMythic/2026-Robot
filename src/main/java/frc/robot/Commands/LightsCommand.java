@@ -49,11 +49,7 @@ public class LightsCommand extends Command {
       loopsRan = 0;
     }
 
-    if (RobotState.getInstance().LimelightsUpdated && RobotState.getInstance().Aimed) {
-      lights.setSystemLights(LightsEnums.All, 255, 0, 255);
-    } else if (RobotState.getInstance().LimelightsUpdated) {
-      lights.setSystemLights(LightsEnums.All, 0, 255, 0);
-    } else if (RobotState.getInstance().Aimed) {
+    if (RobotState.getInstance().Aimed) {
       lights.setSystemLights(LightsEnums.All, 0, 0, 255);
     } else if (RobotState.getInstance().shooting) {
       //lights.blinkLights(LightsEnums.All, 255, 0, 255);

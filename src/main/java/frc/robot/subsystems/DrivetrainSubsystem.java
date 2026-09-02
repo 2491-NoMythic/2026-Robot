@@ -207,13 +207,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return inputs.gyroScopeRotation;
   }
 
-  public Rotation2d getGyroscopeRotation2(String location) {
-    System.out.println(location);
-    System.out.println(inputs.gyroScopeRotation);
-    System.out.println(pigeon.getRotation2d());
-    return inputs.gyroScopeRotation;
-  }
-
   /**
    * gets the angle of odometer reading, but adds 180 degrees if we are on red
    * alliance. this is useful for whne using
@@ -302,7 +295,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return Math.sqrt(Math.pow(getChassisSpeeds().vxMetersPerSecond, 2)+Math.pow(getChassisSpeeds().vyMetersPerSecond, 2));
   }
 
-  // This is the odometry section. It has odometry-related functions.
   /**
    * Resets the odometry of the robot.
    * 
@@ -443,48 +435,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   /**
-   * Provide the odometry a vision pose estimate, only if there is a trustworthy
-   * pose available.
-   *
-   * <p>
-   * Each time a vision pose is supplied, the odometry pose estimation will change
-   * a little,
-   * larger pose shifts will take multiple calls to complete.
-   */
-  public void updateOdometryWithVision( Pair<Pose2d, Double> questUpdate) {
-    if(questUpdate!=null){
-      odometer.addVisionMeasurement(questUpdate.getFirst(), questUpdate.getSecond());
-    }
-  }
-
-  private void setRobotOrientationOnLimelights() {
-    LimelightHelpers.SetRobotOrientation(
-        APRILTAG_LIMELIGHTA_NAME,
-        odometer.getEstimatedPosition().getRotation().getDegrees(),
-        0,
-        0,
-        0,
-        0,
-        0);
-    LimelightHelpers.SetRobotOrientation(
-        APRILTAG_LIMELIGHTB_NAME,
-        odometer.getEstimatedPosition().getRotation().getDegrees(),
-        0,
-        0,
-        0,
-        0,
-        0);
-    LimelightHelpers.SetRobotOrientation(
-        APRILTAG_LIMELIGHTC_NAME,
-        odometer.getEstimatedPosition().getRotation().getDegrees(),
-        0,
-        0,
-        0,
-        0,
-        0);
-  }
-
-  /**
    * Set the odometry using the current apriltag estimate, disregarding the pose
    * trustworthyness.
    *
@@ -511,25 +461,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * Applies power to the motors to rotate the robot to the angle set by
    * {@link #setRotationTarget(double) setRotationTarget}
    * <p>
-   * positive x is away from your alliance wall
-   * <p>
-   * positive y is to the drivers left
-   * 
-   * @param vx the field relative speed, in meters per second, for the drivetrain
-   *           to move
-   * @param vy the field relative speed, in meters per second, for the drivetrain
-   *           to move
-   */
-  public void moveTowardsRotationTargetFieldRelative(double vx, double vy) {
-    drive(ChassisSpeeds.fromFieldRelativeSpeeds(
-        new ChassisSpeeds(vx, vy, rotationSpeedController.calculate(getPose().getRotation().getDegrees())),
-        getAllianceSpecificRotation()));
-  }
-
-  /**
-   * Applies power to the motors to rotate the robot to the angle set by
-   * {@link #setRotationTarget(double) setRotationTarget}
-   * <p>
    * positive x is away from robot forward
    * positive y is robot left
    * 
@@ -542,120 +473,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
     drive(new ChassisSpeeds(vx, vy, rotationSpeedController.calculate(getPose().getRotation().getDegrees())));
   }
 
-  /**
-   * moves toward a position and rotation using the BARGE_POSE in constnats for red or blue alliance.
-   * @param pose
-   * @param xMovementSupplier
-   */
-  public void lockYAxisWithPose(DoubleSupplier xMovementSupplier, Pose2d trenchPose) {
-    //set the targets for the PID loops
-
-    setRotationTarget(trenchPose.getRotation().getDegrees());
-    DRIVE_TO_POSE_Y_CONTROLLER.setSetpoint(trenchPose.getY());
-    //calculate speeds using PID loops
-    double xSpeed = xMovementSupplier.getAsDouble() * 3;
-    double ySpeed = DRIVE_TO_POSE_Y_CONTROLLER.calculate(odometer.getEstimatedPosition().getY());
-
-    //reverse speeds for the red alliance, because directions have flipped
-    if(DriverStation.getAlliance().get() == Alliance.Red) {
-      ySpeed = -ySpeed;
-    }
-    SmartDashboard.putNumber("TARGETINGPOSE/yspeed", ySpeed);
-    SmartDashboard.putNumber("TARGETINGPOSE/xspeed", xSpeed);
-    //drive!
-    moveTowardsRotationTargetFieldRelative(xSpeed, ySpeed);
-  }
-
-  /**
-   * moves toward a position and rotation using
-   * {@link #moveTowardsRotationTargetFieldRelative(double, double)}. The position
-   * is set as if 0 degrees is away from
-   * the Blue alliance Wall, positive x is towards red alliance, and positive Y is
-   * to the left of the blue drivers
-   * 
-   * @param pose
-   */
-  public void moveTowardsPose(Pose2d pose) {
-    // set the targets for the PID loops
-    setRotationTarget(pose.getRotation().getDegrees());
-    DRIVE_TO_POSE_X_CONTROLLER.setSetpoint(pose.getX());
-    DRIVE_TO_POSE_Y_CONTROLLER.setSetpoint(pose.getY());
-    // calculate speeds using PID loops
-    double xSpeed = DRIVE_TO_POSE_X_CONTROLLER.calculate(odometer.getEstimatedPosition().getX());
-    double ySpeed = DRIVE_TO_POSE_Y_CONTROLLER.calculate(odometer.getEstimatedPosition().getY());
-    SmartDashboard.putNumber("TARGETINGPOSE/calculatedyspeed", ySpeed);
-    SmartDashboard.putNumber("TARGETINGPOSE/calculatedxspeed", xSpeed);
-
-    // reverse speeds for the red alliance, because directions have flipped
-    if (DriverStation.getAlliance().get() == Alliance.Red) {
-      xSpeed = -xSpeed;
-      ySpeed = -ySpeed;
-    }
-    SmartDashboard.putNumber("TARGETINGPOSE/adjustedyspeedAlliance", ySpeed);
-    SmartDashboard.putNumber("TARGETINGPOSE/adjustedxspeedAlliance", xSpeed);
-    // if the elevator is about to be up, limit the speed to 2 meters per second.
-    // Otherwise, limit speed to 3.5 meters per second
-
-    SmartDashboard.putNumber("TARGETINGPOSE/yspeed", ySpeed);
-    SmartDashboard.putNumber("TARGETINGPOSE/xspeed", xSpeed);
-    xSpeed = xSpeed > 1 ? 1: xSpeed;
-    xSpeed = xSpeed < -1 ? -1: xSpeed;
-    ySpeed = ySpeed > 1 ? 1: ySpeed;
-    ySpeed = ySpeed < -1 ? -1: ySpeed;
-    // drive!
-    moveTowardsRotationTargetFieldRelative(xSpeed, ySpeed);
-  }
-
-  /**
-   * moves toward a position and rotation using the BARGE_POSE in constnats for
-   * red or blue alliance.
-   * 
-   * @param pose
-   */
-
-  /**
-   * gets the total distance from the targeted pose and the robot's pose, by
-   * finding the hypotenuse of x error and y error
-   * <p>
-   * should only be called if {@link #moveTowardsPose(Pose2d)} is being run
-   * periodically, or else the error's will not be up to date with current robot
-   * position and current
-   * targeted position
-   * 
-   * @return the distance of error, in meters
-   */
-  public double getPositionTargetingError() {
-    double xError = DRIVE_TO_POSE_X_CONTROLLER.getError();
-    double yError = DRIVE_TO_POSE_Y_CONTROLLER.getError();
-    return Math.sqrt(Math.pow(xError, 2) + Math.pow(yError, 2));
-  }
-
-  /**
-   * gets the total distance from the x coordinate of the targeted pose and the
-   * robot's x coordinate, should only be called if
-   * {@link #moveTowardsPose(Pose2d)} is being run periodically, or else the
-   * error's will not be up to date with current robot position and current
-   * targeted position
-   * 
-   * @return the distance of error, in meters
-   */
-  public double getPositionTargetingErrorBarge() {
-    return DRIVE_TO_POSE_X_CONTROLLER.getError();
-  }
-
   public boolean isAtRotationTarget() {
     return rotationSpeedController.atSetpoint();
-  }
-
-  public boolean atProcessorAngle() {
-    return Math.abs(rotationSpeedController.getError()) < 3;
   }
 
   /*
    * Logs important data for the drivetrain
    */
   private void logDrivetrainData() {
-    SmartDashboard.putNumber("TESTINGPOSE/total error", getPositionTargetingError());
     SmartDashboard.putNumber("DRIVETRAIN/Robot Angle", getOdometryRotation().getDegrees());
     SmartDashboard.putString("DRIVETRAIN/Robot Location", getPose().getTranslation().toString());
     SmartDashboard.putNumber("DRIVETRAIN/forward speed", getChassisSpeeds().vxMetersPerSecond);
@@ -677,13 +502,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     updateInputs();
     SmartDashboard.putNumber("pose2d X", getPose().getX());
     SmartDashboard.putNumber("pose2d Y", getPose().getY());
-    setRobotOrientationOnLimelights();
     updateOdometry();
-    // sets the robot orientation for each of the limelights, which is required for
-    // the
 
     m_field.setRobotPose(odometer.getEstimatedPosition());
-    RobotState.getInstance().odometerOrientation = getOdometryRotation().getDegrees();
     // updates logging for all drive motors on the swerve modules
 
     for (int i = 0; i < 4; i++) {
@@ -694,21 +515,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     RobotState.getInstance().robotPosition = getPose();
     logDrivetrainData();
 
-    this.updateDesiredRobotAngle();
-    Logger.recordOutput("autoaim/pitchDegrees", RobotState.getInstance().aimingPitch);
-    Logger.recordOutput("autoaim/yaw", RobotState.getInstance().aimingYaw);
-    Logger.recordOutput("autoaim/target", BLUE_HUB_COORDINATE);
-    SmartDashboard.putBoolean("LimelightsUpdatedState", RobotState.getInstance().LimelightsUpdated);
-
     RobotState.getInstance().lightsRobotSpeed = Math.hypot(getChassisSpeeds().vxMetersPerSecond, getChassisSpeeds().vyMetersPerSecond);
-  }
-
-  public boolean nearBumps() {
-    Boolean isNearTopBlueBump = getPose().getX() > 2.97 && getPose().getX() < 6.3 && getPose().getY() < 6.13 && getPose().getY() > 4.94;
-    Boolean isNearBottomBlueBump = getPose().getX() > 2.97 && getPose().getX() < 6.3 && getPose().getY() < 3.032 && getPose().getY() > 2.023;
-    Boolean isNearTopRedBump = getPose().getX() > 10.2 && getPose().getX() < 13.74 && getPose().getY() < 6.13 && getPose().getY() > 4.94;
-    Boolean isNearBottomRedBump = getPose().getX() > 10.2 && getPose().getX() < 13.74 && getPose().getY() < 3.032 && getPose().getY() > 2.023;
-    return isNearBottomBlueBump || isNearBottomRedBump || isNearTopBlueBump || isNearTopRedBump;
   }
 
   private void updateInputs() {
@@ -723,126 +530,5 @@ public class DrivetrainSubsystem extends SubsystemBase {
     inputs.gyroTimeStamp = Timer.getFPGATimestamp();
     inputs.angularVelocity = pigeon.getAngularVelocityZWorld().getValueAsDouble();
     Logger.processInputs("Drivetrain", inputs);
-  }
-
-  /**
-   * @return the desired angle of the robot to be aimed at the hub, assuming 0 degrees = away from blue alliance
-   */
-  public void updateDesiredRobotAngle() {
-    boolean passing = false;
-    var targetPosition = new Translation3d();
-    double desiredSpeed = SHOOTING_SPEED_RPS;
-    double rpsToMps = RPS_TO_MPS_CLOSE;
-    
-    Optional<Alliance> alliance = DriverStation.getAlliance();
-    boolean isRed = alliance.isPresent() && alliance.get() == Alliance.Red;
-    if (isRed && getPose().getX() < RED_NEUTRAL_ZONE_X) {
-      passing = true;
-      if (getPose().getY() < FIELD_CENTER_Y) {
-        targetPosition = RED_LEFT_PASS_COORDINATE;
-      } else {
-        targetPosition = RED_RIGHT_PASS_COORDINATE;
-      }
-
-      RobotState.getInstance().lightsShooterOutOfRange = false;
-                                                                                                                    //NEEDS TO BE BLUE! this is alliance-agnostic
-      double squishedPositionBetweenAllianceZoneAndEnd = (RED_NEUTRAL_ZONE_X - getPose().getX()) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value. 
-      squishedPositionBetweenAllianceZoneAndEnd = Math.min(squishedPositionBetweenAllianceZoneAndEnd, 1);
-      desiredSpeed = SHOOTING_SPEED_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
-    } else if (!isRed && getPose().getX() > BLUE_NEUTRAL_ZONE_X) {
-      passing = true;
-      if (getPose().getY() > FIELD_CENTER_Y) {
-        targetPosition = BLUE_LEFT_PASS_COORDINATE;
-      } else {
-        targetPosition = BLUE_RIGHT_PASS_COORDINATE;
-      }
-
-      RobotState.getInstance().lightsShooterOutOfRange = false;
-
-      double squishedPositionBetweenAllianceZoneAndEnd = (getPose().getX() - BLUE_NEUTRAL_ZONE_X) / (FIELD_LENGTH_X - BLUE_NEUTRAL_ZONE_X); //Compresses distance between alliance zone line and far wall into a 0 to 1 value
-      squishedPositionBetweenAllianceZoneAndEnd = Math.min(squishedPositionBetweenAllianceZoneAndEnd, 1);
-      desiredSpeed = SHOOTING_SPEED_RPS + (PASSING_SPEED_RPS_MAX - SHOOTING_SPEED_RPS) * squishedPositionBetweenAllianceZoneAndEnd; //Uses that value to lerp between the normal shooting speed and the speed needed for the furthest shots
-    } else {
-      if (isRed) {
-        targetPosition = Field.RED_HUB_COORDINATE;
-      } else {
-        targetPosition = Field.BLUE_HUB_COORDINATE;
-      }
-
-      double a = -1.750e-02;
-      double b = 1.815e-01;
-      double c = -6.181e-01;
-      double d = 8.169e-01;
-
-
-      //Cubic fit between tuned points using https://curve.fit/ (https://curve.fit/JGcMjfBx/single/20260419160701)
-      double distanceToHub = new Translation2d(targetPosition.getX(), targetPosition.getY()).getDistance(getPose().getTranslation());
-      SmartDashboard.putNumber("DistanceToHub", distanceToHub);
-      distanceToHub = Math.max(distanceToHub, SHOOTING_CLOSE_DISTANCE_TO_HUB); //between the hub to the close shot pos, use the close shot
-      SmartDashboard.putNumber("ClampedDistanceToHub", distanceToHub);
-      //double normalizedDistanceToHub = (distanceToHub - SHOOTING_CLOSE_DISTANCE_TO_HUB)/(SHOOTING_FAR_DISTANCE_TO_HUB - SHOOTING_CLOSE_DISTANCE_TO_HUB);
-      //SmartDashboard.putNumber("NormalizedDistanceToHub", normalizedDistanceToHub);
-      //rpsToMps = RPS_TO_MPS_CLOSE + (RPS_TO_MPS_FAR - RPS_TO_MPS_CLOSE) * normalizedDistanceToHub;//SmartDashboard.getNumber("RPS_TO_MPS", 0.15);//
-      rpsToMps = (a * distanceToHub * distanceToHub * distanceToHub) + (b * distanceToHub * distanceToHub) + (c * distanceToHub) + d;
-      SmartDashboard.putNumber("RPSToMPS", rpsToMps);
-
-      RobotState.getInstance().lightsShooterOutOfRange = (distanceToHub >= SHOOTING_FAR_DISTANCE_TO_HUB);
-      SmartDashboard.putBoolean("autoaim/ShootingOutOfAccurateRange", distanceToHub >= SHOOTING_FAR_DISTANCE_TO_HUB);
-    }
-
-    if(!RobotState.getInstance().overrideShooterSpeed){
-      RobotState.getInstance().desiredShooterSpeed = desiredSpeed;
-    }
-
-    SmartDashboard.putNumber("autoaim/desiredShooterSpeed", RobotState.getInstance().desiredShooterSpeed);
-    Logger.recordOutput("Shooter/desiredShooterSpeed", RobotState.getInstance().desiredShooterSpeed);
-    SmartDashboard.putBoolean("autoaim/overrideShooterSpeed", RobotState.getInstance().overrideShooterSpeed);
-
-
-    var fieldChassisSpeeds = ChassisSpeeds.fromRobotRelativeSpeeds(getChassisSpeeds(), getPose().getRotation());
-
-    var shooterOffset = MythicalMath.RotateShooterOffset(getGyroscopeRotation(), new Translation2d(ShooterConstants.SHOOTER_X_OFFSET, ShooterConstants.SHOOTER_Y_OFFSET));
-
-    double angularVelocity = 0;
-    if(Math.abs(inputs.angularVelocity) > 0.5 ) {
-      // angularVelocity = getAngularVelocity() * ShooterConstants.SHOOTER_X_OFFSET;
-    }
-    var linearVelocityFromRotation = MythicalMath.RotateShooterOffset(getGyroscopeRotation(), new Translation2d(0, angularVelocity)); //Movement vector with linear velocity as magnitude perpendicular to the radius, rotated by the robot rotation
-
-    Tuple2<Double> desiredRotation = MythicalMath.aimProjectileAtPoint(
-      new Translation3d(getPose().getX() + shooterOffset.getX(), getPose().getY() + shooterOffset.getY(), SHOOTER_HEIGHT), 
-      targetPosition, 
-      desiredSpeed * rpsToMps, 
-      new Translation3d(0, 0, 0), //new Translation3d(fieldChassisSpeeds.vxMetersPerSecond + linearVelocityFromRotation.getX(), fieldChassisSpeeds.vyMetersPerSecond + linearVelocityFromRotation.getY(), 0), 
-      0);
-      
-    SmartDashboard.putBoolean("shootingAnglesFound", desiredRotation != null);
-    
-    if(desiredRotation != null){
-      RobotState.getInstance().aimingPitch = 90 - desiredRotation.get_0(); //subtracting pitch from 90 degrees becuase math believes 90 degrees is straight up, but servo believes 90 degrees is forward
-      RobotState.getInstance().aimingYaw = 90 - desiredRotation.get_1() + 180; //add 180 degrees so because shooter is now reversed
-    } else {
-      // System.out.println("desiredRotation calculations failed - most likely no solutions. Aiming angles were not updated.");
-    }
-    if(passing) {
-      RobotState.getInstance().aimingPitch = 35;
-    }
-    
-  }
-
-  public static double getDistanceToHub() {
-  Pose2d dtvalues = RobotState.getInstance().robotPosition;
-    double deltaX;
-    double deltaY;
-		// triangle for robot angle
-		Optional<Alliance> alliance = DriverStation.getAlliance();
-		if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-			deltaY = Math.abs(dtvalues.getY() - Field.RED_HUB_COORDINATE.getY());
-      deltaX = Math.abs(dtvalues.getX() - Field.RED_HUB_COORDINATE.getX());
-		} else {
-			deltaY = Math.abs(dtvalues.getY() - Field.BLUE_HUB_COORDINATE.getY());
-      deltaX = Math.abs(dtvalues.getX() - Field.BLUE_HUB_COORDINATE.getX());
-		}
-		return Math.sqrt(deltaX*deltaX+deltaY*deltaY);
   }
 }

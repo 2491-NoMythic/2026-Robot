@@ -11,32 +11,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants.LightConstants;
-import frc.robot.Robot;
-import frc.robot.settings.Constants;
 import frc.robot.settings.EffectEnums;
 import frc.robot.settings.LightsEnums;
 
-import org.w3c.dom.css.RGBColor;
-
-import com.ctre.phoenix6.StatusSignal.SignalMeasurement;
-import com.ctre.phoenix6.configs.CANdleConfiguration;
-import com.ctre.phoenix6.controls.ControlRequest;
-import com.ctre.phoenix6.controls.FireAnimation;
-import com.ctre.phoenix6.controls.LarsonAnimation;
-import com.ctre.phoenix6.controls.SolidColor;
-import com.ctre.phoenix6.controls.StrobeAnimation;
-import com.ctre.phoenix6.controls.TwinkleAnimation;
-import com.ctre.phoenix6.hardware.CANdle;
-import com.ctre.phoenix6.signals.Enable5VRailValue;
 import com.ctre.phoenix6.signals.RGBWColor;
-import com.ctre.phoenix6.signals.StripTypeValue;
-
-import static frc.robot.settings.Constants.DriveConstants.CANIVORE_DRIVETRAIN;
-
-import java.awt.color.*;
 
 public class Lights extends SubsystemBase {
   private AddressableLED lights;
@@ -145,16 +125,9 @@ public class Lights extends SubsystemBase {
     double velocity = 0;
 
     if(RobotState.getInstance().lightsRobotDisabled) {
-      if(RobotState.matchTime == 2) {
-        RobotState.getInstance().lightsMatchPlayed = true;
-      } else if(RobotState.matchTime > 2) {
-        RobotState.getInstance().lightsMatchPlayed = false;
-      }
       
       if(SmartDashboard.getBoolean("Lights/Show Mode", false)) { //show mode
         currentEffect = EffectEnums.RGBPride;
-      } else if(RobotState.matchTime <= 1 && RobotState.getInstance().lightsMatchPlayed) { //match has been played
-        currentEffect = EffectEnums.ShutdownGreen;
       } else {
         currentEffect = EffectEnums.AllianceBreathe;
       }

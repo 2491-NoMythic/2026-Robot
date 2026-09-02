@@ -12,15 +12,11 @@ import static frc.robot.settings.Constants.DriveConstants.k_XY_I;
 import static frc.robot.settings.Constants.DriveConstants.k_XY_P;
 import static frc.robot.settings.Constants.HopperConstants.HOPPER_ROLLER_SPEED_RPS;
 import static frc.robot.settings.Constants.ShooterConstants.HOOD_UP_POSITION;
-import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.DRIVE_TRAIN_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.HOPPER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.INDEXER_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.INTAKE_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.LIGHTS_EXIST;
-import static frc.robot.settings.Constants.SubsystemsEnabled.LIMELIGHTS_EXIST;
-import static frc.robot.settings.Constants.SubsystemsEnabled.QUEST_EXISTS;
 import static frc.robot.settings.Constants.SubsystemsEnabled.SAFE_MODE_IS_ON;
 import static frc.robot.settings.Constants.SubsystemsEnabled.SHOOTER_EXISTS;
 import static frc.robot.settings.Constants.XboxDriver.DRIVE_CONTROLLER_ID;
@@ -31,7 +27,6 @@ import static frc.robot.settings.Constants.XboxDriver.Z_AXIS;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.DoubleSupplier;
@@ -43,7 +38,6 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
@@ -53,37 +47,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Commands.AimAtHub;
-import frc.robot.Commands.AimAtLocation;
 import frc.robot.Commands.AimHood;
 import frc.robot.Commands.AimRobot;
-import edu.wpi.first.wpilibj2.command.SelectCommand;
 import frc.robot.Commands.Drive;
 import frc.robot.Commands.DriveConstantSpeed;
 import frc.robot.Commands.Expand;
 import frc.robot.Commands.Outtake;
-import frc.robot.Commands.OverBump;
-import frc.robot.Commands.PassCommandDeprecated;
 import frc.robot.Commands.FeedShooter;
 import frc.robot.Commands.PulseIntake;
 import frc.robot.Commands.FeedShooterAntiHopperStall;
-import frc.robot.Commands.LightsCommand;
-import frc.robot.Commands.LockYAxisForCrossing;
 import frc.robot.Commands.MoveIntakeUp;
-import frc.robot.Commands.Outtake;
 import frc.robot.Commands.RunIntake;
-import frc.robot.Commands.RunShooterVelocity;
-import frc.robot.Commands.AimAtLocation.Location;
-import frc.robot.settings.Constants.IndexerConstants;
 import frc.robot.settings.Constants.ShooterConstants;
-import frc.robot.settings.LightsEnums;
 import frc.robot.settings.OdometryUpdatingState;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hopper;
@@ -92,7 +72,6 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.RobotState;
 import frc.robot.subsystems.Shooter;
-import gg.questnav.questnav.QuestNav;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -119,7 +98,6 @@ public class RobotContainer {
   private final XboxController operatorController;
   private Timer autoTimer;
 
-  private AimAtHub aimAtHub;
   private AimHood aimHood;
 
   DoubleSupplier ControllerForwardAxisSupplier;
@@ -332,7 +310,6 @@ public class RobotContainer {
     new Trigger(HoodDownSupplier).whileTrue(new RunCommand(()-> shooter.setDesiredHoodAngle(ShooterConstants.HOOD_DOWN_POSITION), shooter));
     new Trigger(ShooterOnSup).onTrue(new InstantCommand(()->shooter.shooterOn(), shooter));
     new Trigger(ShooterOffSup).onTrue(new InstantCommand(()->shooter.stop(), shooter));
-    new Trigger(AutoAimSupplier).whileTrue(new AimAtHub(drivetrain, shooter, ControllerSidewaysAxisSupplier, ControllerForwardAxisSupplier));
 
     SmartDashboard.putData("TESTING/HoodTo28Degrees", new RunCommand(()->shooter.setDesiredHoodAngle(25), shooter));
   }
