@@ -5,8 +5,6 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
-import frc.robot.LogInputs.IntakeInputs;
-import frc.robot.LogInputs.IntakeInputsAutoLogged;
 
 public class PulseIntake extends Command {
     TalonFX deployer;

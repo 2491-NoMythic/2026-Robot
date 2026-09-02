@@ -90,6 +90,7 @@ public class RobotContainer {
   private Intake intake;
   private Indexer indexer;
   private Hopper hopper;
+  @SuppressWarnings("unused")
   private Lights lights;
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
@@ -97,8 +98,6 @@ public class RobotContainer {
   private final XboxController driveController;
   private final XboxController operatorController;
   private Timer autoTimer;
-
-  private AimHood aimHood;
 
   DoubleSupplier ControllerForwardAxisSupplier;
   DoubleSupplier ControllerSidewaysAxisSupplier;
@@ -433,6 +432,7 @@ public class RobotContainer {
     RobotState.getInstance().lightsRobotDisabled = false;
   }
 
+  @SuppressWarnings("unused")
   private void registerNamedCommands(){
     if(INDEXER_EXISTS && HOPPER_EXISTS) {
       NamedCommands.registerCommand("RunIndexer", new ParallelCommandGroup(

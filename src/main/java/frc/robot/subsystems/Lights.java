@@ -92,6 +92,7 @@ public class Lights extends SubsystemBase {
     }
   }
 
+  @SuppressWarnings("unused")
   private void updateBlinkedLights() {
     if (blinkLights) {
       if (timer.get() < 0.1) {

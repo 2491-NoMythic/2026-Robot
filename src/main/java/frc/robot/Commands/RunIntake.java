@@ -8,7 +8,6 @@ import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Hopper;
-import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */

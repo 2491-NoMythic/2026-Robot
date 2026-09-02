@@ -14,19 +14,8 @@ import static frc.robot.settings.Constants.DriveConstants.BR_DRIVE_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.BR_STEER_ENCODER_ID;
 import static frc.robot.settings.Constants.DriveConstants.BR_STEER_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.CANIVORE_DRIVETRAIN;
-import static frc.robot.settings.Constants.Field.BLUE_HUB_COORDINATE;
-import static frc.robot.settings.Constants.Field.BLUE_LEFT_PASS_COORDINATE;
-import static frc.robot.settings.Constants.Field.BLUE_NEUTRAL_ZONE_X;
-import static frc.robot.settings.Constants.Field.BLUE_RIGHT_PASS_COORDINATE;
-import static frc.robot.settings.Constants.Field.FIELD_CENTER_Y;
-import static frc.robot.settings.Constants.Field.FIELD_LENGTH_X;
-import static frc.robot.settings.Constants.Field.RED_LEFT_PASS_COORDINATE;
-import static frc.robot.settings.Constants.Field.RED_NEUTRAL_ZONE_X;
-import static frc.robot.settings.Constants.Field.RED_RIGHT_PASS_COORDINATE;
 import static frc.robot.settings.Constants.DriveConstants.DRIVETRAIN_PIGEON_ID;
 import static frc.robot.settings.Constants.DriveConstants.DRIVE_ODOMETRY_ORIGIN;
-import static frc.robot.settings.Constants.DriveConstants.DRIVE_TO_POSE_X_CONTROLLER;
-import static frc.robot.settings.Constants.DriveConstants.DRIVE_TO_POSE_Y_CONTROLLER;
 import static frc.robot.settings.Constants.DriveConstants.FL_DRIVE_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.FL_STEER_ENCODER_ID;
 import static frc.robot.settings.Constants.DriveConstants.FL_STEER_MOTOR_ID;
@@ -35,41 +24,24 @@ import static frc.robot.settings.Constants.DriveConstants.FR_STEER_ENCODER_ID;
 import static frc.robot.settings.Constants.DriveConstants.FR_STEER_MOTOR_ID;
 import static frc.robot.settings.Constants.DriveConstants.MAX_VELOCITY_METERS_PER_SECOND;
 import static frc.robot.settings.Constants.DriveConstants.ROBOT_ANGLE_TOLERANCE;
-import static frc.robot.settings.Constants.ShooterConstants.PASSING_SPEED_RPS_MAX;
-import static frc.robot.settings.Constants.ShooterConstants.RPS_TO_MPS_CLOSE;
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTER_HEIGHT;
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_CLOSE_DISTANCE_TO_HUB;
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_FAR_DISTANCE_TO_HUB;
-import static frc.robot.settings.Constants.ShooterConstants.SHOOTING_SPEED_RPS;
-import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTA_NAME;
-import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTB_NAME;
-import static frc.robot.settings.Constants.Vision.APRILTAG_LIMELIGHTC_NAME;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Optional;
 import java.util.function.DoubleSupplier;
 
 // import java.util.logging.Logger;
 import org.littletonrobotics.junction.Logger;
-import org.opencv.core.Mat.Tuple2;
-
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
-import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.util.datalog.DataLog;
-import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Preferences;
@@ -77,13 +49,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.LimelightHelpers;
 import frc.robot.LogInputs.DrivetrainInputsAutoLogged;
 import frc.robot.helpers.MotorLogger;
-import frc.robot.helpers.MythicalMath;
 import frc.robot.settings.Constants.DriveConstants;
-import frc.robot.settings.Constants.Field;
-import frc.robot.settings.Constants.ShooterConstants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
   // These are our swerve drive kinematics and Pigeon (gyroscope)
@@ -168,14 +136,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
         Rotation2d.fromRotations(Preferences.getDouble("BR offset", 0)),
         CANIVORE_DRIVETRAIN);
 
-    DataLog log = DataLogManager.getLog();
-        motorLoggers =
-            new MotorLogger[] {
-              new MotorLogger("/drivetrain/motorFL"),
-              new MotorLogger("/drivetrain/motorFR"),
-              new MotorLogger( "/drivetrain/motorBL"),
-              new MotorLogger("/drivetrain/motorBR"),
-            };
+    motorLoggers = new MotorLogger[] {
+        new MotorLogger("/drivetrain/motorFL"),
+        new MotorLogger("/drivetrain/motorFR"),
+        new MotorLogger("/drivetrain/motorBL"),
+        new MotorLogger("/drivetrain/motorBR"),
+    };
 
     // configures the odometer/
     updateInputs();
@@ -208,21 +174,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   /**
-   * gets the angle of odometer reading, but adds 180 degrees if we are on red
-   * alliance. this is useful for whne using
-   * ChassisSpeeds.fromFieldRelativeSpeeds(ChassisSpeeds,
-   * getAllianceSpecificRotation())
-   * 
-   * @return the angle of the robot, if 0 degrees is away from your alliance wall
-   */
-  private Rotation2d getAllianceSpecificRotation() {
-    double angle = DriverStation.getAlliance().get() == Alliance.Blue
-        ? odometer.getEstimatedPosition().getRotation().getDegrees()
-        : odometer.getEstimatedPosition().getRotation().getDegrees() + 180;
-    return Rotation2d.fromDegrees(angle);
-  }
-
-  /**
    * returns the pitch of the pigeon as a double
    * 
    * @return the pitch, returned as a double
@@ -235,7 +186,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return inputs.roll;
   }
 
-  public double getAngularVelocity(){
+  public double getAngularVelocity() {
     return inputs.angularVelocity;
   }
 
@@ -291,8 +242,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return kinematics.toChassisSpeeds(getModuleStates());
   }
 
-  public double getDrivetrainVelocity(){
-    return Math.sqrt(Math.pow(getChassisSpeeds().vxMetersPerSecond, 2)+Math.pow(getChassisSpeeds().vyMetersPerSecond, 2));
+  public double getDrivetrainVelocity() {
+    return Math
+        .sqrt(Math.pow(getChassisSpeeds().vxMetersPerSecond, 2) + Math.pow(getChassisSpeeds().vyMetersPerSecond, 2));
   }
 
   /**
@@ -515,7 +467,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     RobotState.getInstance().robotPosition = getPose();
     logDrivetrainData();
 
-    RobotState.getInstance().lightsRobotSpeed = Math.hypot(getChassisSpeeds().vxMetersPerSecond, getChassisSpeeds().vyMetersPerSecond);
+    RobotState.getInstance().lightsRobotSpeed = Math.hypot(getChassisSpeeds().vxMetersPerSecond,
+        getChassisSpeeds().vyMetersPerSecond);
   }
 
   private void updateInputs() {

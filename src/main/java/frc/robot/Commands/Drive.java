@@ -3,7 +3,6 @@ package frc.robot.Commands;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.settings.Constants.DriveConstants;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -13,6 +12,7 @@ import java.util.function.DoubleSupplier;
 public class Drive extends Command {
 
   private final DrivetrainSubsystem drivetrain;
+  @SuppressWarnings("unused")
   private final BooleanSupplier robotCentricMode;
   private final DoubleSupplier translationXSupplier;
   private final DoubleSupplier translationYSupplier;
@@ -60,44 +60,17 @@ public class Drive extends Command {
     } else {
       invert = 1;
     }
-    // The two statements are mostly identical, taking X, Y, and Rotation suppliers
-    // and multiplying them by maximum velocties and inversions
-    // The only difference is that one is relative to the field, and the other to
-    // the robot.
-    double xSpeed = translationXSupplier.getAsDouble(); //over bump speed assist
   
-    final double bumpCrossingSpeed = 0.33;
-    if (xSpeed > bumpCrossingSpeed && xSpeed < 0.8 && drivetrain.nearBumps()) {
-      xSpeed = bumpCrossingSpeed; 
-    }
-    if ( xSpeed < -bumpCrossingSpeed && xSpeed > -0.8 && drivetrain.nearBumps()) {
-      xSpeed = -bumpCrossingSpeed;
-    }
-    SmartDashboard.putNumber("bumpXSpeed", xSpeed);
-    if (robotCentricMode.getAsBoolean()) {
-      drivetrain.drive(
-          new ChassisSpeeds(
-              translationXSupplier.getAsDouble()
-                  * (DriveConstants.MAX_VELOCITY_METERS_PER_SECOND)
-                  * invert,
-              translationYSupplier.getAsDouble()
-                  * (DriveConstants.MAX_VELOCITY_METERS_PER_SECOND)
-                  * invert,
-              rotationSupplier.getAsDouble()
-                  * DriveConstants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND));
-    } else {
-      drivetrain.drive(
-          ChassisSpeeds.fromFieldRelativeSpeeds(
-              xSpeed
-                  * (DriveConstants.MAX_VELOCITY_METERS_PER_SECOND)
-                  * invert,
-              translationYSupplier.getAsDouble()
-                  * (DriveConstants.MAX_VELOCITY_METERS_PER_SECOND)
-                  * invert,
-              rotationSupplier.getAsDouble()
-                  * DriveConstants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
-              drivetrain.getPose().getRotation()));
-    }
+    drivetrain.drive(
+        new ChassisSpeeds(
+            translationXSupplier.getAsDouble()
+                * (DriveConstants.MAX_VELOCITY_METERS_PER_SECOND)
+                * invert,
+            translationYSupplier.getAsDouble()
+                * (DriveConstants.MAX_VELOCITY_METERS_PER_SECOND)
+                * invert,
+            rotationSupplier.getAsDouble()
+                * DriveConstants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND));
   }
 
   @Override
