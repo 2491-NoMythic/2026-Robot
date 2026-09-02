@@ -98,7 +98,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     PathPlannerLogging.setLogActivePathCallback(
         (poses) -> m_field.getObject("path").setPoses(poses));
     SmartDashboard.putData("Field", m_field);
-    SmartDashboard.putBoolean("Vision/force use limelight", false);
 
     // Creates and configures each of the four swerve modules used in the
     // drivetrain, along with their motor loggers.
