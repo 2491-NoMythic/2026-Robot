@@ -21,7 +21,6 @@ public class Expand extends Command{
     timer.reset();
     timer.start();
     intake.deployIntake();
-    //intake.setDeployerVoltage(5);
   }
 
   @Override
@@ -30,14 +29,11 @@ public class Expand extends Command{
       intake.feedHopper();
       intake.setHoldPosition(true);
     }
-    // if(timer.get() > 0.2)
-    // intake.deployIntake();
   }
 
     @Override
   public void end(boolean interrupted) {
     intake.feedHopper();
-    // intake.deployIntake();
   }
 
     @Override

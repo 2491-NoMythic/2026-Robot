@@ -7,7 +7,6 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.settings.LightsEnums;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.RobotState;
 
@@ -38,9 +37,6 @@ public class LightsCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (DriverStation.isAutonomous()) {
-      return;
-    }
     loopsRan++;
     if (loopsRan < 10) {
       return;
@@ -49,18 +45,16 @@ public class LightsCommand extends Command {
     }
 
     if (RobotState.getInstance().Aimed) {
-      lights.setSystemLights(LightsEnums.All, 0, 0, 255);
-    } else if (RobotState.getInstance().shooting) {
-      //lights.blinkLights(LightsEnums.All, 255, 0, 255);
+      lights.setSystemLights(0, 0, 255);
     } else {
-      lights.breathingLights(LightsEnums.All, 255, 0, 255);
+      lights.breathingLights(255, 0, 255);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    lights.breathingLights(LightsEnums.All, 255, 0, 255);
+    lights.breathingLights(255, 0, 255);
   }
 
   // Returns true when the command should end.

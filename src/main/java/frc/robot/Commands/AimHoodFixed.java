@@ -43,8 +43,6 @@ public class AimHoodFixed extends Command {
   @Override
   public void end(boolean interrupted) {
     RobotState.getInstance().overrideShooterSpeed = false;
-    //shooter.setDesiredHoodAngle(ShooterConstants.HOOD_DOWN_POSITION, false);
-    //shooter.setVelocity(SHOOTING_SPEED_RPS);
   }
 
   // Returns true when the command should end.
