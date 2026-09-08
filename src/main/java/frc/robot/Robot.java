@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends LoggedRobot {
-  private Command autonomousCommand;
 
   private RobotContainer robotContainer;
 
@@ -36,9 +35,7 @@ public class Robot extends LoggedRobot {
    */
   @Override
    public void robotInit() {
-    // Instantiate our RobotContainer. This will perform all our button bindings,
-    // and put our
-    // autonomous chooser on the dashboard.
+    // Instantiate our RobotContainer. This will perform all our button bindings
     
     if (isReal()) {
       // the following indented code is from ChatGPT, and checks if a USB stick is pluged in. If it
@@ -110,36 +107,8 @@ public class Robot extends LoggedRobot {
     robotContainer.disabledPeriodic();
   }
 
-  /**
-   * This autonomous runs the autonomous command selected by your
-   * {@link RobotContainer} class.
-   */
-  @Override
-  public void autonomousInit() {
-    // We have no autonomous command right now
-    autonomousCommand = robotContainer.getAutonomousCommand();
-    // schedule the autonomous command (example)
-    if (autonomousCommand != null) {
-      autonomousCommand.schedule();
-    }
-  }
-
-  /** This function is called periodically during autonomous. */
-  @Override
-  public void autonomousPeriodic() { // not sure what we do here
-    robotContainer.autonomousPeriodic();
-  }
-
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-
-    if (autonomousCommand != null) {
-      autonomousCommand.cancel();
-    }
   }
 
   /** This function is called periodically during operator control. */

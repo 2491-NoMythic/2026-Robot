@@ -14,14 +14,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Constants.LightConstants;
 import frc.robot.settings.EffectEnums;
-import frc.robot.settings.LightsEnums;
 
 import com.ctre.phoenix6.signals.RGBWColor;
 
 public class Lights extends SubsystemBase {
   private AddressableLED lights;
   private AddressableLEDBuffer LEDBuffer;
-  LightsEnums lightsToBlink;
 
   int blinkedRed;
   int blinkedGreen;
@@ -84,35 +82,31 @@ public class Lights extends SubsystemBase {
     setLights(0, LEDBuffer.getLength(), 0, 0, 0);
   }
 
-  public void setSystemLights(LightsEnums lightEnums, int R, int G, int B) {
-    switch (lightEnums) {
-      case All:
+  public void setSystemLights(int R, int G, int B) {
         setLights(LightConstants.ALL_LIGHT_START, LightConstants.ALL_LIGHT_END, R, G, B);
-        break;
-    }
   }
 
   @SuppressWarnings("unused")
   private void updateBlinkedLights() {
     if (blinkLights) {
       if (timer.get() < 0.1) {
-        setSystemLights(lightsToBlink, blinkedRed, blinkedGreen, blinkedBlue);
+        setSystemLights(blinkedRed, blinkedGreen, blinkedBlue);
       } else if (timer.get() < 1) {
-        setSystemLights(lightsToBlink, 0, 0, 0);
+        setSystemLights(0, 0, 0);
       } else {
         timer.reset();
       }
     }
   }
  
-  public void breathingLights(LightsEnums lightsEnums, int R, int G, int B) {
+  public void breathingLights(int R, int G, int B) {
     double time = timer.get();
     int brightness = (int) ((Math.sin(time * 2) + 1) / 2 * 255);
-    setSystemLights(lightsEnums, (int) (R * brightness / 255.0), (int) (G * brightness / 255.0),
+    setSystemLights((int) (R * brightness / 255.0), (int) (G * brightness / 255.0),
         (int) (B * brightness / 255.0));
   }
 
-  public void allLights(LightsEnums lightsEnums) {
+  public void allLights() {
     for (int index = 0; index < LightConstants.ALL_LIGHT_END; index++) {
       lightColors[index] = new RGBWColor(255, 0, 255);
     }
@@ -132,8 +126,6 @@ public class Lights extends SubsystemBase {
       } else {
         currentEffect = EffectEnums.AllianceBreathe;
       }
-    } else if(DriverStation.isAutonomous()) { //in autonomous
-      currentEffect = EffectEnums.RGBPride;
     } else if(RobotState.getInstance().lightsShooterOutOfRange) {
       currentEffect = EffectEnums.RangeFlash;
     } else if(RobotState.getInstance().lightsIndexing) {
@@ -158,11 +150,11 @@ public class Lights extends SubsystemBase {
       case AllianceBreathe:
         brightness = (int) ((Math.sin(time * 2) + 1) / 2 * 255);
         if(DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Red){
-          setSystemLights(LightsEnums.All, 255, 0, brightness);
+          setSystemLights(255, 0, brightness);
         } else if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == Alliance.Blue){
-          setSystemLights(LightsEnums.All, brightness, 0, 255);
+          setSystemLights(brightness, 0, 255);
         } else {
-          setSystemLights(LightsEnums.All, 255, brightness, 255);
+          setSystemLights(255, brightness, 255);
         }
 
         break;
@@ -179,7 +171,7 @@ public class Lights extends SubsystemBase {
 
       case RangeFlash:
         brightness = (int) (Math.round((Math.sin(time * 6) + 1)/2)) * 255;
-        setSystemLights(LightsEnums.All, brightness, 0, 0);
+        setSystemLights(brightness, 0, 0);
 
         break;
 
@@ -207,7 +199,7 @@ public class Lights extends SubsystemBase {
 
         case ShutdownGreen:
         brightness = (int) (Math.round((Math.sin(time * 4) + 1)/2)) * 120;
-        setSystemLights(LightsEnums.All, 0, 135 + brightness, 0);
+        setSystemLights(0, 135 + brightness, 0);
 
         break;
 
@@ -215,9 +207,9 @@ public class Lights extends SubsystemBase {
         brightness = (int)(((velocity / 4) * 255 * 2));
         brightness = (int)(brightness * brightness / (255 * 2));
         if(brightness > 255) { //when going extra fast the lights "overclock" into turning white
-          setSystemLights(LightsEnums.All, brightness, brightness - 255, brightness);
+          setSystemLights(brightness, brightness - 255, brightness);
         } else {
-          setSystemLights(LightsEnums.All, brightness, 0, brightness);
+          setSystemLights(brightness, 0, brightness);
         }
 
         break;

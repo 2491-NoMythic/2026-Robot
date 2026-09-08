@@ -40,7 +40,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -64,7 +63,6 @@ import frc.robot.Commands.FeedShooterAntiHopperStall;
 import frc.robot.Commands.MoveIntakeUp;
 import frc.robot.Commands.RunIntake;
 import frc.robot.settings.Constants.ShooterConstants;
-import frc.robot.settings.OdometryUpdatingState;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hopper;
 import frc.robot.subsystems.Indexer;
@@ -93,11 +91,9 @@ public class RobotContainer {
   @SuppressWarnings("unused")
   private Lights lights;
   private Drive defaultDriveCommand;
-  private SendableChooser<Command> autoChooser;
   private SendableChooser<Double> safeModeChooser; // creates a changable option on elastic for safemode
   private final XboxController driveController;
   private final XboxController operatorController;
-  private Timer autoTimer;
 
   DoubleSupplier ControllerForwardAxisSupplier;
   DoubleSupplier ControllerSidewaysAxisSupplier;
@@ -142,17 +138,12 @@ public class RobotContainer {
   public static HashMap<String, Command> eventMap;
 
   public RobotContainer() {
-
-    RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights;
     
-    autoTimer = new Timer();
-
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     driveController = new XboxController(DRIVE_CONTROLLER_ID);
     operatorController = new XboxController(OPERATOR_CONTROLLER_ID);
-    autoChooser = new SendableChooser<>();
     eventMap = new HashMap<>();
 
     // Drive controls
@@ -205,18 +196,10 @@ public class RobotContainer {
     AgitateFuelSup = ()->operatorController.getLeftTriggerAxis() > 0.5;
 
     //hopper controls
-    HopperWheelsForwardSup = ()-> false;//operatorController.getPOV() == 270;
-    HopperWheelsBackwardSup = ()-> false;//operatorController.getPOV() == 180;
+    HopperWheelsForwardSup = ()-> false;
+    HopperWheelsBackwardSup = ()-> false;
 
-    //Trench Controls
-    TrenchAllignSup = driveController::getLeftStickButton; //NOT FINAL THIS IS BATCRAP INSANE
-    BumpAllignSup = driveController::getRightStickButton; //NOT FINAL THIS IS BATCRAP INSANE
-
-    crossBumpTowardsAllianceSup = driveController::getYButton;
     ShootIfAimedSup = ()->false;
-
-    //QuestNav Controls
-    ResetQuestIntakeInSup = driveController::getBackButton;
 
     if (DRIVE_TRAIN_EXISTS) {
       driveTrainInit();
@@ -386,31 +369,9 @@ public class RobotContainer {
       new Trigger(IndexerSup).whileTrue(new InstantCommand(()->System.out.println("IndexerSupPressed")));
     }
   }
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
-  }
-
-  public void autonomousInit() {
-    //THIS METHOD IS NEVER CALLED
-    
-    autoTimer.reset();
-    autoTimer.start();
-
-    //lights.blinkLights(LightsEnums.All, 255, 0, 0);
-  }
-
-  public void autonomousPeriodic() {
-    RobotState.getInstance().lightsRobotDisabled = false;
-  }
 
   public void disabledPeriodic() {
     RobotState.getInstance().lightsRobotDisabled = true;
-    //lights.breathingLights(LightsEnums.All, 255, 0, 255);
   }
 
   private double modifyAxis(double value, double deadband) {

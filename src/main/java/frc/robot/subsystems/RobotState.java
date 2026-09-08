@@ -5,7 +5,6 @@ import java.util.Optional;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import frc.robot.settings.OdometryUpdatingState;
 
 public class RobotState {
   private static RobotState instance;
@@ -16,7 +15,6 @@ public class RobotState {
   public boolean indexerRunning;
   public boolean shooting;
   public boolean feedingShooter;
-  public OdometryUpdatingState odometryUpdatingState;
 
   public double aimingPitch;
   public double aimingYaw;
