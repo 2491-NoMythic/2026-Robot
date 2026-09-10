@@ -4,11 +4,13 @@
   "holonomicMode": true,
   "pathFolders": [
     "Auto Bump Paths",
-    "Collect"
+    "Collect",
+    "Open-House Paths"
   ],
   "autoFolders": [
-    "Non-Double Backs",
-    "Double-Backs"
+    "Double-Backs",
+    "Open-House Autos",
+    "Non-Double Backs"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 2.5,
