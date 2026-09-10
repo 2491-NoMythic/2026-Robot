@@ -435,26 +435,28 @@ public class RobotContainer {
           return true;
         };
       };
-      InstantCommand resetQuestPose = new InstantCommand(quest::resetQuestPose) {
-        public boolean runsWhenDisabled() {
-          return true;
+      if (QUEST_EXISTS) {
+        InstantCommand resetQuestPose = new InstantCommand(quest::resetQuestPose) {
+          public boolean runsWhenDisabled() {
+            return true;
+          };
         };
-      };
-      InstantCommand resetQuestToAutoPoseLeft = new InstantCommand(()->quest.resetQuestToAutoStartPose(false)) {
-        public boolean runsWhenDisabled() {
-          return true;
+        InstantCommand resetQuestToAutoPoseLeft = new InstantCommand(() -> quest.resetQuestToAutoStartPose(false)) {
+          public boolean runsWhenDisabled() {
+            return true;
+          };
         };
-      };
-      InstantCommand resetQuestToAutoPoseRight = new InstantCommand(()->quest.resetQuestToAutoStartPose(true)) {
-        public boolean runsWhenDisabled() {
-          return true;
+        InstantCommand resetQuestToAutoPoseRight = new InstantCommand(() -> quest.resetQuestToAutoStartPose(true)) {
+          public boolean runsWhenDisabled() {
+            return true;
+          };
         };
-      };
+        SmartDashboard.putData("resetQuestPose", resetQuestPose);
+        SmartDashboard.putData("resetQuestToAutoPoseLeft", resetQuestToAutoPoseLeft);
+        SmartDashboard.putData("resetQuestToAutoPoseRight", resetQuestToAutoPoseRight);
+      }
 
       SmartDashboard.putData("zeroGyroscope", zeroGyroscope);
-      SmartDashboard.putData("resetQuestPose", resetQuestPose);
-      SmartDashboard.putData("resetQuestToAutoPoseLeft", resetQuestToAutoPoseLeft);
-      SmartDashboard.putData("resetQuestToAutoPoseRight", resetQuestToAutoPoseRight);
       SmartDashboard.putData("set offsets", setOffsets);
     }
     if(DRIVE_TRAIN_EXISTS && SHOOTER_EXISTS){
