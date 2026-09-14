@@ -29,6 +29,10 @@ import frc.robot.LogInputs.QuestInputsAutoLogged;
 import frc.robot.settings.OdometryUpdatingState;
 import gg.questnav.questnav.PoseFrame;
 import gg.questnav.questnav.QuestNav;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
+
 
 public class Quest extends SubsystemBase {
   QuestNav questNav = new QuestNav();
@@ -57,6 +61,9 @@ public class Quest extends SubsystemBase {
   public void setQuestNavPose(Pose2d robotPose){
     setQuestNavPose(new Pose3d(robotPose.getX(), robotPose.getY(), 0, new Rotation3d(0, 0, robotPose.getRotation().getRadians())));
   }
+
+  private static final AprilTagFieldLayout FIELD_LAYOUT =
+    AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
   public void resetQuestToAutoStartPose(boolean rightSide) {
     Pose3d resetPose;
