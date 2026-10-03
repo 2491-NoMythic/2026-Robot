@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1SHOT L Bump AG Half Tower"
+            "pathName": "L Bump AG Half"
           }
         },
         {
@@ -23,7 +23,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.1
+                  "waitTime": 1.0
                 }
               }
             ]
@@ -48,26 +48,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 7.0
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 3.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AgitateFuel"
-                      }
-                    }
-                  ]
+                  "waitTime": 5.0
                 }
               }
             ]
@@ -77,6 +58,6 @@
     }
   },
   "resetOdom": false,
-  "folder": "Double-Backs",
+  "folder": "Non-Double Backs",
   "choreoAuto": false
 }
