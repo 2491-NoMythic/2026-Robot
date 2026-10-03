@@ -56,10 +56,10 @@ public class FeedShooter extends Command {
       indexer.feedShooter();
       hopper.feedIndexer();
     } else if(timer.get() < 3.2) {
-      //intake.feedHopper();
-      //intake.setIntakeAngle(-0.13);
+      intake.feedHopper();
+      intake.setIntakeAngle(-0.13);
     } else {
-      //intake.setIntakeAngle(-0.3);
+      intake.setIntakeAngle(-0.3);
     }
     if(timer.get() > 2.2 && intake.getCurrentCommand() == null){
       CommandScheduler.getInstance().schedule(moveIntakeUp);
