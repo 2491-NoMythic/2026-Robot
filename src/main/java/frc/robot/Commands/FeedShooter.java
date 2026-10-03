@@ -52,10 +52,10 @@ public class FeedShooter extends Command {
     if(timer.get() < 0.1) {
       indexer.set(-0.5);
       hopper.setHopperRoller(-0.4);
-    } else if(timer.get() < 2.2){
+    } else if(timer.get() < 1.8){
       indexer.feedShooter();
       hopper.feedIndexer();
-    } else if(timer.get() < 3.2) {
+    } else if(timer.get() < 2.8) {
       intake.feedHopper();
       intake.setIntakeAngle(-0.13);
     } else {
