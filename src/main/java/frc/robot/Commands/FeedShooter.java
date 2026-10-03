@@ -4,6 +4,7 @@
 
 package frc.robot.Commands;
 
+import static frc.robot.settings.Constants.IntakeConstants.INTAKE_DEPLOYED_POSITION;
 import static frc.robot.settings.Constants.IntakeConstants.INTAKE_SPEED_RPS;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -57,9 +58,9 @@ public class FeedShooter extends Command {
       hopper.feedIndexer();
     } else if(timer.get() < 2.8) {
       intake.feedHopper();
-      intake.setIntakeAngle(-0.13);
+      intake.setIntakeAngle(INTAKE_DEPLOYED_POSITION - 0.13);
     } else {
-      intake.setIntakeAngle(-0.3);
+      intake.setIntakeAngle(INTAKE_DEPLOYED_POSITION - 0.3);
     }
     if(timer.get() > 2.2 && intake.getCurrentCommand() == null){
       CommandScheduler.getInstance().schedule(moveIntakeUp);
