@@ -557,7 +557,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   /**
-   * moves toward a position and rotation using the BARGE_POSE in constnats for red or blue alliance.
+   * moves toward a position and rotation
    * @param pose
    * @param xMovementSupplier
    */
@@ -621,13 +621,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   /**
-   * moves toward a position and rotation using the BARGE_POSE in constnats for
-   * red or blue alliance.
-   * 
-   * @param pose
-   */
-
-  /**
    * gets the total distance from the targeted pose and the robot's pose, by
    * finding the hypotenuse of x error and y error
    * <p>
@@ -653,16 +646,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * 
    * @return the distance of error, in meters
    */
-  public double getPositionTargetingErrorBarge() {
-    return DRIVE_TO_POSE_X_CONTROLLER.getError();
-  }
 
   public boolean isAtRotationTarget() {
     return rotationSpeedController.atSetpoint();
-  }
-
-  public boolean atProcessorAngle() {
-    return Math.abs(rotationSpeedController.getError()) < 3;
   }
 
   /*
