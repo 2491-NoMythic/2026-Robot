@@ -38,11 +38,13 @@ import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -393,6 +395,7 @@ public class RobotContainer {
     if (DRIVE_TRAIN_EXISTS){
       autoChooser = AutoBuilder.buildAutoChooser();
       SmartDashboard.putData("Auto Chooser", autoChooser);
+
     }
    
   }
@@ -479,19 +482,34 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
+    Command currentAuto = autoChooser.getSelected();
+    PathPlannerAuto pathCommand = (PathPlannerAuto)currentAuto;
+    return currentAuto;
   }
 
   public void autonomousInit() {
     //THIS METHOD IS NEVER CALLED
     
-    autoTimer.reset();
-    autoTimer.start();
-
     //lights.blinkLights(LightsEnums.All, 255, 0, 0);
   }
 
   public void autonomousPeriodic() {
+    Command currentAuto = getAutonomousCommand();
+    PathPlannerAuto pathCommand = (PathPlannerAuto)currentAuto;
+    Translation2d currentPose;
+//REMEMBER: The idea is thatt the start of every 5 seconds, we record our current position. Then, after 5 or something seconds, we check if we are right next to that pose- if we are, we cancel our current auto, back up and rerun the path (probably by pathfinding to a specific location and then running a path)
+    if (!autoTimer.isRunning()) {
+      autoTimer.start();
+    }
+    if (autoTimer.hasElapsed(1)&&!autoTimer.hasElapsed(2)){
+       currentPose = new Translation2d(RobotState.getInstance().robotPosition.getX(), RobotState.getInstance().robotPosition.getY()); 
+    }
+    else if (autoTimer.hasElapsed(5))
+    //if this trigger is true, cancel current auto and pathfind to a specific pose then run a path
+      pathCommand.nearFieldPosition(currentPose, 0.5);
+    }
+
+
     RobotState.getInstance().lightsRobotDisabled = false;
     //if (autoTimer.hasElapsed(3.0)) {
       //lights.setDefaultCommand(new LightsCommand(lights));
