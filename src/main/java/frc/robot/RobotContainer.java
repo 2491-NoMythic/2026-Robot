@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import static frc.robot.settings.Constants.DriveConstants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND;
+import static frc.robot.settings.Constants.DriveConstants.MAX_VELOCITY_METERS_PER_SECOND;
 import static frc.robot.settings.Constants.DriveConstants.k_THETA_D;
 import static frc.robot.settings.Constants.DriveConstants.k_THETA_I;
 import static frc.robot.settings.Constants.DriveConstants.k_THETA_P;
@@ -39,12 +41,16 @@ import java.util.function.DoubleSupplier;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.commands.PathfindThenFollowPath;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.constraint.MaxVelocityConstraint;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -121,6 +127,8 @@ public class RobotContainer {
   private Quest quest;
   private Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
+  Translation2d currentPose;
+  PathPlannerPath path;
   private SendableChooser<Double> safeModeChooser; // creates a changable option on elastic for safemode
   private final XboxController driveController;
   private final XboxController operatorController;
@@ -166,6 +174,7 @@ public class RobotContainer {
 
 
 
+
   public static HashMap<String, Command> eventMap;
 
   public RobotContainer() {
@@ -173,7 +182,6 @@ public class RobotContainer {
     RobotState.getInstance().odometryUpdatingState = OdometryUpdatingState.drivetrainAndLimelights;
     
     autoTimer = new Timer();
-
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -495,18 +503,23 @@ public class RobotContainer {
 
   public void autonomousPeriodic() {
     Command currentAuto = getAutonomousCommand();
+    PathPlannerPath path = PathPlannerPath.fromPathFile("Adapt Test");
+
+    Command adaptPath = AutoBuilder.pathfindThenFollowPath(path, new PathConstraints(3.0, 2.5, 540.0, 720.0, 12.0, false));
     PathPlannerAuto pathCommand = (PathPlannerAuto)currentAuto;
-    Translation2d currentPose;
-//REMEMBER: The idea is thatt the start of every 5 seconds, we record our current position. Then, after 5 or something seconds, we check if we are right next to that pose- if we are, we cancel our current auto, back up and rerun the path (probably by pathfinding to a specific location and then running a path)
+//REMEMBER: The idea is thatt the start of every 5 seconds, we record our current position. 
+// Then, after 5 or something seconds, we check if we are right next to that pose-
+//  if we are, we cancel our current auto, back up and rerun the path (probably by pathfinding to a specific location and then running a path)
     if (!autoTimer.isRunning()) {
       autoTimer.start();
     }
     if (autoTimer.hasElapsed(1)&&!autoTimer.hasElapsed(2)){
        currentPose = new Translation2d(RobotState.getInstance().robotPosition.getX(), RobotState.getInstance().robotPosition.getY()); 
     }
-    else if (autoTimer.hasElapsed(5))
-    //if this trigger is true, cancel current auto and pathfind to a specific pose then run a path
-      pathCommand.nearFieldPosition(currentPose, 0.5);
+    else if (autoTimer.hasElapsed(6)){
+      //if this trigger is true, cancel current auto and pathfind to a specific pose then run a path
+      autoTimer.reset();
+      pathCommand.nearFieldPosition(currentPose, 0.5).onTrue(adaptPath); 
     }
 
 
