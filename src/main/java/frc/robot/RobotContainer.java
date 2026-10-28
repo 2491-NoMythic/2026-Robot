@@ -503,9 +503,13 @@ public class RobotContainer {
 
   public void autonomousPeriodic() {
     Command currentAuto = getAutonomousCommand();
-    PathPlannerPath path = PathPlannerPath.fromPathFile("Adapt Test");
+    Command adaptPath;
+    try {
+      PathPlannerPath path = PathPlannerPath.fromPathFile("Adapt Test"); 
+      adaptPath = AutoBuilder.pathfindThenFollowPath(path, new PathConstraints(3.0, 2.5, 540.0, 720.0, 12.0, false));
+    } catch (Exception e) {
 
-    Command adaptPath = AutoBuilder.pathfindThenFollowPath(path, new PathConstraints(3.0, 2.5, 540.0, 720.0, 12.0, false));
+    }
     PathPlannerAuto pathCommand = (PathPlannerAuto)currentAuto;
 //REMEMBER: The idea is thatt the start of every 5 seconds, we record our current position. 
 // Then, after 5 or something seconds, we check if we are right next to that pose-
