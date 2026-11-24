@@ -136,6 +136,7 @@ public class RobotContainer {
 
   private AimAtHub aimAtHub;
   private AimHood aimHood;
+  
 
   DoubleSupplier ControllerForwardAxisSupplier;
   DoubleSupplier ControllerSidewaysAxisSupplier;
@@ -171,6 +172,7 @@ public class RobotContainer {
   BooleanSupplier ManualLeftCornerShotSup;
   BooleanSupplier DrivetrainXPositionSup;
   BooleanSupplier AgitateFuelSup;
+  Command adaptPath;
 
 
 
@@ -405,7 +407,12 @@ public class RobotContainer {
       SmartDashboard.putData("Auto Chooser", autoChooser);
 
     }
-   
+    try {
+      PathPlannerPath path = PathPlannerPath.fromPathFile("Adapt Test"); 
+      adaptPath = AutoBuilder.pathfindThenFollowPath(path, new PathConstraints(3.0, 2.5, 540.0, 720.0, 12.0, false));
+    } catch (Exception e) {
+
+    }
   }
 
   /**
@@ -491,7 +498,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command currentAuto = autoChooser.getSelected();
-    PathPlannerAuto pathCommand = (PathPlannerAuto)currentAuto;
     return currentAuto;
   }
 
@@ -503,27 +509,20 @@ public class RobotContainer {
 
   public void autonomousPeriodic() {
     Command currentAuto = getAutonomousCommand();
-    Command adaptPath;
-    try {
-      PathPlannerPath path = PathPlannerPath.fromPathFile("Adapt Test"); 
-      adaptPath = AutoBuilder.pathfindThenFollowPath(path, new PathConstraints(3.0, 2.5, 540.0, 720.0, 12.0, false));
-    } catch (Exception e) {
-
-    }
     PathPlannerAuto pathCommand = (PathPlannerAuto)currentAuto;
 //REMEMBER: The idea is thatt the start of every 5 seconds, we record our current position. 
 // Then, after 5 or something seconds, we check if we are right next to that pose-
-//  if we are, we cancel our current auto, back up and rerun the path (probably by pathfinding to a specific location and then running a path)
+//  if we are, we cancel our current auto, back up and rerun the path by pathfinding to a specific location and then running a path
     if (!autoTimer.isRunning()) {
-      autoTimer.start();
+      autoTimer.start(); //whenever auto timer isn't running, start it
     }
-    if (autoTimer.hasElapsed(1)&&!autoTimer.hasElapsed(2)){
-       currentPose = new Translation2d(RobotState.getInstance().robotPosition.getX(), RobotState.getInstance().robotPosition.getY()); 
+    if (autoTimer.hasElapsed(1)&&!autoTimer.hasElapsed(2)){ //1 second after auto timer starting
+       currentPose = new Translation2d(RobotState.getInstance().robotPosition.getX(), RobotState.getInstance().robotPosition.getY()); //find the current robot pose
     }
-    else if (autoTimer.hasElapsed(6)){
-      //if this trigger is true, cancel current auto and pathfind to a specific pose then run a path
-      autoTimer.reset();
+    else if (autoTimer.hasElapsed(6)){ //6 seconds after auto timer starting
+      //if the robot is near its position of 6 seconds ago: cancel current auto. pathfind to a specific pose then run a path
       pathCommand.nearFieldPosition(currentPose, 0.5).onTrue(adaptPath); 
+      autoTimer.reset();
     }
 
 
